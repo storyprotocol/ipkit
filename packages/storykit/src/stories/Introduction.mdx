@@ -2,13 +2,13 @@ import { Meta } from "@storybook/blocks"
 
 <Meta title="Introduction" />
 
-# Storykit
+# StoryKit
 
 Plug-and-play Next.js components for Story Protocol.
 
 ## Installation
 
-_Storykit is currently a private github package so you will need repo access and a personal access token to use_
+_StoryKit is currently a private github package so you will need repo access and a personal access token to use_
 
 1 . Create a personal access token: [github.com/settings/tokens](https://github.com/settings/tokens)
 
@@ -19,7 +19,7 @@ _Storykit is currently a private github package so you will need repo access and
 @storyprotocol/storykit:registry=https://npm.pkg.github.com
 ```
 
-The first line authenticates you with the github package registry, the second line tells npm to use the Storykit package from the github registry.
+The first line authenticates you with the github package registry, the second line tells npm to use the StoryKit package from the github registry.
 
 3 . Add `.npmrc` to your `.gitignore` to keep your access token private.
 
@@ -44,7 +44,7 @@ See the [vercel docs](https://vercel.com/guides/using-private-dependencies-with-
 
 ## Dependencies
 
-Storykit requires [@tanstack/react-query](https://tanstack.com/query/latest), some components have additional dependencies including:
+StoryKit requires [@tanstack/react-query](https://tanstack.com/query/latest), some components have additional dependencies including:
 
 - [react-apexcharts](https://www.npmjs.com/package/react-apexcharts)
 - [react-force-graph-2d](https://www.npmjs.com/package/react-force-graph-2d)
@@ -94,11 +94,11 @@ pnpm format
 
 ## Usage
 
-Using Storykit in your React app
+Using StoryKit in your React app
 
 ### Include React Query
 
-React Query is a dependency, you will need to wrap Storykit components with a `QueryClientProvider`, we recommend doing this once in the root of the app.
+React Query is a dependency, you will need to wrap StoryKit components with a `QueryClientProvider`, we recommend doing this once in the root of the app.
 
 ```typescript
 // app/layout.tsx
