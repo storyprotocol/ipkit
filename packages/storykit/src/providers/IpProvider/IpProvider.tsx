@@ -1,7 +1,8 @@
+import { useGetAsset } from "@/hooks/useGetAsset"
 import { convertLicenseTermObject } from "@/lib/functions/convertLicenseTermObject"
 import { getRoyaltiesByIPs } from "@/lib/royalty-graph"
 import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
-import { RoyaltiesGraph, RoyaltyGraph } from "@/types/royalty-graph"
+import { RoyaltiesGraph } from "@/types/royalty-graph"
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query"
 import React from "react"
 import { Address, Hash } from "viem"
@@ -10,15 +11,8 @@ import { getMetadataFromIpfs, getResource, listResource } from "../../lib/api"
 import { getNFTByTokenId } from "../../lib/simplehash"
 import { convertIpfsUriToUrl } from "../../lib/utils"
 import { RESOURCE_TYPE } from "../../types/api"
-import {
-  Asset,
-  AssetEdges,
-  AssetMetadata,
-  IPLicenseTerms,
-  License,
-  LicenseTerms,
-  RoyaltyPolicy,
-} from "../../types/assets"
+import { AssetEdges, AssetMetadata, IPLicenseTerms, License, LicenseTerms, RoyaltyPolicy } from "../../types/assets"
+import { Asset } from "../../types/openapi"
 import { NFTMetadata } from "../../types/simplehash"
 import { useStoryKitContext } from "../StoryKitProvider"
 
@@ -105,9 +99,7 @@ export const IpProvider = ({
     data: assetData,
     refetch: refetchAssetData,
     isFetched: isAssetDataFetched,
-  } = useQuery<{ data: Asset } | undefined>({
-    queryKey: [RESOURCE_TYPE.ASSET, ipId],
-    queryFn: () => getResource(RESOURCE_TYPE.ASSET, ipId, chain.name as STORYKIT_SUPPORTED_CHAIN),
+  } = useGetAsset(ipId, {
     enabled: queryOptions.assetData,
   })
 
@@ -364,8 +356,8 @@ export const IpProvider = ({
     enabled:
       queryOptions.assetData &&
       Boolean(assetData) &&
-      Boolean(assetData?.data.nftMetadata.tokenContract) &&
-      Boolean(assetData?.data.nftMetadata.tokenId),
+      Boolean(assetData?.data?.nftMetadata?.tokenContract) &&
+      Boolean(assetData?.data?.nftMetadata?.tokenId),
   })
 
   return (
