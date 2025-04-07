@@ -1,4 +1,7 @@
+import { UseQueryResult } from "@tanstack/react-query"
+
 import { useStoryKitContext } from "../providers/StoryKitProvider"
+import { type Asset } from "../types/openapi"
 import { type UseGetQueryOptions, useGetQuery } from "./useGetQuery"
 
 const API_KEY = process.env.STORYBOOK_STORY_PROTOCOL_X_API_KEY || process.env.NEXT_PUBLIC_STORY_PROTOCOL_X_API_KEY || ``
@@ -26,5 +29,5 @@ export function useGetAsset(ipId: string, queryOptions?: UseGetQueryOptions) {
       retry: false,
       ...queryOptions,
     }
-  )
+  ) as UseQueryResult<{ data: Asset }>
 }
