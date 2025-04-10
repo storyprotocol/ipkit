@@ -1,4 +1,3 @@
-import { CHAINID_TO_CHAINNAME } from "@/constants/chains"
 import { shortenAddress } from "@/lib/utils"
 import { Asset, NFTMetadata } from "@/types"
 import { RESOURCE_TYPE } from "@/types/api"
@@ -8,6 +7,11 @@ import { Address } from "viem"
 
 import { listResource } from "./api"
 import { NFT, getNFTByTokenId, getNFTByTokenIds } from "./simplehash"
+
+export const CHAINID_TO_CHAINNAME: { [key: number]: string } = {
+  1315: "story-aeneid",
+  1514: "story",
+}
 
 export interface GraphNode {
   id: string

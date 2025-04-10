@@ -81,7 +81,7 @@ export type PILTerms = {
   derivativesRevenueCelling: number
   expiration: string
   // @deprecated, use uri instead
-  uRI: string
+  uri: string
   uri?: string
 }
 

@@ -1,4 +1,4 @@
-import { PILTerms } from "@/types"
+import { PILTerms, WRAPPED_IP } from "@/types"
 import { zeroAddress } from "viem"
 
 export const commercialRemixingLicenseTerms: PILTerms = {
@@ -14,7 +14,7 @@ export const commercialRemixingLicenseTerms: PILTerms = {
   derivativesReciprocal: true,
   derivativesRevenueCelling: 0,
   expiration: "never",
-  uRI: "",
+  uri: "",
 }
 
 export const commercialUseLicenseTerms: PILTerms = {
@@ -23,14 +23,14 @@ export const commercialUseLicenseTerms: PILTerms = {
   commercialRevenueShare: 0,
   commercialUse: true,
   commercializerCheck: "0x0000000000000000000000000000000000000000",
-  currency: "0xb132a6b7ae652c974ee1557a3521d53d18f6739f",
+  currency: WRAPPED_IP.address,
   derivativesAllowed: false,
   derivativesApproval: false,
   derivativesAttribution: true,
   derivativesReciprocal: false,
   derivativesRevenueCelling: 0,
   expiration: "never",
-  uRI: "",
+  uri: "",
 }
 
 export const commercialUseLicenseTermsWithExpiration: PILTerms = {
@@ -39,14 +39,14 @@ export const commercialUseLicenseTermsWithExpiration: PILTerms = {
   commercialRevenueShare: 0,
   commercialUse: true,
   commercializerCheck: "0x0000000000000000000000000000000000000000",
-  currency: "0xb132a6b7ae652c974ee1557a3521d53d18f6739f",
+  currency: WRAPPED_IP.address,
   derivativesAllowed: false,
   derivativesApproval: false,
   derivativesAttribution: true,
   derivativesReciprocal: false,
   derivativesRevenueCelling: 0,
   expiration: "1736866800000",
-  uRI: "",
+  uri: "",
 }
 
 export const nonCommercialSocialRemixingLicenseTerms: PILTerms = {
@@ -62,7 +62,7 @@ export const nonCommercialSocialRemixingLicenseTerms: PILTerms = {
   derivativesReciprocal: true,
   derivativesRevenueCelling: 0,
   expiration: "0",
-  uRI: "",
+  uri: "",
 }
 
 export const noLicenseTerms: PILTerms = {
@@ -78,5 +78,5 @@ export const noLicenseTerms: PILTerms = {
   derivativesReciprocal: false,
   derivativesRevenueCelling: 0,
   expiration: "",
-  uRI: "",
+  uri: "",
 }

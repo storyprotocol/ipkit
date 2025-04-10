@@ -1,6 +1,5 @@
 import { cn } from "@/lib"
-import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
-import { STORYKIT_SUPPORTED_CURRENCY } from "@/types/currencies"
+import { ERC20Token, STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
 import React, { FC } from "react"
 
 import "../../../global.css"
@@ -8,7 +7,7 @@ import { StoryKitProvider, Theme, useStoryKitContext } from "../StoryKitProvider
 
 const Example: FC<{
   chain: STORYKIT_SUPPORTED_CHAIN
-  defaultCurrency?: STORYKIT_SUPPORTED_CURRENCY
+  defaultCurrency?: ERC20Token
   theme: Theme
   mode: "auto" | "light" | "dark"
   children?: React.ReactNode
