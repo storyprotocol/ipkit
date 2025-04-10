@@ -1,4 +1,4 @@
-import { ChainConfig } from "@/types/chains"
+import { ChainConfig, WRAPPED_IP } from "@/types/chains"
 import { zeroAddress } from "viem"
 
 export const STORY_AENEID: ChainConfig = {
@@ -10,7 +10,7 @@ export const STORY_AENEID: ChainConfig = {
   rpcUrl: "https://aeneid.storyrpc.io/",
   blockExplorerUrl: "https://aeneid.storyscan.io",
   protocolExplorerUrl: "https://aeneid.explorer.story.foundation",
-  defaultCurrency: { name: "Wrapped IP", address: zeroAddress, symbol: "WIP" },
+  defaultCurrency: WRAPPED_IP,
 }
 
 export const STORY_MAINNET: ChainConfig = {
@@ -22,7 +22,7 @@ export const STORY_MAINNET: ChainConfig = {
   rpcUrl: "https://mainnet.storyrpc.io",
   blockExplorerUrl: "https://mainnet.storyscan.io",
   protocolExplorerUrl: "https://explorer.story.foundation",
-  defaultCurrency: { name: "Wrapped IP", address: zeroAddress, symbol: "WIP" },
+  defaultCurrency: WRAPPED_IP,
 }
 
 export const CHAINS = {
