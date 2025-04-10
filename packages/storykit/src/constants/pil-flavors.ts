@@ -7,14 +7,14 @@ export const commercialRemixingLicenseTerms: PILTerms = {
   commercialRevenueShare: 10000000, // 10%
   commercialUse: true,
   commercializerCheck: "0x0000000000000000000000000000000000000000",
-  currency: "0xb132a6b7ae652c974ee1557a3521d53d18f6739f",
+  currency: WRAPPED_IP.address,
   derivativesAllowed: true,
   derivativesApproval: false,
   derivativesAttribution: true,
   derivativesReciprocal: true,
   derivativesRevenueCelling: 0,
   expiration: "never",
-  uri: "",
+  uri: "https://github.com/piplabs/pil-document/blob/ad67bb632a310d2557f8abcccd428e4c9c798db1/off-chain-terms/CommercialRemix.json",
 }
 
 export const commercialUseLicenseTerms: PILTerms = {
@@ -30,7 +30,7 @@ export const commercialUseLicenseTerms: PILTerms = {
   derivativesReciprocal: false,
   derivativesRevenueCelling: 0,
   expiration: "never",
-  uri: "",
+  uri: "https://github.com/piplabs/pil-document/blob/9a1f803fcf8101a8a78f1dcc929e6014e144ab56/off-chain-terms/CommercialUse.json",
 }
 
 export const commercialUseLicenseTermsWithExpiration: PILTerms = {
@@ -46,7 +46,7 @@ export const commercialUseLicenseTermsWithExpiration: PILTerms = {
   derivativesReciprocal: false,
   derivativesRevenueCelling: 0,
   expiration: "1736866800000",
-  uri: "",
+  uri: "https://github.com/piplabs/pil-document/blob/9a1f803fcf8101a8a78f1dcc929e6014e144ab56/off-chain-terms/CommercialUse.json",
 }
 
 export const nonCommercialSocialRemixingLicenseTerms: PILTerms = {
@@ -62,7 +62,7 @@ export const nonCommercialSocialRemixingLicenseTerms: PILTerms = {
   derivativesReciprocal: true,
   derivativesRevenueCelling: 0,
   expiration: "0",
-  uri: "",
+  uri: "https://github.com/piplabs/pil-document/blob/998c13e6ee1d04eb817aefd1fe16dfe8be3cd7a2/off-chain-terms/NCSR.json",
 }
 
 export const noLicenseTerms: PILTerms = {
@@ -71,7 +71,7 @@ export const noLicenseTerms: PILTerms = {
   commercialRevenueShare: 0,
   commercialUse: false,
   commercializerCheck: "0x",
-  currency: "0x",
+  currency: zeroAddress,
   derivativesAllowed: false,
   derivativesApproval: false,
   derivativesAttribution: false,
