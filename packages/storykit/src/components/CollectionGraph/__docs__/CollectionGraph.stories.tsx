@@ -24,7 +24,7 @@ export const Select: Story = {
     collectionAddress: { options: AENEID_PREVIEW_IP_ASSETS },
   },
   args: {
-    collectionAddress: AENEID_PREVIEW_IP_ASSETS[0] as `0x${string}`,
+    collectionAddress: AENEID_PREVIEW_IP_ASSETS[0],
   },
 }
 
@@ -35,7 +35,7 @@ export const AeneidTestnetCollections: Story = {
     },
   },
   args: {
-    collectionAddress: AENEID_PREVIEW_IP_ASSETS[0] as `0x${string}`,
+    collectionAddress: AENEID_PREVIEW_IP_ASSETS[0],
   },
   play: async ({ args, canvasElement }) => {
     const wait = (timeout: number) => new Promise((resolve) => setTimeout(resolve, timeout))
@@ -58,7 +58,7 @@ export const Input: Story = {
     collectionAddress: { control: "text" },
   },
   args: {
-    collectionAddress: AENEID_PREVIEW_IP_ASSETS[0] as `0x${string}`,
+    collectionAddress: AENEID_PREVIEW_IP_ASSETS[0],
   },
   play: async ({ args, canvasElement }) => {
     const wait = (timeout: number) => new Promise((resolve) => setTimeout(resolve, timeout))
@@ -102,7 +102,7 @@ export const MultiChilds: Story = {
     collectionAddress: { control: "text" },
   },
   args: {
-    collectionAddress: AENEID_PREVIEW_IP_ASSETS[0] as `0x${string}`,
+    collectionAddress: AENEID_PREVIEW_IP_ASSETS[0],
   },
   play: async ({ args, canvasElement }) => {
     const wait = (timeout: number) => new Promise((resolve) => setTimeout(resolve, timeout))
@@ -125,7 +125,7 @@ export const MultiParents: Story = {
     collectionAddress: { control: "text" },
   },
   args: {
-    collectionAddress: AENEID_PREVIEW_IP_ASSETS[0] as `0x${string}`,
+    collectionAddress: AENEID_PREVIEW_IP_ASSETS[0],
     width: 500,
     height: 500,
   },
@@ -150,7 +150,7 @@ export const NoChildIP: Story = {
     collectionAddress: { control: "text" },
   },
   args: {
-    collectionAddress: AENEID_PREVIEW_IP_ASSETS[0] as `0x${string}`,
+    collectionAddress: AENEID_PREVIEW_IP_ASSETS[0],
   },
   play: async ({ args, canvasElement }) => {
     const wait = (timeout: number) => new Promise((resolve) => setTimeout(resolve, timeout))

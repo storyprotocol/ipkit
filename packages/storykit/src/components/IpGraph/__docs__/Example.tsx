@@ -13,12 +13,7 @@ const Example: FC<{
   width?: number
   height?: number
   darkMode?: boolean
-}> = ({
-  ipId = STORY_IP_ASSETS_MAP[STORY_IP_ASSETS[0]] as `0x${string}`,
-  width = 400,
-  height = 300,
-  darkMode = false,
-}) => {
+}> = ({ ipId = STORY_IP_ASSETS_MAP[STORY_IP_ASSETS[0]], width = 400, height = 300, darkMode = false }) => {
   const { chain } = useStoryKitContext()
   const [collections, setCollections] = useState<any>(null)
   const [nfts, setNfts] = useState<any>(null)

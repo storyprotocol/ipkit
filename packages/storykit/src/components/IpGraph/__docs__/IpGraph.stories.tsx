@@ -20,7 +20,7 @@ const meta = {
     },
   },
   args: {
-    ipId: STORY_IP_ASSETS[0] as `0x${string}`,
+    ipId: STORY_IP_ASSETS[0],
   },
 } satisfies Meta<typeof Example>
 
@@ -38,7 +38,7 @@ export const Input: Story = {
     ipId: { control: "text" },
   },
   args: {
-    ipId: STORY_IP_ASSETS_MAP[STORY_IP_ASSETS[0]] as `0x${string}`,
+    ipId: STORY_IP_ASSETS_MAP[STORY_IP_ASSETS[0]],
   },
   play: async ({ args, canvasElement }) => {
     const wait = (timeout: number) => new Promise((resolve) => setTimeout(resolve, timeout))
@@ -83,7 +83,7 @@ export const MultiChilds: Story = {
   },
   args: {
     // TODO: find appropriate ipId
-    ipId: STORY_IP_ASSETS_MAP[STORY_IP_ASSETS[3]] as `0x${string}`,
+    ipId: STORY_IP_ASSETS_MAP[STORY_IP_ASSETS[3]],
   },
   play: async ({ args, canvasElement }) => {
     const wait = (timeout: number) => new Promise((resolve) => setTimeout(resolve, timeout))
@@ -107,7 +107,7 @@ export const MultiParents: Story = {
   },
   args: {
     // TODO: find appropriate ipId
-    ipId: STORY_IP_ASSETS_MAP[STORY_IP_ASSETS[6]] as `0x${string}`,
+    ipId: STORY_IP_ASSETS_MAP[STORY_IP_ASSETS[6]],
     width: 500,
     height: 500,
   },
@@ -133,7 +133,7 @@ export const NoChildIP: Story = {
   },
   args: {
     // TODO: find appropriate ipId
-    ipId: STORY_IP_ASSETS_MAP[STORY_IP_ASSETS[2]] as `0x${string}`,
+    ipId: STORY_IP_ASSETS_MAP[STORY_IP_ASSETS[2]],
   },
   play: async ({ args, canvasElement }) => {
     const wait = (timeout: number) => new Promise((resolve) => setTimeout(resolve, timeout))

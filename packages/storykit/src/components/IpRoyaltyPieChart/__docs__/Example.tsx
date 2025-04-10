@@ -5,7 +5,7 @@ import { Address } from "viem"
 import { IpProvider } from "../../../providers"
 import IpRoyaltyPieChart from "../IpRoyaltyPieChart"
 
-const Example: FC<{ ipId: Address }> = ({ ipId = STORY_IP_ASSETS_MAP[STORY_IP_ASSETS[1]] as `0x${string}` }) => {
+const Example: FC<{ ipId: Address }> = ({ ipId = STORY_IP_ASSETS_MAP[STORY_IP_ASSETS[1]] }) => {
   return (
     <IpProvider ipId={ipId}>
       <IpRoyaltyPieChart />
