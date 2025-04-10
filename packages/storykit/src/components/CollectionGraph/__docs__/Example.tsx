@@ -1,6 +1,6 @@
 import { getCollectionByAddress, getNFTByWallet } from "@/lib/simplehash"
 import { useStoryKitContext } from "@/providers"
-import { ILIAD_PREVIEW_COLLECTION_ADDRESS } from "@/stories/data"
+import { AENEID_PREVIEW_IP_ASSETS } from "@/stories/data"
 import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
 import React, { FC, useEffect, useState } from "react"
 import { Address } from "viem"
@@ -8,7 +8,7 @@ import { Address } from "viem"
 import CollectionGraph, { CollectionGraphProps } from "../CollectionGraph"
 
 const Example: FC<CollectionGraphProps> = ({
-  collectionAddress = ILIAD_PREVIEW_COLLECTION_ADDRESS[0] as Address,
+  collectionAddress = AENEID_PREVIEW_IP_ASSETS[0] as Address,
   width = 2000,
   height = 1000,
   showName = false,

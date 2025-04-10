@@ -1,4 +1,4 @@
-import { ILIAD_PREVIEW_COLLECTION_ADDRESS } from "@/stories/data"
+import { AENEID_PREVIEW_IP_ASSETS } from "@/stories/data"
 import type { Meta, StoryObj } from "@storybook/react"
 import { expect, waitFor } from "@storybook/test"
 
@@ -21,48 +21,21 @@ type Story = StoryObj<typeof meta>
 
 export const Select: Story = {
   argTypes: {
-    collectionAddress: { options: ILIAD_PREVIEW_COLLECTION_ADDRESS },
+    collectionAddress: { options: AENEID_PREVIEW_IP_ASSETS },
   },
   args: {
-    collectionAddress: ILIAD_PREVIEW_COLLECTION_ADDRESS[0] as `0x${string}`,
+    collectionAddress: AENEID_PREVIEW_IP_ASSETS[0] as `0x${string}`,
   },
 }
 
-// export const IliadTestnetMint: Story = {
-//   argTypes: {
-//     chain: {
-//       options: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
-//     },
-//     collectionAddress: { control: "text" },
-//   },
-//   args: {
-//     chain: STORYKIT_SUPPORTED_CHAIN.STORY_MAINNET,
-//     collectionAddress: ILIAD_TESTNET_COLLECTION[0] as `0x${string}`,
-//   },
-//   play: async ({ args, canvasElement }) => {
-//     const wait = (timeout: number) => new Promise((resolve) => setTimeout(resolve, timeout))
-//     await wait(10000)
-
-//     await waitFor(
-//       () => {
-//         const canvas = canvasElement.querySelector("canvas")
-//         expect(canvasElement.querySelector(".force-graph-container")).toBeInTheDocument()
-//         expect(canvasElement.querySelector(".graph-tooltip")).toBeInTheDocument()
-//         expect(canvas).toHaveAttribute("style", `width: ${args.width || 400}px; height: ${args.height || 300}px;`)
-//       },
-//       { timeout: 10000 }
-//     )
-//   },
-// }
-
-export const IliadTestnetCollections: Story = {
+export const AeneidTestnetCollections: Story = {
   argTypes: {
     collectionAddress: {
-      options: ILIAD_PREVIEW_COLLECTION_ADDRESS,
+      options: AENEID_PREVIEW_IP_ASSETS,
     },
   },
   args: {
-    collectionAddress: ILIAD_PREVIEW_COLLECTION_ADDRESS[0] as `0x${string}`,
+    collectionAddress: AENEID_PREVIEW_IP_ASSETS[0] as `0x${string}`,
   },
   play: async ({ args, canvasElement }) => {
     const wait = (timeout: number) => new Promise((resolve) => setTimeout(resolve, timeout))
@@ -85,7 +58,7 @@ export const Input: Story = {
     collectionAddress: { control: "text" },
   },
   args: {
-    collectionAddress: ILIAD_PREVIEW_COLLECTION_ADDRESS[0] as `0x${string}`,
+    collectionAddress: AENEID_PREVIEW_IP_ASSETS[0] as `0x${string}`,
   },
   play: async ({ args, canvasElement }) => {
     const wait = (timeout: number) => new Promise((resolve) => setTimeout(resolve, timeout))
@@ -129,7 +102,7 @@ export const MultiChilds: Story = {
     collectionAddress: { control: "text" },
   },
   args: {
-    collectionAddress: ILIAD_PREVIEW_COLLECTION_ADDRESS[0] as `0x${string}`,
+    collectionAddress: AENEID_PREVIEW_IP_ASSETS[0] as `0x${string}`,
   },
   play: async ({ args, canvasElement }) => {
     const wait = (timeout: number) => new Promise((resolve) => setTimeout(resolve, timeout))
@@ -152,7 +125,7 @@ export const MultiParents: Story = {
     collectionAddress: { control: "text" },
   },
   args: {
-    collectionAddress: ILIAD_PREVIEW_COLLECTION_ADDRESS[0] as `0x${string}`,
+    collectionAddress: AENEID_PREVIEW_IP_ASSETS[0] as `0x${string}`,
     width: 500,
     height: 500,
   },
@@ -177,7 +150,7 @@ export const NoChildIP: Story = {
     collectionAddress: { control: "text" },
   },
   args: {
-    collectionAddress: ILIAD_PREVIEW_COLLECTION_ADDRESS[0] as `0x${string}`,
+    collectionAddress: AENEID_PREVIEW_IP_ASSETS[0] as `0x${string}`,
   },
   play: async ({ args, canvasElement }) => {
     const wait = (timeout: number) => new Promise((resolve) => setTimeout(resolve, timeout))

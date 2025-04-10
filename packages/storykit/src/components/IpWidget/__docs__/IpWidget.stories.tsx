@@ -46,15 +46,6 @@ export const Input: Story = {
     isBottomNav: true,
   },
 }
-// export const IliadTestnetMint: Story = {
-//   argTypes: {
-//     ipId: { control: "text" },
-//   },
-//   args: {
-//     ipId: ILIAD_TESTNET_ROOT,
-//     isBottomNav: true,
-//   },
-// }
 
 export const TopNavigation: Story = {
   argTypes: {

@@ -82,7 +82,7 @@ export const MultiChilds: Story = {
     ipId: { control: "text" },
   },
   args: {
-    // TODO: find appropriate odyssey ipId
+    // TODO: find appropriate ipId
     ipId: STORY_IP_ASSETS_MAP[STORY_IP_ASSETS[3]] as `0x${string}`,
   },
   play: async ({ args, canvasElement }) => {
@@ -106,7 +106,7 @@ export const MultiParents: Story = {
     ipId: { control: "text" },
   },
   args: {
-    // TODO: find appropriate odyssey ipId
+    // TODO: find appropriate ipId
     ipId: STORY_IP_ASSETS_MAP[STORY_IP_ASSETS[6]] as `0x${string}`,
     width: 500,
     height: 500,
@@ -132,7 +132,7 @@ export const NoChildIP: Story = {
     ipId: { control: "text" },
   },
   args: {
-    // TODO: find appropriate odyssey ipId
+    // TODO: find appropriate ipId
     ipId: STORY_IP_ASSETS_MAP[STORY_IP_ASSETS[2]] as `0x${string}`,
   },
   play: async ({ args, canvasElement }) => {
