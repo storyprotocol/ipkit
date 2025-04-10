@@ -17,7 +17,7 @@ Also you will need Node.js 20+.
 @storyprotocol/storykit:registry=https://npm.pkg.github.com
 ```
 
-The first line authenticates you with the GitHub package registry, the second line tells npm to use the Storykit package from the GitHub registry.
+The first line authenticates you with the GitHub package registry, the second line tells npm to use the StoryKit package from the GitHub registry.
 
 3 . Add `.npmrc` to your `.gitignore` to keep your access token private.
 
