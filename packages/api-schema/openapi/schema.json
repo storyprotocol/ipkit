@@ -1,0 +1,3528 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Story Protocol API Reference",
+    "contact": {},
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "https://api.storyapis.com"
+    }
+  ],
+  "paths": {
+    "/api/v3/assets": {
+      "post": {
+        "summary": "List IPAssets",
+        "description": "Retrieve a paginated, filtered list of IPAssets",
+        "tags": [
+          "IPAssets"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Api-Key",
+            "in": "header",
+            "description": "API Key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Chain",
+            "in": "header",
+            "description": "Chain Destination",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Query Parameters must be wrapped in options object (though it can be left empty) \u2757\ufe0f \ud83d\udc40. OrderBy must be blockNumber, descendantCount or empty.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.IpAssetRequestBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv3.IPAssetsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/assets/edges": {
+      "post": {
+        "summary": "List IP Edges",
+        "description": "Retrieve a paginated, filtered list of IP Edges",
+        "tags": [
+          "IPAssets"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Api-Key",
+            "in": "header",
+            "description": "API Key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Chain",
+            "in": "header",
+            "description": "Chain Destination",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Query Parameters must be wrapped in options object (though it can be left empty) \u2757\ufe0f \ud83d\udc40. OrderBy must be blockNumber or empty.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.IpAssetEdgeRequestBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.IPAssetEdgeResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/assets/{assetId}": {
+      "get": {
+        "summary": "Get an IPAsset",
+        "description": "Retrieve an IPAsset",
+        "tags": [
+          "IPAssets"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "assetId",
+            "in": "path",
+            "description": "Asset ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Api-Key",
+            "in": "header",
+            "description": "API Key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Chain",
+            "in": "header",
+            "description": "Chain Destination",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv3.IPAssetResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/assets/{assetId}/metadata": {
+      "get": {
+        "summary": "Get metadata for an IPAsset",
+        "description": "Retrieve metadata for an IPAsset",
+        "tags": [
+          "IPAssets"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "assetId",
+            "in": "path",
+            "description": "Asset ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Api-Key",
+            "in": "header",
+            "description": "API Key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Chain",
+            "in": "header",
+            "description": "Chain Destination",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.IpAssetMetadata"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/collections": {
+      "post": {
+        "summary": "List Collections",
+        "description": "Retrieve a paginated, filtered list of Collections",
+        "tags": [
+          "Collections"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Api-Key",
+            "in": "header",
+            "description": "API Key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Chain",
+            "in": "header",
+            "description": "Chain Destination",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Query Parameters must be wrapped in options object (though it can be left empty) \u2757\ufe0f \ud83d\udc40. OrderBy must be blockNumber, assetCount, licensesCount or empty.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.CollectionsRequestBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.CollectionsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/collections/{collectionId}": {
+      "get": {
+        "summary": "Get an Collection",
+        "description": "Retrieve a Collection",
+        "tags": [
+          "Collections"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Api-Key",
+            "in": "header",
+            "description": "API Key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Chain",
+            "in": "header",
+            "description": "Chain Destination",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "collectionId",
+            "in": "path",
+            "description": "Collection ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.CollectionResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/detailed-ip-license-terms": {
+      "post": {
+        "summary": "List detailed ip license term",
+        "description": "Retrieve detailed IP License Terms associated with list of IP ID",
+        "tags": [
+          "IPLicenseTerms"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Api-Key",
+            "in": "header",
+            "description": "API Key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Chain",
+            "in": "header",
+            "description": "Chain Destination",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Query Parameters must be wrapped in options object (though it can be left empty) \u2757\ufe0f \ud83d\udc40. OrderBy must be blockNumber or empty.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.DetailedIPLicenseTermsRequestBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.DetailedTermsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/disputes": {
+      "post": {
+        "summary": "List Disputes",
+        "description": "Retrieve a paginated, filtered list of Disputes",
+        "tags": [
+          "Disputes"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Api-Key",
+            "in": "header",
+            "description": "API Key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Chain",
+            "in": "header",
+            "description": "Chain Destination",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Query Parameters must be wrapped in options object (though it can be left empty) \u2757\ufe0f \ud83d\udc40. OrderBy must be blockNumber or empty.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.DisputeRequestBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.DisputesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/disputes/{disputeId}": {
+      "get": {
+        "summary": "Get a Dispute",
+        "description": "Retrieve a Dispute",
+        "tags": [
+          "Disputes"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "disputeId",
+            "in": "path",
+            "description": "Dispute ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Api-Key",
+            "in": "header",
+            "description": "API Key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Chain",
+            "in": "header",
+            "description": "Chain Destination",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.DisputeResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/ip_group_edges": {
+      "post": {
+        "summary": "List a IPGroup's edges",
+        "description": "Retrieve an IPGroup edges",
+        "tags": [
+          "IPGroup"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Api-Key",
+            "in": "header",
+            "description": "API Key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Chain",
+            "in": "header",
+            "description": "Chain Destination",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Query Parameters must be wrapped in options object (though it can be left empty) \u2757\ufe0f \ud83d\udc40. OrderBy must be blockNumber, groupId or empty.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.IPGroupEdgesRequestBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.IPGroupEdgesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/ip_groups": {
+      "post": {
+        "summary": "List IP groups",
+        "description": "Retrieve an IPGroup",
+        "tags": [
+          "IPGroup"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Api-Key",
+            "in": "header",
+            "description": "API Key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Chain",
+            "in": "header",
+            "description": "Chain Destination",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Query Parameters must be wrapped in options object (though it can be left empty) \u2757\ufe0f \ud83d\udc40. OrderBy must be groupId or empty.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.IPGroupsRequestBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.IPGroupsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/licenses/ip/terms": {
+      "post": {
+        "summary": "List IPLicenseTerms",
+        "description": "Retrieve a paginated, filtered list of IPLicenseTerms",
+        "tags": [
+          "IPLicenseTerms"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Api-Key",
+            "in": "header",
+            "description": "API Key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Chain",
+            "in": "header",
+            "description": "Chain Destination",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Query Parameters must be wrapped in options object (though it can be left empty) \u2757\ufe0f \ud83d\udc40. OrderBy must be blockNumber or empty.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.IPLicenseTermsRequestBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.IPLicenseTermsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/licenses/ip/terms/{ipId}": {
+      "get": {
+        "summary": "Get IP License Terms for an IP",
+        "description": "Retrieve IP License Terms associated with an IP ID",
+        "tags": [
+          "IPLicenseTerms"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Api-Key",
+            "in": "header",
+            "description": "API Key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Chain",
+            "in": "header",
+            "description": "Chain Destination",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ipId",
+            "in": "path",
+            "description": "IP ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.IPLicenseTermsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/licenses/mintingfees": {
+      "post": {
+        "summary": "List LicenseMintingFeePays",
+        "description": "Retrieve a paginated, filtered list of LicenseMintingFeePaids",
+        "tags": [
+          "Licenses"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Api-Key",
+            "in": "header",
+            "description": "API Key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Chain",
+            "in": "header",
+            "description": "Chain Destination",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Query Parameters must be wrapped in options object (though it can be left empty) \u2757\ufe0f \ud83d\udc40. OrderBy must be blockNumber or empty.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.LicenseMintingFeePaidRequestBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.LicenseMintingFeePaidsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/licenses/mintingfees/{licenseMintingFeePaidId}": {
+      "get": {
+        "summary": "Get a LicenseMintingFeePay",
+        "description": "Retrieve a LicenseMintingFeePay",
+        "tags": [
+          "Licenses"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Api-Key",
+            "in": "header",
+            "description": "API Key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Chain",
+            "in": "header",
+            "description": "Chain Destination",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "licenseMintingFeePaidId",
+            "in": "path",
+            "description": "LicenseMintingFeePay ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.LicenseMintingFeePaidResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/licenses/templates": {
+      "post": {
+        "summary": "List LicenseTemplates",
+        "description": "Retrieve a paginated, filtered list of LicenseTemplates",
+        "tags": [
+          "LicenseTemplates"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Api-Key",
+            "in": "header",
+            "description": "API Key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Chain",
+            "in": "header",
+            "description": "Chain Destination",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Query Parameters must be wrapped in options object (though it can be left empty) \u2757\ufe0f \ud83d\udc40. OrderBy must be blockNumber or empty.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.LicenseTemplatesRequestBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.LicenseTemplatesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/licenses/templates/{licenseTemplateId}": {
+      "get": {
+        "summary": "Get a LicenseTemplate",
+        "description": "Retrieve a LicenseTemplate",
+        "tags": [
+          "LicenseTemplates"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Api-Key",
+            "in": "header",
+            "description": "API Key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Chain",
+            "in": "header",
+            "description": "Chain Destination",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "licenseTemplateId",
+            "in": "path",
+            "description": "LicenseTemplate ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.LicenseTemplateResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/licenses/terms": {
+      "post": {
+        "summary": "List LicenseTerms",
+        "description": "Retrieve a paginated, filtered list of LicenseTerms",
+        "tags": [
+          "LicenseTerms"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Api-Key",
+            "in": "header",
+            "description": "API Key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Chain",
+            "in": "header",
+            "description": "Chain Destination",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Query Parameters must be wrapped in options object (though it can be left empty) \u2757\ufe0f \ud83d\udc40. OrderBy must be blockNumber or empty.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.LicenseTermsRequestBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.LicenseTermsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/licenses/terms/default": {
+      "get": {
+        "summary": "Get default license term",
+        "description": "Retrieve default license term",
+        "tags": [
+          "IPLicenseTerms"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Api-Key",
+            "in": "header",
+            "description": "API Key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Chain",
+            "in": "header",
+            "description": "Chain Destination",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.DetailedTermsDefaultResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/licenses/terms/{licenseTermId}": {
+      "get": {
+        "summary": "Get a LicenseTerm",
+        "description": "Retrieve a LicenseTerm",
+        "tags": [
+          "LicenseTerms"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Api-Key",
+            "in": "header",
+            "description": "API Key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Chain",
+            "in": "header",
+            "description": "Chain Destination",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "licenseTermId",
+            "in": "path",
+            "description": "LicenseTerm ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.LicenseTermResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/licenses/tokens": {
+      "post": {
+        "summary": "List LicenseTokens",
+        "description": "Retrieve a paginated, filtered list of LicenseTokens",
+        "tags": [
+          "LicenseTokens"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Api-Key",
+            "in": "header",
+            "description": "API Key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Chain",
+            "in": "header",
+            "description": "Chain Destination",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Query Parameters must be wrapped in options object (though it can be left empty) \u2757\ufe0f \ud83d\udc40. OrderBy must be blockNumber or empty.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.LicenseTokenRequestBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.LicenseTokensResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/licenses/tokens/{licenseTokenId}": {
+      "get": {
+        "summary": "Get an LicenseToken",
+        "description": "Retrieve a LicenseToken",
+        "tags": [
+          "LicenseTokens"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Api-Key",
+            "in": "header",
+            "description": "API Key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Chain",
+            "in": "header",
+            "description": "Chain Destination",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "licenseTokenId",
+            "in": "path",
+            "description": "License Token ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.LicenseTokenResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/modules": {
+      "post": {
+        "summary": "List Modules",
+        "description": "Retrieve a paginated, filtered list of Modules",
+        "tags": [
+          "Modules"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Api-Key",
+            "in": "header",
+            "description": "API Key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Chain",
+            "in": "header",
+            "description": "Chain Destination",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Query Parameters must be wrapped in options object (though it can be left empty) \u2757\ufe0f \ud83d\udc40. OrderBy must be blockNumber or empty.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.ModuleRequestBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.ModulesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/modules/{moduleId}": {
+      "get": {
+        "summary": "Get a Module",
+        "description": "Retrieve a Module",
+        "tags": [
+          "Modules"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Api-Key",
+            "in": "header",
+            "description": "API Key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Chain",
+            "in": "header",
+            "description": "Chain Destination",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "moduleId",
+            "in": "path",
+            "description": "Module ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.ModuleResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/permissions": {
+      "post": {
+        "summary": "List Permissions",
+        "description": "Retrieve a paginated, filtered list of Permissions",
+        "tags": [
+          "Permissions"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Api-Key",
+            "in": "header",
+            "description": "API Key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Chain",
+            "in": "header",
+            "description": "Chain Destination",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Query Parameters must be wrapped in options object (though it can be left empty) \u2757\ufe0f \ud83d\udc40. OrderBy must be blockNumber or empty.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.PermissionRequestBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.PermissionsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/permissions/{permissionId}": {
+      "get": {
+        "summary": "Get a Permission",
+        "description": "Retrieve a Permission",
+        "tags": [
+          "Permissions"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Api-Key",
+            "in": "header",
+            "description": "API Key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Chain",
+            "in": "header",
+            "description": "Chain Destination",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "permissionId",
+            "in": "path",
+            "description": "Permission ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.PermissionResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/royalties/payments": {
+      "post": {
+        "summary": "List RoyaltyPays",
+        "description": "Retrieve a paginated, filtered list of RoyaltyPays",
+        "tags": [
+          "Royalties"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Api-Key",
+            "in": "header",
+            "description": "API Key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Chain",
+            "in": "header",
+            "description": "Chain Destination",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Query Parameters must be wrapped in options object (though it can be left empty) \u2757\ufe0f \ud83d\udc40. OrderBy must be blockNumber or empty.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.RoyaltyPayRequestBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.RoyaltyPaysResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/royalties/payments/{royaltyPayId}": {
+      "get": {
+        "summary": "Get a RoyaltyPay",
+        "description": "Retrieve a RoyaltyPay",
+        "tags": [
+          "Royalties"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Api-Key",
+            "in": "header",
+            "description": "API Key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Chain",
+            "in": "header",
+            "description": "Chain Destination",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "royaltyPayId",
+            "in": "path",
+            "description": "RoyaltyPay ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.RoyaltyPayResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/transactions": {
+      "post": {
+        "summary": "List Transactions",
+        "description": "Retrieve a paginated, filtered list of Transactions",
+        "tags": [
+          "Transactions"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Api-Key",
+            "in": "header",
+            "description": "API Key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Chain",
+            "in": "header",
+            "description": "Chain Destination",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Query Parameters must be wrapped in options object (though it can be left empty) \u2757\ufe0f \ud83d\udc40. OrderBy must be blockNumber, resourceType or empty.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.TransactionRequestBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.TransactionsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/transactions/latest": {
+      "post": {
+        "summary": "List Latest Transactions",
+        "description": "Retrieve a paginated, filtered list of Latest Transactions",
+        "tags": [
+          "Transactions"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Api-Key",
+            "in": "header",
+            "description": "API Key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Chain",
+            "in": "header",
+            "description": "Chain Destination",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Query Parameters must be wrapped in options object (though it can be left empty) \u2757\ufe0f \ud83d\udc40. OrderBy must be blockNumber, resourceType or empty.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.TransactionRequestBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.TransactionsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/transactions/{trxId}": {
+      "get": {
+        "summary": "Get a Transaction",
+        "description": "Retrieve a Transaction",
+        "tags": [
+          "Transactions"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "trxId",
+            "in": "path",
+            "description": "Transaction ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Api-Key",
+            "in": "header",
+            "description": "API Key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Chain",
+            "in": "header",
+            "description": "Chain Destination",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.TransactionResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "big.Int": {
+        "type": "object"
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.Collection": {
+        "type": "object",
+        "properties": {
+          "assetCount": {
+            "type": "string"
+          },
+          "blockNumber": {
+            "type": "string"
+          },
+          "blockTimestamp": {
+            "type": "string"
+          },
+          "cancelledDisputeCount": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "judgedDisputeCount": {
+            "type": "string"
+          },
+          "licensesCount": {
+            "type": "string"
+          },
+          "raisedDisputeCount": {
+            "type": "string"
+          },
+          "resolvedDisputeCount": {
+            "type": "string"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.CollectionQueryOptions": {
+        "type": "object",
+        "properties": {
+          "orderBy": {
+            "type": "string"
+          },
+          "orderDirection": {
+            "type": "string"
+          },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "after": {
+                "type": "string"
+              },
+              "before": {
+                "type": "string"
+              },
+              "limit": {
+                "type": "integer"
+              }
+            }
+          },
+          "where": {
+            "type": "object",
+            "properties": {
+              "blockNumberLte": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.CollectionResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.Collection"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.CollectionsRequestBody": {
+        "type": "object",
+        "properties": {
+          "options": {
+            "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.CollectionQueryOptions"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.CollectionsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.Collection"
+            }
+          },
+          "hasNextPage": {
+            "type": "boolean"
+          },
+          "hasPreviousPage": {
+            "type": "boolean"
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.DetailedIPLicenseTermsQueryOptions": {
+        "type": "object",
+        "properties": {
+          "where": {
+            "type": "object",
+            "properties": {
+              "ipIds": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.DetailedIPLicenseTermsRequestBody": {
+        "type": "object",
+        "properties": {
+          "options": {
+            "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.DetailedIPLicenseTermsQueryOptions"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.Dispute": {
+        "type": "object",
+        "properties": {
+          "arbitrationPolicy": {
+            "type": "string"
+          },
+          "blockNumber": {
+            "$ref": "#/components/schemas/big.Int"
+          },
+          "blockTimestamp": {
+            "$ref": "#/components/schemas/big.Int"
+          },
+          "currentTag": {
+            "type": "string"
+          },
+          "data": {
+            "type": "string"
+          },
+          "deletedAt": {
+            "$ref": "#/components/schemas/big.Int"
+          },
+          "disputeTimestamp": {
+            "$ref": "#/components/schemas/big.Int"
+          },
+          "evidenceHash": {
+            "type": "string"
+          },
+          "id": {
+            "$ref": "#/components/schemas/big.Int"
+          },
+          "initiator": {
+            "type": "string"
+          },
+          "logIndex": {
+            "$ref": "#/components/schemas/big.Int"
+          },
+          "status": {
+            "type": "string"
+          },
+          "targetIpId": {
+            "type": "string"
+          },
+          "targetTag": {
+            "type": "string"
+          },
+          "transactionHash": {
+            "type": "string"
+          },
+          "umaLink": {
+            "type": "string"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.DisputeResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.Dispute"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.DisputesResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.Dispute"
+            }
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.IPAssetEdgeResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.IpAssetEdge"
+            }
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.IPLicenseTerm": {
+        "type": "object",
+        "properties": {
+          "blockNumber": {
+            "type": "string"
+          },
+          "blockTime": {
+            "type": "string"
+          },
+          "disabled": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "string"
+          },
+          "ipId": {
+            "type": "string"
+          },
+          "licenseTemplate": {
+            "type": "string"
+          },
+          "licenseTermsId": {
+            "type": "string"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.IPLicenseTermsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.IPLicenseTerm"
+            }
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.IpAssetEdge": {
+        "type": "object",
+        "properties": {
+          "blockNumber": {
+            "type": "string"
+          },
+          "blockTime": {
+            "type": "string"
+          },
+          "ipId": {
+            "type": "string"
+          },
+          "licenseTemplate": {
+            "type": "string"
+          },
+          "licenseTermsId": {
+            "type": "string"
+          },
+          "licenseTokenId": {
+            "type": "string"
+          },
+          "parentIpId": {
+            "type": "string"
+          },
+          "transactionHash": {
+            "type": "string"
+          },
+          "transactionIndex": {
+            "type": "string"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.IpAssetMetadata": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "metadataHash": {
+            "type": "string"
+          },
+          "metadataJson": {},
+          "metadataUri": {
+            "type": "string"
+          },
+          "nftMetadataHash": {
+            "type": "string"
+          },
+          "nftTokenUri": {
+            "type": "string"
+          },
+          "registrationDate": {
+            "type": "string"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.LicenseMintingFeePaid": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "string"
+          },
+          "blockNumber": {
+            "type": "string"
+          },
+          "blockTimestamp": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "payer": {
+            "type": "string"
+          },
+          "receiverIpId": {
+            "type": "string"
+          },
+          "token": {
+            "type": "string"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.LicenseMintingFeePaidResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.LicenseMintingFeePaid"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.LicenseMintingFeePaidsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.LicenseMintingFeePaid"
+            }
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.LicenseTemplate": {
+        "type": "object",
+        "properties": {
+          "blockNumber": {
+            "type": "string"
+          },
+          "blockTime": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "metadataUri": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.LicenseTemplateResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.LicenseTemplate"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.LicenseTemplatesResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.LicenseTemplate"
+            }
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.LicenseTerm": {
+        "type": "object",
+        "properties": {
+          "blockNumber": {
+            "type": "string"
+          },
+          "blockTime": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "licenseTemplate": {
+            "type": "string"
+          },
+          "licenseTerms": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": {}
+            }
+          },
+          "terms": {
+            "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.Term"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.LicenseTermResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.LicenseTerm"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.LicenseTermsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.LicenseTerm"
+            }
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.LicenseToken": {
+        "type": "object",
+        "properties": {
+          "blockNumber": {
+            "type": "string"
+          },
+          "blockTime": {
+            "type": "string"
+          },
+          "burntAt": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "licenseTemplate": {
+            "type": "string"
+          },
+          "licenseTermsId": {
+            "type": "string"
+          },
+          "licensorIpId": {
+            "type": "string"
+          },
+          "owner": {
+            "type": "string"
+          },
+          "transferable": {
+            "type": "string"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.LicenseTokenResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.LicenseToken"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.LicenseTokensResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.LicenseToken"
+            }
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.Module": {
+        "type": "object",
+        "properties": {
+          "blockNumber": {
+            "type": "string"
+          },
+          "blockTimestamp": {
+            "type": "string"
+          },
+          "deletedAt": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "module": {
+            "type": "string"
+          },
+          "moduleType": {
+            "type": "string"
+          },
+          "moduleTypeInterfaceId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "transactionHash": {
+            "type": "string"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.ModuleResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.Module"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.ModulesResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.Module"
+            }
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.Permission": {
+        "type": "object",
+        "properties": {
+          "blockNumber": {
+            "type": "string"
+          },
+          "blockTimestamp": {
+            "type": "string"
+          },
+          "func": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "permission": {
+            "type": "string"
+          },
+          "signer": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.PermissionResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.Permission"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.PermissionsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.Permission"
+            }
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.RoyaltyPay": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "string"
+          },
+          "blockNumber": {
+            "type": "string"
+          },
+          "blockTimestamp": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "payerIpId": {
+            "type": "string"
+          },
+          "receiverIpId": {
+            "type": "string"
+          },
+          "sender": {
+            "type": "string"
+          },
+          "token": {
+            "type": "string"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.RoyaltyPayResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.RoyaltyPay"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.RoyaltyPaysResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.RoyaltyPay"
+            }
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.Term": {
+        "type": "object",
+        "properties": {
+          "commercialAttribution": {
+            "type": "boolean"
+          },
+          "commercialRevCeiling": {
+            "type": "integer"
+          },
+          "commercialRevShare": {
+            "type": "integer"
+          },
+          "commercialUse": {
+            "type": "boolean"
+          },
+          "commercializerChecker": {
+            "type": "string"
+          },
+          "commercializerCheckerData": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "defaultMintingFee": {
+            "type": "integer"
+          },
+          "derivativeRevCeiling": {
+            "type": "integer"
+          },
+          "derivativesAllowed": {
+            "type": "boolean"
+          },
+          "derivativesApproval": {
+            "type": "boolean"
+          },
+          "derivativesAttribution": {
+            "type": "boolean"
+          },
+          "derivativesReciprocal": {
+            "type": "boolean"
+          },
+          "expiration": {
+            "type": "integer"
+          },
+          "royaltyPolicy": {
+            "type": "string"
+          },
+          "transferable": {
+            "type": "boolean"
+          },
+          "uri": {
+            "type": "string"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.Transaction": {
+        "type": "object",
+        "properties": {
+          "actionType": {
+            "type": "string"
+          },
+          "blockNumber": {
+            "type": "string"
+          },
+          "blockTimestamp": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "initiator": {
+            "type": "string"
+          },
+          "ipId": {
+            "type": "string"
+          },
+          "logIndex": {
+            "type": "string"
+          },
+          "resourceId": {
+            "type": "string"
+          },
+          "resourceType": {
+            "type": "string"
+          },
+          "transactionIndex": {
+            "type": "string"
+          },
+          "txHash": {
+            "type": "string"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.TransactionResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.Transaction"
+            }
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.TransactionsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.Transaction"
+            }
+          },
+          "hasNextPage": {
+            "type": "boolean"
+          },
+          "hasPreviousPage": {
+            "type": "boolean"
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.DetailedTerms": {
+        "type": "object",
+        "properties": {
+          "disabled": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "string"
+          },
+          "ipId": {
+            "type": "string"
+          },
+          "licenseTemplate": {
+            "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.LicenseTemplate"
+          },
+          "licenseTemplateId": {
+            "type": "string"
+          },
+          "terms": {
+            "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.Term"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.DetailedTermsDefaultResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.DetailedTerms"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.DetailedTermsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.DetailedTerms"
+            }
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.DisputeQueryOptions": {
+        "type": "object",
+        "properties": {
+          "orderBy": {
+            "type": "string"
+          },
+          "orderDirection": {
+            "type": "string"
+          },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "limit": {
+                "type": "integer"
+              }
+            }
+          },
+          "where": {
+            "type": "object",
+            "properties": {
+              "blockNumber": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "initiator": {
+                "type": "string"
+              },
+              "targetIpId": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.DisputeRequestBody": {
+        "type": "object",
+        "properties": {
+          "options": {
+            "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.DisputeQueryOptions"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.IPGroup": {
+        "type": "object",
+        "properties": {
+          "group_id": {
+            "type": "string"
+          },
+          "ip_count": {
+            "type": "integer"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.IPGroupEdge": {
+        "type": "object",
+        "properties": {
+          "block_number": {
+            "type": "string"
+          },
+          "block_time": {
+            "type": "string"
+          },
+          "group_id": {
+            "type": "string"
+          },
+          "ip_id": {
+            "type": "string"
+          },
+          "transaction_hash": {
+            "type": "string"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.IPGroupEdgesQueryOptions": {
+        "type": "object",
+        "properties": {
+          "ipAssetIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "orderBy": {
+            "type": "string"
+          },
+          "orderDirection": {
+            "type": "string"
+          },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "after": {
+                "type": "string"
+              },
+              "before": {
+                "type": "string"
+              },
+              "limit": {
+                "type": "integer"
+              }
+            }
+          },
+          "tokenContractIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "tokenIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "where": {
+            "type": "object",
+            "properties": {
+              "blockNumber": {
+                "type": "string"
+              },
+              "groupId": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.IPGroupEdgesRequestBody": {
+        "type": "object",
+        "properties": {
+          "options": {
+            "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.IPGroupEdgesQueryOptions"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.IPGroupEdgesResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.IPGroupEdge"
+            }
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.IPGroupsQueryOptions": {
+        "type": "object",
+        "properties": {
+          "ipAssetIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "orderBy": {
+            "type": "string"
+          },
+          "orderDirection": {
+            "type": "string"
+          },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "after": {
+                "type": "string"
+              },
+              "before": {
+                "type": "string"
+              },
+              "limit": {
+                "type": "integer"
+              }
+            }
+          },
+          "tokenContractIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "tokenIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "where": {
+            "type": "object",
+            "properties": {
+              "groupId": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.IPGroupsRequestBody": {
+        "type": "object",
+        "properties": {
+          "options": {
+            "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.IPGroupsQueryOptions"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.IPGroupsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.IPGroup"
+            }
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.IPLicenseTermsQueryOptions": {
+        "type": "object",
+        "properties": {
+          "orderBy": {
+            "type": "string"
+          },
+          "orderDirection": {
+            "type": "string"
+          },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "after": {
+                "type": "string"
+              },
+              "before": {
+                "type": "string"
+              },
+              "limit": {
+                "type": "integer"
+              }
+            }
+          },
+          "where": {
+            "type": "object",
+            "properties": {
+              "blockNumber": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "ipId": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.IPLicenseTermsRequestBody": {
+        "type": "object",
+        "properties": {
+          "options": {
+            "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.IPLicenseTermsQueryOptions"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.IpAssetEdgeQueryOptions": {
+        "type": "object",
+        "properties": {
+          "orderBy": {
+            "type": "string"
+          },
+          "orderDirection": {
+            "type": "string"
+          },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "after": {
+                "type": "string"
+              },
+              "before": {
+                "type": "string"
+              },
+              "limit": {
+                "type": "integer"
+              }
+            }
+          },
+          "where": {
+            "type": "object",
+            "properties": {
+              "blockNumber": {
+                "type": "string"
+              },
+              "ipId": {
+                "type": "string"
+              },
+              "licenseTermsId": {
+                "type": "string"
+              },
+              "licenseTokenId": {
+                "type": "string"
+              },
+              "parentIpId": {
+                "type": "string"
+              },
+              "transactionHash": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.IpAssetEdgeRequestBody": {
+        "type": "object",
+        "properties": {
+          "options": {
+            "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.IpAssetEdgeQueryOptions"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.IpAssetQueryOptions": {
+        "type": "object",
+        "properties": {
+          "ipAssetIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "orderBy": {
+            "type": "string"
+          },
+          "orderDirection": {
+            "type": "string"
+          },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "after": {
+                "type": "string"
+              },
+              "before": {
+                "type": "string"
+              },
+              "limit": {
+                "type": "integer"
+              }
+            }
+          },
+          "tokenContractIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "tokenIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "where": {
+            "type": "object",
+            "properties": {
+              "blockNumber": {
+                "type": "string"
+              },
+              "blockNumberGte": {
+                "type": "string"
+              },
+              "blockNumberLte": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "ipId": {
+                "type": "string"
+              },
+              "tokenContract": {
+                "type": "string"
+              },
+              "tokenId": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.IpAssetRequestBody": {
+        "type": "object",
+        "properties": {
+          "options": {
+            "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.IpAssetQueryOptions"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.LicenseMintingFeePaidQueryOptions": {
+        "type": "object",
+        "properties": {
+          "orderBy": {
+            "type": "string"
+          },
+          "orderDirection": {
+            "type": "string"
+          },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "after": {
+                "type": "string"
+              },
+              "before": {
+                "type": "string"
+              },
+              "limit": {
+                "type": "integer"
+              }
+            }
+          },
+          "where": {
+            "type": "object",
+            "properties": {
+              "blockNumber": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "receiverIpId": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.LicenseMintingFeePaidRequestBody": {
+        "type": "object",
+        "properties": {
+          "options": {
+            "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.LicenseMintingFeePaidQueryOptions"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.LicenseTemplatesQueryOptions": {
+        "type": "object",
+        "properties": {
+          "orderBy": {
+            "type": "string"
+          },
+          "orderDirection": {
+            "type": "string"
+          },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "after": {
+                "type": "string"
+              },
+              "before": {
+                "type": "string"
+              },
+              "limit": {
+                "type": "integer"
+              }
+            }
+          },
+          "where": {
+            "type": "object",
+            "properties": {
+              "blockNumber": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.LicenseTemplatesRequestBody": {
+        "type": "object",
+        "properties": {
+          "options": {
+            "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.LicenseTemplatesQueryOptions"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.LicenseTermsQueryOptions": {
+        "type": "object",
+        "properties": {
+          "orderBy": {
+            "type": "string"
+          },
+          "orderDirection": {
+            "type": "string"
+          },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "after": {
+                "type": "string"
+              },
+              "before": {
+                "type": "string"
+              },
+              "limit": {
+                "type": "integer"
+              }
+            }
+          },
+          "where": {
+            "type": "object",
+            "properties": {
+              "blockNumber": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.LicenseTermsRequestBody": {
+        "type": "object",
+        "properties": {
+          "options": {
+            "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.LicenseTermsQueryOptions"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.LicenseTokenQueryOptions": {
+        "type": "object",
+        "properties": {
+          "orderBy": {
+            "type": "string"
+          },
+          "orderDirection": {
+            "type": "string"
+          },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "after": {
+                "type": "string"
+              },
+              "before": {
+                "type": "string"
+              },
+              "limit": {
+                "type": "integer"
+              }
+            }
+          },
+          "where": {
+            "type": "object",
+            "properties": {
+              "blockNumber": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "licenseTermsId": {
+                "type": "string"
+              },
+              "licensorIpId": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.LicenseTokenRequestBody": {
+        "type": "object",
+        "properties": {
+          "options": {
+            "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.LicenseTokenQueryOptions"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.ModuleQueryOptions": {
+        "type": "object",
+        "properties": {
+          "orderBy": {
+            "type": "string"
+          },
+          "orderDirection": {
+            "type": "string"
+          },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "after": {
+                "type": "string"
+              },
+              "before": {
+                "type": "string"
+              },
+              "limit": {
+                "type": "integer"
+              }
+            }
+          },
+          "where": {
+            "type": "object",
+            "properties": {
+              "blockNumber": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.ModuleRequestBody": {
+        "type": "object",
+        "properties": {
+          "options": {
+            "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.ModuleQueryOptions"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.PermissionQueryOptions": {
+        "type": "object",
+        "properties": {
+          "orderBy": {
+            "type": "string"
+          },
+          "orderDirection": {
+            "type": "string"
+          },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "after": {
+                "type": "string"
+              },
+              "before": {
+                "type": "string"
+              },
+              "limit": {
+                "type": "integer"
+              }
+            }
+          },
+          "where": {
+            "type": "object",
+            "properties": {
+              "blockNumber": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "ipAccount": {
+                "type": "string"
+              },
+              "ipAccountOwner": {
+                "type": "string"
+              },
+              "to": {
+                "type": "string"
+              },
+              "uuid": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.PermissionRequestBody": {
+        "type": "object",
+        "properties": {
+          "options": {
+            "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.PermissionQueryOptions"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.RoyaltyPayQueryOptions": {
+        "type": "object",
+        "properties": {
+          "orderBy": {
+            "type": "string"
+          },
+          "orderDirection": {
+            "type": "string"
+          },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "after": {
+                "type": "string"
+              },
+              "before": {
+                "type": "string"
+              },
+              "limit": {
+                "type": "integer"
+              }
+            }
+          },
+          "where": {
+            "type": "object",
+            "properties": {
+              "blockNumber": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "payerIpId": {
+                "type": "string"
+              },
+              "receiverIpId": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.RoyaltyPayRequestBody": {
+        "type": "object",
+        "properties": {
+          "options": {
+            "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.RoyaltyPayQueryOptions"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.TransactionRequestBody": {
+        "type": "object",
+        "properties": {
+          "options": {
+            "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.TrxQueryOptions"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv2.TrxQueryOptions": {
+        "type": "object",
+        "properties": {
+          "orderBy": {
+            "type": "string",
+            "enum": [
+              "id",
+              "blockNumber",
+              "ipId",
+              "resourceType"
+            ]
+          },
+          "orderDirection": {
+            "type": "string",
+            "enum": [
+              "asc",
+              "desc"
+            ]
+          },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "after": {
+                "type": "string"
+              },
+              "before": {
+                "type": "string"
+              },
+              "limit": {
+                "type": "integer"
+              }
+            }
+          },
+          "where": {
+            "type": "object",
+            "properties": {
+              "blockNumber": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "ipId": {
+                "type": "string"
+              },
+              "resourceType": {
+                "type": "string"
+              },
+              "transactionHash": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv3.IPAsset": {
+        "type": "object",
+        "properties": {
+          "ancestorCount": {
+            "type": "integer"
+          },
+          "blockNumber": {
+            "type": "string"
+          },
+          "blockTimestamp": {
+            "type": "string"
+          },
+          "childrenCount": {
+            "type": "integer"
+          },
+          "descendantCount": {
+            "type": "integer"
+          },
+          "id": {
+            "type": "string"
+          },
+          "ipId": {
+            "type": "string"
+          },
+          "isGroup": {
+            "type": "boolean"
+          },
+          "latestArbitrationPolicy": {
+            "type": "string"
+          },
+          "nftMetadata": {
+            "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv3.NftMetadata"
+          },
+          "parentCount": {
+            "type": "integer"
+          },
+          "rootCount": {
+            "type": "integer"
+          },
+          "rootIpIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "transactionHash": {
+            "type": "string"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv3.IPAssetResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv3.IPAsset"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv3.IPAssetsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/github_com_storyprotocol_protocol-api_api_internal_models_protocolv3.IPAsset"
+            }
+          },
+          "hasNextPage": {
+            "type": "boolean"
+          },
+          "hasPreviousPage": {
+            "type": "boolean"
+          },
+          "next": {
+            "type": "string"
+          },
+          "prev": {
+            "type": "string"
+          }
+        }
+      },
+      "github_com_storyprotocol_protocol-api_api_internal_models_protocolv3.NftMetadata": {
+        "type": "object",
+        "properties": {
+          "chainId": {
+            "type": "string"
+          },
+          "imageUrl": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "tokenContract": {
+            "type": "string"
+          },
+          "tokenId": {
+            "type": "string"
+          },
+          "tokenUri": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {}
+  },
+  "security": []
+}

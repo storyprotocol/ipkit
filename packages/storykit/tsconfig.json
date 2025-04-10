@@ -7,6 +7,7 @@
     },
     "jsx": "react", // or "react-jsx" if using React 17+
     "resolveJsonModule": true
+    // "noUncheckedIndexedAccess": true
   },
   "exclude": ["dist", "build", "node_modules"]
 }

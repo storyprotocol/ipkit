@@ -74,60 +74,33 @@ const AssetComponent = () => {
 
             <div className="col-span-1 text-xs text-gray-600">nftMetadata.name</div>
             <div className="col-span-3 text-sm" data-testid="asset-nft-name">
-              {assetData.nftMetadata.name}
+              {assetData?.nftMetadata?.name}
             </div>
 
             <div className="col-span-1 text-xs text-gray-600">nftMetadata.chainId</div>
             <div className="col-span-3 text-sm" data-testid="asset-nft-chain">
-              {assetData.nftMetadata.chainId}
+              {assetData?.nftMetadata?.chainId}
             </div>
 
             <div className="col-span-1 text-xs text-gray-600">nftMetadata.tokenContract</div>
             <div className="col-span-3 text-sm" data-testid="asset-nft-token-contract">
-              {assetData.nftMetadata.tokenContract}
+              {assetData?.nftMetadata?.tokenContract}
             </div>
 
             <div className="col-span-1 text-xs text-gray-600">nftMetadata.tokenId</div>
             <div className="col-span-3 text-sm" data-testid="asset-nft-token-id">
-              {assetData.nftMetadata.tokenId}
+              {assetData?.nftMetadata?.tokenId}
             </div>
 
             <div className="col-span-1 text-xs text-gray-600">nftMetadata.tokenUri</div>
             <div className="col-span-3 text-sm" data-testid="asset-token-uri">
-              {assetData.nftMetadata.tokenUri}
+              {assetData?.nftMetadata?.tokenUri}
             </div>
 
             <div className="col-span-1 text-xs text-gray-600">nftMetadata.imageUrl</div>
             <div className="col-span-3 text-sm" data-testid="asset-nft-image-url">
-              {assetData.nftMetadata.imageUrl}
+              {assetData?.nftMetadata?.imageUrl}
             </div>
-
-            <div className="col-span-1 text-xs text-gray-600">rootIps</div>
-            <ul className="col-span-3 text-sm">
-              {assetData.rootIps?.map((obj) => (
-                <li data-testid="asset-root-ip" key={obj.id}>
-                  {obj.id}
-                </li>
-              ))}
-            </ul>
-
-            <div className="col-span-1 text-xs text-gray-600">parentIps</div>
-            <ul className="col-span-3 text-sm">
-              {assetData.parentIps?.map((obj) => (
-                <li data-testid="asset-parent-ip" key={obj.id}>
-                  {obj.id}
-                </li>
-              ))}
-            </ul>
-
-            <div className="col-span-1 text-xs text-gray-600">childIps</div>
-            <ul className="col-span-3 text-sm">
-              {assetData.childIps?.map((obj) => (
-                <li data-testid="asset-child-ip" key={obj.id}>
-                  {obj.id}
-                </li>
-              ))}
-            </ul>
           </>
         </div>
       ) : null}

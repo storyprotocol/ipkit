@@ -1,4 +1,3 @@
-import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
 import { Menu, Transition } from "@headlessui/react"
 import React, { Fragment, useState } from "react"
 import { FaWandMagicSparkles } from "react-icons/fa6"
@@ -200,7 +199,8 @@ function IPAssetDropdownMenu() {
               </div>
             </div>
           )}
-          {assetData?.parentIpIds && assetData?.parentIpIds?.length > 0 && (
+          {/* todo: get this from asset edges */}
+          {/* {assetData?.parentIpIds && assetData?.parentIpIds?.length > 0 && (
             <div className="skIpWidget__ipAssetDropdownMenu__parentIp">
               <p className="skIpWidget__ipAssetDropdownMenu__parentIp__title">Parent IPs</p>
               <div className="skIpWidget__ipAssetDropdownMenu__parentIp__item">
@@ -223,8 +223,8 @@ function IPAssetDropdownMenu() {
                 </p>
               </div>
             </div>
-          )}
-          {assetData?.childIpIds && assetData?.childIpIds?.length > 0 && (
+          )} */}
+          {/* {assetData?.childIpIds && assetData?.childIpIds?.length > 0 && (
             <div className="skIpWidget__ipAssetDropdownMenu__childIp">
               <p className="skIpWidget__ipAssetDropdownMenu__childIp__title">Child IPs</p>
               <div className="skIpWidget__ipAssetDropdownMenu__childIp__container">
@@ -247,7 +247,7 @@ function IPAssetDropdownMenu() {
                 </p>
               </div>
             </div>
-          )}
+          )} */}
           <div className="skIpWidget__ipAssetDropdownMenu__menu">
             <Menu.Item>
               {({ active }) => (
@@ -326,7 +326,7 @@ function IPAssetHeader({ hideImage }: { hideImage?: boolean }) {
         <div>
           <div>
             <h1 className="skIpWidget__ipAssetHeader__name">
-              {assetData?.nftMetadata.name || nftData?.name || "Untitled"}
+              {assetData?.nftMetadata?.name || nftData?.name || "Untitled"}
             </h1>
             <h2 className="skIpWidget__ipAssetHeader__owner">
               Owned by{" "}
