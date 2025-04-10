@@ -36,7 +36,7 @@ export const Select: Story = {
 //     collectionAddress: { control: "text" },
 //   },
 //   args: {
-//     chain: STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
+//     chain: STORYKIT_SUPPORTED_CHAIN.STORY_MAINNET,
 //     collectionAddress: ILIAD_TESTNET_COLLECTION[0] as `0x${string}`,
 //   },
 //   play: async ({ args, canvasElement }) => {
