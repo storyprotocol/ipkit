@@ -34,7 +34,7 @@ const meta = {
     },
   },
   args: {
-    ipId: STORY_IP_ASSETS[0] as `0x${string}`,
+    ipId: STORY_IP_ASSETS[0],
   },
 } satisfies Meta<typeof Example>
 
@@ -53,7 +53,7 @@ export const Input: Story = {
     children: { control: false },
   },
   args: {
-    ipId: STORY_IP_ASSETS_MAP[STORY_IP_ASSETS[0]] as `0x${string}`,
+    ipId: STORY_IP_ASSETS_MAP[STORY_IP_ASSETS[0]],
   },
 }
 export const NFTData: Story = {

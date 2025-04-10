@@ -22,7 +22,7 @@ const meta = {
     },
   },
   args: {
-    ipId: STORY_IP_ASSETS[0] as `0x${string}`,
+    ipId: STORY_IP_ASSETS[0],
   },
 } satisfies Meta<typeof Example>
 
@@ -42,19 +42,10 @@ export const Input: Story = {
     ipId: { control: "text" },
   },
   args: {
-    ipId: STORY_IP_ASSETS_MAP[STORY_IP_ASSETS[0]] as `0x${string}`,
+    ipId: STORY_IP_ASSETS_MAP[STORY_IP_ASSETS[0]],
     isBottomNav: true,
   },
 }
-// export const IliadTestnetMint: Story = {
-//   argTypes: {
-//     ipId: { control: "text" },
-//   },
-//   args: {
-//     ipId: ILIAD_TESTNET_ROOT,
-//     isBottomNav: true,
-//   },
-// }
 
 export const TopNavigation: Story = {
   argTypes: {

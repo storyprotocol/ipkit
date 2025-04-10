@@ -1,4 +1,4 @@
-import { CHAINID_TO_CHAINNAME } from "@/constants/chains"
+import { CHAINID_TO_CHAINNAME } from "@/constants"
 import { shortenAddress } from "@/lib/utils"
 import { Asset, NFTMetadata } from "@/types"
 import { RESOURCE_TYPE } from "@/types/api"
