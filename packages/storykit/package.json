@@ -50,6 +50,7 @@
     "tailwindcss": "^3.4.1",
     "tailwindcss-animate": "^1.0.7",
     "three": "^0.167.1",
+    "tslib": "^2.8.1",
     "viem": "^2.7.19"
   },
   "devDependencies": {

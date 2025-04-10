@@ -9,7 +9,6 @@ process.env.STORY_PROTOCOL_X_API_KEY || ""
 
 export function useGetAsset(ipId: string, queryOptions?: UseGetQueryOptions) {
   const { chain } = useStoryKitContext()
-  console.log("chain", chain)
 
   return useGetQuery(
     "/api/v3/assets/{assetId}",
