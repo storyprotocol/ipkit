@@ -1,13 +1,12 @@
-import { UseQueryResult } from "@tanstack/react-query"
+import { Address } from "viem"
 
-import { type IPAssetResponse } from "../types/openapi"
 import { type UseGetQueryOptions, useGetQuery } from "./useGetQuery"
 
-export function useGetAsset(ipId: string, queryOptions?: UseGetQueryOptions) {
+export function useGetAsset(ipId: Address, queryOptions?: UseGetQueryOptions) {
   return useGetQuery({
     path: "/api/v3/assets/{assetId}",
     pathParams: { assetId: ipId },
     additionalHeaders: { "X-Extend-Asset": "true" },
     queryOptions,
-  }) as UseQueryResult<IPAssetResponse>
+  })
 }
