@@ -57,5 +57,5 @@ export function useGetQuery<P extends Paths<"get">>({
     retry: false,
     ...queryOptions,
   }) as UseQueryResult<paths[P]["get"]["responses"][200]["content"]["application/json"]>
-  // ☝️ this assumes response is always 200 or error
+  // ☝️ this assumes response is always 200 or error, all that is currently supported
 }

@@ -1,4 +1,5 @@
-import { useGetAsset, useGetAssetMetadata } from "@/hooks"
+import { useIpAsset } from "@/hooks/useIpAsset"
+import { useIpAssetMetadata } from "@/hooks/useIpAssetMetadata"
 import { convertLicenseTermObject } from "@/lib/functions/convertLicenseTermObject"
 import { getRoyaltiesByIPs } from "@/lib/royalty-graph"
 import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
@@ -99,13 +100,19 @@ export const IpProvider = ({
     data: assetData,
     refetch: refetchAssetData,
     isFetched: isAssetDataFetched,
-  } = useGetAsset(ipId, {
-    enabled: queryOptions.assetData,
+  } = useIpAsset({
+    ipId,
+    queryOptions: {
+      enabled: queryOptions.assetData,
+    },
   })
 
   // Fetch IP metadata
-  const { isLoading: isIpaMetadataLoading, data: ipaMetadataRaw } = useGetAssetMetadata(ipId, {
-    enabled: queryOptions.assetData,
+  const { isLoading: isIpaMetadataLoading, data: ipaMetadataRaw } = useIpAssetMetadata({
+    ipId,
+    queryOptions: {
+      enabled: queryOptions.assetData,
+    },
   })
 
   // Fetch IP Metadata from IPFS
