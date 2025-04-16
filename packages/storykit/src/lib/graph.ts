@@ -1,12 +1,11 @@
 import { CHAINID_TO_CHAINNAME } from "@/constants/chains"
+import { useIpAssets } from "@/hooks/useIpAssets"
 import { shortenAddress } from "@/lib/utils"
 import { Asset, NFTMetadata } from "@/types"
-import { RESOURCE_TYPE } from "@/types/api"
 import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
 import { RoyaltiesGraph, RoyaltyBalance, RoyaltyGraph, RoyaltyLink } from "@/types/royalty-graph"
 import { Address } from "viem"
 
-import { listResource } from "./api"
 import { NFT, getNFTByTokenId, getNFTByTokenIds } from "./simplehash"
 
 export interface GraphNode {
@@ -123,12 +122,12 @@ export async function convertAssetToGraphFormat(
       ipAssetIds: jsonData.childIpIds,
     }
 
-    const childNftData = await listResource(RESOURCE_TYPE.ASSET, chain, listRequest)
+    const { data: childNftData } = useIpAssets({ options: listRequest })
 
     console.log({ childNftData })
-    for (const child of childNftData.data) {
+    for (const child of childNftData?.data || []) {
       const childNode: GraphNode = {
-        id: child.id,
+        id: child.id || "",
         name: child?.nftMetadata?.name || "Untitled",
         details: `
         <div class="graph-content">
@@ -142,18 +141,17 @@ export async function convertAssetToGraphFormat(
           </div>
           <div>
             <span class="graph-content-label">Contract:</span> 
-            <span>${shortenAddress(child?.nftMetadata?.tokenContract)}</span>
+            <span>${shortenAddress(child?.nftMetadata?.tokenContract || "")}</span>
           </div>
           <div>
             <span class="graph-content-label">Token ID:</span> 
-            <span>${child?.nftMetadata?.token_id}</span>
+            <span>${child?.nftMetadata?.tokenId}</span>
           </div>
         </div>
       `,
-        tokenContract: child.nftMetadata.tokenContract,
-        tokenId: child.nftMetadata.token_id,
-        imageUrl: child.nftMetadata?.imageUrl,
-        imageProperties: child.nftMetadata?.image_properties,
+        tokenContract: child?.nftMetadata?.tokenContract || "",
+        tokenId: child?.nftMetadata?.tokenId,
+        imageUrl: child?.nftMetadata?.imageUrl,
         val: 1,
         level: 1,
       }
@@ -161,7 +159,7 @@ export async function convertAssetToGraphFormat(
 
       links.push({
         source: jsonData.id,
-        target: child.id,
+        target: child.id || "",
       })
     }
   }
