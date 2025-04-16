@@ -1,5 +1,3 @@
-import { paths } from "@storykit/api-schema"
-
 import { getQuery } from "./getQuery"
 
 export function getIpAsset({ ipId, chainName, apiKey }: { ipId: string; chainName: string; apiKey: string }) {

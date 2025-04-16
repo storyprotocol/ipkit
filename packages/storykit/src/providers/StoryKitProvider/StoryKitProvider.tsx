@@ -10,6 +10,14 @@ import { Chain } from "viem"
 export type Mode = "light" | "dark" | undefined
 export type Theme = "default" | "story" | string
 
+// support current usage
+// todo: phase this out, make apiKey required and remove this
+const API_KEY =
+  process.env.STORYBOOK_STORY_PROTOCOL_X_API_KEY ||
+  process.env.NEXT_PUBLIC_STORY_PROTOCOL_X_API_KEY ||
+  process.env.STORY_PROTOCOL_X_API_KEY ||
+  ""
+
 export interface StoryKitProviderOptions {
   chain?: STORYKIT_SUPPORTED_CHAIN
   defaultCurrency?: STORYKIT_SUPPORTED_CURRENCY
@@ -28,7 +36,7 @@ const StoryKitContext = React.createContext<{
   theme: Theme
   mode: Mode
   themeClass: string
-  apiKey: string | undefined
+  apiKey: string
   appId: string | undefined
 } | null>(null)
 
@@ -58,7 +66,7 @@ export const StoryKitProvider = ({
         theme: theme,
         mode: mode,
         themeClass: `${theme}${mode ? `-${mode}` : ""}`,
-        apiKey: apiKey,
+        apiKey: apiKey || API_KEY,
         appId: appId,
       }}
     >
