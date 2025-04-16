@@ -1,21 +1,27 @@
-import { paths } from "@storykit/api-schema"
+import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
 import { Address } from "viem"
 
-import { type UseListQueryOptions, useListQuery } from "./useListQuery"
+import { IpAssetsData, IpAssetsOptions, getIpAssets } from "../lib/openAPI/getIpAssets"
+import { useStoryKitContext } from "../providers/StoryKitProvider"
 
-// This extracts the options type from the OpenAPI schema for the /api/v3/assets POST endpoint
-type Options = paths["/api/v3/assets"]["post"]["requestBody"]["content"]["application/json"]["options"]
+export type UseIpAssetQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
 
 export type UseIpAssetOptions = {
-  ipIds?: Address[] // ipIds from options added here for convenience
-  options?: Options
-  queryOptions?: UseListQueryOptions
+  ipIds?: Address[]
+  options?: IpAssetsOptions
+  queryOptions?: UseIpAssetQueryOptions
 }
 
 export function useIpAssets({ ipIds, options, queryOptions }: UseIpAssetOptions = {}) {
-  return useListQuery({
-    path: "/api/v3/assets",
-    body: { options: { ...options, ...(ipIds ? { ipAssetIds: ipIds } : {}) } },
-    queryOptions,
-  })
+  const { chain, apiKey } = useStoryKitContext()
+
+  return useQuery({
+    queryKey: ["getIpAssets", ipIds, options, queryOptions],
+    queryFn: async () => {
+      const { data, error } = await getIpAssets({ ipIds, options, chainName: chain.name, apiKey })
+      if (error) throw error
+      return data
+    },
+    ...queryOptions,
+  }) as UseQueryResult<IpAssetsData>
 }
