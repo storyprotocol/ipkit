@@ -2,7 +2,6 @@ import { CHAINS } from "@/constants/chains"
 import { cn } from "@/lib"
 import { ChainConfig, ERC20Token, STORYKIT_SUPPORTED_CHAIN, WRAPPED_IP } from "@/types/chains"
 import React, { useMemo } from "react"
-import { story } from "viem/chains"
 
 export type Mode = "light" | "dark" | undefined
 export type Theme = "default" | "story" | string
