@@ -23,7 +23,7 @@ export async function getResource<T>(
       headers: {
         "Content-Type": "application/json",
         "x-api-key": API_KEY as string,
-        "X-CHAIN": options?.chain || _chain.name || STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
+        "X-CHAIN": options?.chain || _chain.name || STORYKIT_SUPPORTED_CHAIN.STORY_MAINNET,
         "x-extend-asset": "true",
       },
     })
@@ -47,7 +47,7 @@ export async function listResource<T>(
       headers: {
         "Content-Type": "application/json",
         "x-api-key": API_KEY as string,
-        "X-CHAIN": options?.chain || _chain.name || STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET,
+        "X-CHAIN": options?.chain || _chain.name || STORYKIT_SUPPORTED_CHAIN.STORY_MAINNET,
       },
       cache: "no-cache",
       ...(options && { body: JSON.stringify({ options }) }),

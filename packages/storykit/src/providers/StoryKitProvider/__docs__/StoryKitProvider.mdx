@@ -6,11 +6,11 @@ import * as StoryKitProviderStory from "./StoryKitProvider.stories"
 
 # StoryKitProvider
 
-{/* The IP Provider is the core of Storykit, by passing it an IP Asset ID it provides IP Asset data to children components. */}
+{/* The IP Provider is the core of StoryKit, by passing it an IP Asset ID it provides IP Asset data to children components. */}
 
 #### Example
 
-<Canvas of={StoryKitProviderStory.Odyssey} />
+<Canvas of={StoryKitProviderStory.Mainnet} />
 
 <Controls />
 
@@ -25,7 +25,7 @@ import ExampleComponent from './ExampleComponent'
 const ExampleApp = () => {
   return (
     <StoryKitProvider
-      chain={STORYKIT_SUPPORTED_CHAIN.STORY_TESTNET}
+      chain={STORYKIT_SUPPORTED_CHAIN.STORY_MAINNET}
     >
       <ExampleComponent />
     </StoryKitProvider>
@@ -70,8 +70,8 @@ The StoryKitProvider provides the following data to its children:
 #### Arguments
 
 - **children** - The child component to provide the IP Asset context to.
-- **chain** - The Story Chain to use, defaults to Odyssey Testnet
-- **defaultCurrency** - The default currency to use, defaults to Odyssey sUSD
+- **chain** - The Story Chain to use, defaults to Story Mainnet
+- **defaultCurrency** - The default currency to use, defaults to Wrapped IP
 - **theme** - The style theme to use, defaults to 'default'
 - **mode** - 'light' and 'dark' mode, undefined defaults to system preference
 - **rpcUrl** - The RPC URL to use, defaults to the chain's RPC URL

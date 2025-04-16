@@ -1,44 +1,52 @@
-import { CHAINID_TO_CHAINNAME } from "@/constants/chains"
-import { useIpAssets } from "@/hooks/useIpAssets"
-import { shortenAddress } from "@/lib/utils"
-import { Asset, NFTMetadata } from "@/types"
-import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
-import { RoyaltiesGraph, RoyaltyBalance, RoyaltyGraph, RoyaltyLink } from "@/types/royalty-graph"
-import { Address } from "viem"
+import { CHAINID_TO_CHAINNAME } from "@/constants";
+import { useIpAssets } from "@/hooks/useIpAssets";
+import { shortenAddress } from "@/lib/utils";
+import { Asset, NFTMetadata } from "@/types";
+import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains";
+import {
+  RoyaltiesGraph,
+  RoyaltyBalance,
+  RoyaltyGraph,
+  RoyaltyLink,
+} from "@/types/royalty-graph";
+import { Address } from "viem";
 
-import { NFT, getNFTByTokenId, getNFTByTokenIds } from "./simplehash"
+import { NFT, getNFTByTokenId, getNFTByTokenIds } from "./simplehash";
 
 export interface GraphNode {
-  id: string
-  name: string
-  details: any
-  val: number
-  tokenContract?: string | Address
-  tokenId?: string
-  level?: number
-  linkCount?: number
-  isRoot?: boolean
-  imageUrl?: string
+  id: string;
+  name: string;
+  details: any;
+  val: number;
+  tokenContract?: string | Address;
+  tokenId?: string;
+  level?: number;
+  linkCount?: number;
+  isRoot?: boolean;
+  imageUrl?: string;
   imageProperties?: {
-    height: number
-    mime_type: string
-    size: number
-    width: number
-  }
+    height: number;
+    mime_type: string;
+    size: number;
+    width: number;
+  };
 }
 
 interface Link {
-  source: string
-  target: string
-  value?: number
+  source: string;
+  target: string;
+  value?: number;
 }
 
 export interface GraphData {
-  nodes: GraphNode[]
-  links: Link[]
+  nodes: GraphNode[];
+  links: Link[];
 }
 
-export function generateNFTDetails(nftData: NFTMetadata | undefined, assetId: Address): string {
+export function generateNFTDetails(
+  nftData: NFTMetadata | undefined,
+  assetId: Address
+): string {
   return `
     <div class="graph-content">
       <img src="${nftData?.previews?.image_small_url || nftData?.image_url || "https://play.storyprotocol.xyz/_next/static/media/sp_logo_black.2e1d7450.svg"}" alt="NFT Image" style="max-width:250px; background-color:white;"/>      
@@ -66,7 +74,7 @@ export function generateNFTDetails(nftData: NFTMetadata | undefined, assetId: Ad
         </div>
       </div>
     </div>
-  `
+  `;
 }
 
 export async function convertAssetToGraphFormat(
@@ -74,9 +82,9 @@ export async function convertAssetToGraphFormat(
   nftData: NFTMetadata,
   chain: STORYKIT_SUPPORTED_CHAIN
 ): Promise<GraphData> {
-  const rootIpId = jsonData.rootIpIds?.[0]
-  const nodes: GraphNode[] = []
-  const links: Link[] = []
+  const rootIpId = jsonData.rootIpIds?.[0];
+  const nodes: GraphNode[] = [];
+  const links: Link[] = [];
 
   // Create node for the main object
   const mainNode: GraphNode = {
@@ -110,8 +118,8 @@ export async function convertAssetToGraphFormat(
     imageUrl: nftData.previews.image_small_url || nftData.image_url,
     imageProperties: nftData.image_properties,
     isRoot: rootIpId === undefined,
-  }
-  nodes.push(mainNode)
+  };
+  nodes.push(mainNode);
 
   if (jsonData.childIpIds) {
     const listRequest = {
@@ -120,11 +128,11 @@ export async function convertAssetToGraphFormat(
         offset: 0,
       },
       ipAssetIds: jsonData.childIpIds,
-    }
+    };
 
-    const { data: childNftData } = useIpAssets({ options: listRequest })
+    const { data: childNftData } = useIpAssets({ options: listRequest });
 
-    console.log({ childNftData })
+    console.log({ childNftData });
     for (const child of childNftData?.data || []) {
       const childNode: GraphNode = {
         id: child.id || "",
@@ -154,13 +162,13 @@ export async function convertAssetToGraphFormat(
         imageUrl: child?.nftMetadata?.imageUrl,
         val: 1,
         level: 1,
-      }
-      nodes.push(childNode)
+      };
+      nodes.push(childNode);
 
       links.push({
         source: jsonData.id,
         target: child.id || "",
-      })
+      });
     }
   }
   // Add all childIpIds to nodes array and create links
@@ -210,7 +218,11 @@ export async function convertAssetToGraphFormat(
   // Add all parentIpIds to nodes array and create links
   if (jsonData.parentIps) {
     for (const parent of jsonData.parentIps) {
-      const parentNftData = await getNFTByTokenId(parent.nftMetadata.tokenContract, parent.nftMetadata.tokenId, chain)
+      const parentNftData = await getNFTByTokenId(
+        parent.nftMetadata.tokenContract,
+        parent.nftMetadata.tokenId,
+        chain
+      );
 
       const parentNode: GraphNode = {
         id: parent.id,
@@ -237,29 +249,32 @@ export async function convertAssetToGraphFormat(
       `,
         tokenContract: parent.nftMetadata.tokenContract,
         tokenId: parent.nftMetadata.tokenId,
-        imageUrl: parentNftData.previews.image_small_url || parentNftData.image_url,
+        imageUrl:
+          parentNftData.previews.image_small_url || parentNftData.image_url,
         imageProperties: parentNftData.image_properties,
         val: 1,
         level: -1, // assuming parent is one level up
         isRoot: parent.id === rootIpId,
-      }
-      nodes.push(parentNode)
+      };
+      nodes.push(parentNode);
       links.push({
         source: parent.id,
         target: jsonData.id,
-      })
+      });
     }
   }
 
-  return { nodes, links }
+  return { nodes, links };
 }
 
-export async function convertRoyaltyToGraphFormat(apiData: RoyaltiesGraph): Promise<GraphData> {
+export async function convertRoyaltyToGraphFormat(
+  apiData: RoyaltiesGraph
+): Promise<GraphData> {
   try {
-    const nodes: GraphNode[] = []
-    const links: Link[] = []
-    const nodeIds = new Set<string>()
-    const idToLevelMap = new Map<string, number>()
+    const nodes: GraphNode[] = [];
+    const links: Link[] = [];
+    const nodeIds = new Set<string>();
+    const idToLevelMap = new Map<string, number>();
 
     // First pass: Create nodes and identify root nodes
     apiData.royalties.forEach((royalty: RoyaltyGraph) => {
@@ -298,17 +313,19 @@ export async function convertRoyaltyToGraphFormat(apiData: RoyaltiesGraph): Prom
           val: 1,
           level: 0,
           isRoot: true,
-        }
-        nodes.push(parentNode)
-        nodeIds.add(royalty.ipId)
-        idToLevelMap.set(royalty.ipId, 0)
+        };
+        nodes.push(parentNode);
+        nodeIds.add(royalty.ipId);
+        idToLevelMap.set(royalty.ipId, 0);
       }
 
       // Create child nodes and links
       royalty.balances.forEach((balance: RoyaltyBalance) => {
         balance.links.forEach((link: RoyaltyLink) => {
           if (!nodeIds.has(link.childIpId)) {
-            const childRoyalty = apiData.royalties.find((r) => r.ipId === link.childIpId)
+            const childRoyalty = apiData.royalties.find(
+              (r) => r.ipId === link.childIpId
+            );
             const childNode: GraphNode = {
               id: link.childIpId,
               name: `Child ${link.childIpId.slice(0, 6)}...`,
@@ -341,7 +358,11 @@ export async function convertRoyaltyToGraphFormat(apiData: RoyaltiesGraph): Prom
                   <div>
                     <span class="graph-content-label">Parents:</span> 
                     <span>${apiData.royalties
-                      .filter((r) => r.balances[0].links.some((l) => l.childIpId === link.childIpId))
+                      .filter((r) =>
+                        r.balances[0].links.some(
+                          (l) => l.childIpId === link.childIpId
+                        )
+                      )
                       .map((r) => r.ipId.slice(0, 6) + "...")
                       .join(", ")}</span>
                   </div>
@@ -354,57 +375,59 @@ export async function convertRoyaltyToGraphFormat(apiData: RoyaltiesGraph): Prom
               val: 1,
               level: 0, // We'll update this later
               isRoot: false,
-            }
-            nodes.push(childNode)
-            nodeIds.add(link.childIpId)
-            idToLevelMap.set(link.childIpId, 0) // Initially set to 0, will update later
+            };
+            nodes.push(childNode);
+            nodeIds.add(link.childIpId);
+            idToLevelMap.set(link.childIpId, 0); // Initially set to 0, will update later
           }
 
           links.push({
             source: link.childIpId,
             target: royalty.ipId,
             value: parseInt(link.amount) / 1e18,
-          })
+          });
 
           // Update level for child nodes
-          const parentLevel = idToLevelMap.get(royalty.ipId) || 0
-          const childLevel = idToLevelMap.get(link.childIpId) || 0
+          const parentLevel = idToLevelMap.get(royalty.ipId) || 0;
+          const childLevel = idToLevelMap.get(link.childIpId) || 0;
           if (childLevel <= parentLevel) {
-            idToLevelMap.set(link.childIpId, parentLevel + 1)
+            idToLevelMap.set(link.childIpId, parentLevel + 1);
           }
-        })
-      })
-    })
+        });
+      });
+    });
 
     // Update node levels and isRoot property
     nodes.forEach((node) => {
-      node.level = idToLevelMap.get(node.id) || 0
-      node.isRoot = node.level === 0
-    })
+      node.level = idToLevelMap.get(node.id) || 0;
+      node.isRoot = node.level === 0;
+    });
 
-    console.log({ nodes, links })
-    return { nodes, links }
+    console.log({ nodes, links });
+    return { nodes, links };
   } catch (error) {
-    console.error(error)
-    return { nodes: [], links: [] }
+    console.error(error);
+    return { nodes: [], links: [] };
   }
 }
 
-export async function fetchNFTMetadata(assets: Asset[]): Promise<Map<string, NFTMetadata>> {
-  const chunkSize = 200
-  const nftDataMap = new Map<string, NFTMetadata>()
+export async function fetchNFTMetadata(
+  assets: Asset[]
+): Promise<Map<string, NFTMetadata>> {
+  const chunkSize = 200;
+  const nftDataMap = new Map<string, NFTMetadata>();
 
   // Helper function to split an array into chunks
   const chunkArray = <T>(array: T[], size: number): T[][] => {
-    const result: T[][] = []
+    const result: T[][] = [];
     for (let i = 0; i < array.length; i += size) {
-      result.push(array.slice(i, i + size))
+      result.push(array.slice(i, i + size));
     }
-    return result
-  }
+    return result;
+  };
 
   // Split assets into chunks
-  const assetChunks = chunkArray(assets, chunkSize)
+  const assetChunks = chunkArray(assets, chunkSize);
 
   // Iterate over each chunk and fetch NFT metadata
   for (const chunk of assetChunks) {
@@ -412,38 +435,42 @@ export async function fetchNFTMetadata(assets: Asset[]): Promise<Map<string, NFT
       chain: CHAINID_TO_CHAINNAME[Number(asset.nftMetadata.chainId)],
       tokenAddress: asset.nftMetadata.tokenContract,
       tokenId: asset.nftMetadata.tokenId,
-    }))
+    }));
 
     // Fetch metadata for the current chunk
-    const nftMetadataArray = await getNFTByTokenIds(nfts)
+    const nftMetadataArray = await getNFTByTokenIds(nfts);
 
     // Map NFT metadata to Asset.id
     nftMetadataArray.forEach((metadata) => {
       // Find the asset that corresponds to this metadata
-      const asset = chunk.find((a) => a.nftMetadata.tokenId === metadata.token_id)
+      const asset = chunk.find(
+        (a) => a.nftMetadata.tokenId === metadata.token_id
+      );
       if (asset) {
-        nftDataMap.set(asset.id, metadata)
+        nftDataMap.set(asset.id, metadata);
       }
-    })
+    });
   }
 
-  return nftDataMap
+  return nftDataMap;
 }
 
-export async function convertMultipleAssetsToGraphFormat(jsonData: Asset[]): Promise<GraphData> {
-  const nodes: GraphNode[] = []
-  const links: Link[] = []
-  const linkCounts = new Map<string, number>()
-  const nodeSet = new Set<string>() // Set to track unique node IDs
+export async function convertMultipleAssetsToGraphFormat(
+  jsonData: Asset[]
+): Promise<GraphData> {
+  const nodes: GraphNode[] = [];
+  const links: Link[] = [];
+  const linkCounts = new Map<string, number>();
+  const nodeSet = new Set<string>(); // Set to track unique node IDs
 
-  const nftDataMap = await fetchNFTMetadata(jsonData) // Fetch NFT metadata and update map
+  const nftDataMap = await fetchNFTMetadata(jsonData); // Fetch NFT metadata and update map
 
-  console.log({ nftDataMap })
+  console.log({ nftDataMap });
 
   // Process each asset
   for (const asset of jsonData) {
-    const nftData = nftDataMap.get(asset.id)
-    const rootIpId = asset.rootIpIds?.[0]
+    const nftData = nftDataMap.get(asset.id);
+    const rootIpId = asset.rootIpIds?.[0];
 
     // Create node for the main object if it doesn't exist
     if (!nodeSet.has(asset.id)) {
@@ -459,15 +486,15 @@ export async function convertMultipleAssetsToGraphFormat(jsonData: Asset[]): Pro
         imageProperties: nftData?.image_properties,
         isRoot: rootIpId === undefined,
         linkCount: 0, // Initialize link count
-      }
-      nodes.push(mainNode)
-      nodeSet.add(asset.id)
+      };
+      nodes.push(mainNode);
+      nodeSet.add(asset.id);
     }
 
     // Add all childIpIds to nodes array and create links
     if (asset.childIpIds) {
       for (const childIpId of asset.childIpIds) {
-        const childNftData = nftDataMap.get(childIpId)
+        const childNftData = nftDataMap.get(childIpId);
 
         if (!nodeSet.has(childIpId)) {
           const childNode: GraphNode = {
@@ -476,31 +503,33 @@ export async function convertMultipleAssetsToGraphFormat(jsonData: Asset[]): Pro
             details: generateNFTDetails(childNftData, childIpId),
             tokenContract: childNftData?.contract_address,
             tokenId: childNftData?.token_id,
-            imageUrl: childNftData?.previews?.image_small_url || childNftData?.image_url,
+            imageUrl:
+              childNftData?.previews?.image_small_url ||
+              childNftData?.image_url,
             imageProperties: childNftData?.image_properties,
             val: 1,
             level: 1,
             linkCount: 0, // Initialize link count
-          }
-          nodes.push(childNode)
-          nodeSet.add(childIpId)
+          };
+          nodes.push(childNode);
+          nodeSet.add(childIpId);
         }
 
         links.push({
           source: asset.id,
           target: childIpId,
-        })
+        });
 
         // Update link counts
-        linkCounts.set(asset.id, (linkCounts.get(asset.id) || 0) + 1)
-        linkCounts.set(childIpId, (linkCounts.get(childIpId) || 0) + 1)
+        linkCounts.set(asset.id, (linkCounts.get(asset.id) || 0) + 1);
+        linkCounts.set(childIpId, (linkCounts.get(childIpId) || 0) + 1);
       }
     }
 
     // Add all parentIpIds to nodes array and create links
     if (asset.parentIpIds) {
       for (const parentIpId of asset.parentIpIds) {
-        const parentNftData = nftDataMap.get(parentIpId)
+        const parentNftData = nftDataMap.get(parentIpId);
 
         if (!nodeSet.has(parentIpId)) {
           const parentNode: GraphNode = {
@@ -509,33 +538,35 @@ export async function convertMultipleAssetsToGraphFormat(jsonData: Asset[]): Pro
             details: generateNFTDetails(parentNftData, parentIpId),
             tokenContract: parentNftData?.contract_address,
             tokenId: parentNftData?.token_id,
-            imageUrl: parentNftData?.previews?.image_small_url || parentNftData?.image_url,
+            imageUrl:
+              parentNftData?.previews?.image_small_url ||
+              parentNftData?.image_url,
             imageProperties: parentNftData?.image_properties,
             val: 1,
             level: -1,
             isRoot: parentIpId === rootIpId,
             linkCount: 0, // Initialize link count
-          }
-          nodes.push(parentNode)
-          nodeSet.add(parentIpId)
+          };
+          nodes.push(parentNode);
+          nodeSet.add(parentIpId);
         }
 
         links.push({
           source: parentIpId,
           target: asset.id,
-        })
+        });
 
         // Update link counts
-        linkCounts.set(parentIpId, (linkCounts.get(parentIpId) || 0) + 1)
-        linkCounts.set(asset.id, (linkCounts.get(asset.id) || 0) + 1)
+        linkCounts.set(parentIpId, (linkCounts.get(parentIpId) || 0) + 1);
+        linkCounts.set(asset.id, (linkCounts.get(asset.id) || 0) + 1);
       }
     }
   }
 
   // Update nodes with their link counts
   for (const node of nodes) {
-    node.linkCount = linkCounts.get(node.id) || 0
+    node.linkCount = linkCounts.get(node.id) || 0;
   }
 
-  return { nodes, links }
+  return { nodes, links };
 }

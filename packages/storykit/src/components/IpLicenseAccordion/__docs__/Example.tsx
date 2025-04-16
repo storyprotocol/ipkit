@@ -8,7 +8,7 @@ import IpLicenseAccordion from "../IpLicenseAccordion"
 type Size = "small" | "medium" | "large"
 
 const Example: FC<{ ipId: Address; size: Size }> = ({
-  ipId = STORY_IP_ASSETS_MAP[STORY_IP_ASSETS[0]] as `0x${string}`,
+  ipId = STORY_IP_ASSETS_MAP[STORY_IP_ASSETS[0]],
   size = "medium",
 }) => {
   return (

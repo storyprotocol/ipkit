@@ -1,11 +1,8 @@
 import { CHAINS } from "@/constants/chains"
-import { CURRENCIES } from "@/constants/currencies"
 import { cn } from "@/lib"
-import { getChainViemConfig } from "@/lib/chains"
-import { ChainConfig, STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
-import { Currency, STORYKIT_SUPPORTED_CURRENCY } from "@/types/currencies"
+import { ChainConfig, ERC20Token, STORYKIT_SUPPORTED_CHAIN, WRAPPED_IP } from "@/types/chains"
 import React, { useMemo } from "react"
-import { Chain } from "viem"
+import { story } from "viem/chains"
 
 export type Mode = "light" | "dark" | undefined
 export type Theme = "default" | "story" | string
@@ -20,7 +17,7 @@ const API_KEY =
 
 export interface StoryKitProviderOptions {
   chain?: STORYKIT_SUPPORTED_CHAIN
-  defaultCurrency?: STORYKIT_SUPPORTED_CURRENCY
+  defaultCurrency?: ERC20Token
   theme?: Theme
   mode?: Mode
   rpcUrl?: string
@@ -31,8 +28,7 @@ export interface StoryKitProviderOptions {
 
 const StoryKitContext = React.createContext<{
   chain: ChainConfig
-  viemChain: Chain
-  defaultCurrency?: Currency | undefined
+  defaultCurrency?: ERC20Token
   theme: Theme
   mode: Mode
   themeClass: string
@@ -41,8 +37,8 @@ const StoryKitContext = React.createContext<{
 } | null>(null)
 
 export const StoryKitProvider = ({
-  chain = STORYKIT_SUPPORTED_CHAIN.ODYSSEY_TESTNET,
-  defaultCurrency,
+  chain = STORYKIT_SUPPORTED_CHAIN.STORY_MAINNET,
+  defaultCurrency = WRAPPED_IP,
   theme = "default",
   mode,
   rpcUrl,
@@ -61,8 +57,7 @@ export const StoryKitProvider = ({
     <StoryKitContext.Provider
       value={{
         chain: chainConfig,
-        viemChain: getChainViemConfig(chainConfig),
-        defaultCurrency: defaultCurrency ? CURRENCIES[defaultCurrency] : chainConfig.defaultCurrency,
+        defaultCurrency,
         theme: theme,
         mode: mode,
         themeClass: `${theme}${mode ? `-${mode}` : ""}`,

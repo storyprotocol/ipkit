@@ -5,7 +5,7 @@ import { Address } from "viem"
 import IpWidget from "../IpWidget"
 
 const Example: FC<{ ipId: Address; isBottomNav?: boolean }> = ({
-  ipId = STORY_IP_ASSETS_MAP[STORY_IP_ASSETS[1]] as "0x${string}",
+  ipId = STORY_IP_ASSETS_MAP[STORY_IP_ASSETS[1]],
   isBottomNav = false,
 }) => {
   return <IpWidget ipId={ipId} isBottomNav={isBottomNav} />
