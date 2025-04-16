@@ -1,8 +1,6 @@
+import { STAGING_URL } from "@/constants/api"
 import type { paths } from "@storykit/api-schema"
 import createClient, { type Middleware } from "openapi-fetch"
-
-const API_URL =
-  process.env.STORYBOOK_OPENAPI_BASE_URL || process.env.NEXT_PUBLIC_OPENAPI_BASE_URL || process.env.OPENAPI_BASE_URL
 
 const middleware: Middleware = {
   async onRequest({ request }) {
@@ -11,5 +9,5 @@ const middleware: Middleware = {
   },
 }
 
-export const apiClient = createClient<paths>({ baseUrl: API_URL })
+export const apiClient = createClient<paths>({ baseUrl: STAGING_URL })
 apiClient.use(middleware)
