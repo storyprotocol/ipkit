@@ -3,7 +3,7 @@ import { type UseQueryOptions, type UseQueryResult, useQuery } from "@tanstack/r
 import { FetchOptions } from "openapi-fetch"
 import { HttpMethod, PathsWithMethod } from "openapi-typescript-helpers"
 
-import { apiClient } from "../lib/apiClient"
+import { apiClient } from "../lib/openAPI/apiClient"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
 const API_KEY =
