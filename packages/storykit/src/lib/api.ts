@@ -52,7 +52,7 @@ export async function listResource<T>(
         "X-CHAIN": options?.chain || _chain.name || STORYKIT_SUPPORTED_CHAIN.STORY_MAINNET,
       },
       cache: "no-cache",
-      ...(options && { body: JSON.stringify({ options }) }),
+      ...(options && { body: JSON.stringify(options) }),
     })
     if (res.ok) {
       return res.json()
