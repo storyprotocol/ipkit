@@ -7,3 +7,4 @@ export * from "./constants"
 // hooks
 export * from "./hooks/useIpAsset"
 export * from "./hooks/useIpAssetMetadata"
+export * from "./hooks/useIpAssets"

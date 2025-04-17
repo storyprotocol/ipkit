@@ -4,15 +4,15 @@ import { Address } from "viem"
 import { IpAssetsData, IpAssetsOptions, getIpAssets } from "../lib/openAPI/getIpAssets"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
-export type UseIpAssetQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
+export type UseIpAssetsQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
 
-export type UseIpAssetOptions = {
+export type UseIpAssetsOptions = {
   ipIds?: Address[]
   options?: IpAssetsOptions
-  queryOptions?: UseIpAssetQueryOptions
+  queryOptions?: UseIpAssetsQueryOptions
 }
 
-export function useIpAssets({ ipIds, options, queryOptions }: UseIpAssetOptions = {}) {
+export function useIpAssets({ ipIds, options, queryOptions }: UseIpAssetsOptions = {}) {
   const { chain, apiKey } = useStoryKitContext()
 
   return useQuery({
