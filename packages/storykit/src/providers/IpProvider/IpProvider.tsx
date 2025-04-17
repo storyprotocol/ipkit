@@ -42,7 +42,7 @@ const IpContext = React.createContext<{
   isAssetChildrenDataLoading: boolean
   isIpaMetadataLoading: boolean
   ipLicenseData: IPLicenseTerms[] | undefined
-  isipLicenseDataLoading: boolean
+  isIpLicenseDataLoading: boolean
   licenseTermsData: LicenseTerms[] | undefined
   isLicenseTermsDataLoading: boolean
   licenseData: License[] | undefined
@@ -224,7 +224,7 @@ export const IpProvider = ({
 
   // Fetch IP License Terms data
   const {
-    isLoading: isipLicenseDataLoading,
+    isLoading: isIpLicenseDataLoading,
     data: ipLicenseData,
     refetch: refetchIpLicenseData,
     isFetched: isIpLicenseDataFetched,
@@ -384,7 +384,7 @@ export const IpProvider = ({
         ipaMetadata,
         isIpaMetadataLoading: isIpaMetadataLoading || isLoadingFromIpfs,
         ipLicenseData: ipLicenseData?.data,
-        isipLicenseDataLoading,
+        isIpLicenseDataLoading,
         licenseTermsData,
         isLicenseTermsDataLoading,
         licenseData: licenseData?.data,
