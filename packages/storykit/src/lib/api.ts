@@ -2,6 +2,8 @@ import { CHAINS } from "@/constants/chains"
 import { QueryOptions, ResourceType } from "@/types/api"
 import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
 
+import { convertIpfsUriToUrl } from "./utils"
+
 const API_URL = process.env.STORYBOOK_API_BASE_URL || process.env.NEXT_PUBLIC_API_BASE_URL || process.env.API_BASE_URL
 
 const API_KEY =
@@ -63,6 +65,6 @@ export async function listResource<T>(
 }
 
 export async function getMetadataFromIpfs(ipfsUrl: string) {
-  const metadata = await fetch(ipfsUrl).then((res) => res.json())
+  const metadata = await fetch(convertIpfsUriToUrl(ipfsUrl)).then((res) => res.json())
   return metadata
 }
