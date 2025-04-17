@@ -40,9 +40,9 @@ export const StoryKitProvider = ({
   defaultCurrency = WRAPPED_IP,
   theme = "default",
   mode,
-  rpcUrl,
-  apiKey,
-  appId,
+  rpcUrl = "",
+  apiKey = "",
+  appId = "",
   children,
 }: StoryKitProviderOptions) => {
   //
