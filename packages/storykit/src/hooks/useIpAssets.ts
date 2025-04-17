@@ -1,7 +1,7 @@
 import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
 import { Address } from "viem"
 
-import { IpAssetsData, IpAssetsOptions, getIpAssets } from "../lib/openAPI/getIpAssets"
+import { IpAssetsData, IpAssetsOptions, getIpAssets } from "../lib/api/getIpAssets"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
 export type UseIpAssetsQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
