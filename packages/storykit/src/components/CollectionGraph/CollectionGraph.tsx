@@ -1,12 +1,8 @@
-import { listResource } from "@/lib/api"
+import { useIpAssets } from "@/hooks/useIpAssets"
 import { cn } from "@/lib/utils"
-import { useStoryKitContext } from "@/providers/StoryKitProvider"
-import { RESOURCE_TYPE } from "@/types/api"
-import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
 import { useQuery } from "@tanstack/react-query"
 import React, { useEffect, useRef, useState } from "react"
 import { LinkObject } from "react-force-graph-2d"
-// import * as THREE from "three"
 import { Address } from "viem"
 
 import "../../global.css"
@@ -31,17 +27,13 @@ function CollectionGraph({
   showRelationship = false,
   darkMode = false,
 }: CollectionGraphProps) {
-  const { chain } = useStoryKitContext()
-  const { isLoading: isAssetDataLoading, data: assetData } = useQuery({
-    queryKey: [RESOURCE_TYPE.ASSET, collectionAddress, chain.name],
-    queryFn: () =>
-      listResource(RESOURCE_TYPE.ASSET, chain.name as STORYKIT_SUPPORTED_CHAIN, {
-        pagination: { limit: 100 },
-        where: { tokenContract: collectionAddress },
-        orderBy: "blockTimestamp", // or blockTimestamp
-        orderDirection: "asc", // or "ASC"
-      }),
-    enabled: Boolean(collectionAddress),
+  const { isLoading: isAssetDataLoading, data: assetData } = useIpAssets({
+    options: {
+      pagination: { limit: 100 },
+      where: { tokenContract: collectionAddress },
+      orderBy: "blockTimestamp", // or blockTimestamp
+      orderDirection: "asc", // or "ASC"
+    },
   })
 
   const {
@@ -49,8 +41,8 @@ function CollectionGraph({
     data: formattedGraphData,
     isError,
   } = useQuery({
-    queryKey: ["FORMAT_GRAPH_DATA", assetData?.id],
-    queryFn: () => convertMultipleAssetsToGraphFormat(assetData.data as Asset[]),
+    queryKey: ["FORMAT_GRAPH_DATA", assetData?.data?.map((asset) => asset.id)],
+    queryFn: () => convertMultipleAssetsToGraphFormat(assetData?.data as Asset[]),
     enabled: !!assetData,
   })
 

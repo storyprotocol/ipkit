@@ -1,7 +1,9 @@
+import { useIpAsset } from "@/hooks/useIpAsset"
+import { useIpAssetMetadata } from "@/hooks/useIpAssetMetadata"
 import { convertLicenseTermObject } from "@/lib/functions/convertLicenseTermObject"
 import { getRoyaltiesByIPs } from "@/lib/royalty-graph"
 import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
-import { RoyaltiesGraph, RoyaltyGraph } from "@/types/royalty-graph"
+import { RoyaltiesGraph } from "@/types/royalty-graph"
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query"
 import React from "react"
 import { Address, Hash } from "viem"
@@ -10,15 +12,8 @@ import { getMetadataFromIpfs, getResource, listResource } from "../../lib/api"
 import { getNFTByTokenId } from "../../lib/simplehash"
 import { convertIpfsUriToUrl } from "../../lib/utils"
 import { RESOURCE_TYPE } from "../../types/api"
-import {
-  Asset,
-  AssetEdges,
-  AssetMetadata,
-  IPLicenseTerms,
-  License,
-  LicenseTerms,
-  RoyaltyPolicy,
-} from "../../types/assets"
+import { AssetEdges, IPLicenseTerms, License, LicenseTerms, RoyaltyPolicy } from "../../types/assets"
+import { IPAsset, IPAssetMetadata } from "../../types/openapi"
 import { NFTMetadata } from "../../types/simplehash"
 import { useStoryKitContext } from "../StoryKitProvider"
 
@@ -35,12 +30,12 @@ export interface IpProviderOptions {
 
 const IpContext = React.createContext<{
   chain: STORYKIT_SUPPORTED_CHAIN
-  assetData: Asset | undefined
+  assetData: IPAsset | undefined
   assetParentData: AssetEdges[] | undefined
   assetChildrenData: AssetEdges[] | undefined
   loadMoreAssetChildren: () => void
   nftData: NFTMetadata | undefined
-  ipaMetadata: AssetMetadata | undefined
+  ipaMetadata: IPAssetMetadata | undefined
   isNftDataLoading: boolean
   isAssetDataLoading: boolean
   isAssetParentDataLoading: boolean
@@ -105,17 +100,19 @@ export const IpProvider = ({
     data: assetData,
     refetch: refetchAssetData,
     isFetched: isAssetDataFetched,
-  } = useQuery<{ data: Asset } | undefined>({
-    queryKey: [RESOURCE_TYPE.ASSET, ipId],
-    queryFn: () => getResource(RESOURCE_TYPE.ASSET, ipId, chain.name as STORYKIT_SUPPORTED_CHAIN),
-    enabled: queryOptions.assetData,
+  } = useIpAsset({
+    ipId,
+    queryOptions: {
+      enabled: queryOptions.assetData,
+    },
   })
 
   // Fetch IP metadata
-  const { isLoading: isIpaMetadataLoading, data: ipaMetadataRaw } = useQuery({
-    queryKey: [RESOURCE_TYPE.ASSET, `${ipId}/metadata`],
-    queryFn: () => getResource(RESOURCE_TYPE.ASSET, `${ipId}/metadata`, chain.name as STORYKIT_SUPPORTED_CHAIN),
-    enabled: queryOptions.ipaMetadata,
+  const { isLoading: isIpaMetadataLoading, data: ipaMetadataRaw } = useIpAssetMetadata({
+    ipId,
+    queryOptions: {
+      enabled: queryOptions.assetData,
+    },
   })
 
   // Fetch IP Metadata from IPFS
@@ -364,8 +361,8 @@ export const IpProvider = ({
     enabled:
       queryOptions.assetData &&
       Boolean(assetData) &&
-      Boolean(assetData?.data.nftMetadata.tokenContract) &&
-      Boolean(assetData?.data.nftMetadata.tokenId),
+      Boolean(assetData?.data?.nftMetadata?.tokenContract) &&
+      Boolean(assetData?.data?.nftMetadata?.tokenId),
   })
 
   return (
