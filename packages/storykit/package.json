@@ -27,7 +27,6 @@
     "build": "rollup -c --bundleConfigAsCjs --inlineDynamicImports",
     "test-storybook": "test-storybook"
   },
-  "prettier": "@storykit/prettier-config",
   "dependencies": {
     "@emotion/is-prop-valid": "^1.2.2",
     "@emotion/react": "^11.11.4",
