@@ -4,28 +4,28 @@ import { Address } from "viem"
 
 import { listQuery } from "./listQuery"
 
-export type LicenseMintingFeePaysData =
+export type LicenseMintingFeesData =
   paths["/api/v3/licenses/mintingfees"]["post"]["responses"][200]["content"]["application/json"]
-export type LicenseMintingFeePaysOptions =
+export type LicenseMintingFeesOptions =
   paths["/api/v3/licenses/mintingfees"]["post"]["requestBody"]["content"]["application/json"]["options"]
 
-export type GetLicenseMintingFeePaysOptions = {
+export type GetLicenseMintingFeesOptions = {
   licenseMintingFeePaidIds?: Address[] // licenseMintingFeePaidIds from options added here for convenience
-  options?: LicenseMintingFeePaysOptions
+  options?: LicenseMintingFeesOptions
   chainName: string
   apiKey: string
 }
 
-export function getLicenseMintingFeePays({
+export function getLicenseMintingFees({
   licenseMintingFeePaidIds,
   options,
   chainName,
   apiKey,
-}: GetLicenseMintingFeePaysOptions) {
+}: GetLicenseMintingFeesOptions) {
   return listQuery({
     path: "/api/v3/licenses/mintingfees",
     body: { options: { ...options, ...(licenseMintingFeePaidIds ? { id: licenseMintingFeePaidIds } : {}) } },
     chainName,
     apiKey,
-  }) as Promise<FetchResponse<LicenseMintingFeePaysData, LicenseMintingFeePaysOptions, "application/json">>
+  }) as Promise<FetchResponse<LicenseMintingFeesData, LicenseMintingFeesOptions, "application/json">>
 }

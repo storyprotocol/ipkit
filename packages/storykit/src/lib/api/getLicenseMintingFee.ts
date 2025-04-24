@@ -3,11 +3,11 @@ import { FetchResponse } from "openapi-fetch"
 
 import { getQuery } from "./getQuery"
 
-export type LicenseMintingFeePayData =
+export type LicenseMintingFeeData =
   paths["/api/v3/licenses/mintingfees/{licenseMintingFeePaidId}"]["get"]["responses"][200]["content"]["application/json"]
-export type LicenseMintingFeePayOptions = paths["/api/v3/licenses/mintingfees/{licenseMintingFeePaidId}"]["options"]
+export type LicenseMintingFeeOptions = paths["/api/v3/licenses/mintingfees/{licenseMintingFeePaidId}"]["options"]
 
-export function getLicenseMintingFeePay({
+export function getLicenseMintingFee({
   licenseMintingFeePaidId,
   chainName,
   apiKey,
@@ -21,5 +21,5 @@ export function getLicenseMintingFeePay({
     pathParams: { licenseMintingFeePaidId },
     chainName,
     apiKey,
-  }) as Promise<FetchResponse<LicenseMintingFeePayData, LicenseMintingFeePayOptions, "application/json">>
+  }) as Promise<FetchResponse<LicenseMintingFeeData, LicenseMintingFeeOptions, "application/json">>
 }

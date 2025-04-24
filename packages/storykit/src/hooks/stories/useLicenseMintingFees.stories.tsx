@@ -2,10 +2,10 @@ import { shortenAddress } from "@/lib"
 import type { Meta, StoryObj } from "@storybook/react"
 import React from "react"
 
-import { UseLicenseMintingFeePaysOptions, useLicenseMintingFeePays } from "../useLicenseMintingFeePays"
+import { UseLicenseMintingFeesOptions, useLicenseMintingFees } from "../useLicenseMintingFees"
 
-const Example = (args: UseLicenseMintingFeePaysOptions) => {
-  const { isLoading, data } = useLicenseMintingFeePays(args)
+const Example = (args: UseLicenseMintingFeesOptions) => {
+  const { isLoading, data } = useLicenseMintingFees(args)
   if (isLoading) return <>loading...</>
   return (
     <table className="sk-border-spacing-4">
@@ -48,7 +48,7 @@ const Example = (args: UseLicenseMintingFeePaysOptions) => {
 }
 
 const meta = {
-  title: "Hooks/useLicenseMintingFeePays",
+  title: "Hooks/useLicenseMintingFees",
   component: Example,
   parameters: {
     layout: "centered",
