@@ -8,16 +8,15 @@ export type DisputesData = paths["/api/v3/disputes"]["post"]["responses"][200]["
 export type DisputesOptions = paths["/api/v3/disputes"]["post"]["requestBody"]["content"]["application/json"]["options"]
 
 export type GetDisputesOptions = {
-  disputeIds?: Address[] // disputeIds from options added here for convenience
   options?: DisputesOptions
   chainName: string
   apiKey: string
 }
 
-export function getDisputes({ disputeIds, options, chainName, apiKey }: GetDisputesOptions) {
+export function getDisputes({ options, chainName, apiKey }: GetDisputesOptions) {
   return listQuery({
     path: "/api/v3/disputes",
-    body: { options: { ...options, ...(disputeIds ? { id: disputeIds } : {}) } },
+    body: { options: options || {} },
     chainName,
     apiKey,
   }) as Promise<FetchResponse<DisputesData, DisputesOptions, "application/json">>
