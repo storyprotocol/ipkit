@@ -11,23 +11,17 @@ import { useStoryKitContext } from "../providers/StoryKitProvider"
 export type UseLicenseMintingFeesQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
 
 export type UseLicenseMintingFeesOptions = {
-  licenseMintingFeePaidIds?: Address[]
   options?: LicenseMintingFeesOptions
   queryOptions?: UseLicenseMintingFeesQueryOptions
 }
 
-export function useLicenseMintingFees({
-  licenseMintingFeePaidIds,
-  options,
-  queryOptions,
-}: UseLicenseMintingFeesOptions = {}) {
+export function useLicenseMintingFees({ options, queryOptions }: UseLicenseMintingFeesOptions = {}) {
   const { chain, apiKey } = useStoryKitContext()
 
   return useQuery({
-    queryKey: ["getLicenseMintingFees", licenseMintingFeePaidIds, options, queryOptions],
+    queryKey: ["getLicenseMintingFees", options, queryOptions],
     queryFn: async () => {
       const { data, error } = await getLicenseMintingFees({
-        licenseMintingFeePaidIds,
         options,
         chainName: chain.name,
         apiKey,
