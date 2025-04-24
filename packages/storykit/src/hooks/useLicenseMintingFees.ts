@@ -1,5 +1,4 @@
 import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
-import { Address } from "viem"
 
 import {
   LicenseMintingFeesData,
