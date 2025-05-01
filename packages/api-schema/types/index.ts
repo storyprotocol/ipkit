@@ -484,7 +484,7 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  "/api/v3/ip_groups": {
+  "/api/v3/ip-groups": {
     parameters: {
       query?: never;
       header?: never;
