@@ -435,7 +435,7 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  "/api/v3/ip_group_edges": {
+  "/api/v3/ip-group-edges": {
     parameters: {
       query?: never;
       header?: never;
