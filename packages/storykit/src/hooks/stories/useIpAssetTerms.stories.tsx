@@ -1,29 +1,33 @@
 import { shortenAddress } from "@/lib"
 import type { Meta, StoryObj } from "@storybook/react"
-import React, { useEffect } from "react"
+import React from "react"
 
 import { UseIpAssetTermsOptions, useIpAssetTerms } from "../useIpAssetTerms"
 
 const Example = (args: UseIpAssetTermsOptions) => {
   const { isLoading, data } = useIpAssetTerms(args)
-  useEffect(() => {
-    console.log(data)
-  }, [data])
+
   if (isLoading) return <>loading...</>
   return (
     <table className="sk-border-spacing-4">
       <thead>
         <tr className="sk-bg-slate-100 sk-py-0.5">
-          <td className="sk-px-2">Id</td>
-          <td className="sk-px-2">IpId</td>
-          <td className="sk-px-2">License Terms Id</td>
+          <th className="sk-px-2" align="left">
+            Ip Id
+          </th>
+          <th className="sk-px-2" align="left">
+            License Template
+          </th>
+          <th className="sk-px-2" align="left">
+            License Terms Id
+          </th>
         </tr>
       </thead>
       <tbody>
         {data?.data?.map((terms, index) => (
           <tr className="sk-py-0.5" key={index}>
-            <td className="sk-px-2">{shortenAddress(terms.id || "")}</td>
             <td className="sk-px-2">{shortenAddress(terms.ipId || "")}</td>
+            <td className="sk-px-2">{shortenAddress(terms.licenseTemplate || "")}</td>
             <td className="sk-px-2">{terms.licenseTermsId || ""}</td>
           </tr>
         ))}

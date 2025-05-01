@@ -1,29 +1,11 @@
 import { shortenAddress } from "@/lib"
 import type { Meta, StoryObj } from "@storybook/react"
-import React, { useEffect } from "react"
+import React from "react"
 
 import { UseIpAssetEdgesOptions, useIpAssetEdges } from "../useIpAssetEdges"
 
-type IpAssetEdge = {
-  ipId?: string
-  parentIpId?: string
-  licenseTemplate?: string
-  licenseTermsId?: string
-  blockNumber?: string
-  blockTime?: string
-}
-
-type IpAssetEdgeResponse = {
-  data: IpAssetEdge[]
-  next?: string
-  prev?: string
-}
-
 const Example = (args: UseIpAssetEdgesOptions) => {
   const { isLoading, data } = useIpAssetEdges(args)
-  useEffect(() => {
-    console.log(data)
-  }, [data])
   if (isLoading) return <>loading...</>
   return (
     <div className="sk-space-y-4">
