@@ -2,23 +2,23 @@ import type { Meta, StoryObj } from "@storybook/react"
 import React from "react"
 
 import { UseIpAssetsOptions, useIpAssets } from "../useIpAssets"
+import { DataTable } from "./(components)/DataTable"
 
 const Example = (args: UseIpAssetsOptions) => {
   const { isLoading, data } = useIpAssets(args)
+  const fields = ["ipId", "name"]
+
   if (isLoading) return <>loading...</>
+  if (!data?.data) return <>none found</>
+
   return (
-    <table className="sk-border-spacing-4">
-      <tr className="sk-bg-slate-100 sk-py-0.5">
-        <th className="sk-px-2" align="left">
-          ipId
-        </th>
-      </tr>
-      {data?.data?.map((asset) => (
-        <tr className="sk-py-0.5" key={asset.id}>
-          <td className="sk-px-2">{asset.ipId}</td>
-        </tr>
-      ))}
-    </table>
+    <DataTable
+      fields={fields}
+      data={data.data.map((asset) => ({
+        ...asset,
+        name: asset.nftMetadata?.name || "",
+      }))}
+    />
   )
 }
 

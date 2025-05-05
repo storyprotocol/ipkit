@@ -1,37 +1,24 @@
-import { shortenAddress } from "@/lib"
 import type { Meta, StoryObj } from "@storybook/react"
 import React from "react"
 
 import { UseDetailedIpLicenseTermsOptions, useDetailedIpLicenseTerms } from "../useDetailedIpLicenseTerms"
+import { DataTable } from "./(components)/DataTable"
 
 const Example = (args: UseDetailedIpLicenseTermsOptions) => {
   const { isLoading, data } = useDetailedIpLicenseTerms(args)
+  const fields = ["id", "ipId", "licenseTemplateId", "derivativesAllowed"]
+
   if (isLoading) return <>loading...</>
+  if (!data?.data) return <>none found</>
+
   return (
-    <table className="sk-border-spacing-4">
-      <tr className="sk-bg-slate-100 sk-py-0.5">
-        <th className="sk-px-2" align="left">
-          Id
-        </th>
-        <th className="sk-px-2" align="left">
-          Ip Id
-        </th>
-        <th className="sk-px-2" align="left">
-          License Template Id
-        </th>
-        <th className="sk-px-2" align="left">
-          Derivatives Allowed
-        </th>
-      </tr>
-      {data?.data?.map((asset) => (
-        <tr className="sk-py-0.5" key={asset.id}>
-          <td className="sk-px-2">{shortenAddress(asset.id || "")}</td>
-          <td className="sk-px-2">{shortenAddress(asset.ipId || "")}</td>
-          <td className="sk-px-2">{shortenAddress(asset.licenseTemplateId || "")}</td>
-          <td className="sk-px-2">{asset.terms?.derivativesAllowed ? "Yes" : "No"}</td>
-        </tr>
-      ))}
-    </table>
+    <DataTable
+      fields={fields}
+      data={data.data.map((asset) => ({
+        ...asset,
+        derivativesAllowed: asset.terms?.derivativesAllowed ? "Yes" : "No",
+      }))}
+    />
   )
 }
 

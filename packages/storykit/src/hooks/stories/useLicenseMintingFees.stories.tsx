@@ -1,49 +1,25 @@
-import { shortenAddress } from "@/lib"
 import type { Meta, StoryObj } from "@storybook/react"
 import React from "react"
+import { formatEther } from "viem"
 
 import { UseLicenseMintingFeesOptions, useLicenseMintingFees } from "../useLicenseMintingFees"
+import { DataTable } from "./(components)/DataTable"
 
 const Example = (args: UseLicenseMintingFeesOptions) => {
   const { isLoading, data } = useLicenseMintingFees(args)
+  const fields = ["id", "amount", "payer", "receiverIpId", "token"]
+
   if (isLoading) return <>loading...</>
+  if (!data?.data) return <>none found</>
+
   return (
-    <table className="sk-border-spacing-4">
-      <tr className="sk-bg-slate-100 sk-py-0.5">
-        <th className="sk-px-2" align="left">
-          ID
-        </th>
-        <th className="sk-px-2" align="left">
-          Amount
-        </th>
-        <th className="sk-px-2" align="left">
-          Payer
-        </th>
-        <th className="sk-px-2" align="left">
-          Receiver IP ID
-        </th>
-        <th className="sk-px-2" align="left">
-          Token
-        </th>
-        <th className="sk-px-2" align="left">
-          Block Number
-        </th>
-        <th className="sk-px-2" align="left">
-          Block Timestamp
-        </th>
-      </tr>
-      {data?.data?.map((fee) => (
-        <tr key={fee.id} className="sk-py-0.5">
-          <td className="sk-px-2">{fee.id || ""}</td>
-          <td className="sk-px-2">{fee.amount || ""}</td>
-          <td className="sk-px-2">{shortenAddress(fee.payer || "")}</td>
-          <td className="sk-px-2">{shortenAddress(fee.receiverIpId || "")}</td>
-          <td className="sk-px-2">{shortenAddress(fee.token || "")}</td>
-          <td className="sk-px-2">{fee.blockNumber || ""}</td>
-          <td className="sk-px-2">{fee.blockTimestamp || ""}</td>
-        </tr>
-      ))}
-    </table>
+    <DataTable
+      fields={fields}
+      data={data.data.map((fee) => ({
+        ...fee,
+        amount: `${Number(formatEther(BigInt(fee.amount || 0))).toFixed(3)} IP`,
+      }))}
+    />
   )
 }
 

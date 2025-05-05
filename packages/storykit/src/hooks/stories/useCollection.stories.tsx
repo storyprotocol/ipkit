@@ -1,32 +1,17 @@
-import { shortenAddress } from "@/lib"
 import type { Meta, StoryObj } from "@storybook/react"
 import React from "react"
 
 import { UseCollectionOptions, useCollection } from "../useCollection"
+import { DataTable } from "./(components)/DataTable"
 
 const Example = (args: UseCollectionOptions) => {
   const { isLoading, data } = useCollection(args)
+  const fields = ["id", "assetCount", "licensesCount"]
+
   if (isLoading) return <>loading...</>
-  return (
-    <table className="sk-border-spacing-4">
-      <tr className="sk-bg-slate-100 sk-py-0.5">
-        <th className="sk-px-2" align="left">
-          id
-        </th>
-        <th className="sk-px-2" align="left">
-          assetCount
-        </th>
-        <th className="sk-px-2" align="left">
-          licensesCount
-        </th>
-      </tr>
-      <tr className="sk-py-0.5">
-        <td className="sk-px-2">{shortenAddress(data?.data?.id || "")}</td>
-        <td className="sk-px-2">{data?.data?.assetCount}</td>
-        <td className="sk-px-2">{data?.data?.licensesCount}</td>
-      </tr>
-    </table>
-  )
+  if (!data?.data) return <>none found</>
+
+  return <DataTable fields={fields} data={[data.data]} />
 }
 
 const meta = {

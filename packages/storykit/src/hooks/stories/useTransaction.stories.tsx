@@ -1,36 +1,17 @@
-import { shortenAddress } from "@/lib"
 import type { Meta, StoryObj } from "@storybook/react"
 import React from "react"
 
 import { UseTransactionOptions, useTransaction } from "../useTransaction"
+import { DataTable } from "./(components)/DataTable"
 
 const Example = (args: UseTransactionOptions) => {
   const { isLoading, data } = useTransaction(args)
+  const fields = ["txHash", "actionType", "resourceType", "ipId", "createdAt"]
+
   if (isLoading) return <>loading...</>
-  return (
-    <div className="sk-p-4">
-      <table className="sk-border-spacing-4">
-        <tbody>
-          <tr className="sk-py-0.5">
-            <td className="sk-px-2 sk-font-medium">Transaction Hash</td>
-            <td className="sk-px-2">{shortenAddress(data?.data?.[0]?.txHash || "")}</td>
-          </tr>
-          <tr className="sk-py-0.5">
-            <td className="sk-px-2 sk-font-medium">Action Type</td>
-            <td className="sk-px-2">{data?.data?.[0]?.actionType || ""}</td>
-          </tr>
-          <tr className="sk-py-0.5">
-            <td className="sk-px-2 sk-font-medium">Block Number</td>
-            <td className="sk-px-2">{data?.data?.[0]?.blockNumber || ""}</td>
-          </tr>
-          <tr className="sk-py-0.5">
-            <td className="sk-px-2 sk-font-medium">Resource Type</td>
-            <td className="sk-px-2">{data?.data?.[0]?.resourceType || ""}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  )
+  if (!data?.data) return <>none found</>
+
+  return <DataTable fields={fields} data={data.data} />
 }
 
 const meta = {

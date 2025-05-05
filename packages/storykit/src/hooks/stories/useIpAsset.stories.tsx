@@ -1,19 +1,26 @@
-import { shortenAddress } from "@/lib"
 import type { Meta, StoryObj } from "@storybook/react"
 import React from "react"
 
 import { UseIpAssetOptions, useIpAsset } from "../useIpAsset"
+import { DataTable } from "./(components)/DataTable"
 
 const Example = (args: UseIpAssetOptions) => {
   const { isLoading, data } = useIpAsset(args)
+  const fields = ["ipId", "name"]
+
   if (isLoading) return <>loading...</>
+  if (!data?.data) return <>none found</>
+
   return (
-    <table className="sk-border-spacing-4">
-      <tr className="sk-py-0.5">
-        <td className="sk-px-2">{shortenAddress(data?.data?.ipId || "")}</td>
-        <td className="sk-px-2">{data?.data?.nftMetadata?.name}</td>
-      </tr>
-    </table>
+    <DataTable
+      fields={fields}
+      data={[
+        {
+          ...data.data,
+          name: data.data.nftMetadata?.name || "",
+        },
+      ]}
+    />
   )
 }
 

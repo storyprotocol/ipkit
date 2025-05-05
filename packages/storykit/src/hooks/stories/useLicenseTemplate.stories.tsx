@@ -3,39 +3,28 @@ import type { Meta, StoryObj } from "@storybook/react"
 import React from "react"
 
 import { UseLicenseTemplateOptions, useLicenseTemplate } from "../useLicenseTemplate"
+import { CopyText } from "./(components)/CopyText"
+import { DataTable } from "./(components)/DataTable"
 
 const Example = (args: UseLicenseTemplateOptions) => {
   const { isLoading, data } = useLicenseTemplate(args)
+  const fields = ["id", "name", "metadataUri"]
+
   if (isLoading) return <>loading...</>
+  if (!data?.data) return <>none found</>
+
   return (
-    <table className="sk-border-spacing-4">
-      <tr className="sk-bg-slate-100 sk-py-0.5">
-        <th className="sk-px-2" align="left">
-          ID
-        </th>
-        <th className="sk-px-2" align="left">
-          Name
-        </th>
-        <th className="sk-px-2" align="left">
-          Metadata URI
-        </th>
-        <th className="sk-px-2" align="left">
-          Block Number
-        </th>
-        <th className="sk-px-2" align="left">
-          Block Time
-        </th>
-      </tr>
-      {data?.data && (
-        <tr className="sk-py-0.5">
-          <td className="sk-px-2">{shortenAddress(data.data.id || "")}</td>
-          <td className="sk-px-2">{data.data.name || ""}</td>
-          <td className="sk-px-2">{data.data.metadataUri || ""}</td>
-          <td className="sk-px-2">{data.data.blockNumber || ""}</td>
-          <td className="sk-px-2">{data.data.blockTime || ""}</td>
-        </tr>
-      )}
-    </table>
+    <DataTable
+      fields={fields}
+      data={[
+        {
+          ...data.data,
+          metadataUri: (
+            <CopyText label={shortenAddress(data.data.metadataUri || "", 20)} value={data.data.metadataUri || ""} />
+          ),
+        },
+      ]}
+    />
   )
 }
 
