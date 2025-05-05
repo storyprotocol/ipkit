@@ -15,7 +15,8 @@ export type GetRoyaltyPaymentOptions = {
 
 export function getRoyaltyPayment({ royaltyPayId, chainName, apiKey }: GetRoyaltyPaymentOptions) {
   return getQuery({
-    path: `/api/v3/royalties/payments/${royaltyPayId}`,
+    path: "/api/v3/royalties/payments/{royaltyPayId}",
+    pathParams: { royaltyPayId },
     chainName,
     apiKey,
   }) as Promise<FetchResponse<RoyaltyPaymentData, never, "application/json">>
