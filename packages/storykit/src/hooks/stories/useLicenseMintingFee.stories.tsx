@@ -1,22 +1,23 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import React from "react"
+import { formatEther } from "viem"
 
-import { UseIpAssetOptions, useIpAsset } from "../useIpAsset"
+import { UseLicenseMintingFeeOptions, useLicenseMintingFee } from "../useLicenseMintingFee"
 import { DataTable } from "./(components)/DataTable"
 
-const Example = (args: UseIpAssetOptions) => {
-  const { isLoading, data } = useIpAsset(args)
+const Example = (args: UseLicenseMintingFeeOptions) => {
+  const { isLoading, data } = useLicenseMintingFee(args)
 
   if (isLoading) return <>loading...</>
   if (!data?.data) return <>none found</>
 
   return (
     <DataTable
-      fields={["ipId", "name"]}
+      fields={["id", "amount", "payer", "receiverIpId", "token"]}
       data={[
         {
           ...data.data,
-          name: data.data.nftMetadata?.name || "",
+          amount: `${Number(formatEther(BigInt(data.data.amount || 0))).toFixed(3)} IP`,
         },
       ]}
     />
@@ -24,13 +25,13 @@ const Example = (args: UseIpAssetOptions) => {
 }
 
 const meta = {
-  title: "Hooks/useIpAsset",
+  title: "Hooks/useLicenseMintingFee",
   component: Example,
   parameters: {
     layout: "centered",
   },
   args: {
-    ipId: "0xD4128fD30640C8b3822E3A33EB2c672e955B772d",
+    licenseMintingFeePaidId: "0x030842d26e948d4a436088a16a914a4b6e2c0ca23445d68360249d508c5080bc14",
     queryOptions: {
       enabled: true,
     },

@@ -1,22 +1,23 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import React from "react"
+import { formatEther } from "viem"
 
-import { UseIpAssetOptions, useIpAsset } from "../useIpAsset"
+import { UseRoyaltyPaymentOptions, useRoyaltyPayment } from "../useRoyaltyPayment"
 import { DataTable } from "./(components)/DataTable"
 
-const Example = (args: UseIpAssetOptions) => {
-  const { isLoading, data } = useIpAsset(args)
+const Example = (args: UseRoyaltyPaymentOptions) => {
+  const { isLoading, data } = useRoyaltyPayment(args)
 
   if (isLoading) return <>loading...</>
   if (!data?.data) return <>none found</>
 
   return (
     <DataTable
-      fields={["ipId", "name"]}
+      fields={["id", "amount", "sender", "payerIpId", "receiverIpId"]}
       data={[
         {
           ...data.data,
-          name: data.data.nftMetadata?.name || "",
+          amount: `${Number(formatEther(BigInt(data.data.amount || 0))).toFixed(3)}IP`,
         },
       ]}
     />
@@ -24,13 +25,13 @@ const Example = (args: UseIpAssetOptions) => {
 }
 
 const meta = {
-  title: "Hooks/useIpAsset",
+  title: "Hooks/useRoyaltyPayment",
   component: Example,
   parameters: {
     layout: "centered",
   },
   args: {
-    ipId: "0xD4128fD30640C8b3822E3A33EB2c672e955B772d",
+    royaltyPayId: "0x9e3a1f325519871f4db66b7e3b6ae4c9734e82bc641d2a6189ec9c0d963923ea7",
     queryOptions: {
       enabled: true,
     },

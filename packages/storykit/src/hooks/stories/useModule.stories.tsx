@@ -1,36 +1,26 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import React from "react"
 
-import { UseIpAssetOptions, useIpAsset } from "../useIpAsset"
+import { UseModuleOptions, useModule } from "../useModule"
 import { DataTable } from "./(components)/DataTable"
 
-const Example = (args: UseIpAssetOptions) => {
-  const { isLoading, data } = useIpAsset(args)
+const Example = (args: UseModuleOptions) => {
+  const { isLoading, data } = useModule(args)
 
   if (isLoading) return <>loading...</>
   if (!data?.data) return <>none found</>
 
-  return (
-    <DataTable
-      fields={["ipId", "name"]}
-      data={[
-        {
-          ...data.data,
-          name: data.data.nftMetadata?.name || "",
-        },
-      ]}
-    />
-  )
+  return <DataTable fields={["id", "name", "module", "moduleTypeInterfaceId", "transactionHash"]} data={[data.data]} />
 }
 
 const meta = {
-  title: "Hooks/useIpAsset",
+  title: "Hooks/useModule",
   component: Example,
   parameters: {
     layout: "centered",
   },
   args: {
-    ipId: "0xD4128fD30640C8b3822E3A33EB2c672e955B772d",
+    moduleId: "0x69D3a7aa9edb72Bc226E745A7cCdd50D947b69Ac",
     queryOptions: {
       enabled: true,
     },
