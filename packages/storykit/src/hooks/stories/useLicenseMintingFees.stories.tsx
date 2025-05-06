@@ -7,14 +7,13 @@ import { DataTable } from "./(components)/DataTable"
 
 const Example = (args: UseLicenseMintingFeesOptions) => {
   const { isLoading, data } = useLicenseMintingFees(args)
-  const fields = ["id", "amount", "payer", "receiverIpId", "token"]
 
   if (isLoading) return <>loading...</>
   if (!data?.data) return <>none found</>
 
   return (
     <DataTable
-      fields={fields}
+      fields={["id", "amount", "payer", "receiverIpId", "token"]}
       data={data.data.map((fee) => ({
         ...fee,
         amount: `${Number(formatEther(BigInt(fee.amount || 0))).toFixed(3)} IP`,

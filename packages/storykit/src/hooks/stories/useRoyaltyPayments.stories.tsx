@@ -7,14 +7,13 @@ import { DataTable } from "./(components)/DataTable"
 
 const Example = (args: UseRoyaltyPaymentsOptions) => {
   const { isLoading, data } = useRoyaltyPayments(args)
-  const fields = ["id", "amount", "sender", "payerIpId", "receiverIpId"]
 
   if (isLoading) return <>loading...</>
   if (!data?.data) return <>none found</>
 
   return (
     <DataTable
-      fields={fields}
+      fields={["id", "amount", "sender", "payerIpId", "receiverIpId"]}
       data={data.data.map((payment) => ({
         ...payment,
         amount: `${Number(formatEther(BigInt(payment.amount || 0))).toFixed(3)}IP`,

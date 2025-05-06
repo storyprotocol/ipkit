@@ -6,12 +6,11 @@ import { DataTable } from "./(components)/DataTable"
 
 const Example = (args: UseModuleOptions) => {
   const { isLoading, data } = useModule(args)
-  const fields = ["id", "name", "module", "moduleTypeInterfaceId", "transactionHash"]
 
   if (isLoading) return <>loading...</>
   if (!data?.data) return <>none found</>
 
-  return <DataTable fields={fields} data={[data.data]} />
+  return <DataTable fields={["id", "name", "module", "moduleTypeInterfaceId", "transactionHash"]} data={[data.data]} />
 }
 
 const meta = {

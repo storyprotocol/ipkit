@@ -6,12 +6,11 @@ import { DataTable } from "./(components)/DataTable"
 
 const Example = (args: UseDisputesOptions) => {
   const { isLoading, data } = useDisputes(args)
-  const fields = ["id", "status", "initiator", "targetIpId", "arbitrationPolicy"]
 
   if (isLoading) return <>loading...</>
   if (!data?.data) return <>none found</>
 
-  return <DataTable fields={fields} data={data.data} />
+  return <DataTable fields={["id", "status", "initiator", "targetIpId", "arbitrationPolicy"]} data={data.data} />
 }
 
 const meta = {

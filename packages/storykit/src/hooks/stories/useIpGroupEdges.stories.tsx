@@ -6,12 +6,11 @@ import { DataTable } from "./(components)/DataTable"
 
 const Example = (args: UseIpGroupEdgesOptions) => {
   const { isLoading, data } = useIpGroupEdges(args)
-  const fields = ["group_id", "ip_id", "transaction_hash"]
 
   if (isLoading) return <>loading...</>
   if (!data?.data) return <>none found</>
 
-  return <DataTable fields={fields} data={data.data} />
+  return <DataTable fields={["group_id", "ip_id", "transaction_hash"]} data={data.data} />
 }
 
 const meta = {

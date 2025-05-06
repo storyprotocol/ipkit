@@ -6,12 +6,11 @@ import { DataTable } from "./(components)/DataTable"
 
 const Example = (args: UseTransactionsOptions) => {
   const { isLoading, data } = useTransactions(args)
-  const fields = ["txHash", "actionType", "resourceType", "ipId", "createdAt"]
 
   if (isLoading) return <>loading...</>
   if (!data?.data) return <>none found</>
 
-  return <DataTable fields={fields} data={data.data} />
+  return <DataTable fields={["txHash", "actionType", "resourceType", "ipId", "createdAt"]} data={data.data} />
 }
 
 const meta = {

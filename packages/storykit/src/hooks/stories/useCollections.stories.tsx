@@ -6,12 +6,11 @@ import { DataTable } from "./(components)/DataTable"
 
 const Example = (args: UseCollectionsOptions) => {
   const { isLoading, data } = useCollections(args)
-  const fields = ["id", "assetCount", "licensesCount"]
 
   if (isLoading) return <>loading...</>
   if (!data?.data) return <>none found</>
 
-  return <DataTable fields={fields} data={data.data} />
+  return <DataTable fields={["id", "assetCount", "licensesCount"]} data={data.data} />
 }
 
 const meta = {

@@ -6,14 +6,13 @@ import { DataTable } from "./(components)/DataTable"
 
 const Example = (args: UseDetailedIpLicenseTermsOptions) => {
   const { isLoading, data } = useDetailedIpLicenseTerms(args)
-  const fields = ["id", "ipId", "licenseTemplateId", "derivativesAllowed"]
 
   if (isLoading) return <>loading...</>
   if (!data?.data) return <>none found</>
 
   return (
     <DataTable
-      fields={fields}
+      fields={["id", "ipId", "licenseTemplateId", "derivativesAllowed"]}
       data={data.data.map((asset) => ({
         ...asset,
         derivativesAllowed: asset.terms?.derivativesAllowed ? "Yes" : "No",

@@ -6,12 +6,11 @@ import { DataTable } from "./(components)/DataTable"
 
 const Example = (args: UseIpAssetEdgesOptions) => {
   const { isLoading, data } = useIpAssetEdges(args)
-  const fields = ["ipId", "parentIpId", "licenseTemplate", "licenseTermsId"]
 
   if (isLoading) return <>loading...</>
   if (!data?.data) return <>none found</>
 
-  return <DataTable fields={fields} data={data.data} />
+  return <DataTable fields={["ipId", "parentIpId", "licenseTemplate", "licenseTermsId"]} data={data.data} />
 }
 
 const meta = {

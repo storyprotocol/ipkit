@@ -8,14 +8,13 @@ import { DataTable } from "./(components)/DataTable"
 
 const Example = (args: UseLicenseTemplateOptions) => {
   const { isLoading, data } = useLicenseTemplate(args)
-  const fields = ["id", "name", "metadataUri"]
 
   if (isLoading) return <>loading...</>
   if (!data?.data) return <>none found</>
 
   return (
     <DataTable
-      fields={fields}
+      fields={["id", "name", "metadataUri"]}
       data={[
         {
           ...data.data,

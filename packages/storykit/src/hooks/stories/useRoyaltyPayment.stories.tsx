@@ -7,14 +7,13 @@ import { DataTable } from "./(components)/DataTable"
 
 const Example = (args: UseRoyaltyPaymentOptions) => {
   const { isLoading, data } = useRoyaltyPayment(args)
-  const fields = ["id", "amount", "sender", "payerIpId", "receiverIpId"]
 
   if (isLoading) return <>loading...</>
   if (!data?.data) return <>none found</>
 
   return (
     <DataTable
-      fields={fields}
+      fields={["id", "amount", "sender", "payerIpId", "receiverIpId"]}
       data={[
         {
           ...data.data,

@@ -6,12 +6,11 @@ import { DataTable } from "./(components)/DataTable"
 
 const Example = (args: UseIpGroupsOptions) => {
   const { isLoading, data } = useIpGroups(args)
-  const fields = ["group_id", "ip_count"]
 
   if (isLoading) return <>loading...</>
   if (!data?.data) return <>none found</>
 
-  return <DataTable fields={fields} data={data.data} />
+  return <DataTable fields={["group_id", "ip_count"]} data={data.data} />
 }
 
 const meta = {

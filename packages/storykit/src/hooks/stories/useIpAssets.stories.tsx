@@ -6,14 +6,13 @@ import { DataTable } from "./(components)/DataTable"
 
 const Example = (args: UseIpAssetsOptions) => {
   const { isLoading, data } = useIpAssets(args)
-  const fields = ["ipId", "name"]
 
   if (isLoading) return <>loading...</>
   if (!data?.data) return <>none found</>
 
   return (
     <DataTable
-      fields={fields}
+      fields={["ipId", "name"]}
       data={data.data.map((asset) => ({
         ...asset,
         name: asset.nftMetadata?.name || "",

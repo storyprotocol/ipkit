@@ -8,14 +8,13 @@ import { DataTable } from "./(components)/DataTable"
 
 const Example = (args: UseIpAssetMetadataOptions) => {
   const { isLoading, data } = useIpAssetMetadata(args)
-  const fields = ["id", "metadataUri"]
 
   if (isLoading) return <>loading...</>
   if (!data) return <>none found</>
 
   return (
     <DataTable
-      fields={fields}
+      fields={["id", "metadataUri"]}
       data={[
         {
           ...data,

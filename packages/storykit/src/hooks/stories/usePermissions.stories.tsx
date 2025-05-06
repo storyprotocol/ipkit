@@ -6,12 +6,11 @@ import { DataTable } from "./(components)/DataTable"
 
 const Example = (args: UsePermissionsOptions) => {
   const { isLoading, data } = usePermissions(args)
-  const fields = ["id", "permission", "func", "signer", "to"]
 
   if (isLoading) return <>loading...</>
   if (!data?.data) return <>none found</>
 
-  return <DataTable fields={fields} data={data.data} />
+  return <DataTable fields={["id", "permission", "func", "signer", "to"]} data={data.data} />
 }
 
 const meta = {
