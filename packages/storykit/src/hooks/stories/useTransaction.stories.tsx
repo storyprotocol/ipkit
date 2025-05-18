@@ -1,36 +1,26 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import React from "react"
 
-import { UseIpAssetOptions, useIpAsset } from "../useIpAsset"
+import { UseTransactionOptions, useTransaction } from "../useTransaction"
 import { DataTable } from "./(components)/DataTable"
 
-const Example = (args: UseIpAssetOptions) => {
-  const { isLoading, data } = useIpAsset(args)
+const Example = (args: UseTransactionOptions) => {
+  const { isLoading, data } = useTransaction(args)
 
   if (isLoading) return <>loading...</>
   if (!data?.data) return <>none found</>
 
-  return (
-    <DataTable
-      fields={["ipId", "name"]}
-      data={[
-        {
-          ...data.data,
-          name: data.data.nftMetadata?.name || "",
-        },
-      ]}
-    />
-  )
+  return <DataTable fields={["txHash", "actionType", "resourceType", "ipId", "createdAt"]} data={data.data} />
 }
 
 const meta = {
-  title: "Hooks/useIpAsset",
+  title: "Hooks/useTransaction",
   component: Example,
   parameters: {
     layout: "centered",
   },
   args: {
-    ipId: "0xD4128fD30640C8b3822E3A33EB2c672e955B772d",
+    trxId: "0x70045880a7f7db3b43de738c24f00c5b1cef48d5f95bc633d4df7002dfffbc95",
     queryOptions: {
       enabled: true,
     },

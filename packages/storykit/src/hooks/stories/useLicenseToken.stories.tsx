@@ -1,43 +1,31 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import React from "react"
 
-import { UseIpAssetsOptions, useIpAssets } from "../useIpAssets"
+import { UseLicenseTokenOptions, useLicenseToken } from "../useLicenseToken"
 import { DataTable } from "./(components)/DataTable"
 
-const Example = (args: UseIpAssetsOptions) => {
-  const { isLoading, data } = useIpAssets(args)
+const Example = (args: UseLicenseTokenOptions) => {
+  const { isLoading, data } = useLicenseToken(args)
 
   if (isLoading) return <>loading...</>
   if (!data?.data) return <>none found</>
 
   return (
     <DataTable
-      fields={["ipId", "name"]}
-      data={data.data.map((asset) => ({
-        ...asset,
-        name: asset.nftMetadata?.name || "",
-      }))}
+      fields={["id", "licenseTemplate", "licenseTermsId", "licensorIpId", "owner", "transferable", "burntAt"]}
+      data={[data.data]}
     />
   )
 }
 
 const meta = {
-  title: "Hooks/useIpAssets",
+  title: "Hooks/useLicenseToken",
   component: Example,
   parameters: {
     layout: "centered",
   },
   args: {
-    options: {
-      orderBy: "blockNumber",
-      orderDirection: "desc",
-      pagination: {
-        after: undefined,
-        before: undefined,
-        limit: 10,
-      },
-    },
-    ipIds: [],
+    licenseTokenId: "11264",
     queryOptions: {
       enabled: true,
     },

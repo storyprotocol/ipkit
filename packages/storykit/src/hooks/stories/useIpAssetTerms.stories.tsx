@@ -1,30 +1,20 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import React from "react"
 
-import { UseIpAssetOptions, useIpAsset } from "../useIpAsset"
+import { UseIpAssetTermsOptions, useIpAssetTerms } from "../useIpAssetTerms"
 import { DataTable } from "./(components)/DataTable"
 
-const Example = (args: UseIpAssetOptions) => {
-  const { isLoading, data } = useIpAsset(args)
+const Example = (args: UseIpAssetTermsOptions) => {
+  const { isLoading, data } = useIpAssetTerms(args)
 
   if (isLoading) return <>loading...</>
   if (!data?.data) return <>none found</>
 
-  return (
-    <DataTable
-      fields={["ipId", "name"]}
-      data={[
-        {
-          ...data.data,
-          name: data.data.nftMetadata?.name || "",
-        },
-      ]}
-    />
-  )
+  return <DataTable fields={["ipId", "licenseTemplate", "licenseTermsId"]} data={data.data} />
 }
 
 const meta = {
-  title: "Hooks/useIpAsset",
+  title: "Hooks/useIpAssetTerms",
   component: Example,
   parameters: {
     layout: "centered",

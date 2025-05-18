@@ -1,36 +1,30 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import React from "react"
 
-import { UseIpAssetOptions, useIpAsset } from "../useIpAsset"
+import { UseIpGroupsOptions, useIpGroups } from "../useIpGroups"
 import { DataTable } from "./(components)/DataTable"
 
-const Example = (args: UseIpAssetOptions) => {
-  const { isLoading, data } = useIpAsset(args)
+const Example = (args: UseIpGroupsOptions) => {
+  const { isLoading, data } = useIpGroups(args)
 
   if (isLoading) return <>loading...</>
   if (!data?.data) return <>none found</>
 
-  return (
-    <DataTable
-      fields={["ipId", "name"]}
-      data={[
-        {
-          ...data.data,
-          name: data.data.nftMetadata?.name || "",
-        },
-      ]}
-    />
-  )
+  return <DataTable fields={["group_id", "ip_count"]} data={data.data} />
 }
 
 const meta = {
-  title: "Hooks/useIpAsset",
+  title: "Hooks/useIpGroups",
   component: Example,
   parameters: {
     layout: "centered",
   },
   args: {
-    ipId: "0xD4128fD30640C8b3822E3A33EB2c672e955B772d",
+    options: {
+      pagination: { limit: 5 },
+      orderBy: "groupId",
+      orderDirection: "desc",
+    },
     queryOptions: {
       enabled: true,
     },
@@ -38,7 +32,8 @@ const meta = {
 } satisfies Meta<typeof Example>
 
 export default meta
-type Story = StoryObj<typeof meta>
+
+type Story = StoryObj<typeof Example>
 
 export const Default: Story = {
   args: {},

@@ -1,22 +1,26 @@
+import { shortenAddress } from "@/lib"
 import type { Meta, StoryObj } from "@storybook/react"
 import React from "react"
 
-import { UseIpAssetOptions, useIpAsset } from "../useIpAsset"
+import { UseLicenseTemplateOptions, useLicenseTemplate } from "../useLicenseTemplate"
+import { CopyText } from "./(components)/CopyText"
 import { DataTable } from "./(components)/DataTable"
 
-const Example = (args: UseIpAssetOptions) => {
-  const { isLoading, data } = useIpAsset(args)
+const Example = (args: UseLicenseTemplateOptions) => {
+  const { isLoading, data } = useLicenseTemplate(args)
 
   if (isLoading) return <>loading...</>
   if (!data?.data) return <>none found</>
 
   return (
     <DataTable
-      fields={["ipId", "name"]}
+      fields={["id", "name", "metadataUri"]}
       data={[
         {
           ...data.data,
-          name: data.data.nftMetadata?.name || "",
+          metadataUri: (
+            <CopyText label={shortenAddress(data.data.metadataUri || "", 20)} value={data.data.metadataUri || ""} />
+          ),
         },
       ]}
     />
@@ -24,13 +28,13 @@ const Example = (args: UseIpAssetOptions) => {
 }
 
 const meta = {
-  title: "Hooks/useIpAsset",
+  title: "Hooks/useLicenseTemplate",
   component: Example,
   parameters: {
     layout: "centered",
   },
   args: {
-    ipId: "0xD4128fD30640C8b3822E3A33EB2c672e955B772d",
+    licenseTemplateId: "0x2E896b0b2Fdb7457499B56AAaA4AE55BCB4Cd316",
     queryOptions: {
       enabled: true,
     },

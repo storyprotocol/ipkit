@@ -1,36 +1,26 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import React from "react"
 
-import { UseIpAssetOptions, useIpAsset } from "../useIpAsset"
+import { UseCollectionOptions, useCollection } from "../useCollection"
 import { DataTable } from "./(components)/DataTable"
 
-const Example = (args: UseIpAssetOptions) => {
-  const { isLoading, data } = useIpAsset(args)
+const Example = (args: UseCollectionOptions) => {
+  const { isLoading, data } = useCollection(args)
 
   if (isLoading) return <>loading...</>
   if (!data?.data) return <>none found</>
 
-  return (
-    <DataTable
-      fields={["ipId", "name"]}
-      data={[
-        {
-          ...data.data,
-          name: data.data.nftMetadata?.name || "",
-        },
-      ]}
-    />
-  )
+  return <DataTable fields={["id", "assetCount", "licensesCount"]} data={[data.data]} />
 }
 
 const meta = {
-  title: "Hooks/useIpAsset",
+  title: "Hooks/useCollection",
   component: Example,
   parameters: {
     layout: "centered",
   },
   args: {
-    ipId: "0xD4128fD30640C8b3822E3A33EB2c672e955B772d",
+    collectionId: "0x47191BCaa3D7c2730dDAf71ce589b6Dc992cC55f",
     queryOptions: {
       enabled: true,
     },

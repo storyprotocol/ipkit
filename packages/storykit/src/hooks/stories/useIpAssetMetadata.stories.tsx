@@ -1,21 +1,27 @@
+import { shortenAddress } from "@/lib"
 import type { Meta, StoryObj } from "@storybook/react"
 import React from "react"
 
 import { UseIpAssetMetadataOptions, useIpAssetMetadata } from "../useIpAssetMetadata"
+import { CopyText } from "./(components)/CopyText"
+import { DataTable } from "./(components)/DataTable"
 
 const Example = (args: UseIpAssetMetadataOptions) => {
   const { isLoading, data } = useIpAssetMetadata(args)
+
   if (isLoading) return <>loading...</>
+  if (!data) return <>none found</>
+
   return (
-    <div>
-      {data?.metadataUri ? (
-        <a href={data?.metadataUri} target="_blank" rel="noopener noreferrer" className="sk-underline">
-          {data?.metadataUri}
-        </a>
-      ) : (
-        "no uri found"
-      )}
-    </div>
+    <DataTable
+      fields={["id", "metadataUri"]}
+      data={[
+        {
+          ...data,
+          metadataUri: <CopyText label={shortenAddress(data.metadataUri || "", 20)} value={data.metadataUri || ""} />,
+        },
+      ]}
+    />
   )
 }
 
@@ -36,6 +42,6 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Select: Story = {
+export const Default: Story = {
   args: {},
 }

@@ -1,43 +1,39 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import React from "react"
+import { formatEther } from "viem"
 
-import { UseIpAssetsOptions, useIpAssets } from "../useIpAssets"
+import { UseLicenseMintingFeesOptions, useLicenseMintingFees } from "../useLicenseMintingFees"
 import { DataTable } from "./(components)/DataTable"
 
-const Example = (args: UseIpAssetsOptions) => {
-  const { isLoading, data } = useIpAssets(args)
+const Example = (args: UseLicenseMintingFeesOptions) => {
+  const { isLoading, data } = useLicenseMintingFees(args)
 
   if (isLoading) return <>loading...</>
   if (!data?.data) return <>none found</>
 
   return (
     <DataTable
-      fields={["ipId", "name"]}
-      data={data.data.map((asset) => ({
-        ...asset,
-        name: asset.nftMetadata?.name || "",
+      fields={["id", "amount", "payer", "receiverIpId", "token"]}
+      data={data.data.map((fee) => ({
+        ...fee,
+        amount: `${Number(formatEther(BigInt(fee.amount || 0))).toFixed(3)} IP`,
       }))}
     />
   )
 }
 
 const meta = {
-  title: "Hooks/useIpAssets",
+  title: "Hooks/useLicenseMintingFees",
   component: Example,
   parameters: {
     layout: "centered",
   },
   args: {
     options: {
-      orderBy: "blockNumber",
-      orderDirection: "desc",
       pagination: {
-        after: undefined,
-        before: undefined,
-        limit: 10,
+        limit: 5,
       },
     },
-    ipIds: [],
     queryOptions: {
       enabled: true,
     },

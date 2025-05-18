@@ -1,43 +1,34 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import React from "react"
 
-import { UseIpAssetsOptions, useIpAssets } from "../useIpAssets"
+import { UseDetailedIpLicenseTermsOptions, useDetailedIpLicenseTerms } from "../useDetailedIpLicenseTerms"
 import { DataTable } from "./(components)/DataTable"
 
-const Example = (args: UseIpAssetsOptions) => {
-  const { isLoading, data } = useIpAssets(args)
+const Example = (args: UseDetailedIpLicenseTermsOptions) => {
+  const { isLoading, data } = useDetailedIpLicenseTerms(args)
 
   if (isLoading) return <>loading...</>
   if (!data?.data) return <>none found</>
 
   return (
     <DataTable
-      fields={["ipId", "name"]}
+      fields={["id", "ipId", "licenseTemplateId", "derivativesAllowed"]}
       data={data.data.map((asset) => ({
         ...asset,
-        name: asset.nftMetadata?.name || "",
+        derivativesAllowed: asset.terms?.derivativesAllowed ? "Yes" : "No",
       }))}
     />
   )
 }
 
 const meta = {
-  title: "Hooks/useIpAssets",
+  title: "Hooks/useDetailedIpLicenseTerms",
   component: Example,
   parameters: {
     layout: "centered",
   },
   args: {
-    options: {
-      orderBy: "blockNumber",
-      orderDirection: "desc",
-      pagination: {
-        after: undefined,
-        before: undefined,
-        limit: 10,
-      },
-    },
-    ipIds: [],
+    ipIds: ["0x90b73C8ED8D95997B735C44CBAd04d5A486d46d1", "0x83d9303E110b88481327B979804cFAe3E1012E2b"],
     queryOptions: {
       enabled: true,
     },

@@ -1,36 +1,26 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import React from "react"
 
-import { UseIpAssetOptions, useIpAsset } from "../useIpAsset"
+import { UsePermissionOptions, usePermission } from "../usePermission"
 import { DataTable } from "./(components)/DataTable"
 
-const Example = (args: UseIpAssetOptions) => {
-  const { isLoading, data } = useIpAsset(args)
+const Example = (args: UsePermissionOptions) => {
+  const { isLoading, data } = usePermission(args)
 
   if (isLoading) return <>loading...</>
   if (!data?.data) return <>none found</>
 
-  return (
-    <DataTable
-      fields={["ipId", "name"]}
-      data={[
-        {
-          ...data.data,
-          name: data.data.nftMetadata?.name || "",
-        },
-      ]}
-    />
-  )
+  return <DataTable fields={["id", "permission", "func", "signer", "to", "uuid"]} data={[data.data]} />
 }
 
 const meta = {
-  title: "Hooks/useIpAsset",
+  title: "Hooks/usePermission",
   component: Example,
   parameters: {
     layout: "centered",
   },
   args: {
-    ipId: "0xD4128fD30640C8b3822E3A33EB2c672e955B772d",
+    permissionId: "0xa3a6b74f2b1770x0",
     queryOptions: {
       enabled: true,
     },

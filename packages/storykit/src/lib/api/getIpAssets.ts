@@ -5,7 +5,6 @@ import { Address } from "viem"
 import { listQuery } from "./listQuery"
 
 export type IpAssetsData = paths["/api/v3/assets"]["post"]["responses"][200]["content"]["application/json"]
-// export type IpAssetsOptions = paths["/api/v3/assets"]["options"]
 
 export type IpAssetsOptions = paths["/api/v3/assets"]["post"]["requestBody"]["content"]["application/json"]["options"]
 
