@@ -5,7 +5,7 @@ import { convertLicenseTermObject } from "@/lib/functions/convertLicenseTermObje
 import { getRoyaltiesByIPs } from "@/lib/royalty-graph"
 import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
 import { RoyaltiesGraph } from "@/types/royalty-graph"
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query"
+import { useQuery } from "@tanstack/react-query"
 import React from "react"
 import { Address, Hash } from "viem"
 
@@ -13,8 +13,7 @@ import { getMetadataFromIpfs, getResource, listResource } from "../../lib/api"
 import { getNFTByTokenId } from "../../lib/simplehash"
 import { convertIpfsUriToUrl } from "../../lib/utils"
 import { RESOURCE_TYPE } from "../../types/api"
-import { AssetEdges, IPLicenseTerms, License, LicenseTerms, RoyaltyPolicy } from "../../types/assets"
-import { IPAsset, IPAssetMetadata } from "../../types/openapi"
+import { IPLicenseTerms, License, LicenseTerms, RoyaltyPolicy } from "../../types/assets"
 import { NFTMetadata } from "../../types/simplehash"
 import { useStoryKitContext } from "../StoryKitProvider"
 
@@ -33,8 +32,7 @@ const IpContext = React.createContext<{
   chain: STORYKIT_SUPPORTED_CHAIN
   assetData: IpAssetData | undefined
   assetParentData: IpAssetEdgesData | undefined
-  assetChildrenData: AssetEdges[] | undefined
-  loadMoreAssetChildren: () => void
+  assetChildrenData: IpAssetEdgesData | undefined
   nftData: NFTMetadata | undefined
   ipaMetadata: IpAssetMetadataData | undefined
   isNftDataLoading: boolean
@@ -129,6 +127,7 @@ export const IpProvider = ({
   }
 
   // Fetch asset parent data
+
   const fetchParentEdgeOptions = {
     pagination: {
       limit: 500,
@@ -149,8 +148,9 @@ export const IpProvider = ({
     queryOptions: {
       enabled: queryOptions.assetParentsData,
     },
-    enabled: queryOptions.assetParentsData,
   })
+
+  // Fetch asset children data
 
   const fetchChildEdgeOptions = {
     pagination: {
@@ -162,50 +162,19 @@ export const IpProvider = ({
     },
   }
 
-  // Fetch asset children data with pagination
   const {
     isLoading: isAssetChildrenDataLoading,
     data: assetChildrenData,
     refetch: refetchAssetChildrenData,
     isFetched: isAssetChildrenDataFetched,
-    fetchNextPage,
-    hasNextPage,
-  } = useInfiniteQuery<{ data: AssetEdges[]; next: string; prev: string }>({
-    queryKey: [RESOURCE_TYPE.ASSET_EDGES, ipId, "children"],
-    queryFn: ({ pageParam = 0 }) => {
-      const currentOptions = {
-        ...fetchChildEdgeOptions,
-        pagination: {
-          ...fetchChildEdgeOptions.pagination,
-          offset: pageParam as number,
-        },
-      }
-      return listResource(RESOURCE_TYPE.ASSET_EDGES, chain.name as STORYKIT_SUPPORTED_CHAIN, currentOptions)
+  } = useIpAssetEdges({
+    options: fetchChildEdgeOptions,
+    queryOptions: {
+      enabled: queryOptions.assetChildrenData,
     },
-    getNextPageParam: (
-      lastPage: { data: AssetEdges[]; next: string; prev: string },
-      allPages: { data: AssetEdges[]; next: string; prev: string }[]
-    ) => {
-      // Calculate total items fetched across all pages
-      const totalFetched = allPages.reduce((acc, page) => acc + (page.data ?? []).length, 0)
-
-      // If there's data in the last page and there's a next page indicator
-      if ((lastPage.data ?? []).length > 0 && lastPage.next) {
-        return totalFetched
-      }
-
-      return undefined
-    },
-    enabled: queryOptions.assetChildrenData,
-    initialPageParam: 0,
   })
 
-  // Function to load more data
-  const loadMoreAssetChildren = () => {
-    if (hasNextPage) {
-      fetchNextPage()
-    }
-  }
+  // Fetch IP License Terms data
 
   const ipLicenseTermsQueryOptions = {
     pagination: {
@@ -217,7 +186,6 @@ export const IpProvider = ({
     },
   }
 
-  // Fetch IP License Terms data
   const {
     isLoading: isipLicenseDataLoading,
     data: ipLicenseData,
@@ -370,11 +338,7 @@ export const IpProvider = ({
         isAssetDataLoading,
         assetParentData,
         isAssetParentDataLoading,
-        // TODO: fix this for empty children
-        assetChildrenData: assetChildrenData?.pages.flatMap(
-          (page: { data: AssetEdges[]; next: string; prev: string }) => page.data
-        ),
-        loadMoreAssetChildren,
+        assetChildrenData,
         isAssetChildrenDataLoading,
         ipaMetadata,
         isIpaMetadataLoading: isIpaMetadataLoading || isLoadingFromIpfs,
