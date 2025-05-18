@@ -1,5 +1,5 @@
-import { useIpAsset } from "@/hooks/useIpAsset"
-import { useIpAssetMetadata } from "@/hooks/useIpAssetMetadata"
+import { IpAssetData, useIpAsset } from "@/hooks/useIpAsset"
+import { IpAssetMetadataData, useIpAssetMetadata } from "@/hooks/useIpAssetMetadata"
 import { convertLicenseTermObject } from "@/lib/functions/convertLicenseTermObject"
 import { getRoyaltiesByIPs } from "@/lib/royalty-graph"
 import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
@@ -30,12 +30,12 @@ export interface IpProviderOptions {
 
 const IpContext = React.createContext<{
   chain: STORYKIT_SUPPORTED_CHAIN
-  assetData: IPAsset | undefined
   assetParentData: AssetEdges[] | undefined
+  assetData: IpAssetData | undefined
   assetChildrenData: AssetEdges[] | undefined
   loadMoreAssetChildren: () => void
   nftData: NFTMetadata | undefined
-  ipaMetadata: IPAssetMetadata | undefined
+  ipaMetadata: IpAssetMetadataData | undefined
   isNftDataLoading: boolean
   isAssetDataLoading: boolean
   isAssetParentDataLoading: boolean

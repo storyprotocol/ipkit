@@ -10,6 +10,8 @@ export type UseIpAssetMetadataOptions = {
   queryOptions?: UseIpAssetMetadataQueryOptions
 }
 
+export type { IpAssetMetadataData }
+
 export function useIpAssetMetadata({ ipId, queryOptions }: UseIpAssetMetadataOptions) {
   const { chain, apiKey } = useStoryKitContext()
 
