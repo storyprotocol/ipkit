@@ -7,7 +7,7 @@ const Example: FC<{
   ipId: Address
   children?: React.ReactNode
   options?: IpProviderOptions
-}> = ({ ipId = "0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd", children = <ExampleComponent />, options = {} }) => {
+}> = ({ ipId = "0xE8Cc004498a2a7510F9CFB26D95dFdb7Ac4e7100", children = <ExampleComponent />, options = {} }) => {
   return (
     <IpProvider ipId={ipId} options={options}>
       {children}

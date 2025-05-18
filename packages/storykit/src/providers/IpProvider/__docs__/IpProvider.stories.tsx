@@ -53,7 +53,7 @@ export const Input: Story = {
     children: { control: false },
   },
   args: {
-    ipId: STORY_IP_ASSETS_MAP[STORY_IP_ASSETS[0]],
+    ipId: "0xE8Cc004498a2a7510F9CFB26D95dFdb7Ac4e7100",
   },
 }
 export const NFTData: Story = {
