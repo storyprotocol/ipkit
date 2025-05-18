@@ -2,8 +2,6 @@ import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
 import { Address, Hash } from "viem"
 
 export enum RESOURCE_TYPE {
-  // ASSET = "assets", // replaced with openAPI hooks
-  ASSET_EDGES = "assets/edges",
   COLLECTION = "collections",
   DISPUTE = "disputes",
   IP_LICENSE_TERMS = "licenses/ip/terms",
@@ -23,8 +21,6 @@ export enum RESOURCE_TYPE {
 }
 
 export type ResourceType =
-  // | RESOURCE_TYPE.ASSET
-  | RESOURCE_TYPE.ASSET_EDGES
   | RESOURCE_TYPE.COLLECTION
   | RESOURCE_TYPE.TRANSACTION
   | RESOURCE_TYPE.LICENSE

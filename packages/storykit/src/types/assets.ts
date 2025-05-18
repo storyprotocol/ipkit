@@ -41,18 +41,6 @@ export type Asset = {
   blockTimestamp: string
 }
 
-export type AssetEdges = {
-  ipId: Address
-  parentIpId: Address
-  blockNumber: string
-  blockTime: string
-  licenseTemplate: Address
-  licenseTermsId: string
-  licenseTokenId: string
-  transactionHash: string
-  transactionIndex: string
-}
-
 export type License = {
   id: string
   licensorIpId: Address
@@ -152,6 +140,7 @@ export type SocialMedia = {
   url?: string
 }
 
+// don't see this type used anywhere but also dont see an equivalent type in the api-schema
 export type Creator = {
   name?: string
   address?: Address
@@ -160,6 +149,7 @@ export type Creator = {
   socialMedia?: SocialMedia[]
 }
 
+// don't see this type used anywhere but also dont see an equivalent type in the api-schema
 export interface IPMetadata {
   title?: string
   description?: string
@@ -179,16 +169,6 @@ export interface IPMetadata {
     allow?: string
   }
   [key: string]: any
-}
-
-export interface AssetMetadata {
-  id: Address
-  metadataHash: string
-  metadataUri: string
-  metadataJson: IPMetadata
-  nftMetadataHash: string
-  nftTokenUri: string
-  registrationDate: string
 }
 
 // TODO: PILTerms is pending an api update
