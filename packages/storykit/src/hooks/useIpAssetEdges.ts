@@ -13,6 +13,8 @@ export type UseIpAssetEdgesOptions = {
   queryOptions?: UseIpAssetEdgesQueryOptions
 }
 
+export type { IpAssetEdgesData }
+
 export function useIpAssetEdges({ ipId, parentIpId, options, queryOptions }: UseIpAssetEdgesOptions = {}) {
   const { chain, apiKey } = useStoryKitContext()
 

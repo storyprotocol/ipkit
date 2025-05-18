@@ -1,4 +1,5 @@
 import { IpAssetData, useIpAsset } from "@/hooks/useIpAsset"
+import { IpAssetEdgesData, useIpAssetEdges } from "@/hooks/useIpAssetEdges"
 import { IpAssetMetadataData, useIpAssetMetadata } from "@/hooks/useIpAssetMetadata"
 import { convertLicenseTermObject } from "@/lib/functions/convertLicenseTermObject"
 import { getRoyaltiesByIPs } from "@/lib/royalty-graph"
@@ -30,8 +31,8 @@ export interface IpProviderOptions {
 
 const IpContext = React.createContext<{
   chain: STORYKIT_SUPPORTED_CHAIN
-  assetParentData: AssetEdges[] | undefined
   assetData: IpAssetData | undefined
+  assetParentData: IpAssetEdgesData | undefined
   assetChildrenData: AssetEdges[] | undefined
   loadMoreAssetChildren: () => void
   nftData: NFTMetadata | undefined
@@ -127,6 +128,7 @@ export const IpProvider = ({
     metadataJson: metadaFromIpfs,
   }
 
+  // Fetch asset parent data
   const fetchParentEdgeOptions = {
     pagination: {
       limit: 500,
@@ -137,22 +139,15 @@ export const IpProvider = ({
     },
   }
 
-  // Fetch asset parent data
   const {
     isLoading: isAssetParentDataLoading,
     data: assetParentData,
     refetch: refetchAssetParentData,
     isFetched: isAssetParentDataFetched,
-  } = useQuery<AssetEdges[] | undefined>({
-    queryKey: [RESOURCE_TYPE.ASSET_EDGES, ipId, "parents"],
-    queryFn: async () => {
-      const response = await listResource(
-        RESOURCE_TYPE.ASSET_EDGES,
-        chain.name as STORYKIT_SUPPORTED_CHAIN,
-        fetchParentEdgeOptions
-      )
-
-      return response.data
+  } = useIpAssetEdges({
+    options: fetchParentEdgeOptions,
+    queryOptions: {
+      enabled: queryOptions.assetParentsData,
     },
     enabled: queryOptions.assetParentsData,
   })
