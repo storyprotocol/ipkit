@@ -2,21 +2,21 @@ import { useIpAsset } from "@/hooks/useIpAsset"
 import { useIpAssetEdges } from "@/hooks/useIpAssetEdges"
 import { useIpAssetMetadata } from "@/hooks/useIpAssetMetadata"
 import { useIpAssetsTerms } from "@/hooks/useIpAssetsTerms"
+import { LicenseTermResponse, getLicenseTerm } from "@/lib/api/getLicenseTerm"
 //
-import { convertLicenseTermObject } from "@/lib/functions/convertLicenseTermObject"
 import { getRoyaltiesByIPs } from "@/lib/royalty-graph"
 import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
-import { IPAsset, IPLicenseTerm, IpAssetEdge, IpAssetMetadata } from "@/types/openapi"
+import { IPAsset, IPLicenseTerm, IpAssetEdge, IpAssetMetadata, LicenseTerm } from "@/types/openapi"
 import { RoyaltiesGraph } from "@/types/royalty-graph"
 import { useQuery } from "@tanstack/react-query"
-import React, { useEffect } from "react"
+import React from "react"
 import { Address, Hash } from "viem"
 
 import { getMetadataFromIpfs, getResource, listResource } from "../../lib/api"
 import { getNFTByTokenId } from "../../lib/simplehash"
-import { convertIpfsUriToUrl } from "../../lib/utils"
+// import { convertIpfsUriToUrl } from "../../lib/utils"
 import { RESOURCE_TYPE } from "../../types/api"
-import { License, LicenseTerms, RoyaltyPolicy } from "../../types/assets"
+import { License, RoyaltyPolicy } from "../../types/assets"
 import { NFTMetadata } from "../../types/simplehash"
 import { useStoryKitContext } from "../StoryKitProvider"
 
@@ -33,19 +33,19 @@ export interface IpProviderOptions {
 
 const IpContext = React.createContext<{
   chain: STORYKIT_SUPPORTED_CHAIN
-  //
+  // data
   assetData: IPAsset | undefined
   ipaMetadata: IpAssetMetadata | undefined
   assetParentData: IpAssetEdge[] | undefined
   assetChildrenData: IpAssetEdge[] | undefined
   ipLicenseData: IPLicenseTerm[] | undefined
+  licenseTermsData: LicenseTerm[] | undefined
   //--
   nftData: NFTMetadata | undefined
-  licenseTermsData: LicenseTerms[] | undefined
   licenseData: License[] | undefined
   royaltyData: RoyaltyPolicy | undefined
   royaltyGraphData: RoyaltiesGraph | undefined
-  //
+  // loading
   isNftDataLoading: boolean
   isAssetDataLoading: boolean
   isAssetParentDataLoading: boolean
@@ -56,7 +56,7 @@ const IpContext = React.createContext<{
   isLicenseDataLoading: boolean
   isRoyaltyDataLoading: boolean
   isRoyaltyGraphDataLoading: boolean
-  //
+  // refetch
   refetchAssetData: () => void
   refetchAssetParentData: () => void
   refetchAssetChildrenData: () => void
@@ -66,7 +66,7 @@ const IpContext = React.createContext<{
   refetchRoyaltyData: () => void
   refetchNFTData: () => void
   refetchRoyaltyGraphData: () => void
-  //
+  // fetched
   isNftDataFetched: boolean
   isAssetDataFetched: boolean
   isAssetParentDataFetched: boolean
@@ -99,7 +99,7 @@ export const IpProvider = ({
     ...options,
   }
 
-  const { chain } = useStoryKitContext()
+  const { chain, apiKey } = useStoryKitContext()
 
   // Fetch asset data
   const {
@@ -221,47 +221,48 @@ export const IpProvider = ({
   //   },
   // })
 
+  // fetch license terms details
+
   async function fetchLicenseTermsDetails(data: IPLicenseTerm[]) {
     const uniqueLicenses = data.filter((item) => item.ipId?.toLowerCase() === ipId.toLowerCase())
 
-    const requests = uniqueLicenses.map((item) =>
-      getResource(RESOURCE_TYPE.LICENSE_TERMS, item.licenseTermsId ?? "", chain.name as STORYKIT_SUPPORTED_CHAIN)
+    const requests: Promise<LicenseTermResponse>[] = uniqueLicenses.map((item) =>
+      getLicenseTerm({ licenseTermId: item.licenseTermsId ?? "", chainName: chain.name, apiKey })
     )
     const results = await Promise.all(requests)
 
-    const termsDetail = results
-      .filter((value) => !!value)
-      .map((result) => {
-        return {
-          ...result.data,
-          licenseTerms: convertLicenseTermObject(result.data.licenseTerms),
-        }
-      })
+    return results.map((result) => (result.data as LicenseTermResponse).data!)
 
-    const offChainUri = termsDetail.map((detail) => detail.terms.uri)
-    const offChainData = await Promise.all(
-      offChainUri.map(async (uri) => {
-        try {
-          if (uri === "") {
-            return
-          }
-          const ipfsData = await getMetadataFromIpfs(convertIpfsUriToUrl(uri))
-          return ipfsData
-        } catch (error) {
-          return
-        }
-      })
-    )
+    // TODO: fetch offchain data
 
-    return termsDetail.map((termDetail, index) => {
-      return {
-        ...termDetail,
-        terms: {
-          ...termDetail.terms,
-          offChainData: offChainData[index],
-        },
-      }
-    })
+    // const termsDetail = results.filter((value) => !!value).map((result) => result.data)
+
+    // const offChainUri = termsDetail.map((detail) => detail.terms.uri)
+
+    // const offChainData = await Promise.all(
+    //   offChainUri.map(async (uri) => {
+    //     try {
+    //       if (uri === "") {
+    //         return
+    //       }
+    //       const ipfsData = await getMetadataFromIpfs(convertIpfsUriToUrl(uri))
+    //       console.log("ipfsData", ipfsData)
+    //       return ipfsData
+    //     } catch (error) {
+    //       return
+    //     }
+    //   })
+    // )
+
+    // return termsDetail.map((termDetail, index) => {
+    //   return {
+    //     ...termDetail,
+    //     terms: {
+    //       ...termDetail.terms,
+    //       offChainData: offChainData[index],
+    //     },
+    //   }
+    // })
   }
 
   const {
@@ -274,9 +275,6 @@ export const IpProvider = ({
     queryFn: () => fetchLicenseTermsDetails(ipLicenseData?.data ?? []),
     enabled: Boolean(ipLicenseData) && Boolean(ipLicenseData?.data?.length) && queryOptions.licenseTermsData,
   })
-
-  // useEffect(() => console.log("isLicenseTermsDataLoading", isLicenseTermsDataLoading), [isLicenseTermsDataLoading])
-  // useEffect(() => console.log("licenseTermsData", licenseTermsData), [licenseTermsData])
 
   //
 
@@ -360,26 +358,30 @@ export const IpProvider = ({
     <IpContext.Provider
       value={{
         chain: chain.name as STORYKIT_SUPPORTED_CHAIN,
-        nftData,
-        isNftDataLoading,
+        // data
         assetData: assetData?.data,
-        isAssetDataLoading,
+        ipaMetadata: ipaMetadata,
         assetParentData: assetParentData?.data,
-        isAssetParentDataLoading,
         assetChildrenData: assetChildrenData?.data,
-        isAssetChildrenDataLoading,
-        ipaMetadata,
-        isIpaMetadataLoading: isIpaMetadataLoading || isLoadingFromIpfs,
         ipLicenseData: ipLicenseData?.data,
-        isipLicenseDataLoading,
-        licenseTermsData,
-        isLicenseTermsDataLoading,
+        licenseTermsData: licenseTermsData,
+        //
+        nftData,
         licenseData: licenseData?.data,
-        isLicenseDataLoading,
         royaltyData: royaltyData?.data,
-        isRoyaltyDataLoading,
         royaltyGraphData,
+        // loading
+        isAssetDataLoading,
+        isNftDataLoading,
+        isAssetParentDataLoading,
+        isAssetChildrenDataLoading,
+        isIpaMetadataLoading: isIpaMetadataLoading || isLoadingFromIpfs,
+        isipLicenseDataLoading,
+        isLicenseTermsDataLoading,
+        isLicenseDataLoading,
+        isRoyaltyDataLoading,
         isRoyaltyGraphDataLoading,
+        // refetch
         refetchAssetData,
         refetchAssetParentData,
         refetchAssetChildrenData,
@@ -389,8 +391,9 @@ export const IpProvider = ({
         refetchRoyaltyData,
         refetchRoyaltyGraphData,
         refetchNFTData,
-        isNftDataFetched,
+        // fetched
         isAssetDataFetched,
+        isNftDataFetched,
         isAssetParentDataFetched,
         isAssetChildrenDataFetched,
         isIpLicenseDataFetched,
