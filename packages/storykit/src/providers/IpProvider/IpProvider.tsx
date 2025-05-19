@@ -1,19 +1,21 @@
 import { IpAssetData, useIpAsset } from "@/hooks/useIpAsset"
 import { IpAssetEdgesData, useIpAssetEdges } from "@/hooks/useIpAssetEdges"
 import { IpAssetMetadataData, useIpAssetMetadata } from "@/hooks/useIpAssetMetadata"
+import { useIpAssetsTerms } from "@/hooks/useIpAssetsTerms"
 import { convertLicenseTermObject } from "@/lib/functions/convertLicenseTermObject"
 import { getRoyaltiesByIPs } from "@/lib/royalty-graph"
 import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
+import { IPLicenseTerm } from "@/types/openapi"
 import { RoyaltiesGraph } from "@/types/royalty-graph"
 import { useQuery } from "@tanstack/react-query"
-import React from "react"
+import React, { useEffect } from "react"
 import { Address, Hash } from "viem"
 
 import { getMetadataFromIpfs, getResource, listResource } from "../../lib/api"
 import { getNFTByTokenId } from "../../lib/simplehash"
 import { convertIpfsUriToUrl } from "../../lib/utils"
 import { RESOURCE_TYPE } from "../../types/api"
-import { IPLicenseTerms, License, LicenseTerms, RoyaltyPolicy } from "../../types/assets"
+import { License, LicenseTerms, RoyaltyPolicy } from "../../types/assets"
 import { NFTMetadata } from "../../types/simplehash"
 import { useStoryKitContext } from "../StoryKitProvider"
 
@@ -30,26 +32,30 @@ export interface IpProviderOptions {
 
 const IpContext = React.createContext<{
   chain: STORYKIT_SUPPORTED_CHAIN
+  //
   assetData: IpAssetData | undefined
+  ipaMetadata: IpAssetMetadataData | undefined
   assetParentData: IpAssetEdgesData | undefined
   assetChildrenData: IpAssetEdgesData | undefined
+  ipLicenseData: IPLicenseTerm[] | undefined
+  //--
   nftData: NFTMetadata | undefined
-  ipaMetadata: IpAssetMetadataData | undefined
+  licenseTermsData: LicenseTerms[] | undefined
+  licenseData: License[] | undefined
+  royaltyData: RoyaltyPolicy | undefined
+  royaltyGraphData: RoyaltiesGraph | undefined
+  //
   isNftDataLoading: boolean
   isAssetDataLoading: boolean
   isAssetParentDataLoading: boolean
   isAssetChildrenDataLoading: boolean
   isIpaMetadataLoading: boolean
-  ipLicenseData: IPLicenseTerms[] | undefined
   isipLicenseDataLoading: boolean
-  licenseTermsData: LicenseTerms[] | undefined
   isLicenseTermsDataLoading: boolean
-  licenseData: License[] | undefined
   isLicenseDataLoading: boolean
-  royaltyData: RoyaltyPolicy | undefined
   isRoyaltyDataLoading: boolean
-  royaltyGraphData: RoyaltiesGraph | undefined
   isRoyaltyGraphDataLoading: boolean
+  //
   refetchAssetData: () => void
   refetchAssetParentData: () => void
   refetchAssetChildrenData: () => void
@@ -59,6 +65,7 @@ const IpContext = React.createContext<{
   refetchRoyaltyData: () => void
   refetchNFTData: () => void
   refetchRoyaltyGraphData: () => void
+  //
   isNftDataFetched: boolean
   isAssetDataFetched: boolean
   isAssetParentDataFetched: boolean
@@ -191,18 +198,33 @@ export const IpProvider = ({
     data: ipLicenseData,
     refetch: refetchIpLicenseData,
     isFetched: isIpLicenseDataFetched,
-  } = useQuery({
-    queryKey: [RESOURCE_TYPE.IP_LICENSE_TERMS, ipLicenseTermsQueryOptions],
-    queryFn: () =>
-      listResource(RESOURCE_TYPE.IP_LICENSE_TERMS, chain.name as STORYKIT_SUPPORTED_CHAIN, ipLicenseTermsQueryOptions),
-    enabled: queryOptions.licenseTermsData,
+  } = useIpAssetsTerms({
+    options: ipLicenseTermsQueryOptions,
+    queryOptions: {
+      enabled: queryOptions.licenseTermsData,
+    },
   })
 
-  async function fetchLicenseTermsDetails(data: IPLicenseTerms[]) {
-    const uniqueLicenses = data.filter((item) => item.ipId.toLowerCase() === ipId.toLowerCase())
+  // alternative way to fetch IP License Terms data
+  // note useIpAssetTerms returns a list response with next/prev pagination but is a GET request
+
+  // const {
+  //   isLoading: isipLicenseDataLoading,
+  //   data: ipLicenseData,
+  //   refetch: refetchIpLicenseData,
+  //   isFetched: isIpLicenseDataFetched,
+  // } = useIpAssetTerms({
+  //   ipId,
+  //   queryOptions: {
+  //     enabled: queryOptions.licenseTermsData,
+  //   },
+  // })
+
+  async function fetchLicenseTermsDetails(data: IPLicenseTerm[]) {
+    const uniqueLicenses = data.filter((item) => item.ipId?.toLowerCase() === ipId.toLowerCase())
 
     const requests = uniqueLicenses.map((item) =>
-      getResource(RESOURCE_TYPE.LICENSE_TERMS, item.licenseTermsId, chain.name as STORYKIT_SUPPORTED_CHAIN)
+      getResource(RESOURCE_TYPE.LICENSE_TERMS, item.licenseTermsId ?? "", chain.name as STORYKIT_SUPPORTED_CHAIN)
     )
     const results = await Promise.all(requests)
 
@@ -248,9 +270,14 @@ export const IpProvider = ({
     isFetched: isLicenseTermsDataFetched,
   } = useQuery({
     queryKey: ["fetchLicenseTermsDetails", ipLicenseData?.data],
-    queryFn: () => fetchLicenseTermsDetails(ipLicenseData?.data),
-    enabled: Boolean(ipLicenseData) && Boolean(ipLicenseData.data) && queryOptions.licenseTermsData,
+    queryFn: () => fetchLicenseTermsDetails(ipLicenseData?.data ?? []),
+    enabled: Boolean(ipLicenseData) && Boolean(ipLicenseData?.data?.length) && queryOptions.licenseTermsData,
   })
+
+  // useEffect(() => console.log("isLicenseTermsDataLoading", isLicenseTermsDataLoading), [isLicenseTermsDataLoading])
+  // useEffect(() => console.log("licenseTermsData", licenseTermsData), [licenseTermsData])
+
+  //
 
   const licenseQueryOptions = {
     pagination: {

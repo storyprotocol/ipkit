@@ -1,7 +1,7 @@
 import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
 import { Address } from "viem"
 
-import { IpAssetTermsData, getIpAssetTerms } from "../lib/api/getIpAssetTerms"
+import { IpAssetTermsResponse, getIpAssetTerms } from "../lib/api/getIpAssetTerms"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
 export type UseIpAssetTermsQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
@@ -22,5 +22,5 @@ export function useIpAssetTerms({ ipId, queryOptions }: UseIpAssetTermsOptions) 
       return data
     },
     ...queryOptions,
-  }) as UseQueryResult<IpAssetTermsData>
+  }) as UseQueryResult<IpAssetTermsResponse>
 }

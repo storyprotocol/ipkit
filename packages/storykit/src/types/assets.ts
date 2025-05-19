@@ -71,15 +71,6 @@ export type PILTerms = {
   uri: string
 }
 
-export type IPLicenseTerms = {
-  id: string
-  ipId: Address
-  licenseTemplate: string
-  licenseTermsId: string
-  blockNumber: string
-  blockTime: string
-}
-
 export type RoyaltyPolicy = {
   id: Address
   ipRoyaltyVault: Address

@@ -3,8 +3,9 @@ import { FetchResponse } from "openapi-fetch"
 
 import { getQuery } from "./getQuery"
 
-export type IpAssetTermsData =
+export type IpAssetTermsResponse =
   paths["/api/v3/licenses/ip/terms/{ipId}"]["get"]["responses"][200]["content"]["application/json"]
+
 export type IpAssetTermsOptions = paths["/api/v3/licenses/ip/terms/{ipId}"]["options"]
 
 export function getIpAssetTerms({ ipId, chainName, apiKey }: { ipId: string; chainName: string; apiKey: string }) {
@@ -14,5 +15,5 @@ export function getIpAssetTerms({ ipId, chainName, apiKey }: { ipId: string; cha
     additionalHeaders: { "X-Extend-Asset": "true" },
     chainName,
     apiKey,
-  }) as Promise<FetchResponse<IpAssetTermsData, IpAssetTermsOptions, "application/json">>
+  }) as Promise<FetchResponse<IpAssetTermsResponse, IpAssetTermsOptions, "application/json">>
 }

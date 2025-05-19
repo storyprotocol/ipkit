@@ -4,7 +4,7 @@ import { Address } from "viem"
 
 import { listQuery } from "./listQuery"
 
-export type IpAssetsTermsData =
+export type IpAssetsTermsResponse =
   paths["/api/v3/licenses/ip/terms"]["post"]["responses"][200]["content"]["application/json"]
 
 export type IpAssetsTermsOptions =
@@ -23,5 +23,5 @@ export function getIpAssetsTerms({ ipIds, options, chainName, apiKey }: GetIpAss
     body: { options: { ...options, ...(ipIds ? { ipAssetIds: ipIds } : {}) } },
     chainName,
     apiKey,
-  }) as Promise<FetchResponse<IpAssetsTermsData, IpAssetsTermsOptions, "application/json">>
+  }) as Promise<FetchResponse<IpAssetsTermsResponse, IpAssetsTermsOptions, "application/json">>
 }
