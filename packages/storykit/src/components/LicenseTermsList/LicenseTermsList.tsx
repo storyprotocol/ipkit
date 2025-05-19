@@ -1,15 +1,10 @@
 import { noLicenseTerms } from "@/constants/pil-flavors"
+import { useLicenseTerm } from "@/hooks/useLicenseTerm"
 import { cn } from "@/lib"
-import { getResource } from "@/lib/api"
-import { convertLicenseTermObject } from "@/lib/functions/convertLicenseTermObject"
-import { useStoryKitContext } from "@/providers/StoryKitProvider"
-import { PILTerms } from "@/types"
-import { RESOURCE_TYPE } from "@/types/api"
-import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
-import { useQuery } from "@tanstack/react-query"
+import { Term } from "@/types/openapi"
 import { cva } from "class-variance-authority"
 import { CircleCheck, CircleMinus, Info } from "lucide-react"
-import React, { useMemo } from "react"
+import React from "react"
 
 import "../../global.css"
 
@@ -36,8 +31,8 @@ function getTimezoneAbbr(date: Date) {
     .map((word) => word[0])
     .join("")
 }
-const convertExpiration = (expiration: string): string => {
-  if (expiration == "never" || expiration == "0") {
+const convertExpiration = (expiration: number): string => {
+  if (expiration == 0) {
     return DESCRIPTIONS.NEVER_EXPIRES
   }
 
@@ -53,23 +48,23 @@ const convertExpiration = (expiration: string): string => {
   return `This license expires in ${expirationDateString} (${timezone})`
 }
 
-const DescribeTerms = (selectedLicenseTerms: PILTerms) => {
+const DescribeTerms = (selectedLicenseTerms: Term) => {
   const cans = []
   const cannots = []
   const extras = []
 
   // commercial use
-  if (selectedLicenseTerms.commercialUse) {
+  if (selectedLicenseTerms?.commercialUse) {
     cans.push(DESCRIPTIONS.COMMERCIAL_USE)
-    if (selectedLicenseTerms.commercialRevenueShare) {
+    if (selectedLicenseTerms?.commercialRevShare) {
       extras.push(
-        `Anyone who creates a remix will share ${Math.round(selectedLicenseTerms.commercialRevenueShare / 10000) / 100}% of their revenue with you`
+        `Anyone who creates a remix will share ${Math.round(selectedLicenseTerms.commercialRevShare / 10000) / 100}% of their revenue with you`
       )
     }
     // cannot make more than the minimum between commercial rev ceiling and derivative rev ceiling
-    if (selectedLicenseTerms.commercialRevenueCelling || selectedLicenseTerms.derivativesRevenueCelling) {
+    if (selectedLicenseTerms?.commercialRevCeiling || selectedLicenseTerms?.commercialRevCeiling) {
       extras.push(
-        `Anyone who creates a remix cannot make more than $${Math.min(selectedLicenseTerms.commercialRevenueCelling, selectedLicenseTerms.derivativesRevenueCelling)}`
+        `Anyone who creates a remix cannot make more than $${Math.min(selectedLicenseTerms.commercialRevCeiling, selectedLicenseTerms.commercialRevCeiling)}`
       )
     }
   } else {
@@ -78,26 +73,26 @@ const DescribeTerms = (selectedLicenseTerms: PILTerms) => {
 
   // if commercial use or derivatives allowed, give attribution?
   if (
-    (selectedLicenseTerms.commercialUse && selectedLicenseTerms.commercialAttribution) ||
-    (selectedLicenseTerms.derivativesAllowed && selectedLicenseTerms.derivativesAttribution)
+    (selectedLicenseTerms?.commercialUse && selectedLicenseTerms?.commercialAttribution) ||
+    (selectedLicenseTerms?.derivativesAllowed && selectedLicenseTerms?.derivativesAttribution)
   ) {
     cans.push(DESCRIPTIONS.ATTRIBUTION)
   } else if (
-    selectedLicenseTerms.commercialUse &&
-    !selectedLicenseTerms.commercialAttribution &&
-    selectedLicenseTerms.derivativesAllowed &&
-    !selectedLicenseTerms.derivativesAttribution
+    selectedLicenseTerms?.commercialUse &&
+    !selectedLicenseTerms?.commercialAttribution &&
+    selectedLicenseTerms?.derivativesAllowed &&
+    !selectedLicenseTerms?.derivativesAttribution
   ) {
     cannots.push(DESCRIPTIONS.ATTRIBUTION)
   }
 
   // derivatives allowed
-  if (selectedLicenseTerms.derivativesAllowed) {
+  if (selectedLicenseTerms?.derivativesAllowed) {
     cans.push(DESCRIPTIONS.DERIVATIVES_ALLOWED)
-    if (selectedLicenseTerms.derivativesApproval) {
+    if (selectedLicenseTerms?.derivativesApproval) {
       cans.push(DESCRIPTIONS.DERIVATIVES_APPROVAL)
     }
-    if (selectedLicenseTerms.derivativesReciprocal) {
+    if (selectedLicenseTerms?.derivativesReciprocal) {
       cans.push(DESCRIPTIONS.DERIVATIVES_RECIPROCAL)
     }
   } else {
@@ -105,8 +100,8 @@ const DescribeTerms = (selectedLicenseTerms: PILTerms) => {
   }
 
   // expiration
-  if (selectedLicenseTerms.expiration) {
-    extras.push(convertExpiration(selectedLicenseTerms.expiration))
+  if (selectedLicenseTerms?.expiration) {
+    extras.push(convertExpiration(selectedLicenseTerms?.expiration))
   }
   return { cans, cannots, extras }
 }
@@ -161,7 +156,7 @@ export type LicenseTermsListProps = {
   showCans?: boolean
   showCannots?: boolean
   showExtras?: boolean
-  selectedLicenseTerms?: PILTerms
+  selectedLicenseTerms?: Term
   selectedLicenseTermsId?: string
 }
 
@@ -174,31 +169,15 @@ function LicenseTermsList({
   selectedLicenseTerms,
   selectedLicenseTermsId,
 }: LicenseTermsListProps) {
-  const { chain } = useStoryKitContext()
-
-  const { data: licenseTermsData } = useQuery({
-    queryKey: [RESOURCE_TYPE.LICENSE_TERMS, selectedLicenseTermsId],
-    queryFn: () =>
-      getResource(
-        RESOURCE_TYPE.LICENSE_TERMS,
-        selectedLicenseTermsId as string,
-        chain.name as STORYKIT_SUPPORTED_CHAIN
-      ),
-    enabled: !!selectedLicenseTermsId,
+  const { data: licenseTermsData } = useLicenseTerm({
+    licenseTermId: selectedLicenseTermsId ?? "",
+    queryOptions: { enabled: !!selectedLicenseTermsId },
   })
 
-  const licenseTerms: Partial<PILTerms> = useMemo(() => {
-    // default to selectedLicenseTerms or noLicenseTerms
-    let terms: Partial<PILTerms> = selectedLicenseTerms || noLicenseTerms
-    // if selectedLicenseTermsId is provided, use the data from the query
-    if (licenseTermsData?.data?.licenseTerms) {
-      terms = convertLicenseTermObject(licenseTermsData.data.licenseTerms)
-    }
-    return terms
-  }, [selectedLicenseTerms, licenseTermsData])
-
   const iconWidth = size === "small" ? 16 : size === "medium" ? 20 : 24
-  const { cans, cannots, extras } = DescribeTerms(licenseTerms as PILTerms)
+  const { cans, cannots, extras } = DescribeTerms(
+    (licenseTermsData?.data?.terms as Term) || selectedLicenseTerms || noLicenseTerms
+  )
 
   return (
     <div className={licenseStyles({ size })}>

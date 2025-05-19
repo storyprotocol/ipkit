@@ -44,7 +44,7 @@ function IpLicenseAccordion({ size = "medium" }: IpLicenseAccordionProps) {
         <div key={`${license.id}-${index}`} className="sk-flex sk-flex-col sk-w-full">
           <div className={licensesStyles({ size })} onClick={() => setExpanded(expanded === index ? null : index)}>
             <span>
-              {getPilFlavorByLicenseTerms(license.licenseTerms)}{" "}
+              {getPilFlavorByLicenseTerms(license.terms)}{" "}
               <span className="sk-text-slate-400 sk-text-xs">(#{license.id})</span>
             </span>
             {expanded === index ? <FaCaretUp width={12} /> : <FaCaretDown width={12} />}
@@ -53,7 +53,7 @@ function IpLicenseAccordion({ size = "medium" }: IpLicenseAccordionProps) {
           <div className={cn("sk-flex sk-w-full sk-overflow-hidden sk-h-0", expanded === index && "sk-h-auto")}>
             <div className="sk-py-2">
               <div className="sk-pl-4 sk-border-l-4 sk-border-gray-100 dark:sk-border-gray-800">
-                <LicenseTermsList size={size} selectedLicenseTerms={license.licenseTerms} />
+                <LicenseTermsList size={size} selectedLicenseTerms={license.terms} />
               </div>
             </div>
           </div>

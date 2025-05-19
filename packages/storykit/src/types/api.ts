@@ -2,15 +2,15 @@ import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
 import { Address, Hash } from "viem"
 
 export enum RESOURCE_TYPE {
-  LICENSE = "licenses/tokens",
   LICENSE_TERMS = "licenses/terms",
+  LICENSE = "licenses/tokens",
   ROYALTY = "royalties",
   ROYALTY_POLICY = "royalties/policies",
 }
 
 export type ResourceType =
-  | RESOURCE_TYPE.LICENSE
   | RESOURCE_TYPE.LICENSE_TERMS
+  | RESOURCE_TYPE.LICENSE
   | RESOURCE_TYPE.ROYALTY
   | RESOURCE_TYPE.ROYALTY_POLICY
 

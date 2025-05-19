@@ -1,6 +1,5 @@
 import { paths } from "@storykit/api-schema"
 import { FetchResponse } from "openapi-fetch"
-import { Address } from "viem"
 
 import { listQuery } from "./listQuery"
 

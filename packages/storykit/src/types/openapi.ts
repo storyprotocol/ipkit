@@ -14,3 +14,5 @@ export type IPAsset =
 
 export type LicenseTerm =
   components["schemas"]["github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.LicenseTerm"]
+
+export type Term = components["schemas"]["github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.Term"]

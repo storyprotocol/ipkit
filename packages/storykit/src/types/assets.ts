@@ -55,22 +55,6 @@ export type License = {
   blockTime: string
 }
 
-export type PILTerms = {
-  commercialAttribution: boolean
-  commercialRevenueCelling: number
-  commercialRevenueShare: number
-  commercialUse: boolean
-  commercializerCheck: Address
-  currency: Address
-  derivativesAllowed: boolean
-  derivativesApproval: boolean
-  derivativesAttribution: boolean
-  derivativesReciprocal: boolean
-  derivativesRevenueCelling: number
-  expiration: string
-  uri: string
-}
-
 export type RoyaltyPolicy = {
   id: Address
   ipRoyaltyVault: Address
@@ -88,21 +72,15 @@ export interface Trait {
   max_value?: number
 }
 
-export interface LicenseOffChainData {
-  aiLearningModels?: boolean
-}
-export interface PILTermsWithOffChainData extends PILTerms {
-  offChainData: LicenseOffChainData | undefined
-}
-export type LicenseTerms = {
-  id: string
-  // json: string
-  licenseTerms: Trait[]
-  licenseTemplate: Address
-  blockNumber: string
-  blockTime: string
-  terms: PILTermsWithOffChainData
-}
+// TODO: add offchain data
+
+// export interface LicenseOffChainData {
+//   aiLearningModels?: boolean
+// }
+
+// export interface PILTermsWithOffChainData extends PILTerms {
+//   offChainData: LicenseOffChainData | undefined
+// }
 
 export type LicenseToken = {
   id: string
