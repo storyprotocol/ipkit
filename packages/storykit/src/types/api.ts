@@ -2,41 +2,19 @@ import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
 import { Address, Hash } from "viem"
 
 export enum RESOURCE_TYPE {
-  COLLECTION = "collections",
-  DISPUTE = "disputes",
   IP_LICENSE_TERMS = "licenses/ip/terms",
   LICENSE = "licenses/tokens",
-  LICENSE_MINT_FEES = "licenses/mintingfees",
-  LICENSE_OWNER = "licenses/owners",
-  MODULE = "modules",
-  PERMISSION = "permissions",
   LICENSE_TERMS = "licenses/terms",
-  LICENSE_TEMPLATE = "licenses/templates",
   ROYALTY = "royalties",
-  ROYALTY_PAY = "royalties/payments",
   ROYALTY_POLICY = "royalties/policies",
-  ROYALTY_SPLIT = "royalties/splits",
-  TAGS = "tags",
-  TRANSACTION = "transactions",
 }
 
 export type ResourceType =
-  | RESOURCE_TYPE.COLLECTION
-  | RESOURCE_TYPE.TRANSACTION
-  | RESOURCE_TYPE.LICENSE
-  | RESOURCE_TYPE.LICENSE_MINT_FEES
-  | RESOURCE_TYPE.LICENSE_OWNER
-  | RESOURCE_TYPE.MODULE
-  | RESOURCE_TYPE.LICENSE_TERMS
-  | RESOURCE_TYPE.PERMISSION
-  | RESOURCE_TYPE.LICENSE_TEMPLATE
-  | RESOURCE_TYPE.TAGS
   | RESOURCE_TYPE.IP_LICENSE_TERMS
+  | RESOURCE_TYPE.LICENSE
+  | RESOURCE_TYPE.LICENSE_TERMS
   | RESOURCE_TYPE.ROYALTY
-  | RESOURCE_TYPE.ROYALTY_PAY
   | RESOURCE_TYPE.ROYALTY_POLICY
-  | RESOURCE_TYPE.ROYALTY_SPLIT
-  | RESOURCE_TYPE.DISPUTE
 
 export type PaginationOptions = {
   limit?: number
