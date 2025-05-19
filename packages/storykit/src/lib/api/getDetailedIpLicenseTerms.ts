@@ -3,7 +3,7 @@ import { FetchResponse } from "openapi-fetch"
 
 import { listQuery } from "./listQuery"
 
-export type DetailedIpLicenseTermsData =
+export type DetailedIpLicenseTermsResponse =
   paths["/api/v3/detailed-ip-license-terms"]["post"]["responses"][200]["content"]["application/json"]
 
 export type DetailedIpLicenseTermsOptions =
@@ -21,5 +21,5 @@ export function getDetailedIpLicenseTerms({ ipIds, chainName, apiKey }: GetDetai
     body: { options: { where: { ipIds: ipIds } } },
     chainName,
     apiKey,
-  }) as Promise<FetchResponse<DetailedIpLicenseTermsData, DetailedIpLicenseTermsOptions, "application/json">>
+  }) as Promise<FetchResponse<DetailedIpLicenseTermsResponse, DetailedIpLicenseTermsOptions, "application/json">>
 }

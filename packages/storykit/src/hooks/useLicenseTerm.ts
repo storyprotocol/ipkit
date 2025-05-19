@@ -1,6 +1,6 @@
 import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
 
-import { LicenseTermData, getLicenseTerm } from "../lib/api/getLicenseTerm"
+import { LicenseTermResponse, getLicenseTerm } from "../lib/api/getLicenseTerm"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
 export type UseLicenseTermQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
@@ -21,5 +21,5 @@ export function useLicenseTerm({ licenseTermId, queryOptions }: UseLicenseTermOp
       return data
     },
     ...queryOptions,
-  }) as UseQueryResult<LicenseTermData>
+  }) as UseQueryResult<LicenseTermResponse>
 }

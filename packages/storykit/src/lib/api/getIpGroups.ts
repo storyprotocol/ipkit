@@ -3,7 +3,7 @@ import { FetchResponse } from "openapi-fetch"
 
 import { listQuery } from "./listQuery"
 
-export type IpGroupsData = paths["/api/v3/ip-groups"]["post"]["responses"][200]["content"]["application/json"]
+export type IpGroupsResponse = paths["/api/v3/ip-groups"]["post"]["responses"][200]["content"]["application/json"]
 
 export type IpGroupsOptions =
   paths["/api/v3/ip-groups"]["post"]["requestBody"]["content"]["application/json"]["options"]
@@ -29,5 +29,5 @@ export function getIpGroups({ groupId, options, chainName, apiKey }: GetIpGroups
     },
     chainName,
     apiKey,
-  }) as Promise<FetchResponse<IpGroupsData, IpGroupsOptions, "application/json">>
+  }) as Promise<FetchResponse<IpGroupsResponse, IpGroupsOptions, "application/json">>
 }

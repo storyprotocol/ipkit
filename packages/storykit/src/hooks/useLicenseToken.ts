@@ -1,7 +1,6 @@
 import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
-import { Address } from "viem"
 
-import { LicenseTokenData, getLicenseToken } from "../lib/api/getLicenseToken"
+import { LicenseTokenResponse, getLicenseToken } from "../lib/api/getLicenseToken"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
 export type UseLicenseTokenQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
@@ -22,5 +21,5 @@ export function useLicenseToken({ licenseTokenId, queryOptions }: UseLicenseToke
       return data
     },
     ...queryOptions,
-  }) as UseQueryResult<LicenseTokenData>
+  }) as UseQueryResult<LicenseTokenResponse>
 }

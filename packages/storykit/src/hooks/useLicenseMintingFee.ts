@@ -1,7 +1,7 @@
 import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
 import { Address } from "viem"
 
-import { LicenseMintingFeeData, getLicenseMintingFee } from "../lib/api/getLicenseMintingFee"
+import { LicenseMintingFeeResponse, getLicenseMintingFee } from "../lib/api/getLicenseMintingFee"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
 export type UseLicenseMintingFeeQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
@@ -22,5 +22,5 @@ export function useLicenseMintingFee({ licenseMintingFeePaidId, queryOptions }: 
       return data
     },
     ...queryOptions,
-  }) as UseQueryResult<LicenseMintingFeeData>
+  }) as UseQueryResult<LicenseMintingFeeResponse>
 }

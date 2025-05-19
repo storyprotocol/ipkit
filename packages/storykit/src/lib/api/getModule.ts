@@ -3,7 +3,7 @@ import { FetchResponse } from "openapi-fetch"
 
 import { getQuery } from "./getQuery"
 
-export type ModuleData = paths["/api/v3/modules/{moduleId}"]["get"]["responses"][200]["content"]["application/json"]
+export type ModuleResponse = paths["/api/v3/modules/{moduleId}"]["get"]["responses"][200]["content"]["application/json"]
 export type ModuleOptions = paths["/api/v3/modules/{moduleId}"]["options"]
 
 export function getModule({ moduleId, chainName, apiKey }: { moduleId: string; chainName: string; apiKey: string }) {
@@ -12,5 +12,5 @@ export function getModule({ moduleId, chainName, apiKey }: { moduleId: string; c
     pathParams: { moduleId },
     chainName,
     apiKey,
-  }) as Promise<FetchResponse<ModuleData, ModuleOptions, "application/json">>
+  }) as Promise<FetchResponse<ModuleResponse, ModuleOptions, "application/json">>
 }

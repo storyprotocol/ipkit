@@ -1,6 +1,6 @@
 import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
 
-import { RoyaltyPaymentsData, RoyaltyPaymentsOptions, getRoyaltyPayments } from "../lib/api/getRoyaltyPayments"
+import { RoyaltyPaymentsOptions, RoyaltyPaymentsResponse, getRoyaltyPayments } from "../lib/api/getRoyaltyPayments"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
 export type UseRoyaltyPaymentsQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
@@ -21,5 +21,5 @@ export function useRoyaltyPayments({ options, queryOptions }: UseRoyaltyPayments
       return data
     },
     ...queryOptions,
-  }) as UseQueryResult<RoyaltyPaymentsData>
+  }) as UseQueryResult<RoyaltyPaymentsResponse>
 }

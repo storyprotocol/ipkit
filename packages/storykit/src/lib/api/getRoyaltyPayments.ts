@@ -3,7 +3,7 @@ import { FetchResponse } from "openapi-fetch"
 
 import { listQuery } from "./listQuery"
 
-export type RoyaltyPaymentsData =
+export type RoyaltyPaymentsResponse =
   paths["/api/v3/royalties/payments"]["post"]["responses"][200]["content"]["application/json"]
 
 export type RoyaltyPaymentsOptions =
@@ -21,5 +21,5 @@ export function getRoyaltyPayments({ options, chainName, apiKey }: GetRoyaltyPay
     body: { options },
     chainName,
     apiKey,
-  }) as Promise<FetchResponse<RoyaltyPaymentsData, RoyaltyPaymentsOptions, "application/json">>
+  }) as Promise<FetchResponse<RoyaltyPaymentsResponse, RoyaltyPaymentsOptions, "application/json">>
 }

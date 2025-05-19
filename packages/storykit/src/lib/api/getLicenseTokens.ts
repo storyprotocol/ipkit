@@ -3,7 +3,7 @@ import { FetchResponse } from "openapi-fetch"
 
 import { listQuery } from "./listQuery"
 
-export type LicenseTokensData =
+export type LicenseTokensResponse =
   paths["/api/v3/licenses/tokens"]["post"]["responses"][200]["content"]["application/json"]
 export type LicenseTokensOptions =
   paths["/api/v3/licenses/tokens"]["post"]["requestBody"]["content"]["application/json"]["options"]
@@ -20,5 +20,5 @@ export function getLicenseTokens({ options, chainName, apiKey }: GetLicenseToken
     body: { options: options || {} },
     chainName,
     apiKey,
-  }) as Promise<FetchResponse<LicenseTokensData, LicenseTokensOptions, "application/json">>
+  }) as Promise<FetchResponse<LicenseTokensResponse, LicenseTokensOptions, "application/json">>
 }

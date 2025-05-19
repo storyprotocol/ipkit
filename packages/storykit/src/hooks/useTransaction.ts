@@ -1,7 +1,7 @@
 import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
 import { Address } from "viem"
 
-import { TransactionData, getTransaction } from "../lib/api/getTransaction"
+import { TransactionResponse, getTransaction } from "../lib/api/getTransaction"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
 export type UseTransactionQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
@@ -22,5 +22,5 @@ export function useTransaction({ trxId, queryOptions }: UseTransactionOptions) {
       return data
     },
     ...queryOptions,
-  }) as UseQueryResult<TransactionData>
+  }) as UseQueryResult<TransactionResponse>
 }

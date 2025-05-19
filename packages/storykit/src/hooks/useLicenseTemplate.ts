@@ -1,7 +1,7 @@
 import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
 import { Address } from "viem"
 
-import { LicenseTemplateData, getLicenseTemplate } from "../lib/api/getLicenseTemplate"
+import { LicenseTemplateResponse, getLicenseTemplate } from "../lib/api/getLicenseTemplate"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
 export type UseLicenseTemplateQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
@@ -22,5 +22,5 @@ export function useLicenseTemplate({ licenseTemplateId, queryOptions }: UseLicen
       return data
     },
     ...queryOptions,
-  }) as UseQueryResult<LicenseTemplateData>
+  }) as UseQueryResult<LicenseTemplateResponse>
 }

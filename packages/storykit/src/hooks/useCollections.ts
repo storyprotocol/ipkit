@@ -1,6 +1,6 @@
 import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
 
-import { CollectionsData, CollectionsOptions, getCollections } from "../lib/api/getCollections"
+import { CollectionsOptions, CollectionsResponse, getCollections } from "../lib/api/getCollections"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
 export type UseCollectionsQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
@@ -21,5 +21,5 @@ export function useCollections({ options, queryOptions }: UseCollectionsOptions 
       return data
     },
     ...queryOptions,
-  }) as UseQueryResult<CollectionsData>
+  }) as UseQueryResult<CollectionsResponse>
 }

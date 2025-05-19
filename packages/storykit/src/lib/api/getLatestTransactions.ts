@@ -3,7 +3,7 @@ import { FetchResponse } from "openapi-fetch"
 
 import { listQuery } from "./listQuery"
 
-export type LatestTransactionsData =
+export type LatestTransactionsResponse =
   paths["/api/v3/transactions/latest"]["post"]["responses"][200]["content"]["application/json"]
 
 export type LatestTransactionsOptions =
@@ -21,5 +21,5 @@ export function getLatestTransactions({ options, chainName, apiKey }: GetLatestT
     body: { options },
     chainName,
     apiKey,
-  }) as Promise<FetchResponse<LatestTransactionsData, LatestTransactionsOptions, "application/json">>
+  }) as Promise<FetchResponse<LatestTransactionsResponse, LatestTransactionsOptions, "application/json">>
 }

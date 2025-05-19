@@ -1,6 +1,6 @@
 import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
 
-import { PermissionsData, PermissionsOptions, getPermissions } from "../lib/api/getPermissions"
+import { PermissionsOptions, PermissionsResponse, getPermissions } from "../lib/api/getPermissions"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
 export type UsePermissionsQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
@@ -21,5 +21,5 @@ export function usePermissions({ options, queryOptions }: UsePermissionsOptions 
       return data
     },
     ...queryOptions,
-  }) as UseQueryResult<PermissionsData>
+  }) as UseQueryResult<PermissionsResponse>
 }

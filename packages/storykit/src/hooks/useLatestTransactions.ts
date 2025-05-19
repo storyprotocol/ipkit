@@ -1,8 +1,8 @@
 import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
 
 import {
-  LatestTransactionsData,
   LatestTransactionsOptions,
+  LatestTransactionsResponse,
   getLatestTransactions,
 } from "../lib/api/getLatestTransactions"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
@@ -25,5 +25,5 @@ export function useLatestTransactions({ options, queryOptions }: UseLatestTransa
       return data
     },
     ...queryOptions,
-  }) as UseQueryResult<LatestTransactionsData>
+  }) as UseQueryResult<LatestTransactionsResponse>
 }

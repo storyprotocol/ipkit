@@ -1,7 +1,7 @@
 import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
 import { Address } from "viem"
 
-import { RoyaltyPaymentData, getRoyaltyPayment } from "../lib/api/getRoyaltyPayment"
+import { RoyaltyPaymentResponse, getRoyaltyPayment } from "../lib/api/getRoyaltyPayment"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
 export type UseRoyaltyPaymentQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
@@ -22,5 +22,5 @@ export function useRoyaltyPayment({ royaltyPayId, queryOptions }: UseRoyaltyPaym
       return data
     },
     ...queryOptions,
-  }) as UseQueryResult<RoyaltyPaymentData>
+  }) as UseQueryResult<RoyaltyPaymentResponse>
 }

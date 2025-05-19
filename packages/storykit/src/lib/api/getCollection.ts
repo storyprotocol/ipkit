@@ -3,7 +3,7 @@ import { FetchResponse } from "openapi-fetch"
 
 import { getQuery } from "./getQuery"
 
-export type CollectionData =
+export type CollectionResponse =
   paths["/api/v3/collections/{collectionId}"]["get"]["responses"][200]["content"]["application/json"]
 export type CollectionOptions = paths["/api/v3/collections/{collectionId}"]["options"]
 
@@ -21,5 +21,5 @@ export function getCollection({
     pathParams: { collectionId },
     chainName,
     apiKey,
-  }) as Promise<FetchResponse<CollectionData, CollectionOptions, "application/json">>
+  }) as Promise<FetchResponse<CollectionResponse, CollectionOptions, "application/json">>
 }

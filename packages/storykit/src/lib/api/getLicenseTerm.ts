@@ -3,7 +3,7 @@ import { FetchResponse } from "openapi-fetch"
 
 import { getQuery } from "./getQuery"
 
-export type LicenseTermData =
+export type LicenseTermResponse =
   paths["/api/v3/licenses/terms/{licenseTermId}"]["get"]["responses"][200]["content"]["application/json"]
 export type LicenseTermOptions = paths["/api/v3/licenses/terms/{licenseTermId}"]["options"]
 
@@ -21,5 +21,5 @@ export function getLicenseTerm({
     pathParams: { licenseTermId },
     chainName,
     apiKey,
-  }) as Promise<FetchResponse<LicenseTermData, LicenseTermOptions, "application/json">>
+  }) as Promise<FetchResponse<LicenseTermResponse, LicenseTermOptions, "application/json">>
 }

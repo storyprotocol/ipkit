@@ -3,7 +3,7 @@ import { FetchResponse } from "openapi-fetch"
 
 import { getQuery } from "./getQuery"
 
-export type PermissionData =
+export type PermissionResponse =
   paths["/api/v3/permissions/{permissionId}"]["get"]["responses"][200]["content"]["application/json"]
 export type PermissionOptions = paths["/api/v3/permissions/{permissionId}"]["options"]
 
@@ -21,5 +21,5 @@ export function getPermission({
     pathParams: { permissionId },
     chainName,
     apiKey,
-  }) as Promise<FetchResponse<PermissionData, PermissionOptions, "application/json">>
+  }) as Promise<FetchResponse<PermissionResponse, PermissionOptions, "application/json">>
 }

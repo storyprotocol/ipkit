@@ -3,7 +3,7 @@ import { FetchResponse } from "openapi-fetch"
 
 import { listQuery } from "./listQuery"
 
-export type LicenseTemplatesData =
+export type LicenseTemplatesResponse =
   paths["/api/v3/licenses/templates"]["post"]["responses"][200]["content"]["application/json"]
 export type LicenseTemplatesOptions =
   paths["/api/v3/licenses/templates"]["post"]["requestBody"]["content"]["application/json"]["options"]
@@ -20,5 +20,5 @@ export function getLicenseTemplates({ options, chainName, apiKey }: GetLicenseTe
     body: { options: options || {} },
     chainName,
     apiKey,
-  }) as Promise<FetchResponse<LicenseTemplatesData, LicenseTemplatesOptions, "application/json">>
+  }) as Promise<FetchResponse<LicenseTemplatesResponse, LicenseTemplatesOptions, "application/json">>
 }

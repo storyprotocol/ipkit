@@ -3,7 +3,8 @@ import { FetchResponse } from "openapi-fetch"
 
 import { listQuery } from "./listQuery"
 
-export type LicenseTermsData = paths["/api/v3/licenses/terms"]["post"]["responses"][200]["content"]["application/json"]
+export type LicenseTermsResponse =
+  paths["/api/v3/licenses/terms"]["post"]["responses"][200]["content"]["application/json"]
 export type LicenseTermsOptions =
   paths["/api/v3/licenses/terms"]["post"]["requestBody"]["content"]["application/json"]["options"]
 
@@ -19,5 +20,5 @@ export function getLicenseTerms({ options, chainName, apiKey }: GetLicenseTermsO
     body: { options: options || {} },
     chainName,
     apiKey,
-  }) as Promise<FetchResponse<LicenseTermsData, LicenseTermsOptions, "application/json">>
+  }) as Promise<FetchResponse<LicenseTermsResponse, LicenseTermsOptions, "application/json">>
 }

@@ -1,7 +1,6 @@
 import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
-import { Address } from "viem"
 
-import { DisputeData, getDispute } from "../lib/api/getDispute"
+import { DisputeResponse, getDispute } from "../lib/api/getDispute"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
 export type UseDisputeQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
@@ -22,5 +21,5 @@ export function useDispute({ disputeId, queryOptions }: UseDisputeOptions) {
       return data
     },
     ...queryOptions,
-  }) as UseQueryResult<DisputeData>
+  }) as UseQueryResult<DisputeResponse>
 }

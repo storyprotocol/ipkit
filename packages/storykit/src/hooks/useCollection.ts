@@ -1,7 +1,7 @@
 import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
 import { Address } from "viem"
 
-import { CollectionData, getCollection } from "../lib/api/getCollection"
+import { CollectionResponse, getCollection } from "../lib/api/getCollection"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
 export type UseCollectionQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
@@ -22,5 +22,5 @@ export function useCollection({ collectionId, queryOptions }: UseCollectionOptio
       return data
     },
     ...queryOptions,
-  }) as UseQueryResult<CollectionData>
+  }) as UseQueryResult<CollectionResponse>
 }

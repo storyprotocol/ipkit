@@ -1,7 +1,7 @@
 import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
 import { Address } from "viem"
 
-import { IpGroupEdgesData, IpGroupEdgesOptions, getIpGroupEdges } from "../lib/api/getIpGroupEdges"
+import { IpGroupEdgesOptions, IpGroupEdgesResponse, getIpGroupEdges } from "../lib/api/getIpGroupEdges"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
 export type UseIpGroupEdgesQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
@@ -24,5 +24,5 @@ export function useIpGroupEdges({ groupId, ipAssetIds, options, queryOptions }: 
       return data
     },
     ...queryOptions,
-  }) as UseQueryResult<IpGroupEdgesData>
+  }) as UseQueryResult<IpGroupEdgesResponse>
 }

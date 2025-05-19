@@ -1,7 +1,7 @@
 import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
 import { Address } from "viem"
 
-import { ModuleData, getModule } from "../lib/api/getModule"
+import { ModuleResponse, getModule } from "../lib/api/getModule"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
 export type UseModuleQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
@@ -22,5 +22,5 @@ export function useModule({ moduleId, queryOptions }: UseModuleOptions) {
       return data
     },
     ...queryOptions,
-  }) as UseQueryResult<ModuleData>
+  }) as UseQueryResult<ModuleResponse>
 }

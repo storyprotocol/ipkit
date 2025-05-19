@@ -4,7 +4,7 @@ import { Address } from "viem"
 
 import { listQuery } from "./listQuery"
 
-export type DisputesData = paths["/api/v3/disputes"]["post"]["responses"][200]["content"]["application/json"]
+export type DisputesResponse = paths["/api/v3/disputes"]["post"]["responses"][200]["content"]["application/json"]
 export type DisputesOptions = paths["/api/v3/disputes"]["post"]["requestBody"]["content"]["application/json"]["options"]
 
 export type GetDisputesOptions = {
@@ -19,5 +19,5 @@ export function getDisputes({ options, chainName, apiKey }: GetDisputesOptions) 
     body: { options: options || {} },
     chainName,
     apiKey,
-  }) as Promise<FetchResponse<DisputesData, DisputesOptions, "application/json">>
+  }) as Promise<FetchResponse<DisputesResponse, DisputesOptions, "application/json">>
 }

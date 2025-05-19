@@ -1,8 +1,8 @@
 import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
 
 import {
-  LicenseMintingFeesData,
   LicenseMintingFeesOptions,
+  LicenseMintingFeesResponse,
   getLicenseMintingFees,
 } from "../lib/api/getLicenseMintingFees"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
@@ -29,5 +29,5 @@ export function useLicenseMintingFees({ options, queryOptions }: UseLicenseMinti
       return data
     },
     ...queryOptions,
-  }) as UseQueryResult<LicenseMintingFeesData>
+  }) as UseQueryResult<LicenseMintingFeesResponse>
 }

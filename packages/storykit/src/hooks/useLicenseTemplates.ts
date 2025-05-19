@@ -1,6 +1,6 @@
 import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
 
-import { LicenseTemplatesData, LicenseTemplatesOptions, getLicenseTemplates } from "../lib/api/getLicenseTemplates"
+import { LicenseTemplatesOptions, LicenseTemplatesResponse, getLicenseTemplates } from "../lib/api/getLicenseTemplates"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
 export type UseLicenseTemplatesQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
@@ -21,5 +21,5 @@ export function useLicenseTemplates({ options, queryOptions }: UseLicenseTemplat
       return data
     },
     ...queryOptions,
-  }) as UseQueryResult<LicenseTemplatesData>
+  }) as UseQueryResult<LicenseTemplatesResponse>
 }

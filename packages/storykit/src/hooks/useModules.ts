@@ -1,6 +1,6 @@
 import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
 
-import { ModulesData, ModulesOptions, getModules } from "../lib/api/getModules"
+import { ModulesOptions, ModulesResponse, getModules } from "../lib/api/getModules"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
 export type UseModulesQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
@@ -21,5 +21,5 @@ export function useModules({ options, queryOptions }: UseModulesOptions = {}) {
       return data
     },
     ...queryOptions,
-  }) as UseQueryResult<ModulesData>
+  }) as UseQueryResult<ModulesResponse>
 }

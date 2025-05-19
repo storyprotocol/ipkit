@@ -4,7 +4,8 @@ import { Address } from "viem"
 
 import { listQuery } from "./listQuery"
 
-export type IpGroupEdgesData = paths["/api/v3/ip-group-edges"]["post"]["responses"][200]["content"]["application/json"]
+export type IpGroupEdgesResponse =
+  paths["/api/v3/ip-group-edges"]["post"]["responses"][200]["content"]["application/json"]
 
 export type IpGroupEdgesOptions =
   paths["/api/v3/ip-group-edges"]["post"]["requestBody"]["content"]["application/json"]["options"]
@@ -32,5 +33,5 @@ export function getIpGroupEdges({ groupId, ipAssetIds, options, chainName, apiKe
     },
     chainName,
     apiKey,
-  }) as Promise<FetchResponse<IpGroupEdgesData, IpGroupEdgesOptions, "application/json">>
+  }) as Promise<FetchResponse<IpGroupEdgesResponse, IpGroupEdgesOptions, "application/json">>
 }

@@ -1,6 +1,6 @@
 import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
 
-import { TransactionsData, TransactionsOptions, getTransactions } from "../lib/api/getTransactions"
+import { TransactionsOptions, TransactionsResponse, getTransactions } from "../lib/api/getTransactions"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
 export type UseTransactionsQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
@@ -21,5 +21,5 @@ export function useTransactions({ options, queryOptions }: UseTransactionsOption
       return data
     },
     ...queryOptions,
-  }) as UseQueryResult<TransactionsData>
+  }) as UseQueryResult<TransactionsResponse>
 }

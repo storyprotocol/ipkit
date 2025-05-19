@@ -1,6 +1,6 @@
 import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
 
-import { DisputesData, DisputesOptions, getDisputes } from "../lib/api/getDisputes"
+import { DisputesOptions, DisputesResponse, getDisputes } from "../lib/api/getDisputes"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
 export type UseDisputesQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
@@ -21,5 +21,5 @@ export function useDisputes({ options, queryOptions }: UseDisputesOptions = {}) 
       return data
     },
     ...queryOptions,
-  }) as UseQueryResult<DisputesData>
+  }) as UseQueryResult<DisputesResponse>
 }

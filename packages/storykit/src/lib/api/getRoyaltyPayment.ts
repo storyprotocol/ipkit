@@ -4,7 +4,7 @@ import { Address } from "viem"
 
 import { getQuery } from "./getQuery"
 
-export type RoyaltyPaymentData =
+export type RoyaltyPaymentResponse =
   paths["/api/v3/royalties/payments/{royaltyPayId}"]["get"]["responses"][200]["content"]["application/json"]
 
 export type GetRoyaltyPaymentOptions = {
@@ -19,5 +19,5 @@ export function getRoyaltyPayment({ royaltyPayId, chainName, apiKey }: GetRoyalt
     pathParams: { royaltyPayId },
     chainName,
     apiKey,
-  }) as Promise<FetchResponse<RoyaltyPaymentData, never, "application/json">>
+  }) as Promise<FetchResponse<RoyaltyPaymentResponse, never, "application/json">>
 }

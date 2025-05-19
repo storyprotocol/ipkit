@@ -4,7 +4,7 @@ import { Address } from "viem"
 
 import { listQuery } from "./listQuery"
 
-export type IpAssetsData = paths["/api/v3/assets"]["post"]["responses"][200]["content"]["application/json"]
+export type IpAssetsResponse = paths["/api/v3/assets"]["post"]["responses"][200]["content"]["application/json"]
 
 export type IpAssetsOptions = paths["/api/v3/assets"]["post"]["requestBody"]["content"]["application/json"]["options"]
 
@@ -21,5 +21,5 @@ export function getIpAssets({ ipIds, options, chainName, apiKey }: GetIpAssetOpt
     body: { options: { ...options, ...(ipIds ? { ipAssetIds: ipIds } : {}) } },
     chainName,
     apiKey,
-  }) as Promise<FetchResponse<IpAssetsData, IpAssetsOptions, "application/json">>
+  }) as Promise<FetchResponse<IpAssetsResponse, IpAssetsOptions, "application/json">>
 }
