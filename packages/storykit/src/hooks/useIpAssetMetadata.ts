@@ -1,7 +1,7 @@
 import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
 import { Address } from "viem"
 
-import { IpAssetMetadataData, getIpAssetMetadata } from "../lib/api/getIpAssetMetadata"
+import { IpAssetMetadataResponse, getIpAssetMetadata } from "../lib/api/getIpAssetMetadata"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
 export type UseIpAssetMetadataQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
@@ -9,8 +9,6 @@ export type UseIpAssetMetadataOptions = {
   ipId: Address
   queryOptions?: UseIpAssetMetadataQueryOptions
 }
-
-export type { IpAssetMetadataData }
 
 export function useIpAssetMetadata({ ipId, queryOptions }: UseIpAssetMetadataOptions) {
   const { chain, apiKey } = useStoryKitContext()
@@ -24,5 +22,5 @@ export function useIpAssetMetadata({ ipId, queryOptions }: UseIpAssetMetadataOpt
     },
     retry: false,
     ...queryOptions,
-  }) as UseQueryResult<IpAssetMetadataData>
+  }) as UseQueryResult<IpAssetMetadataResponse>
 }

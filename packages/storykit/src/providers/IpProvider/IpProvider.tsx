@@ -1,11 +1,12 @@
-import { IpAssetData, useIpAsset } from "@/hooks/useIpAsset"
-import { IpAssetEdgesData, useIpAssetEdges } from "@/hooks/useIpAssetEdges"
-import { IpAssetMetadataData, useIpAssetMetadata } from "@/hooks/useIpAssetMetadata"
+import { useIpAsset } from "@/hooks/useIpAsset"
+import { useIpAssetEdges } from "@/hooks/useIpAssetEdges"
+import { useIpAssetMetadata } from "@/hooks/useIpAssetMetadata"
 import { useIpAssetsTerms } from "@/hooks/useIpAssetsTerms"
+//
 import { convertLicenseTermObject } from "@/lib/functions/convertLicenseTermObject"
 import { getRoyaltiesByIPs } from "@/lib/royalty-graph"
 import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
-import { IPLicenseTerm } from "@/types/openapi"
+import { IPAsset, IPLicenseTerm, IpAssetEdge, IpAssetMetadata } from "@/types/openapi"
 import { RoyaltiesGraph } from "@/types/royalty-graph"
 import { useQuery } from "@tanstack/react-query"
 import React, { useEffect } from "react"
@@ -33,10 +34,10 @@ export interface IpProviderOptions {
 const IpContext = React.createContext<{
   chain: STORYKIT_SUPPORTED_CHAIN
   //
-  assetData: IpAssetData | undefined
-  ipaMetadata: IpAssetMetadataData | undefined
-  assetParentData: IpAssetEdgesData | undefined
-  assetChildrenData: IpAssetEdgesData | undefined
+  assetData: IPAsset | undefined
+  ipaMetadata: IpAssetMetadata | undefined
+  assetParentData: IpAssetEdge[] | undefined
+  assetChildrenData: IpAssetEdge[] | undefined
   ipLicenseData: IPLicenseTerm[] | undefined
   //--
   nftData: NFTMetadata | undefined
@@ -363,9 +364,9 @@ export const IpProvider = ({
         isNftDataLoading,
         assetData: assetData?.data,
         isAssetDataLoading,
-        assetParentData,
+        assetParentData: assetParentData?.data,
         isAssetParentDataLoading,
-        assetChildrenData,
+        assetChildrenData: assetChildrenData?.data,
         isAssetChildrenDataLoading,
         ipaMetadata,
         isIpaMetadataLoading: isIpaMetadataLoading || isLoadingFromIpfs,

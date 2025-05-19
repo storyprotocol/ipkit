@@ -4,7 +4,8 @@ import { Address } from "viem"
 
 import { listQuery } from "./listQuery"
 
-export type IpAssetEdgesData = paths["/api/v3/assets/edges"]["post"]["responses"][200]["content"]["application/json"]
+export type IpAssetEdgesResponse =
+  paths["/api/v3/assets/edges"]["post"]["responses"][200]["content"]["application/json"]
 
 export type IpAssetEdgesOptions =
   paths["/api/v3/assets/edges"]["post"]["requestBody"]["content"]["application/json"]["options"]
@@ -32,5 +33,5 @@ export function getIpAssetEdges({ ipId, parentIpId, options, chainName, apiKey }
     },
     chainName,
     apiKey,
-  }) as Promise<FetchResponse<IpAssetEdgesData, IpAssetEdgesOptions, "application/json">>
+  }) as Promise<FetchResponse<IpAssetEdgesResponse, IpAssetEdgesOptions, "application/json">>
 }

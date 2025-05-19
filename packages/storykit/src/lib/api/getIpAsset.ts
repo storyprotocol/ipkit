@@ -4,7 +4,6 @@ import { FetchResponse } from "openapi-fetch"
 import { getQuery } from "./getQuery"
 
 export type IpAssetResponse = paths["/api/v3/assets/{assetId}"]["get"]["responses"][200]["content"]["application/json"]
-export type IpAssetData = IpAssetResponse["data"]
 export type IpAssetOptions = paths["/api/v3/assets/{assetId}"]["options"]
 
 export function getIpAsset({ ipId, chainName, apiKey }: { ipId: string; chainName: string; apiKey: string }) {
