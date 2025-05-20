@@ -222,19 +222,15 @@ const LicenseComponent = () => {
                   </p>
                   <p className="col-span-1 text-xs text-gray-600">transferable</p>
                   <p className="col-span-3 text-sm" data-testid="license-transfer">
-                    {obj.transferable.toString()}
+                    {obj.transferable}
                   </p>
                   <p className="col-span-1 text-xs text-gray-600">owner</p>
                   <p className="col-span-3 text-sm" data-testid="license-owner">
                     {obj.owner}
                   </p>
-                  <p className="col-span-1 text-xs text-gray-600">expiresAt</p>
-                  <p className="col-span-3 text-sm" data-testid="license-expires">
-                    {obj.expiresAt}
-                  </p>
-                  <p className="col-span-1 text-xs text-gray-600">mintedAt</p>
+                  <p className="col-span-1 text-xs text-gray-600">blockTime</p>
                   <p className="col-span-3 text-sm" data-testid="license-minted">
-                    {obj.mintedAt}
+                    {obj.blockTime}
                   </p>
                   <p className="col-span-1 text-xs text-gray-600">burntAt</p>
                   <p className="col-span-3 text-sm" data-testid="license-burnt">
