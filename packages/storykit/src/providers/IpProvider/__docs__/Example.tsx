@@ -247,48 +247,6 @@ const LicenseComponent = () => {
   )
 }
 
-const RoyaltyComponent = () => {
-  const { royaltyData, isRoyaltyDataLoading } = useIpContext()
-  return (
-    <>
-      {isRoyaltyDataLoading && <div>Fetching Royalty...</div>}
-      {royaltyData && !isRoyaltyDataLoading ? (
-        <div className="grid grid-cols-4 gap-4">
-          <>
-            <div className="col-span-1 text-xs text-gray-600">id</div>
-            <div className="col-span-3 text-sm" data-testid="royalty-id">
-              {royaltyData.id}
-            </div>
-            <div className="col-span-1 text-xs text-gray-600">ipRoyaltyVault</div>
-            <div className="col-span-3 text-sm" data-testid="royalty-vault">
-              {royaltyData.ipRoyaltyVault}
-            </div>
-            <div className="col-span-1 text-xs text-gray-600">royaltyStack</div>
-            <div className="col-span-3 text-sm" data-testid="royalty-stack">
-              {royaltyData.royaltyStack}
-            </div>
-            <div className="col-span-1 text-xs text-gray-600">targetAncestors</div>
-            <ul className="col-span-3 text-sm">
-              {royaltyData.targetAncestors.map((obj) => (
-                <li data-testid="royalty-ancestors" key={obj}>
-                  {obj}
-                </li>
-              ))}
-            </ul>
-            <div className="col-span-1 text-xs text-gray-600">targetRoyaltyAmount</div>
-            <ul className="col-span-3 text-sm">
-              {royaltyData.targetRoyaltyAmount.map((obj) => (
-                <li data-testid="royalty-amount" key={obj}>
-                  {obj}
-                </li>
-              ))}
-            </ul>
-          </>
-        </div>
-      ) : null}
-    </>
-  )
-}
 const ProviderOptionsComponent = () => {
   const {
     assetData,
@@ -301,8 +259,6 @@ const ProviderOptionsComponent = () => {
     isLicenseTermsDataLoading,
     licenseData,
     isLicenseDataLoading,
-    royaltyData,
-    isRoyaltyDataLoading,
   } = useIpContext()
   return (
     <>
@@ -312,7 +268,6 @@ const ProviderOptionsComponent = () => {
         {isipLicenseDataLoading && <div>Fetching IPLicense...</div>}
         {isLicenseTermsDataLoading && <div>Fetching License Terms...</div>}
         {isLicenseDataLoading && <div>Fetching License...</div>}
-        {isRoyaltyDataLoading && <div>Fetching Royalty...</div>}
         <div className="grid grid-cols-4 gap-4">
           <div className="col-span-1 text-xs text-gray-600">Asset</div>
           <div className="col-span-3 text-sm" data-testid="asset-id">
@@ -334,10 +289,6 @@ const ProviderOptionsComponent = () => {
           <div className="col-span-3 text-sm" data-testid="license-count">
             {licenseData?.length}
           </div>
-          <div className="col-span-1 text-xs text-gray-600">Royalty</div>
-          <div className="col-span-3 text-sm" data-testid="royalty-id">
-            {royaltyData?.id}
-          </div>
         </div>
       </div>
     </>
@@ -345,11 +296,4 @@ const ProviderOptionsComponent = () => {
 }
 
 export default Example
-export {
-  AssetComponent,
-  IPLicenseComponent,
-  LicenseTermsComponent,
-  LicenseComponent,
-  RoyaltyComponent,
-  ProviderOptionsComponent,
-}
+export { AssetComponent, IPLicenseComponent, LicenseTermsComponent, LicenseComponent, ProviderOptionsComponent }

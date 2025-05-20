@@ -17,7 +17,6 @@ import { getMetadataFromIpfs, getResource } from "../../lib/api"
 import { getNFTByTokenId } from "../../lib/simplehash"
 // import { convertIpfsUriToUrl } from "../../lib/utils"
 import { RESOURCE_TYPE } from "../../types/api"
-import { RoyaltyPolicy } from "../../types/assets"
 import { NFTMetadata } from "../../types/simplehash"
 import { useStoryKitContext } from "../StoryKitProvider"
 
@@ -28,7 +27,7 @@ export interface IpProviderOptions {
   assetChildrenData?: boolean
   licenseTermsData?: boolean
   licenseData?: boolean
-  royaltyData?: boolean
+
   royaltyGraphData?: boolean
 }
 
@@ -44,7 +43,6 @@ const IpContext = React.createContext<{
   licenseData: LicenseToken[] | undefined
   //--
   nftData: NFTMetadata | undefined
-  royaltyData: RoyaltyPolicy | undefined
   royaltyGraphData: RoyaltiesGraph | undefined
   // loading
   isNftDataLoading: boolean
@@ -55,7 +53,6 @@ const IpContext = React.createContext<{
   isipLicenseDataLoading: boolean
   isLicenseTermsDataLoading: boolean
   isLicenseDataLoading: boolean
-  isRoyaltyDataLoading: boolean
   isRoyaltyGraphDataLoading: boolean
   // refetch
   refetchAssetData: () => void
@@ -64,7 +61,6 @@ const IpContext = React.createContext<{
   refetchIpLicenseData: () => void
   refetchLicenseTermsData: () => void
   refetchLicenseData: () => void
-  refetchRoyaltyData: () => void
   refetchNFTData: () => void
   refetchRoyaltyGraphData: () => void
   // fetched
@@ -75,7 +71,6 @@ const IpContext = React.createContext<{
   isIpLicenseDataFetched: boolean
   isLicenseTermsDataFetched: boolean
   isLicenseDataFetched: boolean
-  isRoyaltyDataFetched: boolean
   isRoyaltyGraphDataFetched: boolean
 } | null>(null)
 
@@ -95,7 +90,6 @@ export const IpProvider = ({
     assetChildrenData: true,
     licenseTermsData: true,
     licenseData: true,
-    royaltyData: true,
     royaltyGraphData: false,
     ...options,
   }
@@ -281,29 +275,6 @@ export const IpProvider = ({
     queryOptions: { enabled: queryOptions.licenseData },
   })
 
-  // Fetch Royalty Data
-  const {
-    isLoading: isRoyaltyDataLoading,
-    data: royaltyData,
-    refetch: refetchRoyaltyData,
-    isFetched: isRoyaltyDataFetched,
-  } = useQuery({
-    queryKey: [
-      RESOURCE_TYPE.ROYALTY_POLICY,
-      {
-        pagination: {
-          limit: 0,
-          offset: 0,
-        },
-        where: {
-          ipId,
-        },
-      },
-    ],
-    queryFn: () => getResource(RESOURCE_TYPE.ROYALTY_POLICY, ipId, chain.name as STORYKIT_SUPPORTED_CHAIN),
-    enabled: queryOptions.royaltyData,
-  })
-
   const {
     isLoading: isRoyaltyGraphDataLoading,
     data: royaltyGraphData,
@@ -349,7 +320,6 @@ export const IpProvider = ({
         //
         nftData,
         licenseData: licenseData?.data,
-        royaltyData: royaltyData?.data,
         royaltyGraphData,
         // loading
         isAssetDataLoading,
@@ -360,7 +330,6 @@ export const IpProvider = ({
         isipLicenseDataLoading,
         isLicenseTermsDataLoading,
         isLicenseDataLoading,
-        isRoyaltyDataLoading,
         isRoyaltyGraphDataLoading,
         // refetch
         refetchAssetData,
@@ -369,7 +338,6 @@ export const IpProvider = ({
         refetchIpLicenseData,
         refetchLicenseTermsData,
         refetchLicenseData,
-        refetchRoyaltyData,
         refetchRoyaltyGraphData,
         refetchNFTData,
         // fetched
@@ -380,7 +348,6 @@ export const IpProvider = ({
         isIpLicenseDataFetched,
         isLicenseTermsDataFetched,
         isLicenseDataFetched,
-        isRoyaltyDataFetched,
         isRoyaltyGraphDataFetched,
       }}
     >
