@@ -11,7 +11,6 @@ import { cn, shortenAddress } from "../../lib/utils"
 import { IpProvider, useIpContext } from "../../providers"
 import { IpGraph } from "../IpGraph"
 import { IpLicenseAccordion } from "../IpLicenseAccordion"
-import { IpRoyaltyPieChart } from "../IpRoyaltyPieChart"
 import "./styles.css"
 
 export type IpWidgetProps = {
@@ -23,7 +22,6 @@ export const IPA_CARD_TABS = [
   { id: "overview", label: "Overview" },
   { id: "licensing", label: "Licensing" },
   { id: "derivatives", label: "IP Graph" },
-  { id: "royalty", label: "Royalty" },
 ]
 
 const IpWidget = ({ ipId, isBottomNav, ...rest }: IpWidgetProps) => {
@@ -131,12 +129,6 @@ function IPAssetCard({ isBottomNav, activeTab }: { isBottomNav?: boolean; active
       return (
         <IPAssetLayout isBottomNav={isBottomNav}>
           <IpGraph width={370} height={250} />
-        </IPAssetLayout>
-      )
-    case "royalty":
-      return (
-        <IPAssetLayout isBottomNav={isBottomNav}>
-          <IpRoyaltyPieChart />
         </IPAssetLayout>
       )
     default:
