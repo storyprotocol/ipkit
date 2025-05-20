@@ -4,7 +4,7 @@ import {
   nonCommercialSocialRemixingLicenseTerms,
 } from "@/constants/pil-flavors"
 import { cn } from "@/lib/utils"
-import { PIL_FLAVOR } from "@/types"
+import { PIL_FLAVOR } from "@/types/assets"
 import { cva } from "class-variance-authority"
 import * as React from "react"
 

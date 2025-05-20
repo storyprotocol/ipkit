@@ -1,4 +1,4 @@
-import { WRAPPED_IP } from "@/types"
+import { WRAPPED_IP } from "@/types/chains"
 import { Term } from "@/types/openapi"
 import { zeroAddress } from "viem"
 

@@ -1,4 +1,4 @@
-import { PIL_FLAVOR, PilFlavor } from "@/types"
+import { PIL_FLAVOR, PilFlavor } from "@/types/assets"
 import { Term } from "@/types/openapi"
 import { type ClassValue, clsx } from "clsx"
 import { extendTailwindMerge } from "tailwind-merge"

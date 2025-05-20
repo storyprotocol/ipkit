@@ -1,4 +1,4 @@
-import { PIL_FLAVOR } from "@/types"
+import { PIL_FLAVOR } from "@/types/assets"
 import type { Meta, StoryObj } from "@storybook/react"
 
 import Example from "./Example"

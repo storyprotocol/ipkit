@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Trait } from "@/types"
+import { Trait } from "@/types/assets"
 import { Term } from "@/types/openapi"
 
 import { camelize } from "../utils"

@@ -1,7 +1,6 @@
 import { cn } from "@/lib/utils"
 import { useRoyaltyGraphContext } from "@/providers/RoyaltyGraphProvider/RoyaltyGraphProvider"
 import { useStoryKitContext } from "@/providers/StoryKitProvider"
-import { NFTMetadata } from "@/types"
 import { RoyaltiesGraph } from "@/types/royalty-graph"
 import { useQuery } from "@tanstack/react-query"
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
@@ -9,7 +8,6 @@ import { LinkObject } from "react-force-graph-2d"
 
 import "../../global.css"
 import { convertRoyaltyToGraphFormat } from "../../lib/graph"
-import { useIpContext } from "../../providers"
 // import { Asset } from "../../types"
 import "./styles.css"
 
