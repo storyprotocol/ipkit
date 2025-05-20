@@ -94,12 +94,12 @@ export const IpProvider = ({
 }) => {
   const queryOptions = {
     assetData: true,
-    ipaMetadata: true,
-    assetParentsData: true,
-    assetChildrenData: true,
-    licenseTermsData: true,
-    licenseData: true,
-    royaltyPaymentsData: true,
+    ipaMetadata: false,
+    assetParentsData: false,
+    assetChildrenData: false,
+    licenseTermsData: false,
+    licenseData: false,
+    royaltyPaymentsData: false,
     ...options,
   }
 
