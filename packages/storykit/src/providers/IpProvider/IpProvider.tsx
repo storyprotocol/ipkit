@@ -137,23 +137,20 @@ export const IpProvider = ({
 
   // Fetch asset parent data
 
-  const fetchParentEdgeOptions = {
-    pagination: {
-      limit: 500,
-      offset: 0,
-    },
-    where: {
-      ipId,
-    },
-  }
-
   const {
     isLoading: isAssetParentDataLoading,
     data: assetParentData,
     refetch: refetchAssetParentData,
     isFetched: isAssetParentDataFetched,
   } = useIpAssetEdges({
-    options: fetchParentEdgeOptions,
+    options: {
+      pagination: {
+        limit: 500,
+      },
+      where: {
+        ipId,
+      },
+    },
     queryOptions: {
       enabled: queryOptions.assetParentsData,
     },
@@ -161,23 +158,20 @@ export const IpProvider = ({
 
   // Fetch asset children data
 
-  const fetchChildEdgeOptions = {
-    pagination: {
-      limit: 500,
-      offset: 0,
-    },
-    where: {
-      parentIpId: ipId,
-    },
-  }
-
   const {
     isLoading: isAssetChildrenDataLoading,
     data: assetChildrenData,
     refetch: refetchAssetChildrenData,
     isFetched: isAssetChildrenDataFetched,
   } = useIpAssetEdges({
-    options: fetchChildEdgeOptions,
+    options: {
+      pagination: {
+        limit: 500,
+      },
+      where: {
+        parentIpId: ipId,
+      },
+    },
     queryOptions: {
       enabled: queryOptions.assetChildrenData,
     },
@@ -185,23 +179,17 @@ export const IpProvider = ({
 
   // Fetch IP License Terms data
 
-  const ipLicenseTermsQueryOptions = {
-    pagination: {
-      limit: 100,
-      offset: 0,
-    },
-    where: {
-      ipId,
-    },
-  }
-
   const {
     isLoading: isipLicenseDataLoading,
     data: ipLicenseData,
     refetch: refetchIpLicenseData,
     isFetched: isIpLicenseDataFetched,
   } = useIpAssetsTerms({
-    options: ipLicenseTermsQueryOptions,
+    options: {
+      where: {
+        ipId,
+      },
+    },
     queryOptions: {
       enabled: queryOptions.licenseTermsData,
     },
