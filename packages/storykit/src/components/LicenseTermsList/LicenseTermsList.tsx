@@ -1,5 +1,5 @@
 import { noLicenseTerms } from "@/constants/pil-flavors"
-import { useLicenseTerm } from "@/hooks/useLicenseTerm"
+import { useLicenseTerms } from "@/hooks/useLicenseTerms"
 import { cn } from "@/lib"
 import { PILTerms } from "@/types/openapi"
 import { cva } from "class-variance-authority"
@@ -169,7 +169,7 @@ function LicenseTermsList({
   selectedLicenseTerms,
   selectedLicenseTermsId,
 }: LicenseTermsListProps) {
-  const { data: licenseTermsData } = useLicenseTerm({
+  const { data: licenseTermsData } = useLicenseTerms({
     licenseTermId: selectedLicenseTermsId ?? "",
     queryOptions: { enabled: !!selectedLicenseTermsId },
   })

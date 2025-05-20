@@ -4,7 +4,7 @@ import { useIpAssetMetadata } from "@/hooks/useIpAssetMetadata"
 import { useIpAssetsTerms } from "@/hooks/useIpAssetsTerms"
 import { useLicenseTokens } from "@/hooks/useLicenseTokens"
 import { useRoyaltyPayments } from "@/hooks/useRoyaltyPayments"
-import { LicenseTermResponse, getLicenseTerm } from "@/lib/api/getLicenseTerm"
+import { LicenseTermsResponse, getLicenseTerms } from "@/lib/api/getLicenseTerms"
 import { getNFTByTokenId } from "@/lib/simplehash"
 import { getMetadataFromIpfs } from "@/lib/utils"
 //
@@ -218,12 +218,12 @@ export const IpProvider = ({
   async function fetchLicenseTermsDetails(data: IPLicenseTerms[]) {
     const uniqueLicenses = data.filter((item) => item.ipId?.toLowerCase() === ipId.toLowerCase())
 
-    const requests: Promise<LicenseTermResponse>[] = uniqueLicenses.map((item) =>
-      getLicenseTerm({ licenseTermId: item.licenseTermsId ?? "", chainName: chain.name, apiKey, apiClient })
+    const requests: Promise<LicenseTermsResponse>[] = uniqueLicenses.map((item) =>
+      getLicenseTerms({ licenseTermId: item.licenseTermsId ?? "", chainName: chain.name, apiKey, apiClient })
     )
     const results = await Promise.all(requests)
 
-    return results.map((result) => (result.data as LicenseTermResponse).data!)
+    return results.map((result) => (result.data as LicenseTermsResponse).data!)
 
     // TODO: fetch offchain data
 

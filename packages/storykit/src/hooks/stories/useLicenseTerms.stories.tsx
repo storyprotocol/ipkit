@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import React from "react"
 
-import { UseLicenseTermOptions, useLicenseTerm } from "../useLicenseTerm"
+import { UseLicenseTermsOptions, useLicenseTerms } from "../useLicenseTerms"
 import { DataTable } from "./(components)/DataTable"
 
-const Example = (args: UseLicenseTermOptions) => {
-  const { isLoading, data } = useLicenseTerm(args)
+const Example = (args: UseLicenseTermsOptions) => {
+  const { isLoading, data } = useLicenseTerms(args)
   const mainFields = ["id", "licenseTemplate", "commercialAttribution", "commercialUse", "derivativesAllowed"]
 
   if (isLoading) return <>loading...</>
@@ -29,7 +29,7 @@ const Example = (args: UseLicenseTermOptions) => {
 }
 
 const meta = {
-  title: "Hooks/useLicenseTerm",
+  title: "Hooks/useLicenseTerms",
   component: Example,
   parameters: {
     layout: "centered",
