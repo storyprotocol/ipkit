@@ -2,14 +2,15 @@ import { useIpAsset } from "@/hooks/useIpAsset"
 import { useIpAssetEdges } from "@/hooks/useIpAssetEdges"
 import { useIpAssetMetadata } from "@/hooks/useIpAssetMetadata"
 import { useIpAssetsTerms } from "@/hooks/useIpAssetsTerms"
+import { useLicenseTokens } from "@/hooks/useLicenseTokens"
 import { LicenseTermResponse, getLicenseTerm } from "@/lib/api/getLicenseTerm"
 //
 import { getRoyaltiesByIPs } from "@/lib/royalty-graph"
 import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
-import { IPAsset, IPLicenseTerm, IpAssetEdge, IpAssetMetadata, LicenseTerm } from "@/types/openapi"
+import { IPAsset, IPLicenseTerm, IpAssetEdge, IpAssetMetadata, LicenseTerm, LicenseToken } from "@/types/openapi"
 import { RoyaltiesGraph } from "@/types/royalty-graph"
 import { useQuery } from "@tanstack/react-query"
-import React from "react"
+import React, { useEffect } from "react"
 import { Address, Hash } from "viem"
 
 import { getMetadataFromIpfs, getResource, listResource } from "../../lib/api"
@@ -40,9 +41,9 @@ const IpContext = React.createContext<{
   assetChildrenData: IpAssetEdge[] | undefined
   ipLicenseData: IPLicenseTerm[] | undefined
   licenseTermsData: LicenseTerm[] | undefined
+  licenseData: LicenseToken[] | undefined
   //--
   nftData: NFTMetadata | undefined
-  licenseData: License[] | undefined
   royaltyData: RoyaltyPolicy | undefined
   royaltyGraphData: RoyaltiesGraph | undefined
   // loading
@@ -276,28 +277,20 @@ export const IpProvider = ({
     enabled: Boolean(ipLicenseData) && Boolean(ipLicenseData?.data?.length) && queryOptions.licenseTermsData,
   })
 
-  //
-
-  const licenseQueryOptions = {
-    pagination: {
-      limit: 0,
-      offset: 0,
-    },
-    where: {
-      licensorIpId: ipId,
-    },
-  }
-
   // Fetch License Data
+
   const {
     isLoading: isLicenseDataLoading,
     data: licenseData,
     refetch: refetchLicenseData,
     isFetched: isLicenseDataFetched,
-  } = useQuery({
-    queryKey: [RESOURCE_TYPE.LICENSE, licenseQueryOptions],
-    queryFn: () => listResource(RESOURCE_TYPE.LICENSE, chain.name as STORYKIT_SUPPORTED_CHAIN, licenseQueryOptions),
-    enabled: queryOptions.licenseData,
+  } = useLicenseTokens({
+    options: {
+      where: {
+        licensorIpId: ipId,
+      },
+    },
+    queryOptions: { enabled: queryOptions.licenseData },
   })
 
   // Fetch Royalty Data
