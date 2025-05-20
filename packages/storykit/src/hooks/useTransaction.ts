@@ -1,14 +1,13 @@
-import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
+import { IpQueryOptions } from "@/types/openapi"
+import { UseQueryResult, useQuery } from "@tanstack/react-query"
 import { Address } from "viem"
 
 import { TransactionResponse, getTransaction } from "../lib/api/getTransaction"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
-export type UseTransactionQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
-
 export type UseTransactionOptions = {
   trxId: Address
-  queryOptions?: UseTransactionQueryOptions
+  queryOptions?: IpQueryOptions
 }
 
 export function useTransaction({ trxId, queryOptions }: UseTransactionOptions) {

@@ -1,16 +1,15 @@
-import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
+import { IpQueryOptions } from "@/types/openapi"
+import { UseQueryResult, useQuery } from "@tanstack/react-query"
 import { Address } from "viem"
 
 import { IpAssetEdgesOptions, IpAssetEdgesResponse, getIpAssetEdges } from "../lib/api/getIpAssetEdges"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
-export type UseIpAssetEdgesQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
-
 export type UseIpAssetEdgesOptions = {
   ipId?: Address
   parentIpId?: Address
   options?: IpAssetEdgesOptions
-  queryOptions?: UseIpAssetEdgesQueryOptions
+  queryOptions?: IpQueryOptions
 }
 
 export function useIpAssetEdges({ ipId, parentIpId, options, queryOptions }: UseIpAssetEdgesOptions = {}) {

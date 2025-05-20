@@ -1,13 +1,12 @@
-import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
+import { IpQueryOptions } from "@/types/openapi"
+import { UseQueryResult, useQuery } from "@tanstack/react-query"
 
 import { LicenseTemplatesOptions, LicenseTemplatesResponse, getLicenseTemplates } from "../lib/api/getLicenseTemplates"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
-export type UseLicenseTemplatesQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
-
 export type UseLicenseTemplatesOptions = {
   options?: LicenseTemplatesOptions
-  queryOptions?: UseLicenseTemplatesQueryOptions
+  queryOptions?: IpQueryOptions
 }
 
 export function useLicenseTemplates({ options, queryOptions }: UseLicenseTemplatesOptions = {}) {

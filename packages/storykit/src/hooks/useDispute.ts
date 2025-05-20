@@ -1,13 +1,12 @@
-import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
+import { IpQueryOptions } from "@/types/openapi"
+import { UseQueryResult, useQuery } from "@tanstack/react-query"
 
 import { DisputeResponse, getDispute } from "../lib/api/getDispute"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
-export type UseDisputeQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
-
 export type UseDisputeOptions = {
   disputeId: string
-  queryOptions?: UseDisputeQueryOptions
+  queryOptions?: IpQueryOptions
 }
 
 export function useDispute({ disputeId, queryOptions }: UseDisputeOptions) {

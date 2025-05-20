@@ -1,14 +1,13 @@
-import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
+import { IpQueryOptions } from "@/types/openapi"
+import { UseQueryResult, useQuery } from "@tanstack/react-query"
 import { Address } from "viem"
 
 import { LicenseTemplateResponse, getLicenseTemplate } from "../lib/api/getLicenseTemplate"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
-export type UseLicenseTemplateQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
-
 export type UseLicenseTemplateOptions = {
   licenseTemplateId: Address
-  queryOptions?: UseLicenseTemplateQueryOptions
+  queryOptions?: IpQueryOptions
 }
 
 export function useLicenseTemplate({ licenseTemplateId, queryOptions }: UseLicenseTemplateOptions) {

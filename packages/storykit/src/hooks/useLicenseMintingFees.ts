@@ -1,4 +1,5 @@
-import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
+import { IpQueryOptions } from "@/types/openapi"
+import { UseQueryResult, useQuery } from "@tanstack/react-query"
 
 import {
   LicenseMintingFeesOptions,
@@ -7,11 +8,9 @@ import {
 } from "../lib/api/getLicenseMintingFees"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
-export type UseLicenseMintingFeesQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
-
 export type UseLicenseMintingFeesOptions = {
   options?: LicenseMintingFeesOptions
-  queryOptions?: UseLicenseMintingFeesQueryOptions
+  queryOptions?: IpQueryOptions
 }
 
 export function useLicenseMintingFees({ options, queryOptions }: UseLicenseMintingFeesOptions = {}) {

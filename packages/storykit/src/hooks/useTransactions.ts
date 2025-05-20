@@ -1,13 +1,12 @@
-import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
+import { IpQueryOptions } from "@/types/openapi"
+import { UseQueryResult, useQuery } from "@tanstack/react-query"
 
 import { TransactionsOptions, TransactionsResponse, getTransactions } from "../lib/api/getTransactions"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
-export type UseTransactionsQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
-
 export type UseTransactionsOptions = {
   options?: TransactionsOptions
-  queryOptions?: UseTransactionsQueryOptions
+  queryOptions?: IpQueryOptions
 }
 
 export function useTransactions({ options, queryOptions }: UseTransactionsOptions = {}) {

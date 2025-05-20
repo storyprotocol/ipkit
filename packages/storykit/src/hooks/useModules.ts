@@ -1,13 +1,12 @@
-import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
+import { IpQueryOptions } from "@/types/openapi"
+import { UseQueryResult, useQuery } from "@tanstack/react-query"
 
 import { ModulesOptions, ModulesResponse, getModules } from "../lib/api/getModules"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
-export type UseModulesQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
-
 export type UseModulesOptions = {
   options?: ModulesOptions
-  queryOptions?: UseModulesQueryOptions
+  queryOptions?: IpQueryOptions
 }
 
 export function useModules({ options, queryOptions }: UseModulesOptions = {}) {

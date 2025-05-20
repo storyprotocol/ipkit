@@ -1,14 +1,13 @@
-import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
+import { IpQueryOptions } from "@/types/openapi"
+import { UseQueryResult, useQuery } from "@tanstack/react-query"
 import { Address } from "viem"
 
 import { RoyaltyPaymentResponse, getRoyaltyPayment } from "../lib/api/getRoyaltyPayment"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
-export type UseRoyaltyPaymentQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
-
 export type UseRoyaltyPaymentOptions = {
   royaltyPayId: Address
-  queryOptions?: UseRoyaltyPaymentQueryOptions
+  queryOptions?: IpQueryOptions
 }
 
 export function useRoyaltyPayment({ royaltyPayId, queryOptions }: UseRoyaltyPaymentOptions) {

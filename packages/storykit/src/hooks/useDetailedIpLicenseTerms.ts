@@ -1,14 +1,13 @@
-import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
+import { IpQueryOptions } from "@/types/openapi"
+import { UseQueryResult, useQuery } from "@tanstack/react-query"
 import { Address } from "viem"
 
 import { DetailedIpLicenseTermsResponse, getDetailedIpLicenseTerms } from "../lib/api/getDetailedIpLicenseTerms"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
-export type UseDetailedIpLicenseTermsQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
-
 export type UseDetailedIpLicenseTermsOptions = {
   ipIds: Address[]
-  queryOptions?: UseDetailedIpLicenseTermsQueryOptions
+  queryOptions?: IpQueryOptions
 }
 
 export function useDetailedIpLicenseTerms({ ipIds, queryOptions }: UseDetailedIpLicenseTermsOptions) {

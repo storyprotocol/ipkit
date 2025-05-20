@@ -1,16 +1,15 @@
-import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
+import { IpQueryOptions } from "@/types/openapi"
+import { UseQueryResult, useQuery } from "@tanstack/react-query"
 import { Address } from "viem"
 
 import { IpGroupEdgesOptions, IpGroupEdgesResponse, getIpGroupEdges } from "../lib/api/getIpGroupEdges"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
-export type UseIpGroupEdgesQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
-
 export type UseIpGroupEdgesOptions = {
   groupId?: Address
   ipAssetIds?: Address[]
   options?: IpGroupEdgesOptions
-  queryOptions?: UseIpGroupEdgesQueryOptions
+  queryOptions?: IpQueryOptions
 }
 
 export function useIpGroupEdges({ groupId, ipAssetIds, options, queryOptions }: UseIpGroupEdgesOptions = {}) {

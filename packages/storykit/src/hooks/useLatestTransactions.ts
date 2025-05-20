@@ -1,4 +1,5 @@
-import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
+import { IpQueryOptions } from "@/types/openapi"
+import { UseQueryResult, useQuery } from "@tanstack/react-query"
 
 import {
   LatestTransactionsOptions,
@@ -7,11 +8,9 @@ import {
 } from "../lib/api/getLatestTransactions"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
-export type UseLatestTransactionsQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
-
 export type UseLatestTransactionsOptions = {
   options?: LatestTransactionsOptions
-  queryOptions?: UseLatestTransactionsQueryOptions
+  queryOptions?: IpQueryOptions
 }
 
 export function useLatestTransactions({ options, queryOptions }: UseLatestTransactionsOptions = {}) {

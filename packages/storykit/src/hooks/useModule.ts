@@ -1,14 +1,13 @@
-import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
+import { IpQueryOptions } from "@/types/openapi"
+import { UseQueryResult, useQuery } from "@tanstack/react-query"
 import { Address } from "viem"
 
 import { ModuleResponse, getModule } from "../lib/api/getModule"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
-export type UseModuleQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
-
 export type UseModuleOptions = {
   moduleId: Address
-  queryOptions?: UseModuleQueryOptions
+  queryOptions?: IpQueryOptions
 }
 
 export function useModule({ moduleId, queryOptions }: UseModuleOptions) {

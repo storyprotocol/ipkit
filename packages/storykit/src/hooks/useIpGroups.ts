@@ -1,14 +1,13 @@
-import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
+import { IpQueryOptions } from "@/types/openapi"
+import { UseQueryResult, useQuery } from "@tanstack/react-query"
 
 import { IpGroupsOptions, IpGroupsResponse, getIpGroups } from "../lib/api/getIpGroups"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
-export type UseIpGroupsQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
-
 export type UseIpGroupsOptions = {
   groupId?: string
   options?: IpGroupsOptions
-  queryOptions?: UseIpGroupsQueryOptions
+  queryOptions?: IpQueryOptions
 }
 
 export function useIpGroups({ groupId, options, queryOptions }: UseIpGroupsOptions = {}) {

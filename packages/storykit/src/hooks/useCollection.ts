@@ -1,14 +1,13 @@
-import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
+import { IpQueryOptions } from "@/types/openapi"
+import { UseQueryResult, useQuery } from "@tanstack/react-query"
 import { Address } from "viem"
 
 import { CollectionResponse, getCollection } from "../lib/api/getCollection"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
-export type UseCollectionQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
-
 export type UseCollectionOptions = {
   collectionId: Address
-  queryOptions?: UseCollectionQueryOptions
+  queryOptions?: IpQueryOptions
 }
 
 export function useCollection({ collectionId, queryOptions }: UseCollectionOptions) {
