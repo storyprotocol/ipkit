@@ -37,33 +37,6 @@ export async function getResource<T>(
   }
 }
 
-export async function listResource<T>(
-  resourceName: ResourceType,
-  chain: STORYKIT_SUPPORTED_CHAIN,
-  options?: QueryOptions
-) {
-  try {
-    const _chain = CHAINS[chain]
-    const res = await fetch(`${API_URL}/${_chain.apiVersion}/${resourceName}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": API_KEY as string,
-        "X-CHAIN": options?.chain || _chain.name || STORYKIT_SUPPORTED_CHAIN.STORY_MAINNET,
-      },
-      cache: "no-cache",
-      ...(options && { body: JSON.stringify({ options }) }),
-    })
-    if (res.ok) {
-      return res.json()
-    } else {
-      return res
-    }
-  } catch (error) {
-    console.error(error)
-  }
-}
-
 export async function getMetadataFromIpfs(ipfsUrl: string) {
   const metadata = await fetch(convertIpfsUriToUrl(ipfsUrl)).then((res) => res.json())
   return metadata

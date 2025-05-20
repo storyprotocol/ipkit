@@ -13,11 +13,11 @@ import { useQuery } from "@tanstack/react-query"
 import React, { useEffect } from "react"
 import { Address, Hash } from "viem"
 
-import { getMetadataFromIpfs, getResource, listResource } from "../../lib/api"
+import { getMetadataFromIpfs, getResource } from "../../lib/api"
 import { getNFTByTokenId } from "../../lib/simplehash"
 // import { convertIpfsUriToUrl } from "../../lib/utils"
 import { RESOURCE_TYPE } from "../../types/api"
-import { License, RoyaltyPolicy } from "../../types/assets"
+import { RoyaltyPolicy } from "../../types/assets"
 import { NFTMetadata } from "../../types/simplehash"
 import { useStoryKitContext } from "../StoryKitProvider"
 
