@@ -1,5 +1,7 @@
+import { STAGING_URL } from "@/constants/api"
 import { CHAINS } from "@/constants/chains"
 import { cn } from "@/lib"
+import { ApiClient, createApiClient } from "@/lib/api/apiClient"
 import { ChainConfig, ERC20Token, STORYKIT_SUPPORTED_CHAIN, WRAPPED_IP } from "@/types/chains"
 import React, { useMemo } from "react"
 
@@ -15,6 +17,7 @@ export interface StoryKitProviderOptions {
   apiKey: string
   appId?: string
   children: React.ReactNode
+  baseUrl?: string
 }
 
 const StoryKitContext = React.createContext<{
@@ -25,12 +28,15 @@ const StoryKitContext = React.createContext<{
   themeClass: string
   apiKey: string
   appId: string | undefined
+  baseUrl: string
+  apiClient: ApiClient
 } | null>(null)
 
 export const StoryKitProvider = ({
   chain = STORYKIT_SUPPORTED_CHAIN.STORY_MAINNET,
   defaultCurrency = WRAPPED_IP,
   theme = "default",
+  baseUrl = STAGING_URL,
   mode,
   rpcUrl,
   apiKey,
@@ -44,6 +50,8 @@ export const StoryKitProvider = ({
     [chain, rpcUrl]
   )
 
+  const apiClient = useMemo(() => createApiClient(baseUrl), [baseUrl])
+
   return (
     <StoryKitContext.Provider
       value={{
@@ -54,6 +62,8 @@ export const StoryKitProvider = ({
         themeClass: `${theme}${mode ? `-${mode}` : ""}`,
         apiKey: apiKey,
         appId: appId,
+        baseUrl,
+        apiClient,
       }}
     >
       <div className={cn(theme)}>{children}</div>
