@@ -11,12 +11,12 @@ export type UsePermissionsOptions = {
 }
 
 export function usePermissions({ options, queryOptions }: UsePermissionsOptions = {}) {
-  const { chain, apiKey } = useStoryKitContext()
+  const { chain, apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
     queryKey: ["getPermissions", options, queryOptions],
     queryFn: async () => {
-      const { data, error } = await getPermissions({ options, chainName: chain.name, apiKey })
+      const { data, error } = await getPermissions({ options, chainName: chain.name, apiKey, apiClient })
       if (error) throw error
       return data
     },

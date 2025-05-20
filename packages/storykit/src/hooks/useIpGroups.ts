@@ -12,12 +12,12 @@ export type UseIpGroupsOptions = {
 }
 
 export function useIpGroups({ groupId, options, queryOptions }: UseIpGroupsOptions = {}) {
-  const { chain, apiKey } = useStoryKitContext()
+  const { chain, apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
     queryKey: ["getIpGroups", groupId, options, queryOptions],
     queryFn: async () => {
-      const { data, error } = await getIpGroups({ groupId, options, chainName: chain.name, apiKey })
+      const { data, error } = await getIpGroups({ groupId, options, chainName: chain.name, apiKey, apiClient })
       if (error) throw error
       return data
     },

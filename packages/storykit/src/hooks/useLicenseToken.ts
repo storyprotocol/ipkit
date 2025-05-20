@@ -11,12 +11,12 @@ export type UseLicenseTokenOptions = {
 }
 
 export function useLicenseToken({ licenseTokenId, queryOptions }: UseLicenseTokenOptions) {
-  const { chain, apiKey } = useStoryKitContext()
+  const { chain, apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
     queryKey: ["getLicenseToken", licenseTokenId, queryOptions],
     queryFn: async () => {
-      const { data, error } = await getLicenseToken({ licenseTokenId, chainName: chain.name, apiKey })
+      const { data, error } = await getLicenseToken({ licenseTokenId, chainName: chain.name, apiKey, apiClient })
       if (error) throw error
       return data
     },

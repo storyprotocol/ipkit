@@ -15,12 +15,12 @@ export type UseLatestTransactionsOptions = {
 }
 
 export function useLatestTransactions({ options, queryOptions }: UseLatestTransactionsOptions = {}) {
-  const { chain, apiKey } = useStoryKitContext()
+  const { chain, apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
     queryKey: ["getLatestTransactions", options, queryOptions],
     queryFn: async () => {
-      const { data, error } = await getLatestTransactions({ options, chainName: chain.name, apiKey })
+      const { data, error } = await getLatestTransactions({ options, chainName: chain.name, apiKey, apiClient })
       if (error) throw error
       return data
     },

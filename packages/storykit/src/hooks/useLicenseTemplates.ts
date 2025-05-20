@@ -11,12 +11,12 @@ export type UseLicenseTemplatesOptions = {
 }
 
 export function useLicenseTemplates({ options, queryOptions }: UseLicenseTemplatesOptions = {}) {
-  const { chain, apiKey } = useStoryKitContext()
+  const { chain, apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
     queryKey: ["getLicenseTemplates", options, queryOptions],
     queryFn: async () => {
-      const { data, error } = await getLicenseTemplates({ options, chainName: chain.name, apiKey })
+      const { data, error } = await getLicenseTemplates({ options, chainName: chain.name, apiKey, apiClient })
       if (error) throw error
       return data
     },

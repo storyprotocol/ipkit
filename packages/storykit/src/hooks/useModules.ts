@@ -11,12 +11,12 @@ export type UseModulesOptions = {
 }
 
 export function useModules({ options, queryOptions }: UseModulesOptions = {}) {
-  const { chain, apiKey } = useStoryKitContext()
+  const { chain, apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
     queryKey: ["getModules", options, queryOptions],
     queryFn: async () => {
-      const { data, error } = await getModules({ options, chainName: chain.name, apiKey })
+      const { data, error } = await getModules({ options, chainName: chain.name, apiKey, apiClient })
       if (error) throw error
       return data
     },

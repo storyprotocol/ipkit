@@ -12,12 +12,12 @@ export type UseRoyaltyPaymentOptions = {
 }
 
 export function useRoyaltyPayment({ royaltyPayId, queryOptions }: UseRoyaltyPaymentOptions) {
-  const { chain, apiKey } = useStoryKitContext()
+  const { chain, apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
     queryKey: ["getRoyaltyPayment", royaltyPayId, queryOptions],
     queryFn: async () => {
-      const { data, error } = await getRoyaltyPayment({ royaltyPayId, chainName: chain.name, apiKey })
+      const { data, error } = await getRoyaltyPayment({ royaltyPayId, chainName: chain.name, apiKey, apiClient })
       if (error) throw error
       return data
     },

@@ -15,7 +15,7 @@ export type UseLicenseMintingFeesOptions = {
 }
 
 export function useLicenseMintingFees({ options, queryOptions }: UseLicenseMintingFeesOptions = {}) {
-  const { chain, apiKey } = useStoryKitContext()
+  const { chain, apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
     queryKey: ["getLicenseMintingFees", options, queryOptions],
@@ -24,6 +24,7 @@ export function useLicenseMintingFees({ options, queryOptions }: UseLicenseMinti
         options,
         chainName: chain.name,
         apiKey,
+        apiClient,
       })
       if (error) throw error
       return data

@@ -12,12 +12,12 @@ export type UseIpAssetOptions = {
 }
 
 export function useIpAsset({ ipId, queryOptions }: UseIpAssetOptions) {
-  const { chain, apiKey } = useStoryKitContext()
+  const { chain, apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
     queryKey: ["getIpAsset", ipId, queryOptions],
     queryFn: async () => {
-      const { data, error } = await getIpAsset({ ipId, chainName: chain.name, apiKey })
+      const { data, error } = await getIpAsset({ ipId, chainName: chain.name, apiKey, apiClient })
       if (error) throw error
       return data
     },

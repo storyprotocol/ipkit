@@ -14,12 +14,19 @@ export type UseIpAssetEdgesOptions = {
 }
 
 export function useIpAssetEdges({ ipId, parentIpId, options, queryOptions }: UseIpAssetEdgesOptions = {}) {
-  const { chain, apiKey } = useStoryKitContext()
+  const { chain, apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
     queryKey: ["getIpAssetEdges", ipId, parentIpId, options, queryOptions],
     queryFn: async () => {
-      const { data, error } = await getIpAssetEdges({ ipId, parentIpId, options, chainName: chain.name, apiKey })
+      const { data, error } = await getIpAssetEdges({
+        ipId,
+        parentIpId,
+        options,
+        chainName: chain.name,
+        apiKey,
+        apiClient,
+      })
       if (error) throw error
       return data
     },

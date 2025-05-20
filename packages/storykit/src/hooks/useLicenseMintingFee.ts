@@ -12,12 +12,17 @@ export type UseLicenseMintingFeeOptions = {
 }
 
 export function useLicenseMintingFee({ licenseMintingFeePaidId, queryOptions }: UseLicenseMintingFeeOptions) {
-  const { chain, apiKey } = useStoryKitContext()
+  const { chain, apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
     queryKey: ["getLicenseMintingFee", licenseMintingFeePaidId, queryOptions],
     queryFn: async () => {
-      const { data, error } = await getLicenseMintingFee({ licenseMintingFeePaidId, chainName: chain.name, apiKey })
+      const { data, error } = await getLicenseMintingFee({
+        licenseMintingFeePaidId,
+        chainName: chain.name,
+        apiKey,
+        apiClient,
+      })
       if (error) throw error
       return data
     },

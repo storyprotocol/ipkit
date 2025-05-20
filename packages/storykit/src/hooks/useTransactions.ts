@@ -11,12 +11,12 @@ export type UseTransactionsOptions = {
 }
 
 export function useTransactions({ options, queryOptions }: UseTransactionsOptions = {}) {
-  const { chain, apiKey } = useStoryKitContext()
+  const { chain, apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
     queryKey: ["getTransactions", options, queryOptions],
     queryFn: async () => {
-      const { data, error } = await getTransactions({ options, chainName: chain.name, apiKey })
+      const { data, error } = await getTransactions({ options, chainName: chain.name, apiKey, apiClient })
       if (error) throw error
       return data
     },

@@ -14,12 +14,19 @@ export type UseIpGroupEdgesOptions = {
 }
 
 export function useIpGroupEdges({ groupId, ipAssetIds, options, queryOptions }: UseIpGroupEdgesOptions = {}) {
-  const { chain, apiKey } = useStoryKitContext()
+  const { chain, apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
     queryKey: ["getIpGroupEdges", groupId, ipAssetIds, options, queryOptions],
     queryFn: async () => {
-      const { data, error } = await getIpGroupEdges({ groupId, ipAssetIds, options, chainName: chain.name, apiKey })
+      const { data, error } = await getIpGroupEdges({
+        groupId,
+        ipAssetIds,
+        options,
+        chainName: chain.name,
+        apiKey,
+        apiClient,
+      })
       if (error) throw error
       return data
     },
