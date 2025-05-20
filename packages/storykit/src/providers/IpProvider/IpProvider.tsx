@@ -13,10 +13,9 @@ import { useQuery } from "@tanstack/react-query"
 import React, { useEffect } from "react"
 import { Address, Hash } from "viem"
 
-import { getMetadataFromIpfs, getResource } from "../../lib/api"
+import { getMetadataFromIpfs } from "../../lib/api"
 import { getNFTByTokenId } from "../../lib/simplehash"
 // import { convertIpfsUriToUrl } from "../../lib/utils"
-import { RESOURCE_TYPE } from "../../types/api"
 import { NFTMetadata } from "../../types/simplehash"
 import { useStoryKitContext } from "../StoryKitProvider"
 
