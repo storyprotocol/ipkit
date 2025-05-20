@@ -11,10 +11,10 @@ import { getMetadataFromIpfs } from "@/lib/utils"
 import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
 import {
   IPAsset,
-  IPLicenseTerm,
+  IPLicenseTerms,
   IpAssetEdge,
   IpAssetMetadata,
-  LicenseTerm,
+  LicenseTerms,
   LicenseToken,
   RoyaltyPay,
 } from "@/types/openapi"
@@ -43,8 +43,8 @@ const IpContext = React.createContext<{
   ipaMetadata: IpAssetMetadata | undefined
   assetParentData: IpAssetEdge[] | undefined
   assetChildrenData: IpAssetEdge[] | undefined
-  ipLicenseData: IPLicenseTerm[] | undefined
-  licenseTermsData: LicenseTerm[] | undefined
+  ipLicenseData: IPLicenseTerms[] | undefined
+  licenseTermsData: LicenseTerms[] | undefined
   licenseData: LicenseToken[] | undefined
   royaltyPaymentsReceivedData: RoyaltyPay[] | undefined
   royaltyPaymentsSentData: RoyaltyPay[] | undefined
@@ -215,7 +215,7 @@ export const IpProvider = ({
 
   // fetch license terms details
 
-  async function fetchLicenseTermsDetails(data: IPLicenseTerm[]) {
+  async function fetchLicenseTermsDetails(data: IPLicenseTerms[]) {
     const uniqueLicenses = data.filter((item) => item.ipId?.toLowerCase() === ipId.toLowerCase())
 
     const requests: Promise<LicenseTermResponse>[] = uniqueLicenses.map((item) =>

@@ -6,7 +6,7 @@ export type IpQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
 export type IPAsset =
   components["schemas"]["github_com_storyprotocol_protocol-api_api_internal_models_protocolv3.IPAsset"]
 
-export type IPLicenseTerm =
+export type IPLicenseTerms =
   components["schemas"]["github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.IPLicenseTerm"]
 
 export type IpAssetMetadata =
@@ -15,7 +15,7 @@ export type IpAssetMetadata =
 export type IpAssetEdge =
   components["schemas"]["github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.IpAssetEdge"]
 
-export type LicenseTerm =
+export type LicenseTerms =
   components["schemas"]["github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.LicenseTerm"]
 
 export type PILTerms =
