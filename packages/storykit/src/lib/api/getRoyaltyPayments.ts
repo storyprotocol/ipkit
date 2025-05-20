@@ -1,6 +1,7 @@
 import { paths } from "@storykit/api-schema"
 import { FetchResponse } from "openapi-fetch"
 
+import { ApiClient, stagingClient } from "./apiClient"
 import { listQuery } from "./listQuery"
 
 export type RoyaltyPaymentsResponse =
@@ -10,13 +11,15 @@ export type RoyaltyPaymentsOptions =
   paths["/api/v3/royalties/payments"]["post"]["requestBody"]["content"]["application/json"]["options"]
 
 export type GetRoyaltyPaymentsOptions = {
+  client?: ApiClient
   options?: RoyaltyPaymentsOptions
   chainName: string
   apiKey: string
 }
 
-export function getRoyaltyPayments({ options, chainName, apiKey }: GetRoyaltyPaymentsOptions) {
+export function getRoyaltyPayments({ client, options, chainName, apiKey }: GetRoyaltyPaymentsOptions) {
   return listQuery({
+    client: client ?? stagingClient,
     path: "/api/v3/royalties/payments",
     body: { options },
     chainName,

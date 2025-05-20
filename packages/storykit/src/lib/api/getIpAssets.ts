@@ -2,6 +2,7 @@ import { paths } from "@storykit/api-schema"
 import { FetchResponse } from "openapi-fetch"
 import { Address } from "viem"
 
+import { ApiClient, stagingClient } from "./apiClient"
 import { listQuery } from "./listQuery"
 
 export type IpAssetsResponse = paths["/api/v3/assets"]["post"]["responses"][200]["content"]["application/json"]
@@ -9,14 +10,16 @@ export type IpAssetsResponse = paths["/api/v3/assets"]["post"]["responses"][200]
 export type IpAssetsOptions = paths["/api/v3/assets"]["post"]["requestBody"]["content"]["application/json"]["options"]
 
 export type GetIpAssetOptions = {
+  client?: ApiClient
   ipIds?: Address[] // ipIds from options added here for convenience
   options?: IpAssetsOptions
   chainName: string
   apiKey: string
 }
 
-export function getIpAssets({ ipIds, options, chainName, apiKey }: GetIpAssetOptions) {
+export function getIpAssets({ client, ipIds, options, chainName, apiKey }: GetIpAssetOptions) {
   return listQuery({
+    client: client ?? stagingClient,
     path: "/api/v3/assets",
     body: { options: { ...options, ...(ipIds ? { ipAssetIds: ipIds } : {}) } },
     chainName,

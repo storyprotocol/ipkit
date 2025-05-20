@@ -1,6 +1,7 @@
 import { paths } from "@storykit/api-schema"
 import { FetchResponse } from "openapi-fetch"
 
+import { ApiClient, stagingClient } from "./apiClient"
 import { listQuery } from "./listQuery"
 
 export type DetailedIpLicenseTermsResponse =
@@ -10,13 +11,15 @@ export type DetailedIpLicenseTermsOptions =
   paths["/api/v3/detailed-ip-license-terms"]["post"]["requestBody"]["content"]["application/json"]["options"]
 
 export type GetDetailedIpLicenseTermsOptions = {
+  client?: ApiClient
   ipIds: string[]
   chainName: string
   apiKey: string
 }
 
-export function getDetailedIpLicenseTerms({ ipIds, chainName, apiKey }: GetDetailedIpLicenseTermsOptions) {
+export function getDetailedIpLicenseTerms({ client, ipIds, chainName, apiKey }: GetDetailedIpLicenseTermsOptions) {
   return listQuery({
+    client: client ?? stagingClient,
     path: "/api/v3/detailed-ip-license-terms",
     body: { options: { where: { ipIds: ipIds } } },
     chainName,
