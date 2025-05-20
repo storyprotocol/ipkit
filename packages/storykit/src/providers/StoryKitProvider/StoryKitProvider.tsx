@@ -17,7 +17,7 @@ export interface StoryKitProviderOptions {
   apiKey: string
   appId?: string
   children: React.ReactNode
-  baseUrl?: string
+  apiBaseUrl?: string
 }
 
 const StoryKitContext = React.createContext<{
@@ -28,7 +28,7 @@ const StoryKitContext = React.createContext<{
   themeClass: string
   apiKey: string
   appId: string | undefined
-  baseUrl: string
+  apiBaseUrl: string
   apiClient: ApiClient
 } | null>(null)
 
@@ -36,7 +36,7 @@ export const StoryKitProvider = ({
   chain = STORYKIT_SUPPORTED_CHAIN.STORY_MAINNET,
   defaultCurrency = WRAPPED_IP,
   theme = "default",
-  baseUrl = STAGING_URL,
+  apiBaseUrl = STAGING_URL,
   mode,
   rpcUrl,
   apiKey,
@@ -50,7 +50,7 @@ export const StoryKitProvider = ({
     [chain, rpcUrl]
   )
 
-  const apiClient = useMemo(() => createApiClient(baseUrl), [baseUrl])
+  const apiClient = useMemo(() => createApiClient(apiBaseUrl), [apiBaseUrl])
 
   return (
     <StoryKitContext.Provider
@@ -62,7 +62,7 @@ export const StoryKitProvider = ({
         themeClass: `${theme}${mode ? `-${mode}` : ""}`,
         apiKey: apiKey,
         appId: appId,
-        baseUrl,
+        apiBaseUrl,
         apiClient,
       }}
     >
