@@ -19,3 +19,6 @@ export type Term = components["schemas"]["github_com_storyprotocol_protocol-api_
 
 export type LicenseToken =
   components["schemas"]["github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.LicenseToken"]
+
+export type RoyaltyPay =
+  components["schemas"]["github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.RoyaltyPay"]
