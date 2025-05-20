@@ -16,3 +16,7 @@ export const createApiClient = (baseUrl: string): Client<paths> => {
   client.use(middleware)
   return client
 }
+
+// utillities if someone wants to use the api requests without the StoryKitProvider
+export const stagingClient = createApiClient(STAGING_URL)
+export const prodClient = createApiClient(PRODUCTION_URL)
