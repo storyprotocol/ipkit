@@ -66,3 +66,8 @@ export function convertIpfsUriToUrl(ipfsUri: string): string {
   const contentHash = ipfsUri.slice(7) // Remove the 'ipfs://' prefix
   return `https://ipfs.io/ipfs/${contentHash}`
 }
+
+export async function getMetadataFromIpfs(ipfsUrl: string) {
+  const metadata = await fetch(convertIpfsUriToUrl(ipfsUrl)).then((res) => res.json())
+  return metadata
+}

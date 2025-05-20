@@ -5,6 +5,8 @@ import { useIpAssetsTerms } from "@/hooks/useIpAssetsTerms"
 import { useLicenseTokens } from "@/hooks/useLicenseTokens"
 import { useRoyaltyPayments } from "@/hooks/useRoyaltyPayments"
 import { LicenseTermResponse, getLicenseTerm } from "@/lib/api/getLicenseTerm"
+import { getNFTByTokenId } from "@/lib/simplehash"
+import { getMetadataFromIpfs } from "@/lib/utils"
 //
 import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
 import {
@@ -16,14 +18,12 @@ import {
   LicenseToken,
   RoyaltyPay,
 } from "@/types/openapi"
+// import { convertIpfsUriToUrl } from "../../lib/utils"
+import { NFTMetadata } from "@/types/simplehash"
 import { useQuery } from "@tanstack/react-query"
 import React from "react"
 import { Address, Hash } from "viem"
 
-import { getMetadataFromIpfs } from "../../lib/api"
-import { getNFTByTokenId } from "../../lib/simplehash"
-// import { convertIpfsUriToUrl } from "../../lib/utils"
-import { NFTMetadata } from "../../types/simplehash"
 import { useStoryKitContext } from "../StoryKitProvider"
 
 export interface IpProviderOptions {

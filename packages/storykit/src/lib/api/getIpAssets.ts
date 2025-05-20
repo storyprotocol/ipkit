@@ -9,7 +9,7 @@ export type IpAssetsResponse = paths["/api/v3/assets"]["post"]["responses"][200]
 
 export type IpAssetsOptions = paths["/api/v3/assets"]["post"]["requestBody"]["content"]["application/json"]["options"]
 
-export type GetIpAssetOptions = {
+export type GetIpAssetsOptions = {
   apiClient: ApiClient
   ipIds?: Address[] // ipIds from options added here for convenience
   options?: IpAssetsOptions
@@ -17,7 +17,7 @@ export type GetIpAssetOptions = {
   apiKey: string
 }
 
-export function getIpAssets({ apiClient, ipIds, options, chainName, apiKey }: GetIpAssetOptions) {
+export function getIpAssets({ apiClient, ipIds, options, chainName, apiKey }: GetIpAssetsOptions) {
   return listQuery({
     apiClient,
     path: "/api/v3/assets",
