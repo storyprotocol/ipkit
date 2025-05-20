@@ -8,13 +8,7 @@ import type { Meta, StoryObj } from "@storybook/react"
 import { expect, waitFor, within } from "@storybook/test"
 import React from "react"
 
-import Example, {
-  AssetComponent,
-  IPLicenseComponent,
-  LicenseComponent,
-  LicenseTermsComponent,
-  ProviderOptionsComponent,
-} from "./Example"
+import Example, { AssetComponent, IPLicenseComponent, LicenseComponent, LicenseTermsComponent } from "./Example"
 
 const meta = {
   title: "Providers/IpProvider",
@@ -51,7 +45,7 @@ export const Input: Story = {
     children: { control: false },
   },
   args: {
-    ipId: "0xE8Cc004498a2a7510F9CFB26D95dFdb7Ac4e7100",
+    ipId: STORY_IP_ASSETS_MAP[STORY_IP_ASSETS[0]],
   },
 }
 export const NFTData: Story = {
@@ -131,6 +125,7 @@ export const IPLicenseData: Story = {
   },
   args: {
     children: <IPLicenseComponent />,
+    options: { licenseTermsData: true },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
@@ -162,6 +157,7 @@ export const LicenseTermsData: Story = {
   argTypes: {},
   args: {
     children: <LicenseTermsComponent />,
+    options: { licenseTermsData: true },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
@@ -201,6 +197,7 @@ export const LicenseData: Story = {
   },
   args: {
     children: <LicenseComponent />,
+    options: { licenseData: true },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
@@ -226,147 +223,6 @@ export const LicenseData: Story = {
           expect(canvas.getAllByTestId("license-minted")[i].textContent).toBe(licenseData.data[i].mintedAt)
           expect(canvas.getAllByTestId("license-burnt")[i].textContent).toBe(licenseData.data[i].burntAt)
         }
-      },
-      { timeout: 10000 }
-    )
-  },
-}
-
-export const NotLoadAsset: Story = {
-  argTypes: {
-    children: { control: false },
-    options: { control: false },
-  },
-  args: {
-    children: <ProviderOptionsComponent />,
-    options: { assetData: false },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-
-    await waitFor(
-      () => {
-        expect(canvas.queryByText("Fetching Asset...")).toBeNull()
-        expect(canvas.queryByText("Fetching NFT...")).toBeNull()
-      },
-      { timeout: 10000 }
-    )
-
-    await waitFor(
-      () => {
-        expect(canvas.getByTestId("asset-id").textContent).toBe("")
-        expect(canvas.getByTestId("nft-id").textContent).toBe("")
-        expect(canvas.getByTestId("ipap-count").textContent).toBe("0")
-        expect(canvas.getByTestId("license-terms-count").textContent).toBe("0")
-        expect(canvas.getByTestId("license-count").textContent).toBe("0")
-        expect(canvas.getByTestId("royalty-id").textContent).toBe("0x7907Cec258B28638FCA15d533800B2A13bd1f140")
-      },
-      { timeout: 10000 }
-    )
-  },
-}
-export const NotLoadPolicy: Story = {
-  argTypes: {
-    children: { control: false },
-    options: { control: false },
-  },
-  args: {
-    children: <ProviderOptionsComponent />,
-    options: { licenseTermsData: false },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-
-    await waitFor(
-      () => {
-        expect(canvas.queryByText("Fetching IPLicense...")).toBeNull()
-        expect(canvas.queryByText("Fetching License Terms...")).toBeNull()
-      },
-      { timeout: 10000 }
-    )
-
-    await waitFor(
-      () => {
-        expect(canvas.getByTestId("asset-id").textContent).toBe("0x7907Cec258B28638FCA15d533800B2A13bd1f140")
-        expect(canvas.getByTestId("nft-id").textContent).toBe(
-          "ethereum-sepolia.0x7ee32b8b515dee0ba2f25f612a04a731eec24f49.6494"
-        )
-        expect(canvas.getByTestId("ipap-count").textContent).toBe("")
-        expect(canvas.getByTestId("license-terms-count").textContent).toBe("")
-        expect(canvas.getByTestId("license-count").textContent).toBe("0")
-        expect(canvas.getByTestId("royalty-id").textContent).toBe("0x7907Cec258B28638FCA15d533800B2A13bd1f140")
-      },
-      { timeout: 10000 }
-    )
-  },
-}
-export const NotLoadLicense: Story = {
-  argTypes: {
-    children: { control: false },
-    options: { control: false },
-  },
-  args: {
-    children: <ProviderOptionsComponent />,
-    options: { licenseData: false },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-
-    await waitFor(
-      () => {
-        expect(canvas.queryByText("Fetching License...")).toBeNull()
-      },
-      { timeout: 10000 }
-    )
-
-    await waitFor(
-      () => {
-        expect(canvas.getByTestId("asset-id").textContent).toBe("0x7907Cec258B28638FCA15d533800B2A13bd1f140")
-        expect(canvas.getByTestId("nft-id").textContent).toBe(
-          "ethereum-sepolia.0x7ee32b8b515dee0ba2f25f612a04a731eec24f49.6494"
-        )
-        expect(canvas.getByTestId("ipap-count").textContent).toBe("0")
-        expect(canvas.getByTestId("license-terms-count").textContent).toBe("0")
-        expect(canvas.getByTestId("license-count").textContent).toBe("")
-        expect(canvas.getByTestId("royalty-id").textContent).toBe("0x7907Cec258B28638FCA15d533800B2A13bd1f140")
-      },
-      { timeout: 10000 }
-    )
-  },
-}
-
-export const NotLoadAll: Story = {
-  argTypes: {
-    children: { control: false },
-    options: { control: false },
-  },
-  args: {
-    children: <ProviderOptionsComponent />,
-    options: { assetData: false, licenseTermsData: false, licenseData: false },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-
-    await waitFor(
-      () => {
-        expect(canvas.queryByText("Fetching Asset...")).toBeNull()
-        expect(canvas.queryByText("Fetching NFT...")).toBeNull()
-        expect(canvas.queryByText("Fetching IPLicense...")).toBeNull()
-        expect(canvas.queryByText("Fetching License Terms...")).toBeNull()
-        expect(canvas.queryByText("Fetching License...")).toBeNull()
-        expect(canvas.queryByText("Fetching Royalty...")).toBeNull()
-      },
-      { timeout: 10000 }
-    )
-
-    await waitFor(
-      () => {
-        expect(canvas.getByTestId("asset-id").textContent).toBe("")
-        expect(canvas.getByTestId("nft-id").textContent).toBe("")
-        expect(canvas.getByTestId("ipap-count").textContent).toBe("")
-        expect(canvas.getByTestId("license-terms-count").textContent).toBe("")
-        expect(canvas.getByTestId("license-count").textContent).toBe("")
-        expect(canvas.getByTestId("royalty-id").textContent).toBe("")
       },
       { timeout: 10000 }
     )

@@ -12,7 +12,7 @@ const Example: FC<{ ipId: Address; size: Size }> = ({
   size = "medium",
 }) => {
   return (
-    <IpProvider ipId={ipId}>
+    <IpProvider ipId={ipId} options={{ licenseTermsData: true }}>
       <IpLicenseAccordion size={size} />
     </IpProvider>
   )

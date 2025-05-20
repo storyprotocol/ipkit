@@ -8,7 +8,7 @@ import { Address } from "viem"
 
 import "../../global.css"
 import { cn, shortenAddress } from "../../lib/utils"
-import { IpProvider, useIpContext } from "../../providers"
+import { IpProvider, IpProviderOptions, useIpContext } from "../../providers"
 import { IpGraph } from "../IpGraph"
 import { IpLicenseAccordion } from "../IpLicenseAccordion"
 import "./styles.css"
@@ -43,8 +43,18 @@ function IPAssetCardWrapper({ ipId, isBottomNav = true }: IpWidgetProps) {
     </div>
   )
 
+  const options: IpProviderOptions = {
+    assetData: true,
+    ipaMetadata: true,
+    assetParentsData: true,
+    assetChildrenData: true,
+    licenseTermsData: true,
+    licenseData: true,
+    royaltyPaymentsData: true,
+  }
+
   return (
-    <IpProvider ipId={ipId} key={ipId}>
+    <IpProvider ipId={ipId} key={ipId} options={options}>
       <div className="skIpWidget">
         {isBottomNav ? <_Card /> : <_Tabs />}
         {isBottomNav ? <_Tabs /> : <_Card />}

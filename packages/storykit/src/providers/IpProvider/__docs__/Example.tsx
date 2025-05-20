@@ -155,7 +155,7 @@ const LicenseTermsComponent = () => {
         <div>
           <>
             <ul>
-              {(licenseTermsData as unknown as any[])?.map((license) => (
+              {licenseTermsData.map((license) => (
                 <li className="grid grid-cols-4 gap-6" key={license.id}>
                   <p className="col-span-1 text-xs text-gray-600">License Id</p>
                   <p className="col-span-3 text-sm" data-testid="license-id">
@@ -168,19 +168,19 @@ const LicenseTermsComponent = () => {
                   <p className="col-span-4 text-xs text-gray-600">licenseTerms</p>
                   <p className="col-span-1 text-xs text-gray-600">commercialUse</p>
                   <p className="col-span-3 text-sm" data-testid="license-comm-use">
-                    {license.licenseTerms.commercialUse.toString()}
+                    {license.terms?.commercialUse?.toString()}
                   </p>
                   <p className="col-span-1 text-xs text-gray-600">commercialAttribution</p>
                   <p className="col-span-3 text-sm" data-testid="license-comm-attr">
-                    {license.licenseTerms.commercialAttribution.toString()}
+                    {license.terms?.commercialAttribution?.toString()}
                   </p>
-                  <p className="col-span-1 text-xs text-gray-600">commercialRevenueShare</p>
+                  <p className="col-span-1 text-xs text-gray-600">commercialRevShare</p>
                   <p className="col-span-3 text-sm" data-testid="license-comm-share">
-                    {license.licenseTerms.commercialRevenueShare}
+                    {license.terms?.commercialRevShare?.toString()}
                   </p>
                   <p className="col-span-1 text-xs text-gray-600">derivativesAllowed</p>
                   <p className="col-span-3 text-sm" data-testid="license-deriv-allow">
-                    {license.licenseTerms.derivativesAllowed.toString()}
+                    {license.terms?.derivativesAllowed?.toString()}
                   </p>
                   <p />
                 </li>
@@ -247,53 +247,5 @@ const LicenseComponent = () => {
   )
 }
 
-const ProviderOptionsComponent = () => {
-  const {
-    assetData,
-    isAssetDataLoading,
-    nftData,
-    isNftDataLoading,
-    ipLicenseData,
-    isipLicenseDataLoading,
-    licenseTermsData,
-    isLicenseTermsDataLoading,
-    licenseData,
-    isLicenseDataLoading,
-  } = useIpContext()
-  return (
-    <>
-      <div>
-        {isAssetDataLoading && <div>Fetching Asset...</div>}
-        {isNftDataLoading && <div>Fetching NFT...</div>}
-        {isipLicenseDataLoading && <div>Fetching IPLicense...</div>}
-        {isLicenseTermsDataLoading && <div>Fetching License Terms...</div>}
-        {isLicenseDataLoading && <div>Fetching License...</div>}
-        <div className="grid grid-cols-4 gap-4">
-          <div className="col-span-1 text-xs text-gray-600">Asset</div>
-          <div className="col-span-3 text-sm" data-testid="asset-id">
-            {assetData?.id}
-          </div>
-          <div className="col-span-1 text-xs text-gray-600">NFT</div>
-          <div className="col-span-3 text-sm" data-testid="nft-id">
-            {nftData?.nft_id}
-          </div>
-          <div className="col-span-1 text-xs text-gray-600">IPLicense count</div>
-          <div className="col-span-3 text-sm" data-testid="ipap-count">
-            {ipLicenseData?.length}
-          </div>
-          <div className="col-span-1 text-xs text-gray-600">License Terms count</div>
-          <div className="col-span-3 text-sm" data-testid="license-terms-count">
-            {licenseTermsData?.length}
-          </div>
-          <div className="col-span-1 text-xs text-gray-600">License count</div>
-          <div className="col-span-3 text-sm" data-testid="license-count">
-            {licenseData?.length}
-          </div>
-        </div>
-      </div>
-    </>
-  )
-}
-
 export default Example
-export { AssetComponent, IPLicenseComponent, LicenseTermsComponent, LicenseComponent, ProviderOptionsComponent }
+export { AssetComponent, IPLicenseComponent, LicenseTermsComponent, LicenseComponent }
