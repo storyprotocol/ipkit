@@ -8,6 +8,8 @@ import StoryProvider from "./directors/StoryProvider"
 import "./global.css"
 import theme from "./theme"
 
+const API_KEY = process.env.STORYBOOK_STORY_PROTOCOL_X_API_KEY as string
+
 const preview: Preview = {
   parameters: {
     options: {
@@ -81,7 +83,7 @@ const preview: Preview = {
         return <Story />
       }
       return (
-        <StoryProvider chain={context.globals.chain} theme={context.globals.skTheme}>
+        <StoryProvider apiKey={API_KEY} chain={context.globals.chain} theme={context.globals.skTheme}>
           <Story />
         </StoryProvider>
       )

@@ -6,21 +6,13 @@ import React, { useMemo } from "react"
 export type Mode = "light" | "dark" | undefined
 export type Theme = "default" | "story" | string
 
-// support current usage
-// todo: phase this out, make apiKey required and remove this
-const API_KEY =
-  process.env.STORYBOOK_STORY_PROTOCOL_X_API_KEY ||
-  process.env.NEXT_PUBLIC_STORY_PROTOCOL_X_API_KEY ||
-  process.env.STORY_PROTOCOL_X_API_KEY ||
-  ""
-
 export interface StoryKitProviderOptions {
   chain?: STORYKIT_SUPPORTED_CHAIN
   defaultCurrency?: ERC20Token
   theme?: Theme
   mode?: Mode
   rpcUrl?: string
-  apiKey?: string
+  apiKey: string
   appId?: string
   children: React.ReactNode
 }
@@ -60,7 +52,7 @@ export const StoryKitProvider = ({
         theme: theme,
         mode: mode,
         themeClass: `${theme}${mode ? `-${mode}` : ""}`,
-        apiKey: apiKey || API_KEY,
+        apiKey: apiKey,
         appId: appId,
       }}
     >
