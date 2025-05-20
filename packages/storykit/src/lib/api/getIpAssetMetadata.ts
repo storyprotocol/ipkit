@@ -1,7 +1,7 @@
 import { paths } from "@storykit/api-schema"
 import { FetchResponse } from "openapi-fetch"
 
-import { ApiClient, stagingClient } from "./apiClient"
+import { ApiClient } from "./apiClient"
 import { getQuery } from "./getQuery"
 
 export type IpAssetMetadataResponse =
@@ -9,15 +9,15 @@ export type IpAssetMetadataResponse =
 export type IpAssetMetadataOptions = paths["/api/v3/assets/{assetId}/metadata"]["options"]
 
 export type GetIpAssetMetadataOptions = {
-  client?: ApiClient
+  apiClient: ApiClient
   ipId: string
   chainName: string
   apiKey: string
 }
 
-export function getIpAssetMetadata({ client, ipId, chainName, apiKey }: GetIpAssetMetadataOptions) {
+export function getIpAssetMetadata({ apiClient, ipId, chainName, apiKey }: GetIpAssetMetadataOptions) {
   return getQuery({
-    client: client ?? stagingClient,
+    apiClient,
     path: "/api/v3/assets/{assetId}/metadata",
     pathParams: { assetId: ipId },
     chainName,

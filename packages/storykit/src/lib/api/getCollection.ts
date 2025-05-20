@@ -1,7 +1,7 @@
 import { paths } from "@storykit/api-schema"
 import { FetchResponse } from "openapi-fetch"
 
-import { ApiClient, stagingClient } from "./apiClient"
+import { ApiClient } from "./apiClient"
 import { getQuery } from "./getQuery"
 
 export type CollectionResponse =
@@ -9,15 +9,15 @@ export type CollectionResponse =
 export type CollectionOptions = paths["/api/v3/collections/{collectionId}"]["options"]
 
 export type GetCollectionOptions = {
-  client?: ApiClient
+  apiClient: ApiClient
   collectionId: string
   chainName: string
   apiKey: string
 }
 
-export function getCollection({ client, collectionId, chainName, apiKey }: GetCollectionOptions) {
+export function getCollection({ apiClient, collectionId, chainName, apiKey }: GetCollectionOptions) {
   return getQuery({
-    client: client ?? stagingClient,
+    apiClient,
     path: "/api/v3/collections/{collectionId}",
     pathParams: { collectionId },
     chainName,

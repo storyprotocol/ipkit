@@ -2,7 +2,7 @@ import { paths } from "@storykit/api-schema"
 import { FetchResponse } from "openapi-fetch"
 import { Address } from "viem"
 
-import { ApiClient, stagingClient } from "./apiClient"
+import { ApiClient } from "./apiClient"
 import { listQuery } from "./listQuery"
 
 export type IpAssetEdgesResponse =
@@ -12,7 +12,7 @@ export type IpAssetEdgesOptions =
   paths["/api/v3/assets/edges"]["post"]["requestBody"]["content"]["application/json"]["options"]
 
 export type GetIpAssetEdgesOptions = {
-  client?: ApiClient
+  apiClient: ApiClient
   ipId?: Address
   parentIpId?: Address
   options?: IpAssetEdgesOptions
@@ -20,9 +20,9 @@ export type GetIpAssetEdgesOptions = {
   apiKey: string
 }
 
-export function getIpAssetEdges({ client, ipId, parentIpId, options, chainName, apiKey }: GetIpAssetEdgesOptions) {
+export function getIpAssetEdges({ apiClient, ipId, parentIpId, options, chainName, apiKey }: GetIpAssetEdgesOptions) {
   return listQuery({
-    client: client ?? stagingClient,
+    apiClient,
     path: "/api/v3/assets/edges",
     body: {
       options: {

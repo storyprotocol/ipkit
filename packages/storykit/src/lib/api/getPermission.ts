@@ -1,7 +1,7 @@
 import { paths } from "@storykit/api-schema"
 import { FetchResponse } from "openapi-fetch"
 
-import { ApiClient, stagingClient } from "./apiClient"
+import { ApiClient } from "./apiClient"
 import { getQuery } from "./getQuery"
 
 export type PermissionResponse =
@@ -9,15 +9,15 @@ export type PermissionResponse =
 export type PermissionOptions = paths["/api/v3/permissions/{permissionId}"]["options"]
 
 export type GetPermissionOptions = {
-  client?: ApiClient
+  apiClient: ApiClient
   permissionId: string
   chainName: string
   apiKey: string
 }
 
-export function getPermission({ client, permissionId, chainName, apiKey }: GetPermissionOptions) {
+export function getPermission({ apiClient, permissionId, chainName, apiKey }: GetPermissionOptions) {
   return getQuery({
-    client: client ?? stagingClient,
+    apiClient,
     path: "/api/v3/permissions/{permissionId}",
     pathParams: { permissionId },
     chainName,

@@ -8,7 +8,7 @@ type Paths<M extends HttpMethod> = PathsWithMethod<paths, M>
 type Params<M extends HttpMethod, P extends Paths<M>> = M extends keyof paths[P] ? FetchOptions<paths[P][M]> : never
 
 export type GetQueryParams<P extends Paths<"get">> = {
-  client: ApiClient
+  apiClient: ApiClient
   path: P
   chainName: string
   apiKey: string
@@ -17,7 +17,7 @@ export type GetQueryParams<P extends Paths<"get">> = {
 }
 
 export function getQuery<P extends Paths<"get">>({
-  client,
+  apiClient,
   path,
   chainName,
   apiKey,
@@ -35,5 +35,5 @@ export function getQuery<P extends Paths<"get">>({
     },
   } as Params<"get", P>
 
-  return client.GET(path, requestParams)
+  return apiClient.GET(path, requestParams)
 }

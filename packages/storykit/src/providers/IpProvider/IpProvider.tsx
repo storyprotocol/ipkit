@@ -103,7 +103,7 @@ export const IpProvider = ({
     ...options,
   }
 
-  const { chain, apiKey } = useStoryKitContext()
+  const { chain, apiKey, apiClient } = useStoryKitContext()
 
   // Fetch asset data
   const {
@@ -219,7 +219,7 @@ export const IpProvider = ({
     const uniqueLicenses = data.filter((item) => item.ipId?.toLowerCase() === ipId.toLowerCase())
 
     const requests: Promise<LicenseTermResponse>[] = uniqueLicenses.map((item) =>
-      getLicenseTerm({ licenseTermId: item.licenseTermsId ?? "", chainName: chain.name, apiKey })
+      getLicenseTerm({ licenseTermId: item.licenseTermsId ?? "", chainName: chain.name, apiKey, apiClient })
     )
     const results = await Promise.all(requests)
 

@@ -1,7 +1,7 @@
 import { paths } from "@storykit/api-schema"
 import { FetchResponse } from "openapi-fetch"
 
-import { ApiClient, stagingClient } from "./apiClient"
+import { ApiClient } from "./apiClient"
 import { getQuery } from "./getQuery"
 
 export type LicenseTermResponse =
@@ -9,15 +9,15 @@ export type LicenseTermResponse =
 export type LicenseTermOptions = paths["/api/v3/licenses/terms/{licenseTermId}"]["options"]
 
 export type GetLicenseTermOptions = {
-  client?: ApiClient
+  apiClient: ApiClient
   licenseTermId: string
   chainName: string
   apiKey: string
 }
 
-export function getLicenseTerm({ client, licenseTermId, chainName, apiKey }: GetLicenseTermOptions) {
+export function getLicenseTerm({ apiClient, licenseTermId, chainName, apiKey }: GetLicenseTermOptions) {
   return getQuery({
-    client: client ?? stagingClient,
+    apiClient,
     path: "/api/v3/licenses/terms/{licenseTermId}",
     pathParams: { licenseTermId },
     chainName,

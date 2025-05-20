@@ -8,7 +8,7 @@ type Paths<M extends HttpMethod> = PathsWithMethod<paths, M>
 type Params<M extends HttpMethod, P extends Paths<M>> = M extends keyof paths[P] ? FetchOptions<paths[P][M]> : never
 
 export type ListQueryParams<P extends Paths<"post">> = {
-  client: ApiClient
+  apiClient: ApiClient
   path: P
   chainName: string
   apiKey: string
@@ -17,7 +17,7 @@ export type ListQueryParams<P extends Paths<"post">> = {
 }
 
 export function listQuery<P extends Paths<"post">>({
-  client,
+  apiClient,
   path,
   chainName,
   apiKey,
@@ -38,5 +38,5 @@ export function listQuery<P extends Paths<"post">>({
     body: body || {},
   } as Params<"post", P>["body"]
 
-  return client.POST(path, { ...requestParams, ...requestBody })
+  return apiClient.POST(path, { ...requestParams, ...requestBody })
 }

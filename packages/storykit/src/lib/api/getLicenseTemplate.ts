@@ -1,7 +1,7 @@
 import { paths } from "@storykit/api-schema"
 import { FetchResponse } from "openapi-fetch"
 
-import { ApiClient, stagingClient } from "./apiClient"
+import { ApiClient } from "./apiClient"
 import { getQuery } from "./getQuery"
 
 export type LicenseTemplateResponse =
@@ -9,15 +9,15 @@ export type LicenseTemplateResponse =
 export type LicenseTemplateOptions = paths["/api/v3/licenses/templates/{licenseTemplateId}"]["options"]
 
 export type GetLicenseTemplateOptions = {
-  client?: ApiClient
+  apiClient: ApiClient
   licenseTemplateId: string
   chainName: string
   apiKey: string
 }
 
-export function getLicenseTemplate({ client, licenseTemplateId, chainName, apiKey }: GetLicenseTemplateOptions) {
+export function getLicenseTemplate({ apiClient, licenseTemplateId, chainName, apiKey }: GetLicenseTemplateOptions) {
   return getQuery({
-    client: client ?? stagingClient,
+    apiClient,
     path: "/api/v3/licenses/templates/{licenseTemplateId}",
     pathParams: { licenseTemplateId },
     chainName,

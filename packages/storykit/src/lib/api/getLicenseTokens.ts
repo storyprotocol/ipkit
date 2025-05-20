@@ -1,7 +1,7 @@
 import { paths } from "@storykit/api-schema"
 import { FetchResponse } from "openapi-fetch"
 
-import { ApiClient, stagingClient } from "./apiClient"
+import { ApiClient } from "./apiClient"
 import { listQuery } from "./listQuery"
 
 export type LicenseTokensResponse =
@@ -10,15 +10,15 @@ export type LicenseTokensOptions =
   paths["/api/v3/licenses/tokens"]["post"]["requestBody"]["content"]["application/json"]["options"]
 
 export type GetLicenseTokensOptions = {
-  client?: ApiClient
+  apiClient: ApiClient
   options?: LicenseTokensOptions
   chainName: string
   apiKey: string
 }
 
-export function getLicenseTokens({ client, options, chainName, apiKey }: GetLicenseTokensOptions) {
+export function getLicenseTokens({ apiClient, options, chainName, apiKey }: GetLicenseTokensOptions) {
   return listQuery({
-    client: client ?? stagingClient,
+    apiClient,
     path: "/api/v3/licenses/tokens",
     body: { options: options || {} },
     chainName,

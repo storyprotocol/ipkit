@@ -1,7 +1,7 @@
 import { paths } from "@storykit/api-schema"
 import { FetchResponse } from "openapi-fetch"
 
-import { ApiClient, stagingClient } from "./apiClient"
+import { ApiClient } from "./apiClient"
 import { listQuery } from "./listQuery"
 
 export type LicenseMintingFeesResponse =
@@ -10,15 +10,15 @@ export type LicenseMintingFeesOptions =
   paths["/api/v3/licenses/mintingfees"]["post"]["requestBody"]["content"]["application/json"]["options"]
 
 export type GetLicenseMintingFeesOptions = {
-  client?: ApiClient
+  apiClient: ApiClient
   options?: LicenseMintingFeesOptions
   chainName: string
   apiKey: string
 }
 
-export function getLicenseMintingFees({ client, options, chainName, apiKey }: GetLicenseMintingFeesOptions) {
+export function getLicenseMintingFees({ apiClient, options, chainName, apiKey }: GetLicenseMintingFeesOptions) {
   return listQuery({
-    client: client ?? stagingClient,
+    apiClient,
     path: "/api/v3/licenses/mintingfees",
     body: { options: options || {} },
     chainName,

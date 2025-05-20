@@ -1,7 +1,7 @@
 import { paths } from "@storykit/api-schema"
 import { FetchResponse } from "openapi-fetch"
 
-import { ApiClient, stagingClient } from "./apiClient"
+import { ApiClient } from "./apiClient"
 import { getQuery } from "./getQuery"
 
 export type IpAssetTermsResponse =
@@ -10,15 +10,15 @@ export type IpAssetTermsResponse =
 export type IpAssetTermsOptions = paths["/api/v3/licenses/ip/terms/{ipId}"]["options"]
 
 export type GetIpAssetTermsOptions = {
-  client?: ApiClient
+  apiClient: ApiClient
   ipId: string
   chainName: string
   apiKey: string
 }
 
-export function getIpAssetTerms({ client, ipId, chainName, apiKey }: GetIpAssetTermsOptions) {
+export function getIpAssetTerms({ apiClient, ipId, chainName, apiKey }: GetIpAssetTermsOptions) {
   return getQuery({
-    client: client ?? stagingClient,
+    apiClient,
     path: "/api/v3/licenses/ip/terms/{ipId}",
     pathParams: { ipId: ipId },
     additionalHeaders: { "X-Extend-Asset": "true" },
