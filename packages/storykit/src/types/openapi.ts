@@ -18,7 +18,8 @@ export type IpAssetEdge =
 export type LicenseTerm =
   components["schemas"]["github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.LicenseTerm"]
 
-export type Term = components["schemas"]["github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.Term"]
+export type PILTerms =
+  components["schemas"]["github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.Term"]
 
 export type LicenseToken =
   components["schemas"]["github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.LicenseToken"]

@@ -1,5 +1,5 @@
 import { PIL_FLAVOR, PilFlavor } from "@/types/assets"
-import { Term } from "@/types/openapi"
+import { PILTerms } from "@/types/openapi"
 import { type ClassValue, clsx } from "clsx"
 import { extendTailwindMerge } from "tailwind-merge"
 
@@ -33,7 +33,7 @@ export function camelize(str: string) {
   })
 }
 
-export function getPilFlavorByLicenseTerms(pilTerms: Term): PilFlavor {
+export function getPilFlavorByLicenseTerms(pilTerms: PILTerms): PilFlavor {
   const { commercialUse, derivativesAllowed, derivativesAttribution, commercialRevShare } = pilTerms
 
   if (!commercialUse && derivativesAllowed) {

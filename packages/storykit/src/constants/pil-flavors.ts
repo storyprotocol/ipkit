@@ -1,8 +1,8 @@
 import { WRAPPED_IP } from "@/types/chains"
-import { Term } from "@/types/openapi"
+import { PILTerms } from "@/types/openapi"
 import { zeroAddress } from "viem"
 
-export const commercialRemixingLicenseTerms: Term = {
+export const commercialRemixingLicenseTerms: PILTerms = {
   commercialAttribution: true,
   commercialRevCeiling: 0,
   commercialRevShare: 10000000, // 10%
@@ -18,7 +18,7 @@ export const commercialRemixingLicenseTerms: Term = {
   uri: "https://github.com/piplabs/pil-document/blob/ad67bb632a310d2557f8abcccd428e4c9c798db1/off-chain-terms/CommercialRemix.json",
 }
 
-export const commercialUseLicenseTerms: Term = {
+export const commercialUseLicenseTerms: PILTerms = {
   commercialAttribution: true,
   commercialRevCeiling: 0,
   commercialRevShare: 0,
@@ -34,7 +34,7 @@ export const commercialUseLicenseTerms: Term = {
   uri: "https://github.com/piplabs/pil-document/blob/9a1f803fcf8101a8a78f1dcc929e6014e144ab56/off-chain-terms/CommercialUse.json",
 }
 
-export const commercialUseLicenseTermsWithExpiration: Term = {
+export const commercialUseLicenseTermsWithExpiration: PILTerms = {
   commercialAttribution: true,
   commercialRevCeiling: 0,
   commercialRevShare: 0,
@@ -50,7 +50,7 @@ export const commercialUseLicenseTermsWithExpiration: Term = {
   uri: "https://github.com/piplabs/pil-document/blob/9a1f803fcf8101a8a78f1dcc929e6014e144ab56/off-chain-terms/CommercialUse.json",
 }
 
-export const nonCommercialSocialRemixingLicenseTerms: Term = {
+export const nonCommercialSocialRemixingLicenseTerms: PILTerms = {
   commercialAttribution: false,
   commercialRevCeiling: 0,
   commercialRevShare: 0,
@@ -66,7 +66,7 @@ export const nonCommercialSocialRemixingLicenseTerms: Term = {
   uri: "https://github.com/piplabs/pil-document/blob/998c13e6ee1d04eb817aefd1fe16dfe8be3cd7a2/off-chain-terms/NCSR.json",
 }
 
-export const noLicenseTerms: Term = {
+export const noLicenseTerms: PILTerms = {
   commercialAttribution: false,
   commercialRevCeiling: 0,
   commercialRevShare: 0,

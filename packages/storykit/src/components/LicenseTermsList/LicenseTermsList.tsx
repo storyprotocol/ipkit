@@ -1,7 +1,7 @@
 import { noLicenseTerms } from "@/constants/pil-flavors"
 import { useLicenseTerm } from "@/hooks/useLicenseTerm"
 import { cn } from "@/lib"
-import { Term } from "@/types/openapi"
+import { PILTerms } from "@/types/openapi"
 import { cva } from "class-variance-authority"
 import { CircleCheck, CircleMinus, Info } from "lucide-react"
 import React from "react"
@@ -48,7 +48,7 @@ const convertExpiration = (expiration: number): string => {
   return `This license expires in ${expirationDateString} (${timezone})`
 }
 
-const DescribeTerms = (selectedLicenseTerms: Term) => {
+const DescribeTerms = (selectedLicenseTerms: PILTerms) => {
   const cans = []
   const cannots = []
   const extras = []
@@ -156,7 +156,7 @@ export type LicenseTermsListProps = {
   showCans?: boolean
   showCannots?: boolean
   showExtras?: boolean
-  selectedLicenseTerms?: Term
+  selectedLicenseTerms?: PILTerms
   selectedLicenseTermsId?: string
 }
 
@@ -176,7 +176,7 @@ function LicenseTermsList({
 
   const iconWidth = size === "small" ? 16 : size === "medium" ? 20 : 24
   const { cans, cannots, extras } = DescribeTerms(
-    (licenseTermsData?.data?.terms as Term) || selectedLicenseTerms || noLicenseTerms
+    (licenseTermsData?.data?.terms as PILTerms) || selectedLicenseTerms || noLicenseTerms
   )
 
   return (
