@@ -68,6 +68,21 @@ export function convertIpfsUriToUrl(ipfsUri: string): string {
 }
 
 export async function getMetadataFromIpfs(ipfsUrl: string) {
-  const metadata = await fetch(convertIpfsUriToUrl(ipfsUrl)).then((res) => res.json())
+  const metadata = await fetch(ipfsUrl).then((res) => res.json())
   return metadata
+}
+
+export async function fetchLicenseOffChainData(uri: string) {
+  if (uri === "") {
+    return
+  }
+  let finalUri = uri
+
+  // Convert GitHub UI URL to Raw URL to prevent CORS issues
+  if (uri.startsWith("https://github.com/")) {
+    finalUri = uri.replace("https://github.com/", "https://raw.githubusercontent.com/").replace("/blob/", "/")
+  }
+  const ipfsData = await getMetadataFromIpfs(convertIpfsUriToUrl(finalUri))
+
+  return ipfsData
 }
