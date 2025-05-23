@@ -1,4 +1,4 @@
-import type { paths } from "@storykit/api-schema"
+import type { paths } from "@/types/schema"
 import { FetchOptions } from "openapi-fetch"
 import { HttpMethod, PathsWithMethod } from "openapi-typescript-helpers"
 

@@ -1,5 +1,8 @@
-import { components } from "@storykit/api-schema"
+import { components, operations, paths } from "@/types/schema"
 import { type UseQueryOptions } from "@tanstack/react-query"
+
+// Re-export types from @storykit/api-schema
+export type { components, paths, operations }
 
 export type IpQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
 

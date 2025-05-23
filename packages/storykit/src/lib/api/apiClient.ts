@@ -1,5 +1,5 @@
 import { API_URL } from "@/constants/api"
-import type { paths } from "@storykit/api-schema"
+import type { paths } from "@/types/schema"
 import createClient, { Client, type Middleware } from "openapi-fetch"
 
 const middleware: Middleware = {
