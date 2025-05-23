@@ -38,9 +38,9 @@ export const StoryKitProvider = ({
   theme = "default",
   apiBaseUrl = API_URL.STAGING,
   mode,
-  rpcUrl,
-  apiKey,
-  appId,
+  rpcUrl = "",
+  apiKey = "",
+  appId = "",
   children,
 }: StoryKitProviderOptions) => {
   //
