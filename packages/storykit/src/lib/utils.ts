@@ -13,6 +13,9 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function shortenAddress(address: string, length = 4): string {
+  if (!/^0x[a-fA-F0-9]+$/.test(address)) {
+    throw new Error("Invalid address format")
+  }
   if (!address) {
     return ""
   }
