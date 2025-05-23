@@ -11,9 +11,9 @@ import { getMetadataFromIpfs } from "@/lib/utils"
 import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
 import {
   IPAsset,
+  IPAssetEdge,
+  IPAssetMetadata,
   IPLicenseTerms,
-  IpAssetEdge,
-  IpAssetMetadata,
   LicenseTerms,
   LicenseToken,
   RoyaltyPay,
@@ -40,9 +40,9 @@ const IpContext = React.createContext<{
   chain: STORYKIT_SUPPORTED_CHAIN
   // data
   assetData: IPAsset | undefined
-  ipaMetadata: IpAssetMetadata | undefined
-  assetParentData: IpAssetEdge[] | undefined
-  assetChildrenData: IpAssetEdge[] | undefined
+  ipaMetadata: IPAssetMetadata | undefined
+  assetParentData: IPAssetEdge[] | undefined
+  assetChildrenData: IPAssetEdge[] | undefined
   ipLicenseData: IPLicenseTerms[] | undefined
   licenseTermsData: LicenseTerms[] | undefined
   licenseData: LicenseToken[] | undefined

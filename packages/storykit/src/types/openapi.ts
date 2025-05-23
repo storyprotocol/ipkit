@@ -12,10 +12,10 @@ export type IPAsset =
 export type IPLicenseTerms =
   components["schemas"]["github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.IPLicenseTerm"]
 
-export type IpAssetMetadata =
+export type IPAssetMetadata =
   components["schemas"]["github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.IpAssetMetadata"]
 
-export type IpAssetEdge =
+export type IPAssetEdge =
   components["schemas"]["github_com_storyprotocol_protocol-api_api_internal_models_protocolv1.IpAssetEdge"]
 
 export type LicenseTerms =
