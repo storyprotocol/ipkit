@@ -47,10 +47,6 @@
     .skIpWidget__ipAssetLayout--topNav {
       @apply sk-flex-col-reverse sk-justify-between sk-h-full sk-flex-auto;
     }
-
-    .skIpRoyaltyPieChart--empty {
-      @apply sk-w-full sk-items-center sk-py-32;
-    }
   }
 
   .skIpWidget__ipAssetDropdownMenu {

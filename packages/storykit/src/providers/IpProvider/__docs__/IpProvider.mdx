@@ -24,8 +24,15 @@ import ExampleComponent from './ExampleComponent'
 
 const ExamplePage = () => {
   return (
-    <IpProvider ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"}>
-      <ExampleComponent />
+    <IpProvider
+      ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"}
+      option={{
+        assetData: true,
+        ipaMetadata: true,
+        licenseTermsData: true,
+      }}
+    >
+        <ExampleComponent />
     </IpProvider>
   );
 };
@@ -70,7 +77,6 @@ The IpProvider provides the following data to its children:
 - **isLicenseTermsDataLoading** - License Terms data loading state.
 - **licenseData** - IP Asset minted Licenses.
 - **isLicenseDataLoading** - License data loading state.
-- **royaltyData** - The Royalty Policy data.
 - **isRoyaltyDataLoading** - Royalty Policy data loading state.
 
 #### Arguments

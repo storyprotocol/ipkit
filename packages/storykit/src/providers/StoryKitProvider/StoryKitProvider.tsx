@@ -1,18 +1,12 @@
+import { API_URL } from "@/constants/api"
 import { CHAINS } from "@/constants/chains"
 import { cn } from "@/lib"
+import { ApiClient, createApiClient } from "@/lib/api/apiClient"
 import { ChainConfig, ERC20Token, STORYKIT_SUPPORTED_CHAIN, WRAPPED_IP } from "@/types/chains"
 import React, { useMemo } from "react"
 
 export type Mode = "light" | "dark" | undefined
 export type Theme = "default" | "story" | string
-
-// support current usage
-// todo: phase this out, make apiKey required and remove this
-const API_KEY =
-  process.env.STORYBOOK_STORY_PROTOCOL_X_API_KEY ||
-  process.env.NEXT_PUBLIC_STORY_PROTOCOL_X_API_KEY ||
-  process.env.STORY_PROTOCOL_X_API_KEY ||
-  ""
 
 export interface StoryKitProviderOptions {
   chain?: STORYKIT_SUPPORTED_CHAIN
@@ -20,9 +14,10 @@ export interface StoryKitProviderOptions {
   theme?: Theme
   mode?: Mode
   rpcUrl?: string
-  apiKey?: string
+  apiKey: string
   appId?: string
   children: React.ReactNode
+  apiBaseUrl?: string
 }
 
 const StoryKitContext = React.createContext<{
@@ -33,12 +28,15 @@ const StoryKitContext = React.createContext<{
   themeClass: string
   apiKey: string
   appId: string | undefined
+  apiBaseUrl: string
+  apiClient: ApiClient
 } | null>(null)
 
 export const StoryKitProvider = ({
   chain = STORYKIT_SUPPORTED_CHAIN.STORY_MAINNET,
   defaultCurrency = WRAPPED_IP,
   theme = "default",
+  apiBaseUrl = API_URL.STAGING,
   mode,
   rpcUrl,
   apiKey,
@@ -52,6 +50,8 @@ export const StoryKitProvider = ({
     [chain, rpcUrl]
   )
 
+  const apiClient = useMemo(() => createApiClient(apiBaseUrl), [apiBaseUrl])
+
   return (
     <StoryKitContext.Provider
       value={{
@@ -60,8 +60,10 @@ export const StoryKitProvider = ({
         theme: theme,
         mode: mode,
         themeClass: `${theme}${mode ? `-${mode}` : ""}`,
-        apiKey: apiKey || API_KEY,
+        apiKey: apiKey,
         appId: appId,
+        apiBaseUrl,
+        apiClient,
       }}
     >
       <div className={cn(theme)}>{children}</div>

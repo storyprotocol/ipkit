@@ -1,20 +1,29 @@
 import { useIpAsset } from "@/hooks/useIpAsset"
+import { useIpAssetEdges } from "@/hooks/useIpAssetEdges"
 import { useIpAssetMetadata } from "@/hooks/useIpAssetMetadata"
-import { convertLicenseTermObject } from "@/lib/functions/convertLicenseTermObject"
-import { getRoyaltiesByIPs } from "@/lib/royalty-graph"
+import { useIpAssetsTerms } from "@/hooks/useIpAssetsTerms"
+import { useLicenseTokens } from "@/hooks/useLicenseTokens"
+import { useRoyaltyPayments } from "@/hooks/useRoyaltyPayments"
+import { LicenseTermsResponse, getLicenseTerms } from "@/lib/api/getLicenseTerms"
+import { getNFTByTokenId } from "@/lib/simplehash"
+import { getMetadataFromIpfs } from "@/lib/utils"
+//
 import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
-import { RoyaltiesGraph } from "@/types/royalty-graph"
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query"
+import {
+  IPAsset,
+  IPLicenseTerms,
+  IpAssetEdge,
+  IpAssetMetadata,
+  LicenseTerms,
+  LicenseToken,
+  RoyaltyPay,
+} from "@/types/openapi"
+// import { convertIpfsUriToUrl } from "../../lib/utils"
+import { NFTMetadata } from "@/types/simplehash"
+import { useQuery } from "@tanstack/react-query"
 import React from "react"
 import { Address, Hash } from "viem"
 
-import { getMetadataFromIpfs, getResource, listResource } from "../../lib/api"
-import { getNFTByTokenId } from "../../lib/simplehash"
-import { convertIpfsUriToUrl } from "../../lib/utils"
-import { RESOURCE_TYPE } from "../../types/api"
-import { AssetEdges, IPLicenseTerms, License, LicenseTerms, RoyaltyPolicy } from "../../types/assets"
-import { IPAsset, IPAssetMetadata } from "../../types/openapi"
-import { NFTMetadata } from "../../types/simplehash"
 import { useStoryKitContext } from "../StoryKitProvider"
 
 export interface IpProviderOptions {
@@ -24,42 +33,45 @@ export interface IpProviderOptions {
   assetChildrenData?: boolean
   licenseTermsData?: boolean
   licenseData?: boolean
-  royaltyData?: boolean
-  royaltyGraphData?: boolean
+  royaltyPaymentsData?: boolean
 }
 
 const IpContext = React.createContext<{
   chain: STORYKIT_SUPPORTED_CHAIN
+  // data
   assetData: IPAsset | undefined
-  assetParentData: AssetEdges[] | undefined
-  assetChildrenData: AssetEdges[] | undefined
-  loadMoreAssetChildren: () => void
+  ipaMetadata: IpAssetMetadata | undefined
+  assetParentData: IpAssetEdge[] | undefined
+  assetChildrenData: IpAssetEdge[] | undefined
+  ipLicenseData: IPLicenseTerms[] | undefined
+  licenseTermsData: LicenseTerms[] | undefined
+  licenseData: LicenseToken[] | undefined
+  royaltyPaymentsReceivedData: RoyaltyPay[] | undefined
+  royaltyPaymentsSentData: RoyaltyPay[] | undefined
+  //--
   nftData: NFTMetadata | undefined
-  ipaMetadata: IPAssetMetadata | undefined
+  // loading
   isNftDataLoading: boolean
   isAssetDataLoading: boolean
   isAssetParentDataLoading: boolean
   isAssetChildrenDataLoading: boolean
   isIpaMetadataLoading: boolean
-  ipLicenseData: IPLicenseTerms[] | undefined
   isipLicenseDataLoading: boolean
-  licenseTermsData: LicenseTerms[] | undefined
   isLicenseTermsDataLoading: boolean
-  licenseData: License[] | undefined
   isLicenseDataLoading: boolean
-  royaltyData: RoyaltyPolicy | undefined
-  isRoyaltyDataLoading: boolean
-  royaltyGraphData: RoyaltiesGraph | undefined
-  isRoyaltyGraphDataLoading: boolean
+  isRoyaltyPaymentsReceivedLoading: boolean
+  isRoyaltyPaymentsSentLoading: boolean
+  // refetch
   refetchAssetData: () => void
   refetchAssetParentData: () => void
   refetchAssetChildrenData: () => void
   refetchIpLicenseData: () => void
   refetchLicenseTermsData: () => void
   refetchLicenseData: () => void
-  refetchRoyaltyData: () => void
   refetchNFTData: () => void
-  refetchRoyaltyGraphData: () => void
+  refetchRoyaltyPaymentsReceivedData: () => void
+  refetchRoyaltyPaymentsSentData: () => void
+  // fetched
   isNftDataFetched: boolean
   isAssetDataFetched: boolean
   isAssetParentDataFetched: boolean
@@ -67,8 +79,8 @@ const IpContext = React.createContext<{
   isIpLicenseDataFetched: boolean
   isLicenseTermsDataFetched: boolean
   isLicenseDataFetched: boolean
-  isRoyaltyDataFetched: boolean
-  isRoyaltyGraphDataFetched: boolean
+  isRoyaltyPaymentsReceivedDataFetched: boolean
+  isRoyaltyPaymentsSentDataFetched: boolean
 } | null>(null)
 
 export const IpProvider = ({
@@ -82,17 +94,16 @@ export const IpProvider = ({
 }) => {
   const queryOptions = {
     assetData: true,
-    ipaMetadata: true,
-    assetParentsData: true,
-    assetChildrenData: true,
-    licenseTermsData: true,
-    licenseData: true,
-    royaltyData: true,
-    royaltyGraphData: false,
+    ipaMetadata: false,
+    assetParentsData: false,
+    assetChildrenData: false,
+    licenseTermsData: false,
+    licenseData: false,
+    royaltyPaymentsData: false,
     ...options,
   }
 
-  const { chain } = useStoryKitContext()
+  const { chain, apiKey, apiClient } = useStoryKitContext()
 
   // Fetch asset data
   const {
@@ -127,155 +138,123 @@ export const IpProvider = ({
     metadataJson: metadaFromIpfs,
   }
 
-  const fetchParentEdgeOptions = {
-    pagination: {
-      limit: 500,
-      offset: 0,
-    },
-    where: {
-      ipId,
-    },
-  }
-
   // Fetch asset parent data
+
   const {
     isLoading: isAssetParentDataLoading,
     data: assetParentData,
     refetch: refetchAssetParentData,
     isFetched: isAssetParentDataFetched,
-  } = useQuery<AssetEdges[] | undefined>({
-    queryKey: [RESOURCE_TYPE.ASSET_EDGES, ipId, "parents"],
-    queryFn: async () => {
-      const response = await listResource(
-        RESOURCE_TYPE.ASSET_EDGES,
-        chain.name as STORYKIT_SUPPORTED_CHAIN,
-        fetchParentEdgeOptions
-      )
-
-      return response.data
+  } = useIpAssetEdges({
+    options: {
+      pagination: {
+        limit: 500,
+      },
+      where: {
+        ipId,
+      },
     },
-    enabled: queryOptions.assetParentsData,
+    queryOptions: {
+      enabled: queryOptions.assetParentsData,
+    },
   })
 
-  const fetchChildEdgeOptions = {
-    pagination: {
-      limit: 500,
-      offset: 0,
-    },
-    where: {
-      parentIpId: ipId,
-    },
-  }
+  // Fetch asset children data
 
-  // Fetch asset children data with pagination
   const {
     isLoading: isAssetChildrenDataLoading,
     data: assetChildrenData,
     refetch: refetchAssetChildrenData,
     isFetched: isAssetChildrenDataFetched,
-    fetchNextPage,
-    hasNextPage,
-  } = useInfiniteQuery<{ data: AssetEdges[]; next: string; prev: string }>({
-    queryKey: [RESOURCE_TYPE.ASSET_EDGES, ipId, "children"],
-    queryFn: ({ pageParam = 0 }) => {
-      const currentOptions = {
-        ...fetchChildEdgeOptions,
-        pagination: {
-          ...fetchChildEdgeOptions.pagination,
-          offset: pageParam as number,
-        },
-      }
-      return listResource(RESOURCE_TYPE.ASSET_EDGES, chain.name as STORYKIT_SUPPORTED_CHAIN, currentOptions)
+  } = useIpAssetEdges({
+    options: {
+      pagination: {
+        limit: 500,
+      },
+      where: {
+        parentIpId: ipId,
+      },
     },
-    getNextPageParam: (
-      lastPage: { data: AssetEdges[]; next: string; prev: string },
-      allPages: { data: AssetEdges[]; next: string; prev: string }[]
-    ) => {
-      // Calculate total items fetched across all pages
-      const totalFetched = allPages.reduce((acc, page) => acc + (page.data ?? []).length, 0)
-
-      // If there's data in the last page and there's a next page indicator
-      if ((lastPage.data ?? []).length > 0 && lastPage.next) {
-        return totalFetched
-      }
-
-      return undefined
+    queryOptions: {
+      enabled: queryOptions.assetChildrenData,
     },
-    enabled: queryOptions.assetChildrenData,
-    initialPageParam: 0,
   })
 
-  // Function to load more data
-  const loadMoreAssetChildren = () => {
-    if (hasNextPage) {
-      fetchNextPage()
-    }
-  }
-
-  const ipLicenseTermsQueryOptions = {
-    pagination: {
-      limit: 100,
-      offset: 0,
-    },
-    where: {
-      ipId,
-    },
-  }
-
   // Fetch IP License Terms data
+
   const {
     isLoading: isipLicenseDataLoading,
     data: ipLicenseData,
     refetch: refetchIpLicenseData,
     isFetched: isIpLicenseDataFetched,
-  } = useQuery({
-    queryKey: [RESOURCE_TYPE.IP_LICENSE_TERMS, ipLicenseTermsQueryOptions],
-    queryFn: () =>
-      listResource(RESOURCE_TYPE.IP_LICENSE_TERMS, chain.name as STORYKIT_SUPPORTED_CHAIN, ipLicenseTermsQueryOptions),
-    enabled: queryOptions.licenseTermsData,
+  } = useIpAssetsTerms({
+    options: {
+      where: {
+        ipId,
+      },
+    },
+    queryOptions: {
+      enabled: queryOptions.licenseTermsData,
+    },
   })
 
-  async function fetchLicenseTermsDetails(data: IPLicenseTerms[]) {
-    const uniqueLicenses = data.filter((item) => item.ipId.toLowerCase() === ipId.toLowerCase())
+  // alternative way to fetch IP License Terms data
+  // note useIpAssetTerms returns a list response with next/prev pagination but is a GET request
 
-    const requests = uniqueLicenses.map((item) =>
-      getResource(RESOURCE_TYPE.LICENSE_TERMS, item.licenseTermsId, chain.name as STORYKIT_SUPPORTED_CHAIN)
+  // const {
+  //   isLoading: isipLicenseDataLoading,
+  //   data: ipLicenseData,
+  //   refetch: refetchIpLicenseData,
+  //   isFetched: isIpLicenseDataFetched,
+  // } = useIpAssetTerms({
+  //   ipId,
+  //   queryOptions: {
+  //     enabled: queryOptions.licenseTermsData,
+  //   },
+  // })
+
+  // fetch license terms details
+
+  async function fetchLicenseTermsDetails(data: IPLicenseTerms[]) {
+    const uniqueLicenses = data.filter((item) => item.ipId?.toLowerCase() === ipId.toLowerCase())
+
+    const requests: Promise<LicenseTermsResponse>[] = uniqueLicenses.map((item) =>
+      getLicenseTerms({ licenseTermId: item.licenseTermsId ?? "", chainName: chain.name, apiKey, apiClient })
     )
     const results = await Promise.all(requests)
 
-    const termsDetail = results
-      .filter((value) => !!value)
-      .map((result) => {
-        return {
-          ...result.data,
-          licenseTerms: convertLicenseTermObject(result.data.licenseTerms),
-        }
-      })
+    return results.map((result) => (result.data as LicenseTermsResponse).data!)
 
-    const offChainUri = termsDetail.map((detail) => detail.terms.uri)
-    const offChainData = await Promise.all(
-      offChainUri.map(async (uri) => {
-        try {
-          if (uri === "") {
-            return
-          }
-          const ipfsData = await getMetadataFromIpfs(convertIpfsUriToUrl(uri))
-          return ipfsData
-        } catch (error) {
-          return
-        }
-      })
-    )
+    // TODO: fetch offchain data
 
-    return termsDetail.map((termDetail, index) => {
-      return {
-        ...termDetail,
-        terms: {
-          ...termDetail.terms,
-          offChainData: offChainData[index],
-        },
-      }
-    })
+    // const termsDetail = results.filter((value) => !!value).map((result) => result.data)
+
+    // const offChainUri = termsDetail.map((detail) => detail.terms.uri)
+
+    // const offChainData = await Promise.all(
+    //   offChainUri.map(async (uri) => {
+    //     try {
+    //       if (uri === "") {
+    //         return
+    //       }
+    //       const ipfsData = await getMetadataFromIpfs(convertIpfsUriToUrl(uri))
+    //       console.log("ipfsData", ipfsData)
+    //       return ipfsData
+    //     } catch (error) {
+    //       return
+    //     }
+    //   })
+    // )
+
+    // return termsDetail.map((termDetail, index) => {
+    //   return {
+    //     ...termDetail,
+    //     terms: {
+    //       ...termDetail.terms,
+    //       offChainData: offChainData[index],
+    //     },
+    //   }
+    // })
   }
 
   const {
@@ -285,65 +264,49 @@ export const IpProvider = ({
     isFetched: isLicenseTermsDataFetched,
   } = useQuery({
     queryKey: ["fetchLicenseTermsDetails", ipLicenseData?.data],
-    queryFn: () => fetchLicenseTermsDetails(ipLicenseData?.data),
-    enabled: Boolean(ipLicenseData) && Boolean(ipLicenseData.data) && queryOptions.licenseTermsData,
+    queryFn: () => fetchLicenseTermsDetails(ipLicenseData?.data ?? []),
+    enabled: Boolean(ipLicenseData) && Boolean(ipLicenseData?.data?.length) && queryOptions.licenseTermsData,
   })
 
-  const licenseQueryOptions = {
-    pagination: {
-      limit: 0,
-      offset: 0,
-    },
-    where: {
-      licensorIpId: ipId,
-    },
-  }
-
   // Fetch License Data
+
   const {
     isLoading: isLicenseDataLoading,
     data: licenseData,
     refetch: refetchLicenseData,
     isFetched: isLicenseDataFetched,
-  } = useQuery({
-    queryKey: [RESOURCE_TYPE.LICENSE, licenseQueryOptions],
-    queryFn: () => listResource(RESOURCE_TYPE.LICENSE, chain.name as STORYKIT_SUPPORTED_CHAIN, licenseQueryOptions),
-    enabled: queryOptions.licenseData,
+  } = useLicenseTokens({
+    options: {
+      where: {
+        licensorIpId: ipId,
+      },
+    },
+    queryOptions: { enabled: queryOptions.licenseData },
   })
 
   // Fetch Royalty Data
+
   const {
-    isLoading: isRoyaltyDataLoading,
-    data: royaltyData,
-    refetch: refetchRoyaltyData,
-    isFetched: isRoyaltyDataFetched,
-  } = useQuery({
-    queryKey: [
-      RESOURCE_TYPE.ROYALTY_POLICY,
-      {
-        pagination: {
-          limit: 0,
-          offset: 0,
-        },
-        where: {
-          ipId,
-        },
-      },
-    ],
-    queryFn: () => getResource(RESOURCE_TYPE.ROYALTY_POLICY, ipId, chain.name as STORYKIT_SUPPORTED_CHAIN),
-    enabled: queryOptions.royaltyData,
+    isLoading: isRoyaltyPaymentsReceivedLoading,
+    data: royaltyPaymentsReceivedData,
+    refetch: refetchRoyaltyPaymentsReceivedData,
+    isFetched: isRoyaltyPaymentsReceivedDataFetched,
+  } = useRoyaltyPayments({
+    options: { where: { receiverIpId: ipId } },
+    queryOptions: { enabled: queryOptions.royaltyPaymentsData },
   })
 
   const {
-    isLoading: isRoyaltyGraphDataLoading,
-    data: royaltyGraphData,
-    refetch: refetchRoyaltyGraphData,
-    isFetched: isRoyaltyGraphDataFetched,
-  } = useQuery<RoyaltiesGraph | undefined>({
-    queryKey: ["getRoyaltiesByIPs", ipId],
-    queryFn: () => getRoyaltiesByIPs([ipId], chain.name as STORYKIT_SUPPORTED_CHAIN),
-    enabled: queryOptions.royaltyGraphData,
+    isLoading: isRoyaltyPaymentsSentLoading,
+    data: royaltyPaymentsSentData,
+    refetch: refetchRoyaltyPaymentsSentData,
+    isFetched: isRoyaltyPaymentsSentDataFetched,
+  } = useRoyaltyPayments({
+    options: { where: { payerIpId: ipId } },
+    queryOptions: { enabled: queryOptions.royaltyPaymentsData },
   })
+
+  // Fetch NFT Data
 
   const {
     isLoading: isNftDataLoading,
@@ -369,48 +332,49 @@ export const IpProvider = ({
     <IpContext.Provider
       value={{
         chain: chain.name as STORYKIT_SUPPORTED_CHAIN,
-        nftData,
-        isNftDataLoading,
+        // data
         assetData: assetData?.data,
-        isAssetDataLoading,
-        assetParentData,
-        isAssetParentDataLoading,
-        // TODO: fix this for empty children
-        assetChildrenData: assetChildrenData?.pages.flatMap(
-          (page: { data: AssetEdges[]; next: string; prev: string }) => page.data
-        ),
-        loadMoreAssetChildren,
-        isAssetChildrenDataLoading,
-        ipaMetadata,
-        isIpaMetadataLoading: isIpaMetadataLoading || isLoadingFromIpfs,
+        ipaMetadata: ipaMetadata,
+        assetParentData: assetParentData?.data,
+        assetChildrenData: assetChildrenData?.data,
         ipLicenseData: ipLicenseData?.data,
-        isipLicenseDataLoading,
-        licenseTermsData,
-        isLicenseTermsDataLoading,
         licenseData: licenseData?.data,
+        licenseTermsData: licenseTermsData,
+        royaltyPaymentsReceivedData: royaltyPaymentsReceivedData?.data,
+        royaltyPaymentsSentData: royaltyPaymentsSentData?.data,
+        //
+        nftData,
+        // loading
+        isAssetDataLoading,
+        isNftDataLoading,
+        isAssetParentDataLoading,
+        isAssetChildrenDataLoading,
+        isIpaMetadataLoading: isIpaMetadataLoading || isLoadingFromIpfs,
+        isipLicenseDataLoading,
+        isLicenseTermsDataLoading,
         isLicenseDataLoading,
-        royaltyData: royaltyData?.data,
-        isRoyaltyDataLoading,
-        royaltyGraphData,
-        isRoyaltyGraphDataLoading,
+        isRoyaltyPaymentsReceivedLoading,
+        isRoyaltyPaymentsSentLoading,
+        // refetch
         refetchAssetData,
         refetchAssetParentData,
         refetchAssetChildrenData,
         refetchIpLicenseData,
         refetchLicenseTermsData,
         refetchLicenseData,
-        refetchRoyaltyData,
-        refetchRoyaltyGraphData,
         refetchNFTData,
-        isNftDataFetched,
+        refetchRoyaltyPaymentsReceivedData,
+        refetchRoyaltyPaymentsSentData,
+        // fetched
         isAssetDataFetched,
+        isNftDataFetched,
         isAssetParentDataFetched,
         isAssetChildrenDataFetched,
         isIpLicenseDataFetched,
         isLicenseTermsDataFetched,
         isLicenseDataFetched,
-        isRoyaltyDataFetched,
-        isRoyaltyGraphDataFetched,
+        isRoyaltyPaymentsReceivedDataFetched,
+        isRoyaltyPaymentsSentDataFetched,
       }}
     >
       {children}

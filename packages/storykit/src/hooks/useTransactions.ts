@@ -1,25 +1,24 @@
-import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
+import { IpQueryOptions } from "@/types/openapi"
+import { UseQueryResult, useQuery } from "@tanstack/react-query"
 
-import { TransactionsData, TransactionsOptions, getTransactions } from "../lib/api/getTransactions"
+import { TransactionsOptions, TransactionsResponse, getTransactions } from "../lib/api/getTransactions"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
-
-export type UseTransactionsQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
 
 export type UseTransactionsOptions = {
   options?: TransactionsOptions
-  queryOptions?: UseTransactionsQueryOptions
+  queryOptions?: IpQueryOptions
 }
 
 export function useTransactions({ options, queryOptions }: UseTransactionsOptions = {}) {
-  const { chain, apiKey } = useStoryKitContext()
+  const { chain, apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
     queryKey: ["getTransactions", options, queryOptions],
     queryFn: async () => {
-      const { data, error } = await getTransactions({ options, chainName: chain.name, apiKey })
+      const { data, error } = await getTransactions({ options, chainName: chain.name, apiKey, apiClient })
       if (error) throw error
       return data
     },
     ...queryOptions,
-  }) as UseQueryResult<TransactionsData>
+  }) as UseQueryResult<TransactionsResponse>
 }

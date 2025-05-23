@@ -1,2 +1,4 @@
-export const STAGING_URL = "https://staging-api.storyprotocol.net"
-export const PRODUCTION_URL = "https://api.storyapis.com"
+export enum API_URL {
+  STAGING = "https://staging-api.storyprotocol.net",
+  PRODUCTION = "https://api.storyapis.com",
+}

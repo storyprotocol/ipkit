@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { PILTerms, Trait } from "@/types"
+import { Trait } from "@/types/assets"
+import { PILTerms } from "@/types/openapi"
 
 import { camelize } from "../utils"
 

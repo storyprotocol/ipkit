@@ -7,7 +7,7 @@ const Example: FC<{
   ipId: Address
   children?: React.ReactNode
   options?: IpProviderOptions
-}> = ({ ipId = "0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd", children = <ExampleComponent />, options = {} }) => {
+}> = ({ ipId = "0xE8Cc004498a2a7510F9CFB26D95dFdb7Ac4e7100", children = <ExampleComponent />, options = {} }) => {
   return (
     <IpProvider ipId={ipId} options={options}>
       {children}
@@ -155,7 +155,7 @@ const LicenseTermsComponent = () => {
         <div>
           <>
             <ul>
-              {(licenseTermsData as unknown as any[])?.map((license) => (
+              {licenseTermsData.map((license) => (
                 <li className="grid grid-cols-4 gap-6" key={license.id}>
                   <p className="col-span-1 text-xs text-gray-600">License Id</p>
                   <p className="col-span-3 text-sm" data-testid="license-id">
@@ -168,19 +168,19 @@ const LicenseTermsComponent = () => {
                   <p className="col-span-4 text-xs text-gray-600">licenseTerms</p>
                   <p className="col-span-1 text-xs text-gray-600">commercialUse</p>
                   <p className="col-span-3 text-sm" data-testid="license-comm-use">
-                    {license.licenseTerms.commercialUse.toString()}
+                    {license.terms?.commercialUse?.toString()}
                   </p>
                   <p className="col-span-1 text-xs text-gray-600">commercialAttribution</p>
                   <p className="col-span-3 text-sm" data-testid="license-comm-attr">
-                    {license.licenseTerms.commercialAttribution.toString()}
+                    {license.terms?.commercialAttribution?.toString()}
                   </p>
-                  <p className="col-span-1 text-xs text-gray-600">commercialRevenueShare</p>
+                  <p className="col-span-1 text-xs text-gray-600">commercialRevShare</p>
                   <p className="col-span-3 text-sm" data-testid="license-comm-share">
-                    {license.licenseTerms.commercialRevenueShare}
+                    {license.terms?.commercialRevShare?.toString()}
                   </p>
                   <p className="col-span-1 text-xs text-gray-600">derivativesAllowed</p>
                   <p className="col-span-3 text-sm" data-testid="license-deriv-allow">
-                    {license.licenseTerms.derivativesAllowed.toString()}
+                    {license.terms?.derivativesAllowed?.toString()}
                   </p>
                   <p />
                 </li>
@@ -222,19 +222,15 @@ const LicenseComponent = () => {
                   </p>
                   <p className="col-span-1 text-xs text-gray-600">transferable</p>
                   <p className="col-span-3 text-sm" data-testid="license-transfer">
-                    {obj.transferable.toString()}
+                    {obj.transferable}
                   </p>
                   <p className="col-span-1 text-xs text-gray-600">owner</p>
                   <p className="col-span-3 text-sm" data-testid="license-owner">
                     {obj.owner}
                   </p>
-                  <p className="col-span-1 text-xs text-gray-600">expiresAt</p>
-                  <p className="col-span-3 text-sm" data-testid="license-expires">
-                    {obj.expiresAt}
-                  </p>
-                  <p className="col-span-1 text-xs text-gray-600">mintedAt</p>
+                  <p className="col-span-1 text-xs text-gray-600">blockTime</p>
                   <p className="col-span-3 text-sm" data-testid="license-minted">
-                    {obj.mintedAt}
+                    {obj.blockTime}
                   </p>
                   <p className="col-span-1 text-xs text-gray-600">burntAt</p>
                   <p className="col-span-3 text-sm" data-testid="license-burnt">
@@ -251,109 +247,5 @@ const LicenseComponent = () => {
   )
 }
 
-const RoyaltyComponent = () => {
-  const { royaltyData, isRoyaltyDataLoading } = useIpContext()
-  return (
-    <>
-      {isRoyaltyDataLoading && <div>Fetching Royalty...</div>}
-      {royaltyData && !isRoyaltyDataLoading ? (
-        <div className="grid grid-cols-4 gap-4">
-          <>
-            <div className="col-span-1 text-xs text-gray-600">id</div>
-            <div className="col-span-3 text-sm" data-testid="royalty-id">
-              {royaltyData.id}
-            </div>
-            <div className="col-span-1 text-xs text-gray-600">ipRoyaltyVault</div>
-            <div className="col-span-3 text-sm" data-testid="royalty-vault">
-              {royaltyData.ipRoyaltyVault}
-            </div>
-            <div className="col-span-1 text-xs text-gray-600">royaltyStack</div>
-            <div className="col-span-3 text-sm" data-testid="royalty-stack">
-              {royaltyData.royaltyStack}
-            </div>
-            <div className="col-span-1 text-xs text-gray-600">targetAncestors</div>
-            <ul className="col-span-3 text-sm">
-              {royaltyData.targetAncestors.map((obj) => (
-                <li data-testid="royalty-ancestors" key={obj}>
-                  {obj}
-                </li>
-              ))}
-            </ul>
-            <div className="col-span-1 text-xs text-gray-600">targetRoyaltyAmount</div>
-            <ul className="col-span-3 text-sm">
-              {royaltyData.targetRoyaltyAmount.map((obj) => (
-                <li data-testid="royalty-amount" key={obj}>
-                  {obj}
-                </li>
-              ))}
-            </ul>
-          </>
-        </div>
-      ) : null}
-    </>
-  )
-}
-const ProviderOptionsComponent = () => {
-  const {
-    assetData,
-    isAssetDataLoading,
-    nftData,
-    isNftDataLoading,
-    ipLicenseData,
-    isipLicenseDataLoading,
-    licenseTermsData,
-    isLicenseTermsDataLoading,
-    licenseData,
-    isLicenseDataLoading,
-    royaltyData,
-    isRoyaltyDataLoading,
-  } = useIpContext()
-  return (
-    <>
-      <div>
-        {isAssetDataLoading && <div>Fetching Asset...</div>}
-        {isNftDataLoading && <div>Fetching NFT...</div>}
-        {isipLicenseDataLoading && <div>Fetching IPLicense...</div>}
-        {isLicenseTermsDataLoading && <div>Fetching License Terms...</div>}
-        {isLicenseDataLoading && <div>Fetching License...</div>}
-        {isRoyaltyDataLoading && <div>Fetching Royalty...</div>}
-        <div className="grid grid-cols-4 gap-4">
-          <div className="col-span-1 text-xs text-gray-600">Asset</div>
-          <div className="col-span-3 text-sm" data-testid="asset-id">
-            {assetData?.id}
-          </div>
-          <div className="col-span-1 text-xs text-gray-600">NFT</div>
-          <div className="col-span-3 text-sm" data-testid="nft-id">
-            {nftData?.nft_id}
-          </div>
-          <div className="col-span-1 text-xs text-gray-600">IPLicense count</div>
-          <div className="col-span-3 text-sm" data-testid="ipap-count">
-            {ipLicenseData?.length}
-          </div>
-          <div className="col-span-1 text-xs text-gray-600">License Terms count</div>
-          <div className="col-span-3 text-sm" data-testid="license-terms-count">
-            {licenseTermsData?.length}
-          </div>
-          <div className="col-span-1 text-xs text-gray-600">License count</div>
-          <div className="col-span-3 text-sm" data-testid="license-count">
-            {licenseData?.length}
-          </div>
-          <div className="col-span-1 text-xs text-gray-600">Royalty</div>
-          <div className="col-span-3 text-sm" data-testid="royalty-id">
-            {royaltyData?.id}
-          </div>
-        </div>
-      </div>
-    </>
-  )
-}
-
 export default Example
-export {
-  AssetComponent,
-  IPLicenseComponent,
-  LicenseTermsComponent,
-  LicenseComponent,
-  RoyaltyComponent,
-  ProviderOptionsComponent,
-}
+export { AssetComponent, IPLicenseComponent, LicenseTermsComponent, LicenseComponent }

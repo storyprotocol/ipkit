@@ -1,23 +1,26 @@
 import { paths } from "@storykit/api-schema"
 import { FetchResponse } from "openapi-fetch"
 
-import { listQuery } from "./listQuery"
+import { ApiClient } from "./apiClient"
+import { getQuery } from "./getQuery"
 
-export type LicenseTermsData = paths["/api/v3/licenses/terms"]["post"]["responses"][200]["content"]["application/json"]
-export type LicenseTermsOptions =
-  paths["/api/v3/licenses/terms"]["post"]["requestBody"]["content"]["application/json"]["options"]
+export type LicenseTermsResponse =
+  paths["/api/v3/licenses/terms/{licenseTermId}"]["get"]["responses"][200]["content"]["application/json"]
+export type LicenseTermsOptions = paths["/api/v3/licenses/terms/{licenseTermId}"]["options"]
 
 export type GetLicenseTermsOptions = {
-  options?: LicenseTermsOptions
+  apiClient: ApiClient
+  licenseTermId: string
   chainName: string
   apiKey: string
 }
 
-export function getLicenseTerms({ options, chainName, apiKey }: GetLicenseTermsOptions) {
-  return listQuery({
-    path: "/api/v3/licenses/terms",
-    body: { options: options || {} },
+export function getLicenseTerms({ apiClient, licenseTermId, chainName, apiKey }: GetLicenseTermsOptions) {
+  return getQuery({
+    apiClient,
+    path: "/api/v3/licenses/terms/{licenseTermId}",
+    pathParams: { licenseTermId },
     chainName,
     apiKey,
-  }) as Promise<FetchResponse<LicenseTermsData, LicenseTermsOptions, "application/json">>
+  }) as Promise<FetchResponse<LicenseTermsResponse, LicenseTermsOptions, "application/json">>
 }

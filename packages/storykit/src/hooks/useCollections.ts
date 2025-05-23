@@ -1,25 +1,24 @@
-import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
+import { IpQueryOptions } from "@/types/openapi"
+import { UseQueryResult, useQuery } from "@tanstack/react-query"
 
-import { CollectionsData, CollectionsOptions, getCollections } from "../lib/api/getCollections"
+import { CollectionsOptions, CollectionsResponse, getCollections } from "../lib/api/getCollections"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
-
-export type UseCollectionsQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
 
 export type UseCollectionsOptions = {
   options?: CollectionsOptions
-  queryOptions?: UseCollectionsQueryOptions
+  queryOptions?: IpQueryOptions
 }
 
 export function useCollections({ options, queryOptions }: UseCollectionsOptions = {}) {
-  const { chain, apiKey } = useStoryKitContext()
+  const { chain, apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
     queryKey: ["getCollections", options, queryOptions],
     queryFn: async () => {
-      const { data, error } = await getCollections({ options, chainName: chain.name, apiKey })
+      const { data, error } = await getCollections({ options, chainName: chain.name, apiKey, apiClient })
       if (error) throw error
       return data
     },
     ...queryOptions,
-  }) as UseQueryResult<CollectionsData>
+  }) as UseQueryResult<CollectionsResponse>
 }

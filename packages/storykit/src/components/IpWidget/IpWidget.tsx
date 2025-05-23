@@ -8,10 +8,9 @@ import { Address } from "viem"
 
 import "../../global.css"
 import { cn, shortenAddress } from "../../lib/utils"
-import { IpProvider, useIpContext } from "../../providers"
+import { IpProvider, IpProviderOptions, useIpContext } from "../../providers"
 import { IpGraph } from "../IpGraph"
 import { IpLicenseAccordion } from "../IpLicenseAccordion"
-import { IpRoyaltyPieChart } from "../IpRoyaltyPieChart"
 import "./styles.css"
 
 export type IpWidgetProps = {
@@ -23,7 +22,6 @@ export const IPA_CARD_TABS = [
   { id: "overview", label: "Overview" },
   { id: "licensing", label: "Licensing" },
   { id: "derivatives", label: "IP Graph" },
-  { id: "royalty", label: "Royalty" },
 ]
 
 const IpWidget = ({ ipId, isBottomNav, ...rest }: IpWidgetProps) => {
@@ -45,8 +43,18 @@ function IPAssetCardWrapper({ ipId, isBottomNav = true }: IpWidgetProps) {
     </div>
   )
 
+  const options: IpProviderOptions = {
+    assetData: true,
+    ipaMetadata: true,
+    assetParentsData: true,
+    assetChildrenData: true,
+    licenseTermsData: true,
+    licenseData: true,
+    royaltyPaymentsData: true,
+  }
+
   return (
-    <IpProvider ipId={ipId} key={ipId}>
+    <IpProvider ipId={ipId} key={ipId} options={options}>
       <div className="skIpWidget">
         {isBottomNav ? <_Card /> : <_Tabs />}
         {isBottomNav ? <_Tabs /> : <_Card />}
@@ -131,12 +139,6 @@ function IPAssetCard({ isBottomNav, activeTab }: { isBottomNav?: boolean; active
       return (
         <IPAssetLayout isBottomNav={isBottomNav}>
           <IpGraph width={370} height={250} />
-        </IPAssetLayout>
-      )
-    case "royalty":
-      return (
-        <IPAssetLayout isBottomNav={isBottomNav}>
-          <IpRoyaltyPieChart />
         </IPAssetLayout>
       )
     default:

@@ -2,14 +2,17 @@ import { paths } from "@storykit/api-schema"
 import { FetchResponse } from "openapi-fetch"
 import { Address } from "viem"
 
+import { ApiClient } from "./apiClient"
 import { listQuery } from "./listQuery"
 
-export type IpGroupEdgesData = paths["/api/v3/ip-group-edges"]["post"]["responses"][200]["content"]["application/json"]
+export type IpGroupEdgesResponse =
+  paths["/api/v3/ip-group-edges"]["post"]["responses"][200]["content"]["application/json"]
 
 export type IpGroupEdgesOptions =
   paths["/api/v3/ip-group-edges"]["post"]["requestBody"]["content"]["application/json"]["options"]
 
 export type GetIpGroupEdgesOptions = {
+  apiClient: ApiClient
   groupId?: Address
   ipAssetIds?: Address[]
   options?: IpGroupEdgesOptions
@@ -17,8 +20,16 @@ export type GetIpGroupEdgesOptions = {
   apiKey: string
 }
 
-export function getIpGroupEdges({ groupId, ipAssetIds, options, chainName, apiKey }: GetIpGroupEdgesOptions) {
+export function getIpGroupEdges({
+  apiClient,
+  groupId,
+  ipAssetIds,
+  options,
+  chainName,
+  apiKey,
+}: GetIpGroupEdgesOptions) {
   return listQuery({
+    apiClient,
     path: "/api/v3/ip-group-edges",
     body: {
       options: {
@@ -32,5 +43,5 @@ export function getIpGroupEdges({ groupId, ipAssetIds, options, chainName, apiKe
     },
     chainName,
     apiKey,
-  }) as Promise<FetchResponse<IpGroupEdgesData, IpGroupEdgesOptions, "application/json">>
+  }) as Promise<FetchResponse<IpGroupEdgesResponse, IpGroupEdgesOptions, "application/json">>
 }

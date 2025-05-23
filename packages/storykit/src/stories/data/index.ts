@@ -2,7 +2,7 @@ import { Address } from "viem"
 
 // Random IP assets from Mainnet Explorer
 export const MAINNET_PREVIEW_IP_ASSETS: Address[] = [
-  "0x6CF267c5C09F8C10DEf7463c8b83D444a0FCEe45", // Ablo
+  "0xB1D831271A68Db5c18c8F0B69327446f7C8D0A42", // Ippy
   "0x3F85e3f767cE8e62A01A48109952e227d349AE10", // Mahojin
   "0x2537Ac30592930B2F46e6ad05fad0D1Fef0626E4", // Mycellium
 ]

@@ -15,12 +15,14 @@ const Example = (args: UseLicenseTermsOptions) => {
     <div className="sk-space-y-4">
       <DataTable
         fields={mainFields}
-        data={data.data.map((term) => ({
-          ...term,
-          commercialAttribution: term.terms?.commercialAttribution ? "Yes" : "No",
-          commercialUse: term.terms?.commercialUse ? "Yes" : "No",
-          derivativesAllowed: term.terms?.derivativesAllowed ? "Yes" : "No",
-        }))}
+        data={[
+          {
+            ...data.data,
+            commercialAttribution: data.data.terms?.commercialAttribution ? "Yes" : "No",
+            commercialUse: data.data.terms?.commercialUse ? "Yes" : "No",
+            derivativesAllowed: data.data.terms?.derivativesAllowed ? "Yes" : "No",
+          },
+        ]}
       />
     </div>
   )
@@ -33,11 +35,7 @@ const meta = {
     layout: "centered",
   },
   args: {
-    options: {
-      pagination: {
-        limit: 10,
-      },
-    },
+    licenseTermId: "3914",
     queryOptions: {
       enabled: true,
     },

@@ -1,7 +1,8 @@
 import { cn } from "@/lib/utils"
 import { useStoryKitContext } from "@/providers/StoryKitProvider"
-import { NFTMetadata } from "@/types"
 import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
+import { IPAsset } from "@/types/openapi"
+import { NFTMetadata } from "@/types/simplehash"
 import { useQuery } from "@tanstack/react-query"
 import React, { useEffect, useRef, useState } from "react"
 import { LinkObject } from "react-force-graph-2d"
@@ -9,7 +10,6 @@ import { LinkObject } from "react-force-graph-2d"
 import "../../global.css"
 import { convertAssetToGraphFormat } from "../../lib/graph"
 import { useIpContext } from "../../providers"
-import { Asset } from "../../types"
 import "./styles.css"
 
 export type IpGraphProps = {
@@ -37,7 +37,7 @@ function IpGraph({ width = 500, height = 500, darkMode = false }: IpGraphProps) 
   } = useQuery({
     queryKey: ["FORMAT_GRAPH_DATA", assetData?.id, chain],
     queryFn: () =>
-      convertAssetToGraphFormat(assetData as Asset, nftData as NFTMetadata, chain.name as STORYKIT_SUPPORTED_CHAIN),
+      convertAssetToGraphFormat(assetData as IPAsset, nftData as NFTMetadata, chain.name as STORYKIT_SUPPORTED_CHAIN),
     enabled: !!(assetData && nftData),
   })
 

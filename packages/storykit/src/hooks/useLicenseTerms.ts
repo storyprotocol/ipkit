@@ -1,25 +1,24 @@
-import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
+import { IpQueryOptions } from "@/types/openapi"
+import { UseQueryResult, useQuery } from "@tanstack/react-query"
 
-import { LicenseTermsData, LicenseTermsOptions, getLicenseTerms } from "../lib/api/getLicenseTerms"
+import { LicenseTermsResponse, getLicenseTerms } from "../lib/api/getLicenseTerms"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
-export type UseLicenseTermsQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
-
 export type UseLicenseTermsOptions = {
-  options?: LicenseTermsOptions
-  queryOptions?: UseLicenseTermsQueryOptions
+  licenseTermId: string
+  queryOptions?: IpQueryOptions
 }
 
-export function useLicenseTerms({ options, queryOptions }: UseLicenseTermsOptions = {}) {
-  const { chain, apiKey } = useStoryKitContext()
+export function useLicenseTerms({ licenseTermId, queryOptions }: UseLicenseTermsOptions) {
+  const { chain, apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
-    queryKey: ["getLicenseTerms", options, queryOptions],
+    queryKey: ["getLicenseTerms", licenseTermId, queryOptions],
     queryFn: async () => {
-      const { data, error } = await getLicenseTerms({ options, chainName: chain.name, apiKey })
+      const { data, error } = await getLicenseTerms({ licenseTermId, chainName: chain.name, apiKey, apiClient })
       if (error) throw error
       return data
     },
     ...queryOptions,
-  }) as UseQueryResult<LicenseTermsData>
+  }) as UseQueryResult<LicenseTermsResponse>
 }

@@ -1,4 +1,5 @@
-import { PILTerms, PIL_FLAVOR, PilFlavor } from "@/types"
+import { PIL_FLAVOR, PilFlavor } from "@/types/assets"
+import { PILTerms } from "@/types/openapi"
 import { type ClassValue, clsx } from "clsx"
 import { extendTailwindMerge } from "tailwind-merge"
 
@@ -33,18 +34,18 @@ export function camelize(str: string) {
 }
 
 export function getPilFlavorByLicenseTerms(pilTerms: PILTerms): PilFlavor {
-  const { commercialUse, derivativesAllowed, derivativesAttribution, commercialRevenueShare } = pilTerms
+  const { commercialUse, derivativesAllowed, derivativesAttribution, commercialRevShare } = pilTerms
 
   if (!commercialUse && derivativesAllowed) {
     return derivativesAttribution ? PIL_FLAVOR.NON_COMMERCIAL_SOCIAL_REMIXING : PIL_FLAVOR.OPEN_USE
   }
 
-  if (commercialUse && !derivativesAllowed && !derivativesAttribution && commercialRevenueShare === 0) {
+  if (commercialUse && !derivativesAllowed && !derivativesAttribution && commercialRevShare === 0) {
     // TODO: commercial use should check that mintingFee is set, currently not received from the API
     return PIL_FLAVOR.COMMERCIAL_USE
   }
 
-  if (commercialUse && derivativesAllowed && derivativesAttribution && commercialRevenueShare > 0) {
+  if (commercialUse && derivativesAllowed && derivativesAttribution && commercialRevShare && commercialRevShare > 0) {
     return PIL_FLAVOR.COMMERCIAL_REMIX
   }
 
@@ -64,4 +65,9 @@ export function convertIpfsUriToUrl(ipfsUri: string): string {
 
   const contentHash = ipfsUri.slice(7) // Remove the 'ipfs://' prefix
   return `https://ipfs.io/ipfs/${contentHash}`
+}
+
+export async function getMetadataFromIpfs(ipfsUrl: string) {
+  const metadata = await fetch(convertIpfsUriToUrl(ipfsUrl)).then((res) => res.json())
+  return metadata
 }

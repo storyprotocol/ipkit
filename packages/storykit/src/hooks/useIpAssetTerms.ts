@@ -1,26 +1,25 @@
-import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
+import { IpQueryOptions } from "@/types/openapi"
+import { UseQueryResult, useQuery } from "@tanstack/react-query"
 import { Address } from "viem"
 
-import { IpAssetTermsData, getIpAssetTerms } from "../lib/api/getIpAssetTerms"
+import { IpAssetTermsResponse, getIpAssetTerms } from "../lib/api/getIpAssetTerms"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
-
-export type UseIpAssetTermsQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
 
 export type UseIpAssetTermsOptions = {
   ipId: Address
-  queryOptions?: UseIpAssetTermsQueryOptions
+  queryOptions?: IpQueryOptions
 }
 
 export function useIpAssetTerms({ ipId, queryOptions }: UseIpAssetTermsOptions) {
-  const { chain, apiKey } = useStoryKitContext()
+  const { chain, apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
     queryKey: ["getIpAssetTerms", ipId, queryOptions],
     queryFn: async () => {
-      const { data, error } = await getIpAssetTerms({ ipId, chainName: chain.name, apiKey })
+      const { data, error } = await getIpAssetTerms({ ipId, chainName: chain.name, apiKey, apiClient })
       if (error) throw error
       return data
     },
     ...queryOptions,
-  }) as UseQueryResult<IpAssetTermsData>
+  }) as UseQueryResult<IpAssetTermsResponse>
 }

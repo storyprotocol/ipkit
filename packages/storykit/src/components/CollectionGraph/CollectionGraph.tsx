@@ -1,5 +1,6 @@
 import { useIpAssets } from "@/hooks/useIpAssets"
 import { cn } from "@/lib/utils"
+import { IPAsset } from "@/types/openapi"
 import { useQuery } from "@tanstack/react-query"
 import React, { useEffect, useRef, useState } from "react"
 import { LinkObject } from "react-force-graph-2d"
@@ -7,7 +8,6 @@ import { Address } from "viem"
 
 import "../../global.css"
 import { convertMultipleAssetsToGraphFormat } from "../../lib/graph"
-import { Asset } from "../../types"
 import "./styles.css"
 
 export type CollectionGraphProps = {
@@ -42,7 +42,7 @@ function CollectionGraph({
     isError,
   } = useQuery({
     queryKey: ["FORMAT_GRAPH_DATA", assetData?.data?.map((asset) => asset.id)],
-    queryFn: () => convertMultipleAssetsToGraphFormat(assetData?.data as Asset[]),
+    queryFn: () => convertMultipleAssetsToGraphFormat(assetData?.data as IPAsset[]),
     enabled: !!assetData,
   })
 

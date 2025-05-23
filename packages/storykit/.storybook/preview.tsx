@@ -3,10 +3,13 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import React from "react"
 import { useEffect } from "react"
 
+import { API_URL } from "../src/constants/api"
 import { STORYKIT_SUPPORTED_CHAIN } from "../src/types/chains"
 import StoryProvider from "./directors/StoryProvider"
 import "./global.css"
 import theme from "./theme"
+
+const API_KEY = process.env.STORYBOOK_STORY_PROTOCOL_X_API_KEY as string
 
 const preview: Preview = {
   parameters: {
@@ -25,6 +28,19 @@ const preview: Preview = {
     },
   },
   globalTypes: {
+    apiBaseUrl: {
+      description: "Story API URL",
+      toolbar: {
+        title: "api url",
+        icon: "globe",
+        items: [
+          { value: API_URL.STAGING, title: "staging" },
+          { value: API_URL.PRODUCTION, title: "prod" },
+        ],
+        defaultValue: API_URL.STAGING,
+        dynamicTitle: true,
+      },
+    },
     chain: {
       description: "Selected Story chain",
       toolbar: {
@@ -81,7 +97,12 @@ const preview: Preview = {
         return <Story />
       }
       return (
-        <StoryProvider chain={context.globals.chain} theme={context.globals.skTheme}>
+        <StoryProvider
+          apiBaseUrl={context.globals.apiBaseUrl}
+          apiKey={API_KEY}
+          chain={context.globals.chain}
+          theme={context.globals.skTheme}
+        >
           <Story />
         </StoryProvider>
       )

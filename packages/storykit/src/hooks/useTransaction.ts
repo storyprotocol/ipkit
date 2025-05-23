@@ -1,26 +1,25 @@
-import { type UseQueryOptions, UseQueryResult, useQuery } from "@tanstack/react-query"
+import { IpQueryOptions } from "@/types/openapi"
+import { UseQueryResult, useQuery } from "@tanstack/react-query"
 import { Address } from "viem"
 
-import { TransactionData, getTransaction } from "../lib/api/getTransaction"
+import { TransactionResponse, getTransaction } from "../lib/api/getTransaction"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
-
-export type UseTransactionQueryOptions = Omit<UseQueryOptions, "queryFn" | "queryKey">
 
 export type UseTransactionOptions = {
   trxId: Address
-  queryOptions?: UseTransactionQueryOptions
+  queryOptions?: IpQueryOptions
 }
 
 export function useTransaction({ trxId, queryOptions }: UseTransactionOptions) {
-  const { chain, apiKey } = useStoryKitContext()
+  const { chain, apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
     queryKey: ["getTransaction", trxId, queryOptions],
     queryFn: async () => {
-      const { data, error } = await getTransaction({ trxId, chainName: chain.name, apiKey })
+      const { data, error } = await getTransaction({ trxId, chainName: chain.name, apiKey, apiClient })
       if (error) throw error
       return data
     },
     ...queryOptions,
-  }) as UseQueryResult<TransactionData>
+  }) as UseQueryResult<TransactionResponse>
 }

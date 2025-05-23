@@ -5,6 +5,8 @@ import React, { FC } from "react"
 import "../../../global.css"
 import { StoryKitProvider, Theme, useStoryKitContext } from "../StoryKitProvider"
 
+const API_KEY = process.env.STORYBOOK_STORY_PROTOCOL_X_API_KEY as string
+
 const Example: FC<{
   chain: STORYKIT_SUPPORTED_CHAIN
   defaultCurrency?: ERC20Token
@@ -14,6 +16,7 @@ const Example: FC<{
 }> = ({ chain, defaultCurrency, theme, mode, children = <ExampleComponent /> }) => {
   return (
     <StoryKitProvider
+      apiKey={API_KEY}
       chain={chain}
       defaultCurrency={defaultCurrency}
       theme={theme}
