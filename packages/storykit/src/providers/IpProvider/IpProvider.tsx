@@ -6,19 +6,11 @@ import { useLicenseTokens } from "@/hooks/useLicenseTokens"
 import { useRoyaltyPayments } from "@/hooks/useRoyaltyPayments"
 import { LicenseTermsResponse, getLicenseTerms } from "@/lib/api/getLicenseTerms"
 import { getNFTByTokenId } from "@/lib/simplehash"
-import { getMetadataFromIpfs } from "@/lib/utils"
+import { convertIpfsUriToUrl, fetchLicenseOffChainData, getMetadataFromIpfs } from "@/lib/utils"
+import { LicenseTermsWithOffChainData } from "@/types/assets"
 //
 import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
-import {
-  IPAsset,
-  IPAssetEdge,
-  IPAssetMetadata,
-  IPLicenseTerms,
-  LicenseTerms,
-  LicenseToken,
-  RoyaltyPay,
-} from "@/types/openapi"
-// import { convertIpfsUriToUrl } from "../../lib/utils"
+import { IPAsset, IPAssetEdge, IPAssetMetadata, IPLicenseTerms, LicenseToken, RoyaltyPay } from "@/types/openapi"
 import { NFTMetadata } from "@/types/simplehash"
 import { useQuery } from "@tanstack/react-query"
 import React from "react"
@@ -44,7 +36,7 @@ const IpContext = React.createContext<{
   assetParentData: IPAssetEdge[] | undefined
   assetChildrenData: IPAssetEdge[] | undefined
   ipLicenseData: IPLicenseTerms[] | undefined
-  licenseTermsData: LicenseTerms[] | undefined
+  licenseTermsData: LicenseTermsWithOffChainData[] | undefined
   licenseData: LicenseToken[] | undefined
   royaltyPaymentsReceivedData: RoyaltyPay[] | undefined
   royaltyPaymentsSentData: RoyaltyPay[] | undefined
@@ -129,7 +121,7 @@ export const IpProvider = ({
   // Fetch IP Metadata from IPFS
   const { isLoading: isLoadingFromIpfs, data: metadaFromIpfs } = useQuery({
     queryKey: ["getMetadataFromIpfs", ipId, ipaMetadataRaw?.metadataUri ?? ""],
-    queryFn: () => getMetadataFromIpfs(ipaMetadataRaw?.metadataUri ?? ""),
+    queryFn: () => getMetadataFromIpfs(convertIpfsUriToUrl(ipaMetadataRaw?.metadataUri ?? "")),
     enabled: queryOptions.ipaMetadata && ipaMetadataRaw != null,
   })
 
@@ -215,46 +207,43 @@ export const IpProvider = ({
 
   // fetch license terms details
 
-  async function fetchLicenseTermsDetails(data: IPLicenseTerms[]) {
+  async function fetchLicenseTermsDetails(data: IPLicenseTerms[]): Promise<LicenseTermsWithOffChainData[]> {
     const uniqueLicenses = data.filter((item) => item.ipId?.toLowerCase() === ipId.toLowerCase())
 
     const requests: Promise<LicenseTermsResponse>[] = uniqueLicenses.map((item) =>
       getLicenseTerms({ licenseTermId: item.licenseTermsId ?? "", chainName: chain.name, apiKey, apiClient })
     )
-    const results = await Promise.all(requests)
 
-    return results.map((result) => (result.data as LicenseTermsResponse).data!)
+    const resolved = await Promise.all(requests)
+    const termsDetail = resolved.filter((value) => !!value).map((result) => (result.data as LicenseTermsResponse).data!)
 
-    // TODO: fetch offchain data
+    const offChainUri = termsDetail.map((detail) => detail.terms?.uri)
 
-    // const termsDetail = results.filter((value) => !!value).map((result) => result.data)
+    const offChainData = await Promise.all(
+      offChainUri.map(async (uri) => {
+        try {
+          if (uri === "" || !uri) {
+            return
+          }
+          const ipfsData = await fetchLicenseOffChainData(uri)
+          return ipfsData
+        } catch (error) {
+          return
+        }
+      })
+    )
 
-    // const offChainUri = termsDetail.map((detail) => detail.terms.uri)
+    const combinedTermsDetail = termsDetail.map((termDetail, index) => {
+      return {
+        ...termDetail,
+        terms: {
+          ...termDetail.terms,
+          offChainData: offChainData[index],
+        },
+      }
+    })
 
-    // const offChainData = await Promise.all(
-    //   offChainUri.map(async (uri) => {
-    //     try {
-    //       if (uri === "") {
-    //         return
-    //       }
-    //       const ipfsData = await getMetadataFromIpfs(convertIpfsUriToUrl(uri))
-    //       console.log("ipfsData", ipfsData)
-    //       return ipfsData
-    //     } catch (error) {
-    //       return
-    //     }
-    //   })
-    // )
-
-    // return termsDetail.map((termDetail, index) => {
-    //   return {
-    //     ...termDetail,
-    //     terms: {
-    //       ...termDetail.terms,
-    //       offChainData: offChainData[index],
-    //     },
-    //   }
-    // })
+    return combinedTermsDetail
   }
 
   const {

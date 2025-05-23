@@ -1,5 +1,7 @@
 import { Address } from "viem"
 
+import { LicenseTerms, PILTerms } from "./openapi"
+
 export enum PIL_FLAVOR {
   NON_COMMERCIAL_SOCIAL_REMIXING = "Non-Commercial Social Remixing",
   COMMERCIAL_USE = "Commercial Use",
@@ -28,9 +30,13 @@ export interface LicenseOffChainData {
   aiLearningModels?: boolean
 }
 
-// export interface PILTermsWithOffChainData extends PILTerms {
-//   offChainData: LicenseOffChainData | undefined
-// }
+export interface PILTermsWithOffChainData extends PILTerms {
+  offChainData: LicenseOffChainData | undefined
+}
+
+export interface LicenseTermsWithOffChainData extends Omit<LicenseTerms, "terms"> {
+  terms: PILTermsWithOffChainData
+}
 
 export type SocialMedia = {
   platform?: string
