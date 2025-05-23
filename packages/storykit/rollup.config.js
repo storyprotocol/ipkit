@@ -41,7 +41,11 @@ const config = [
       }),
       resolve(),
       commonjs(),
-      typescript(),
+      typescript({
+        tsconfig: "./tsconfig.json",
+        declaration: true,
+        declarationDir: "./dist",
+      }),
       terser(),
     ],
     external: ["react/jsx-runtime"],
@@ -49,7 +53,16 @@ const config = [
   {
     input: "src/index.ts",
     output: [{ file: "dist/types.d.ts", format: "es" }],
-    plugins: [dts.default()],
+    plugins: [
+      dts.default({
+        compilerOptions: {
+          baseUrl: ".",
+          paths: {
+            "@/*": ["src/*"],
+          },
+        },
+      }),
+    ],
     external: [/\.(css|less|scss)$/],
   },
 ]

@@ -6,7 +6,14 @@
       "@/*": ["./src/*"]
     },
     "jsx": "react", // or "react-jsx" if using React 17+
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "declaration": true,
+    "declarationMap": true,
+    "emitDeclarationOnly": false,
+    "composite": false,
+    "baseUrl": ".",
+    "rootDir": "src",
+    "outDir": "dist"
     // "noUncheckedIndexedAccess": true
   },
   "exclude": ["dist", "build", "node_modules"]
