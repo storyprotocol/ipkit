@@ -1,4 +1,4 @@
-import { STAGING_URL } from "@/constants/api"
+import { API_URL } from "@/constants/api"
 import { CHAINS } from "@/constants/chains"
 import { cn } from "@/lib"
 import { ApiClient, createApiClient } from "@/lib/api/apiClient"
@@ -36,7 +36,7 @@ export const StoryKitProvider = ({
   chain = STORYKIT_SUPPORTED_CHAIN.STORY_MAINNET,
   defaultCurrency = WRAPPED_IP,
   theme = "default",
-  apiBaseUrl = STAGING_URL,
+  apiBaseUrl = API_URL.STAGING,
   mode,
   rpcUrl,
   apiKey,

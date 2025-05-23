@@ -1,5 +1,4 @@
 import { ChainConfig, WRAPPED_IP } from "@/types/chains"
-import { zeroAddress } from "viem"
 
 export const STORY_AENEID: ChainConfig = {
   id: 1315,

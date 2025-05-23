@@ -1,4 +1,4 @@
-import { PRODUCTION_URL, STAGING_URL } from "@/constants/api"
+import { API_URL } from "@/constants/api"
 import type { paths } from "@storykit/api-schema"
 import createClient, { Client, type Middleware } from "openapi-fetch"
 
@@ -18,5 +18,5 @@ export const createApiClient = (baseUrl: string): Client<paths> => {
 }
 
 // utillities if someone wants to use the api requests without the StoryKitProvider
-export const stagingClient = createApiClient(STAGING_URL)
-export const prodClient = createApiClient(PRODUCTION_URL)
+export const stagingClient = createApiClient(API_URL.STAGING)
+export const prodClient = createApiClient(API_URL.PRODUCTION)
