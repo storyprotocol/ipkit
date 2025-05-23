@@ -1,4 +1,4 @@
-import { paths } from "@storykit/api-schema"
+import { paths } from "@/types/schema"
 import { FetchResponse } from "openapi-fetch"
 
 import { ApiClient } from "./apiClient"

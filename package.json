@@ -7,7 +7,6 @@
     "lint": "turbo run lint --filter @storyprotocol/storykit",
     "lint-all": "turbo run lint",
     "format": "turbo run format --filter @storyprotocol/storykit",
-    "generate-types": "turbo run generate-types --filter @storykit/api-schema",
     "prepare": "husky"
   },
   "devDependencies": {
