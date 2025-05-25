@@ -1,4 +1,3 @@
-import { CHAINS } from "@/constants/chains"
 import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
 import { Address } from "viem"
 
@@ -9,11 +8,10 @@ export type RoyaltyGraphQueryOptions = {
 }
 
 export async function getRoyaltiesByIPs(ipIds: Address[], chain: STORYKIT_SUPPORTED_CHAIN) {
-  const _chain = CHAINS[chain]
   try {
     // TODO: remove mockBearerToken
     // TODO: don't hardcode the URL
-    const res = await fetch(`https://edge.stg.storyprotocol.net/${_chain.simplehashId}/graph/v1/nodes/royalties`, {
+    const res = await fetch(`https://edge.stg.storyprotocol.net/story-aeneid/graph/v1/nodes/royalties`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
