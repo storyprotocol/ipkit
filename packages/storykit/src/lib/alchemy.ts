@@ -73,19 +73,19 @@ export const getCollectionByAddress = async ({
   return data
 }
 
-enum ExlcludeFilters {
+export enum ExlcludeFilters {
   SPAM = "SPAM",
   AIRDROPS = "AIRDROPS",
 }
 
-enum SpanConfidence {
+export enum SpanConfidence {
   VERY_HIGH = "VERY_HIGH",
   HIGH = "HIGH",
   MEDIUM = "MEDIUM",
   LOW = "LOW",
 }
 
-type WalletNFTRequest = {
+export type WalletNFTRequest = {
   owner: Address
   contractAddresses?: Address[]
   withMetadata?: boolean // include metadata, defaults true
