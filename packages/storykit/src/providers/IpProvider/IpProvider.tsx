@@ -3,15 +3,15 @@ import { useIpAssetEdges } from "@/hooks/useIpAssetEdges"
 import { useIpAssetMetadata } from "@/hooks/useIpAssetMetadata"
 import { useIpAssetsTerms } from "@/hooks/useIpAssetsTerms"
 import { useLicenseTokens } from "@/hooks/useLicenseTokens"
+import { useNFTByTokenId } from "@/hooks/useNFTByTokenId"
 import { useRoyaltyPayments } from "@/hooks/useRoyaltyPayments"
 import { LicenseTermsResponse, getLicenseTerms } from "@/lib/api/getLicenseTerms"
-import { getNFTByTokenId } from "@/lib/simplehash"
 import { convertIpfsUriToUrl, fetchLicenseOffChainData, getMetadataFromIpfs } from "@/lib/utils"
+import { NFTMetadata } from "@/types/alchemy"
 import { LicenseTermsWithOffChainData } from "@/types/assets"
 //
 import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
 import { IPAsset, IPAssetEdge, IPAssetMetadata, IPLicenseTerms, LicenseToken, RoyaltyPay } from "@/types/openapi"
-import { NFTMetadata } from "@/types/simplehash"
 import { useQuery } from "@tanstack/react-query"
 import React from "react"
 import { Address, Hash } from "viem"
@@ -40,7 +40,6 @@ const IpContext = React.createContext<{
   licenseData: LicenseToken[] | undefined
   royaltyPaymentsReceivedData: RoyaltyPay[] | undefined
   royaltyPaymentsSentData: RoyaltyPay[] | undefined
-  //--
   nftData: NFTMetadata | undefined
   // loading
   isNftDataLoading: boolean
@@ -302,19 +301,16 @@ export const IpProvider = ({
     data: nftData,
     refetch: refetchNFTData,
     isFetched: isNftDataFetched,
-  } = useQuery({
-    queryKey: ["getNFTByTokenId", assetData?.data?.nftMetadata?.tokenContract, assetData?.data?.nftMetadata?.tokenId],
-    queryFn: () =>
-      getNFTByTokenId(
-        assetData?.data?.nftMetadata?.tokenContract as Hash,
-        assetData?.data?.nftMetadata?.tokenId as string,
-        chain.name as STORYKIT_SUPPORTED_CHAIN
-      ),
-    enabled:
-      queryOptions.assetData &&
-      Boolean(assetData) &&
-      Boolean(assetData?.data?.nftMetadata?.tokenContract) &&
-      Boolean(assetData?.data?.nftMetadata?.tokenId),
+  } = useNFTByTokenId({
+    contractAddress: assetData?.data?.nftMetadata?.tokenContract as Hash,
+    tokenId: assetData?.data?.nftMetadata?.tokenId as string,
+    queryOptions: {
+      enabled:
+        queryOptions.assetData &&
+        Boolean(assetData) &&
+        Boolean(assetData?.data?.nftMetadata?.tokenContract) &&
+        Boolean(assetData?.data?.nftMetadata?.tokenId),
+    },
   })
 
   return (
@@ -331,7 +327,6 @@ export const IpProvider = ({
         licenseTermsData: licenseTermsData,
         royaltyPaymentsReceivedData: royaltyPaymentsReceivedData?.data,
         royaltyPaymentsSentData: royaltyPaymentsSentData?.data,
-        //
         nftData,
         // loading
         isAssetDataLoading,
