@@ -1,12 +1,11 @@
 import { useIpContext } from "@storyprotocol/storykit"
 
 export default function IpHeader() {
-  const { nftData } = useIpContext()
+  const { nftData, ownersData } = useIpContext()
   return (
     <div className="flex w-full flex-col gap-1">
       <h1 className="text-2xl font-sans font-bold">{nftData?.name}</h1>
-      {/* TODO: get owners */}
-      {/* <h2 className="text-xs text-gray-500">By {nftData?.owners[0].owner_address}</h2> */}
+      <h2 className="text-xs text-gray-500">By {ownersData?.owners[0]}</h2>
       {nftData?.image.thumbnailUrl || nftData?.image.cachedUrl ? 
         // eslint-disable-next-line @next/next/no-img-element
         <img src={nftData.image.thumbnailUrl || nftData?.image.cachedUrl} alt={nftData.name} className="w-full aspect-video object-contain border border-gray-200 rounded-md my-2" /> 
