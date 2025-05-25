@@ -37,13 +37,6 @@ To use StoryKit’s API functionalities, you’ll need two types of API keys:
 
 2. Alchemy API Key
 
-Add these keys to your environment configuration:
-
-```bash
-NEXT_PUBLIC_STORY_PROTOCOL_X_API_KEY="YOUR_STORY_PROTOCOL_API_KEY_HERE"
-NEXT_PUBLIC_SIMPLE_HASH_API_KEY="SIMPLEHASH_API_KEY_HERE"
-```
-
 ### Providers
 
 To initialize StoryKit in your project, you’ll need to wrap your application in `QueryProvider` and `StoryKitProvider`.
