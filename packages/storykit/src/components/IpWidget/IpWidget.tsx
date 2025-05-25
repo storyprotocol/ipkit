@@ -323,7 +323,9 @@ function IPAssetHeader({ hideImage }: { hideImage?: boolean }) {
         <div
           className={cn("skIpWidget__ipAssetHeader__image", hideImage && "skIpWidget__ipAssetHeader__image--hidden")}
         >
-          <img src={nftData?.image.cachedUrl} />
+          {nftData?.image.cachedUrl || nftData?.image.originalUrl ? (
+            <img src={nftData?.image.cachedUrl || nftData?.image.originalUrl} />
+          ) : null}
         </div>
         <div>
           <div>
@@ -371,7 +373,9 @@ function IPAssetOverview({ isBottomNav }: { isBottomNav?: boolean }) {
       </div>
     ) : (
       <div className="skIpWidget__ipAssetOverview__assetImage">
-        <img src={nftData?.image.cachedUrl} />
+        {nftData?.image.cachedUrl || nftData?.image.originalUrl ? (
+          <img src={nftData?.image.cachedUrl || nftData?.image.originalUrl} />
+        ) : null}
       </div>
     )
 
