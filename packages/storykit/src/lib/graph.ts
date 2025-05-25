@@ -409,7 +409,7 @@ export async function fetchNFTMetadata(assets: IPAsset[]): Promise<Map<string, N
     })
 
     // Map NFT metadata to Asset.id
-    nftMetadataArray.forEach((metadata) => {
+    nftMetadataArray.nfts.forEach((metadata: NFTMetadata) => {
       // Find the asset that corresponds to this metadata
       const asset = chunk.find((a) => a.nftMetadata?.tokenId === metadata.tokenId)
       if (asset) {

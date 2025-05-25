@@ -9,6 +9,10 @@ export type NFTWalletResponse = {
   }
 }
 
+export type NFTMetadataBatchResponse = {
+  nfts: NFTMetadata[]
+}
+
 export type CollectionMetadata = {
   address: string
   name: string

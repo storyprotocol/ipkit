@@ -1,5 +1,5 @@
 import { STORY_AENEID } from "@/constants/chains"
-import { CollectionMetadata, NFTMetadata, NFTWalletResponse } from "@/types/alchemy"
+import { CollectionMetadata, NFTMetadata, NFTMetadataBatchResponse, NFTWalletResponse } from "@/types/alchemy"
 import { Address } from "viem"
 
 export type NFT = {
@@ -37,7 +37,7 @@ export const getNFTByTokenIds = async ({
   nfts,
   chainName = STORY_AENEID.alchemyId,
   apiKey,
-}: GetNFTByTokenIdsOptions): Promise<NFTMetadata[]> => {
+}: GetNFTByTokenIdsOptions): Promise<NFTMetadataBatchResponse> => {
   const url = `https://${chainName}.g.alchemy.com/nft/v3/${apiKey}/getNFTMetadataBatch`
   const options = {
     method: "POST",
