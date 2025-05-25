@@ -37,7 +37,9 @@ export const Select: Story = {
   argTypes: {
     children: { control: false },
   },
-  args: {},
+  args: {
+    options: { ownersData: true },
+  },
 }
 export const Input: Story = {
   argTypes: {
@@ -46,6 +48,7 @@ export const Input: Story = {
   },
   args: {
     ipId: STORY_IP_ASSETS_MAP[STORY_IP_ASSETS[0]],
+    options: { ownersData: true },
   },
 }
 export const NFTData: Story = {
@@ -53,7 +56,9 @@ export const NFTData: Story = {
     children: { control: false },
     options: { control: false },
   },
-  args: {},
+  args: {
+    options: { ownersData: true },
+  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     await waitFor(
@@ -83,6 +88,7 @@ export const AssetData: Story = {
   },
   args: {
     children: <AssetComponent />,
+    options: { ownersData: true },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)

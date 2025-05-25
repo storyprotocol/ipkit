@@ -16,10 +16,10 @@ const Example: FC<{
 }
 
 const ExampleComponent = () => {
-  const { nftData, isNftDataLoading } = useIpContext()
+  const { nftData, ownersData, isNftDataLoading, isOwnersDataLoading } = useIpContext()
   return (
     <>
-      {isNftDataLoading && <div>Fetching NFT...</div>}
+      {(isNftDataLoading || isOwnersDataLoading) && <div>Fetching NFT...</div>}
       {nftData && !isNftDataLoading ? (
         <div className="grid grid-cols-4 gap-4">
           <>
@@ -48,6 +48,14 @@ const ExampleComponent = () => {
               {nftData?.description}
             </div>
           </>
+        </div>
+      ) : null}
+      {ownersData && !isOwnersDataLoading ? (
+        <div className="grid grid-cols-4 gap-4">
+          <div className="col-span-1 text-xs text-gray-600">owners</div>
+          <div className="col-span-3 text-sm" data-testid="owners">
+            {ownersData.owners?.join(", ")}
+          </div>
         </div>
       ) : null}
     </>
