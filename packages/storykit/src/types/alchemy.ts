@@ -13,6 +13,10 @@ export type NFTMetadataBatchResponse = {
   nfts: NFTMetadata[]
 }
 
+export type OwnersByTokenIdResponse = {
+  owners: string[]
+}
+
 export type CollectionMetadata = {
   address: string
   name: string

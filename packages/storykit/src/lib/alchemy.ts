@@ -1,5 +1,11 @@
 import { STORY_AENEID } from "@/constants/chains"
-import { CollectionMetadata, NFTMetadata, NFTMetadataBatchResponse, NFTWalletResponse } from "@/types/alchemy"
+import {
+  CollectionMetadata,
+  NFTMetadata,
+  NFTMetadataBatchResponse,
+  NFTWalletResponse,
+  OwnersByTokenIdResponse,
+} from "@/types/alchemy"
 import { Address } from "viem"
 
 export type NFT = {
@@ -149,6 +155,25 @@ export const getNFTByWallet = async ({
   })
 
   const url = `${baseUrl}?${params.toString()}`
+  const response = await fetch(url, { method: "GET" })
+  const data = await response.json()
+  return data
+}
+
+type GetOwnersByTokenIdOptions = {
+  contractAddress: Address
+  tokenId: string
+  chainName: string
+  apiKey: string
+}
+
+export const getOwnersByTokenId = async ({
+  contractAddress,
+  tokenId,
+  chainName = STORY_AENEID.alchemyId,
+  apiKey,
+}: GetOwnersByTokenIdOptions): Promise<OwnersByTokenIdResponse> => {
+  const url = `https://${chainName}.g.alchemy.com/nft/v3/${apiKey}/getOwnersForNFT?contractAddress=${contractAddress}&tokenId=${tokenId}`
   const response = await fetch(url, { method: "GET" })
   const data = await response.json()
   return data
