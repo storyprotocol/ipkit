@@ -1,13 +1,13 @@
-import { CHAINID_TO_CHAINNAME } from "@/constants"
-import { useIpAssets } from "@/hooks/useIpAssets"
+import { STORY_AENEID } from "@/constants"
 import { shortenAddress } from "@/lib/utils"
-import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
+import { NFTMetadata } from "@/types/alchemy"
 import { IPAsset } from "@/types/openapi"
 import { RoyaltiesGraph, RoyaltyBalance, RoyaltyGraph, RoyaltyLink } from "@/types/royalty-graph"
-import { NFTMetadata } from "@/types/simplehash"
 import { Address } from "viem"
 
-import { NFT, getNFTByTokenId, getNFTByTokenIds } from "./simplehash"
+import { NFT, getNFTByTokenIds } from "./alchemy"
+
+const ALCHEMY_API_KEY = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY as string
 
 export interface GraphNode {
   id: string
@@ -42,7 +42,7 @@ export interface GraphData {
 export function generateNFTDetails(nftData: NFTMetadata | undefined, assetId: Address): string {
   return `
     <div class="graph-content">
-      <img src="${nftData?.previews?.image_small_url || nftData?.image_url || "https://play.storyprotocol.xyz/_next/static/media/sp_logo_black.2e1d7450.svg"}" alt="NFT Image" style="max-width:250px; background-color:white;"/>      
+      <img src="${nftData?.image?.cachedUrl || "https://play.storyprotocol.xyz/_next/static/media/sp_logo_black.2e1d7450.svg"}" alt="NFT Image" style="max-width:250px; background-color:white;"/>      
       <div style="font-size:24px; width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
         ${nftData?.name || "Untitled"}
       </div>
@@ -51,30 +51,14 @@ export function generateNFTDetails(nftData: NFTMetadata | undefined, assetId: Ad
           <div>
             <span>IPID:</span> 
             <span>${shortenAddress(assetId)}</span>
-          </div>
-          <div>
-            <span>${nftData?.chain}</span>
-          </div>
-          
-          
-        </div>
-        <div style="display: flex; justify-items:end; text-align: right; flex-direction:column">
-          <span style="text-transform:uppercase;color: #dddddd;">Owner</span> 
-          <div style="display:flex;align-items:center;justify-items:center;flex-direction:row;">
-            <img src="https://cdn.stamp.fyi/avatar/eth:${nftData?.owners[0].owner_address}" alt="${nftData?.owners[0].owner_address}" style="position:relative;width:16px;height:16px;border-radius:100%;margin-right:8px"/>
-            <span>${shortenAddress(nftData?.owners[0].owner_address as string)}</span>
-          </div>
+          </div>          
         </div>
       </div>
     </div>
   `
 }
 
-export async function convertAssetToGraphFormat(
-  jsonData: IPAsset,
-  nftData: NFTMetadata,
-  chain: STORYKIT_SUPPORTED_CHAIN
-): Promise<GraphData> {
+export async function convertAssetToGraphFormat(jsonData: IPAsset, nftData: NFTMetadata): Promise<GraphData> {
   const rootIpId = jsonData.rootIpIds?.[0]
   const nodes: GraphNode[] = []
   const links: Link[] = []
@@ -91,16 +75,12 @@ export async function convertAssetToGraphFormat(
             <span>${nftData.name || jsonData.nftMetadata?.name || "Untitled"}</span>
           </div>
           <div>
-            <span class="graph-content-label">Chain:</span> 
-            <span>${nftData.chain}</span>
-          </div>
-          <div>
             <span class="graph-content-label">Contract:</span> 
-            <span>${shortenAddress(nftData.contract_address)}</span>
+            <span>${shortenAddress(nftData.contract.address)}</span>
           </div>
           <div>
             <span class="graph-content-label">Token ID:</span> 
-            <span>${nftData.token_id}</span>
+            <span>${nftData.tokenId}</span>
           </div>
         </div>
       `,
@@ -108,8 +88,8 @@ export async function convertAssetToGraphFormat(
     tokenId: jsonData.nftMetadata?.tokenId,
     val: 1,
     level: 0,
-    imageUrl: nftData.previews.image_small_url || nftData.image_url,
-    imageProperties: nftData.image_properties,
+    imageUrl: nftData.image.cachedUrl,
+    // imageProperties: nftData.image_properties,
     isRoot: rootIpId === undefined,
   }
   nodes.push(mainNode)
@@ -416,18 +396,22 @@ export async function fetchNFTMetadata(assets: IPAsset[]): Promise<Map<string, N
   // Iterate over each chunk and fetch NFT metadata
   for (const chunk of assetChunks) {
     const nfts: NFT[] = chunk.map((asset) => ({
-      chain: CHAINID_TO_CHAINNAME[Number(asset.nftMetadata?.chainId)],
-      tokenAddress: asset.nftMetadata?.tokenContract as Address,
+      // chain: CHAINID_TO_CHAINNAME[Number(asset.nftMetadata?.chainId)],
+      contractAddress: asset.nftMetadata?.tokenContract as Address,
       tokenId: asset.nftMetadata?.tokenId || "",
     }))
 
     // Fetch metadata for the current chunk
-    const nftMetadataArray = await getNFTByTokenIds(nfts as NFT[])
+    const nftMetadataArray = await getNFTByTokenIds({
+      nfts: nfts as NFT[],
+      chainName: STORY_AENEID.alchemyId,
+      apiKey: ALCHEMY_API_KEY,
+    })
 
     // Map NFT metadata to Asset.id
-    nftMetadataArray.forEach((metadata) => {
+    nftMetadataArray.nfts.forEach((metadata: NFTMetadata) => {
       // Find the asset that corresponds to this metadata
-      const asset = chunk.find((a) => a.nftMetadata?.tokenId === metadata.token_id)
+      const asset = chunk.find((a) => a.nftMetadata?.tokenId === metadata.tokenId)
       if (asset) {
         nftDataMap.set(asset?.id || "", metadata)
       }
@@ -462,8 +446,8 @@ export async function convertMultipleAssetsToGraphFormat(jsonData: IPAsset[]): P
         tokenId: asset.nftMetadata?.tokenId,
         val: 1,
         level: 0,
-        imageUrl: nftData?.previews?.image_small_url || nftData?.image_url,
-        imageProperties: nftData?.image_properties,
+        imageUrl: nftData?.image.cachedUrl,
+        // imageProperties: nftData?.image_properties,
         isRoot: rootIpId === undefined,
         linkCount: 0, // Initialize link count
       }

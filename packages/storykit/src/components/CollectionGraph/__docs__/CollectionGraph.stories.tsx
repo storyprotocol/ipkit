@@ -74,7 +74,7 @@ export const Input: Story = {
       { timeout: 10000 }
     )
 
-    // To test getCollectionByAddress in src/lib/simplehash/index.ts
+    // To test getCollectionByAddress
     await waitFor(
       () => {
         const collectionMetadata = canvasElement.querySelector("#collections")
@@ -84,7 +84,7 @@ export const Input: Story = {
       { timeout: 10000 }
     )
 
-    // To test getNFTByWallet in src/lib/simplehash/index.ts
+    // To test getNFTByWallet
     await waitFor(
       () => {
         const nfts = canvasElement.querySelector("#nfts")

@@ -1,4 +1,4 @@
-import { getCollectionByAddress, getNFTByWallet } from "@/lib/simplehash"
+import { getCollectionByAddress, getNFTByWallet } from "@/lib/alchemy"
 import { useStoryKitContext } from "@/providers/StoryKitProvider"
 import { STORY_IP_ASSETS, STORY_IP_ASSETS_MAP } from "@/stories/data"
 import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
@@ -7,6 +7,8 @@ import { Address } from "viem"
 
 import { IpProvider } from "../../../providers"
 import IpGraph from "../IpGraph"
+
+const ALCHEMY_API_KEY = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY as string
 
 const Example: FC<{
   ipId: Address
@@ -20,15 +22,19 @@ const Example: FC<{
 
   useEffect(() => {
     const fetch = async () => {
-      const collectionMetadata = await getCollectionByAddress(
-        "0x7ee32b8B515dEE0Ba2F25f612A04a731eEc24F49",
-        chain.name as STORYKIT_SUPPORTED_CHAIN
-      )
+      const collectionMetadata = await getCollectionByAddress({
+        contractAddress: "0x7ee32b8B515dEE0Ba2F25f612A04a731eEc24F49",
+        chainName: chain.alchemyId,
+        apiKey: ALCHEMY_API_KEY,
+      })
       setCollections(collectionMetadata)
-      const nftWalletResponse = await getNFTByWallet(
-        "0xB1918E7d6CB67d027F6aBc66DC3273D6ECAD6dE5",
-        chain.name as STORYKIT_SUPPORTED_CHAIN
-      )
+      const nftWalletResponse = await getNFTByWallet({
+        options: {
+          owner: "0xB1918E7d6CB67d027F6aBc66DC3273D6ECAD6dE5",
+        },
+        chainName: chain.alchemyId,
+        apiKey: ALCHEMY_API_KEY,
+      })
       setNfts(nftWalletResponse)
     }
     fetch()

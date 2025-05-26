@@ -323,19 +323,22 @@ function IPAssetHeader({ hideImage }: { hideImage?: boolean }) {
         <div
           className={cn("skIpWidget__ipAssetHeader__image", hideImage && "skIpWidget__ipAssetHeader__image--hidden")}
         >
-          <img src={nftData?.image_url} />
+          {nftData?.image.cachedUrl || nftData?.image.originalUrl ? (
+            <img src={nftData?.image.cachedUrl || nftData?.image.originalUrl} />
+          ) : null}
         </div>
         <div>
           <div>
             <h1 className="skIpWidget__ipAssetHeader__name">
               {assetData?.nftMetadata?.name || nftData?.name || "Untitled"}
             </h1>
-            <h2 className="skIpWidget__ipAssetHeader__owner">
+            {/* not available in alchemy */}
+            {/* <h2 className="skIpWidget__ipAssetHeader__owner">
               Owned by{" "}
               <span className="skIpWidget__ipAssetHeader__owner__address">
                 {shortenAddress(nftData?.owners[0].owner_address as string)}
               </span>
-            </h2>
+            </h2> */}
           </div>
         </div>
       </div>
@@ -370,7 +373,9 @@ function IPAssetOverview({ isBottomNav }: { isBottomNav?: boolean }) {
       </div>
     ) : (
       <div className="skIpWidget__ipAssetOverview__assetImage">
-        <img src={nftData?.image_url} />
+        {nftData?.image.cachedUrl || nftData?.image.originalUrl ? (
+          <img src={nftData?.image.cachedUrl || nftData?.image.originalUrl} />
+        ) : null}
       </div>
     )
 

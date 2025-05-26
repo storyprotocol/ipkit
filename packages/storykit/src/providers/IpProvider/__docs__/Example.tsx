@@ -16,43 +16,46 @@ const Example: FC<{
 }
 
 const ExampleComponent = () => {
-  const { nftData, isNftDataLoading } = useIpContext()
+  const { nftData, ownersData, isNftDataLoading, isOwnersDataLoading } = useIpContext()
   return (
     <>
-      {isNftDataLoading && <div>Fetching NFT...</div>}
+      {(isNftDataLoading || isOwnersDataLoading) && <div>Fetching NFT...</div>}
       {nftData && !isNftDataLoading ? (
         <div className="grid grid-cols-4 gap-4">
           <>
-            <div className="col-span-1 text-xs text-gray-600">nft_id</div>
-            <div className="col-span-3 text-sm" data-testid="nft-id">
-              {nftData.nft_id}
-            </div>
-
-            <div className="col-span-1 text-xs text-gray-600">chain</div>
-            <div className="col-span-3 text-sm" data-testid="nft-chain">
-              {nftData.chain}
-            </div>
-
-            <div className="col-span-1 text-xs text-gray-600">contract_address</div>
-            <div className="col-span-3 text-sm" data-testid="nft-contract-address">
-              {nftData.contract_address}
-            </div>
-
             <div className="col-span-1 text-xs text-gray-600">token_id</div>
+            <div className="col-span-3 text-sm" data-testid="nft-id">
+              {nftData?.tokenId}
+            </div>
+
+            <div className="col-span-1 text-xs text-gray-600">contract.address</div>
+            <div className="col-span-3 text-sm" data-testid="nft-contract-address">
+              {nftData?.contract?.address}
+            </div>
+
+            <div className="col-span-1 text-xs text-gray-600">collection.name</div>
             <div className="col-span-3 text-sm" data-testid="nft-token-id">
-              {nftData.token_id}
+              {nftData?.contract?.name}
             </div>
 
             <div className="col-span-1 text-xs text-gray-600">name</div>
             <div className="col-span-3 text-sm" data-testid="nft-name">
-              {nftData.name}
+              {nftData?.name}
             </div>
 
             <div className="col-span-1 text-xs text-gray-600">description</div>
             <div className="col-span-3 text-sm" data-testid="nft-description">
-              {nftData.description}
+              {nftData?.description}
             </div>
           </>
+        </div>
+      ) : null}
+      {ownersData && !isOwnersDataLoading ? (
+        <div className="grid grid-cols-4 gap-4">
+          <div className="col-span-1 text-xs text-gray-600">owners</div>
+          <div className="col-span-3 text-sm" data-testid="owners">
+            {ownersData.owners?.join(", ")}
+          </div>
         </div>
       ) : null}
     </>

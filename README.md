@@ -35,14 +35,7 @@ To use StoryKit’s API functionalities, you’ll need two types of API keys:
 
 1. Story Protocol API Key: You can request an API key by completing this [form](https://forms.gle/K6enzJw3cTK5sHYU7).
 
-2. SimpleHash API Key: You can generate an api token for free at [simplehash.com](https://simplehash.com/).
-
-Add these keys to your environment configuration:
-
-```bash
-NEXT_PUBLIC_STORY_PROTOCOL_X_API_KEY="YOUR_STORY_PROTOCOL_API_KEY_HERE"
-NEXT_PUBLIC_SIMPLE_HASH_API_KEY="SIMPLEHASH_API_KEY_HERE"
-```
+2. Alchemy API Key
 
 ### Providers
 

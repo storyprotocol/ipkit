@@ -3,15 +3,16 @@ import { useIpAssetEdges } from "@/hooks/useIpAssetEdges"
 import { useIpAssetMetadata } from "@/hooks/useIpAssetMetadata"
 import { useIpAssetsTerms } from "@/hooks/useIpAssetsTerms"
 import { useLicenseTokens } from "@/hooks/useLicenseTokens"
+import { useNFTByTokenId } from "@/hooks/useNFTByTokenId"
+import { useOwnersByTokenId } from "@/hooks/useOwnersByTokenId"
 import { useRoyaltyPayments } from "@/hooks/useRoyaltyPayments"
 import { LicenseTermsResponse, getLicenseTerms } from "@/lib/api/getLicenseTerms"
-import { getNFTByTokenId } from "@/lib/simplehash"
 import { convertIpfsUriToUrl, fetchLicenseOffChainData, getMetadataFromIpfs } from "@/lib/utils"
+import { NFTMetadata, OwnersByTokenIdResponse } from "@/types/alchemy"
 import { LicenseTermsWithOffChainData } from "@/types/assets"
 //
 import { STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
 import { IPAsset, IPAssetEdge, IPAssetMetadata, IPLicenseTerms, LicenseToken, RoyaltyPay } from "@/types/openapi"
-import { NFTMetadata } from "@/types/simplehash"
 import { useQuery } from "@tanstack/react-query"
 import React from "react"
 import { Address, Hash } from "viem"
@@ -20,6 +21,7 @@ import { useStoryKitContext } from "../StoryKitProvider"
 
 export interface IpProviderOptions {
   assetData?: boolean
+  ownersData?: boolean
   ipaMetadata?: boolean
   assetParentsData?: boolean
   assetChildrenData?: boolean
@@ -40,10 +42,11 @@ const IpContext = React.createContext<{
   licenseData: LicenseToken[] | undefined
   royaltyPaymentsReceivedData: RoyaltyPay[] | undefined
   royaltyPaymentsSentData: RoyaltyPay[] | undefined
-  //--
   nftData: NFTMetadata | undefined
+  ownersData: OwnersByTokenIdResponse | undefined
   // loading
   isNftDataLoading: boolean
+  isOwnersDataLoading: boolean
   isAssetDataLoading: boolean
   isAssetParentDataLoading: boolean
   isAssetChildrenDataLoading: boolean
@@ -55,6 +58,7 @@ const IpContext = React.createContext<{
   isRoyaltyPaymentsSentLoading: boolean
   // refetch
   refetchAssetData: () => void
+  refetchOwnersData: () => void
   refetchAssetParentData: () => void
   refetchAssetChildrenData: () => void
   refetchIpLicenseData: () => void
@@ -65,6 +69,7 @@ const IpContext = React.createContext<{
   refetchRoyaltyPaymentsSentData: () => void
   // fetched
   isNftDataFetched: boolean
+  isOwnersDataFetched: boolean
   isAssetDataFetched: boolean
   isAssetParentDataFetched: boolean
   isAssetChildrenDataFetched: boolean
@@ -86,6 +91,7 @@ export const IpProvider = ({
 }) => {
   const queryOptions = {
     assetData: true,
+    ownersData: false,
     ipaMetadata: false,
     assetParentsData: false,
     assetChildrenData: false,
@@ -302,19 +308,34 @@ export const IpProvider = ({
     data: nftData,
     refetch: refetchNFTData,
     isFetched: isNftDataFetched,
-  } = useQuery({
-    queryKey: ["getNFTByTokenId", assetData?.data?.nftMetadata?.tokenContract, assetData?.data?.nftMetadata?.tokenId],
-    queryFn: () =>
-      getNFTByTokenId(
-        assetData?.data?.nftMetadata?.tokenContract as Hash,
-        assetData?.data?.nftMetadata?.tokenId as string,
-        chain.name as STORYKIT_SUPPORTED_CHAIN
-      ),
-    enabled:
-      queryOptions.assetData &&
-      Boolean(assetData) &&
-      Boolean(assetData?.data?.nftMetadata?.tokenContract) &&
-      Boolean(assetData?.data?.nftMetadata?.tokenId),
+  } = useNFTByTokenId({
+    contractAddress: assetData?.data?.nftMetadata?.tokenContract as Hash,
+    tokenId: assetData?.data?.nftMetadata?.tokenId as string,
+    queryOptions: {
+      enabled:
+        queryOptions.assetData &&
+        Boolean(assetData) &&
+        Boolean(assetData?.data?.nftMetadata?.tokenContract) &&
+        Boolean(assetData?.data?.nftMetadata?.tokenId),
+    },
+  })
+
+  const {
+    isLoading: isOwnersDataLoading,
+    data: ownersData,
+    refetch: refetchOwnersData,
+    isFetched: isOwnersDataFetched,
+  } = useOwnersByTokenId({
+    contractAddress: assetData?.data?.nftMetadata?.tokenContract as Hash,
+    tokenId: assetData?.data?.nftMetadata?.tokenId as string,
+    queryOptions: {
+      enabled:
+        queryOptions.assetData &&
+        queryOptions.ownersData &&
+        Boolean(assetData) &&
+        Boolean(assetData?.data?.nftMetadata?.tokenContract) &&
+        Boolean(assetData?.data?.nftMetadata?.tokenId),
+    },
   })
 
   return (
@@ -331,11 +352,12 @@ export const IpProvider = ({
         licenseTermsData: licenseTermsData,
         royaltyPaymentsReceivedData: royaltyPaymentsReceivedData?.data,
         royaltyPaymentsSentData: royaltyPaymentsSentData?.data,
-        //
         nftData,
+        ownersData,
         // loading
         isAssetDataLoading,
         isNftDataLoading,
+        isOwnersDataLoading,
         isAssetParentDataLoading,
         isAssetChildrenDataLoading,
         isIpaMetadataLoading: isIpaMetadataLoading || isLoadingFromIpfs,
@@ -352,11 +374,13 @@ export const IpProvider = ({
         refetchLicenseTermsData,
         refetchLicenseData,
         refetchNFTData,
+        refetchOwnersData,
         refetchRoyaltyPaymentsReceivedData,
         refetchRoyaltyPaymentsSentData,
         // fetched
         isAssetDataFetched,
         isNftDataFetched,
+        isOwnersDataFetched,
         isAssetParentDataFetched,
         isAssetChildrenDataFetched,
         isIpLicenseDataFetched,
