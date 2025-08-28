@@ -29,8 +29,14 @@ const meta = {
   parameters: {
     layout: "centered",
   },
+  argTypes: {
+    includeLicenses: {
+      type: "boolean",
+    },
+  },
   args: {
     ipId: "0xE760E4c9486FE0C81E75f1a7e50D82EFD7625E73",
+    includeLicenses: true,
     queryOptions: {
       enabled: true,
     },

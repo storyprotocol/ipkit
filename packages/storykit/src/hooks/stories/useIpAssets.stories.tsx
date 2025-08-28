@@ -27,10 +27,20 @@ const meta = {
   parameters: {
     layout: "centered",
   },
+  argTypes: {
+    includeLicenses: {
+      type: "boolean",
+    },
+    moderated: {
+      type: "boolean",
+    },
+  },
   args: {
     options: {
       orderBy: "blockNumber",
       orderDirection: "desc",
+      includeLicenses: true,
+      moderated: false,
       pagination: {
         offset: 0,
         limit: 10,
