@@ -22,7 +22,7 @@ const meta = {
   args: {
     options: {
       pagination: { limit: 5, offset: 0 },
-      orderBy: "blockNumber",
+      orderBy: "updatedAt",
       orderDirection: "desc",
     },
     queryOptions: {

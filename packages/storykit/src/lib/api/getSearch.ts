@@ -5,7 +5,7 @@ import { listQuery } from "./listQuery"
 
 export type SearchResponse = paths["/search"]["post"]["responses"][200]["content"]["application/json"]
 
-export type SearchOptions = paths["/search"]["post"]["requestBody"]["content"]["application/json"]
+export type SearchOptions = Partial<paths["/search"]["post"]["requestBody"]["content"]["application/json"]>
 
 export type GetSearchOptions = {
   apiClient: ApiClient

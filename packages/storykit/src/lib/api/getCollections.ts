@@ -4,11 +4,11 @@ import { ApiClient } from "./apiClient"
 import { listQuery } from "./listQuery"
 
 export type CollectionsResponse = paths["/collections"]["post"]["responses"][200]["content"]["application/json"]
-export type CollectionsOptions = paths["/collections"]["post"]["requestBody"]["content"]["application/json"]
+export type CollectionsOptions = Partial<paths["/collections"]["post"]["requestBody"]["content"]["application/json"]>
 
 export type GetCollectionsOptions = {
   apiClient: ApiClient
-  options?: Partial<CollectionsOptions>
+  options?: CollectionsOptions
   apiKey: string
 }
 
@@ -17,7 +17,7 @@ export function getCollections({ apiClient, options, apiKey }: GetCollectionsOpt
     apiClient,
     path: "/collections",
     body: {
-      orderBy: "blockNumber",
+      orderBy: "updatedAt",
       orderDirection: "desc",
       ...options,
     },

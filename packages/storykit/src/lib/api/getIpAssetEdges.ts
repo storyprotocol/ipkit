@@ -5,14 +5,13 @@ import { ApiClient } from "./apiClient"
 import { listQuery } from "./listQuery"
 
 export type IpAssetEdgesResponse = paths["/assets/edges"]["post"]["responses"][200]["content"]["application/json"]
-
-export type IpAssetEdgesOptions = paths["/assets/edges"]["post"]["requestBody"]["content"]["application/json"]
+export type IpAssetEdgesOptions = Partial<paths["/assets/edges"]["post"]["requestBody"]["content"]["application/json"]>
 
 export type GetIpAssetEdgesOptions = {
   apiClient: ApiClient
   ipId?: Address
   parentIpId?: Address
-  options?: Partial<IpAssetEdgesOptions>
+  options?: IpAssetEdgesOptions
   apiKey: string
 }
 

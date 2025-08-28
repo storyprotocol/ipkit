@@ -5,12 +5,12 @@ import { ApiClient } from "./apiClient"
 import { listQuery } from "./listQuery"
 
 export type IpAssetsResponse = paths["/assets"]["post"]["responses"][200]["content"]["application/json"]
-export type IpAssetsOptions = paths["/assets"]["post"]["requestBody"]["content"]["application/json"]
+export type IpAssetsOptions = Partial<paths["/assets"]["post"]["requestBody"]["content"]["application/json"]>
 
 export type GetIpAssetsOptions = {
   apiClient: ApiClient
   ipIds?: Address[] // ipIds from options added here for convenience
-  options?: Partial<IpAssetsOptions>
+  options?: IpAssetsOptions
   apiKey: string
 }
 
