@@ -3,7 +3,6 @@ import { ChainConfig, WRAPPED_IP } from "@/types/chains"
 export const STORY_AENEID: ChainConfig = {
   id: 1315,
   name: "story-aeneid",
-  alchemyId: "story-aeneid",
   apiVersion: "v3",
   displayName: "Story Aeneid Testnet",
   rpcUrl: "https://aeneid.storyrpc.io/",
@@ -15,7 +14,6 @@ export const STORY_AENEID: ChainConfig = {
 export const STORY_MAINNET: ChainConfig = {
   id: 1514,
   name: "story",
-  alchemyId: "story-mainnet",
   apiVersion: "v3",
   displayName: "Story Mainnet",
   rpcUrl: "https://mainnet.storyrpc.io",

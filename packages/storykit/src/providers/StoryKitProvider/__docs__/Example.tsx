@@ -6,7 +6,6 @@ import "../../../global.css"
 import { StoryKitProvider, Theme, useStoryKitContext } from "../StoryKitProvider"
 
 const API_KEY = process.env.STORYBOOK_STORY_PROTOCOL_X_API_KEY as string
-const ALCHEMY_API_KEY = process.env.STORYBOOK_ALCHEMY_API_KEY as string
 
 const Example: FC<{
   chain: STORYKIT_SUPPORTED_CHAIN
@@ -18,7 +17,6 @@ const Example: FC<{
   return (
     <StoryKitProvider
       apiKey={API_KEY}
-      alchemyApiKey={ALCHEMY_API_KEY}
       chain={chain}
       defaultCurrency={defaultCurrency}
       theme={theme}

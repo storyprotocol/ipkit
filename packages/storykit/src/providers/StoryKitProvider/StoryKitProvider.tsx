@@ -16,7 +16,6 @@ export interface StoryKitProviderOptions {
   rpcUrl?: string
   apiKey: string
   appId?: string
-  alchemyApiKey?: string
   children: React.ReactNode
   apiBaseUrl?: string
 }
@@ -29,7 +28,6 @@ const StoryKitContext = React.createContext<{
   themeClass: string
   apiKey: string
   appId: string | undefined
-  alchemyApiKey: string | undefined
   apiBaseUrl: string
   apiClient: ApiClient
 } | null>(null)
@@ -43,7 +41,6 @@ export const StoryKitProvider = ({
   rpcUrl,
   apiKey,
   appId,
-  alchemyApiKey,
   children,
 }: StoryKitProviderOptions) => {
   //
@@ -65,7 +62,6 @@ export const StoryKitProvider = ({
         themeClass: `${theme}${mode ? `-${mode}` : ""}`,
         apiKey: apiKey,
         appId: appId,
-        alchemyApiKey: alchemyApiKey,
         apiBaseUrl,
         apiClient,
       }}

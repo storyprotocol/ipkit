@@ -10,7 +10,6 @@ import "./global.css"
 import theme from "./theme"
 
 const API_KEY = process.env.STORYBOOK_STORY_PROTOCOL_X_API_KEY as string
-const ALCHEMY_API_KEY = process.env.STORYBOOK_ALCHEMY_API_KEY as string
 
 const preview: Preview = {
   parameters: {
@@ -98,13 +97,7 @@ const preview: Preview = {
         return <Story />
       }
       return (
-        <StoryProvider
-          apiBaseUrl={context.globals.apiBaseUrl}
-          apiKey={API_KEY}
-          alchemyApiKey={ALCHEMY_API_KEY}
-          chain={context.globals.chain}
-          theme={context.globals.skTheme}
-        >
+        <StoryProvider apiBaseUrl={context.globals.apiBaseUrl} apiKey={API_KEY} theme={context.globals.skTheme}>
           <Story />
         </StoryProvider>
       )

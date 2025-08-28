@@ -15,7 +15,6 @@ export type ChainConfig = {
   rpcUrl: string
   blockExplorerUrl: string
   protocolExplorerUrl: string
-  alchemyId: string
   apiVersion: string
   defaultCurrency?: ERC20Token
 }
