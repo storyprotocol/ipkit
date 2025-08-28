@@ -9,6 +9,7 @@ import StoryProvider from "./directors/StoryProvider"
 import "./global.css"
 import theme from "./theme"
 
+const TESTNET_API_KEY = process.env.STORYBOOK_STORY_PROTOCOL_X_TESTNET_API_KEY as string
 const API_KEY = process.env.STORYBOOK_STORY_PROTOCOL_X_API_KEY as string
 
 const preview: Preview = {
@@ -28,26 +29,16 @@ const preview: Preview = {
     },
   },
   globalTypes: {
-    apiBaseUrl: {
-      description: "Story API URL",
-      toolbar: {
-        title: "api url",
-        icon: "globe",
-        items: [
-          { value: API_URL.STAGING, title: "staging" },
-          { value: API_URL.PRODUCTION, title: "prod" },
-        ],
-        defaultValue: API_URL.STAGING,
-        dynamicTitle: true,
-      },
-    },
-    chain: {
+    isTestnet: {
       description: "Selected Story chain",
       toolbar: {
         title: "Chain",
         icon: "link",
-        items: [...Object.values(STORYKIT_SUPPORTED_CHAIN)],
-        defaultValue: STORYKIT_SUPPORTED_CHAIN.STORY_MAINNET,
+        items: [
+          { value: true, title: "Testnet" },
+          { value: false, title: "Mainnet" },
+        ],
+        defaultValue: true,
         dynamicTitle: true,
       },
     },
@@ -73,7 +64,7 @@ const preview: Preview = {
     },
   },
   globals: {
-    chain: STORYKIT_SUPPORTED_CHAIN.STORY_MAINNET,
+    chain: STORYKIT_SUPPORTED_CHAIN.AENEID_TESTNET,
   },
   decorators: [
     (Story, context) => {
@@ -97,7 +88,11 @@ const preview: Preview = {
         return <Story />
       }
       return (
-        <StoryProvider apiBaseUrl={context.globals.apiBaseUrl} apiKey={API_KEY} theme={context.globals.skTheme}>
+        <StoryProvider
+          apiKey={context.globals.isTestnet ? TESTNET_API_KEY : API_KEY}
+          isTestnet={context.globals.isTestnet}
+          theme={context.globals.skTheme}
+        >
           <Story />
         </StoryProvider>
       )
