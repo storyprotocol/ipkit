@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react"
-import { expect, screen, userEvent, waitFor, within } from "@storybook/test"
+import { expect, userEvent, waitFor, within } from "@storybook/test"
 import React from "react"
 
 import { Button } from "../../Button"
