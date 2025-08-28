@@ -24,38 +24,11 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Aeneid: Story = {
+export const Default: Story = {
   argTypes: {
     children: { control: false },
   },
   args: {
     isTestnet: true,
-  },
-}
-
-export const Mainnet: Story = {
-  argTypes: {
-    children: { control: false },
-  },
-  args: {
-    isTestnet: false,
-  },
-}
-
-export const DarkMode: Story = {
-  argTypes: {
-    children: { control: false },
-  },
-  args: {
-    mode: "dark",
-  },
-}
-
-export const Theme: Story = {
-  argTypes: {
-    children: { control: false },
-  },
-  args: {
-    theme: "story",
   },
 }
