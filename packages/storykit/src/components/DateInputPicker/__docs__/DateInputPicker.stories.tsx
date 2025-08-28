@@ -13,6 +13,7 @@ const meta = {
   parameters: {
     layout: "centered",
   },
+  tags: ["isHidden"],
   args: {
     defaultOpen: false,
   },
