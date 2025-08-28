@@ -1,5 +1,7 @@
 export * from "./apiClient"
 export * from "./getCollections"
+export * from "./getDispute"
+export * from "./getDisputes"
 export * from "./getIpAssetEdges"
 export * from "./getIpAssets"
 export * from "./getSearch"
