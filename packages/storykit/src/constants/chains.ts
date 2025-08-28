@@ -17,7 +17,7 @@ export const STORY_MAINNET: ChainConfig = {
   apiVersion: "v3",
   displayName: "Story Mainnet",
   rpcUrl: "https://mainnet.storyrpc.io",
-  blockExplorerUrl: "https://mainnet.storyscan.io",
+  blockExplorerUrl: "https://storyscan.io",
   protocolExplorerUrl: "https://explorer.story.foundation",
   defaultCurrency: WRAPPED_IP,
 }
