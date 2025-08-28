@@ -1,25 +1,32 @@
 import { paths } from "@/types/schema"
-import { FetchResponse } from "openapi-fetch"
 
 import { ApiClient } from "./apiClient"
 import { listQuery } from "./listQuery"
 
-export type DisputesResponse = paths["/api/v3/disputes"]["post"]["responses"][200]["content"]["application/json"]
-export type DisputesOptions = paths["/api/v3/disputes"]["post"]["requestBody"]["content"]["application/json"]["options"]
+export type DisputesResponse = paths["/disputes"]["post"]["responses"][200]["content"]["application/json"]
+export type DisputesOptions = Partial<paths["/disputes"]["post"]["requestBody"]["content"]["application/json"]>
 
 export type GetDisputesOptions = {
   apiClient: ApiClient
   options?: DisputesOptions
-  chainName: string
   apiKey: string
 }
 
-export function getDisputes({ apiClient, options, chainName, apiKey }: GetDisputesOptions) {
+export function getDisputes({ apiClient, options, apiKey }: GetDisputesOptions) {
   return listQuery({
     apiClient,
-    path: "/api/v3/disputes",
-    body: { options: options || {} },
-    chainName,
+    path: "/disputes",
+    body: {
+      options: {
+        orderBy: "blockNumber",
+        orderDirection: "desc",
+        pagination: {
+          limit: 20,
+        },
+        ...options?.options,
+      },
+      ...options,
+    },
     apiKey,
-  }) as Promise<FetchResponse<DisputesResponse, DisputesOptions, "application/json">>
+  })
 }

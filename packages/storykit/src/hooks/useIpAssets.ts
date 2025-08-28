@@ -7,17 +7,19 @@ import { useStoryKitContext } from "../providers/StoryKitProvider"
 
 export type UseIpAssetsOptions = {
   ipIds?: Address[]
+  includeLicenses?: boolean
+  moderated?: boolean
   options?: IpAssetsOptions
   queryOptions?: IpQueryOptions
 }
 
-export function useIpAssets({ ipIds, options, queryOptions }: UseIpAssetsOptions = {}) {
-  const { chain, apiKey, apiClient } = useStoryKitContext()
+export function useIpAssets({ ipIds, includeLicenses, moderated, options, queryOptions }: UseIpAssetsOptions = {}) {
+  const { apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
-    queryKey: ["getIpAssets", ipIds, options, queryOptions],
+    queryKey: ["getIpAssets", ipIds, includeLicenses, moderated, options, queryOptions],
     queryFn: async () => {
-      const { data, error } = await getIpAssets({ ipIds, options, chainName: chain.name, apiKey, apiClient })
+      const { data, error } = await getIpAssets({ ipIds, includeLicenses, moderated, options, apiKey, apiClient })
       if (error) throw error
       return data
     },

@@ -1,42 +1,34 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import React from "react"
 
-import { UseIpAssetOptions, useIpAsset } from "../useIpAsset"
+import { UseIpAssetLicensesOptions, useIpAssetLicenses } from "../useIpAssetLicenses"
 import { DataTable } from "./(components)/DataTable"
 
-const Example = (args: UseIpAssetOptions) => {
-  const { isLoading, data } = useIpAsset(args)
+const Example = (args: UseIpAssetLicensesOptions) => {
+  const { isLoading, data } = useIpAssetLicenses(args)
 
   if (isLoading) return <>loading...</>
-  if (!data) return <>none found</>
+  if (!data || !Array.isArray(data) || data.length === 0) return <>none found</>
 
   return (
     <DataTable
-      fields={["ipId", "name"]}
-      data={[
-        {
-          ...data,
-          name: data?.nftMetadata?.name,
-        },
-      ]}
+      fields={["licenseTemplateId", "licenseTermsId", "templateName"]}
+      data={data.map((license) => ({
+        ...license,
+        templateName: license.templateName || "Unknown",
+      }))}
     />
   )
 }
 
 const meta = {
-  title: "Hooks/useIpAsset",
+  title: "Hooks/useIpAssetLicenses",
   component: Example,
   parameters: {
     layout: "centered",
   },
-  argTypes: {
-    includeLicenses: {
-      type: "boolean",
-    },
-  },
   args: {
     ipId: "0xE760E4c9486FE0C81E75f1a7e50D82EFD7625E73",
-    includeLicenses: true,
     queryOptions: {
       enabled: true,
     },

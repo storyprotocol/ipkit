@@ -2,72 +2,66 @@ import { API_URL } from "@/constants/api"
 import { CHAINS } from "@/constants/chains"
 import { cn } from "@/lib"
 import { ApiClient, createApiClient } from "@/lib/api/apiClient"
-import { ChainConfig, ERC20Token, STORYKIT_SUPPORTED_CHAIN, WRAPPED_IP } from "@/types/chains"
+import { ChainConfig, STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
 import React, { useMemo } from "react"
 
 export type Mode = "light" | "dark" | undefined
 export type Theme = "default" | "story" | string
 
 export interface StoryKitProviderOptions {
-  chain?: STORYKIT_SUPPORTED_CHAIN
-  defaultCurrency?: ERC20Token
-  theme?: Theme
-  mode?: Mode
-  rpcUrl?: string
   apiKey: string
   appId?: string
-  alchemyApiKey?: string
   children: React.ReactNode
-  apiBaseUrl?: string
+  isTestnet?: boolean
+  mode?: Mode
+  theme?: Theme
+  //
+  // chain?: STORYKIT_SUPPORTED_CHAIN
+  // defaultCurrency?: ERC20Token
+  // rpcUrl?: string
 }
 
 const StoryKitContext = React.createContext<{
-  chain: ChainConfig
-  defaultCurrency?: ERC20Token
-  theme: Theme
-  mode: Mode
-  themeClass: string
-  apiKey: string
-  appId: string | undefined
-  alchemyApiKey: string | undefined
   apiBaseUrl: string
   apiClient: ApiClient
+  apiKey: string
+  appId: string | undefined
+  chain: ChainConfig
+  mode: Mode
+  theme: Theme
+  themeClass: string
 } | null>(null)
 
 export const StoryKitProvider = ({
-  chain = STORYKIT_SUPPORTED_CHAIN.STORY_MAINNET,
-  defaultCurrency = WRAPPED_IP,
-  theme = "default",
-  apiBaseUrl = API_URL.STAGING,
-  mode,
-  rpcUrl,
   apiKey,
   appId,
-  alchemyApiKey,
   children,
+  isTestnet,
+  mode,
+  theme = "default",
 }: StoryKitProviderOptions) => {
   //
   // get ChainConfig using chain name, replace rpcUrl if alternative provided
   const chainConfig: ChainConfig = useMemo(
-    () => ({ ...CHAINS[chain], ...{ rpcUrl: rpcUrl || CHAINS[chain].rpcUrl } }),
-    [chain, rpcUrl]
+    // () => ({ ...CHAINS[STORYKIT_SUPPORTED_CHAIN], ...{ rpcUrl: rpcUrl || CHAINS[chain].rpcUrl } }),
+    () => CHAINS[isTestnet ? STORYKIT_SUPPORTED_CHAIN.AENEID_TESTNET : STORYKIT_SUPPORTED_CHAIN.STORY_MAINNET],
+    [isTestnet]
   )
 
+  const apiBaseUrl = useMemo(() => (isTestnet ? API_URL.STAGING : API_URL.PRODUCTION), [isTestnet])
   const apiClient = useMemo(() => createApiClient(apiBaseUrl), [apiBaseUrl])
 
   return (
     <StoryKitContext.Provider
       value={{
-        chain: chainConfig,
-        defaultCurrency,
-        theme: theme,
-        mode: mode,
-        themeClass: `${theme}${mode ? `-${mode}` : ""}`,
-        apiKey: apiKey,
-        appId: appId,
-        alchemyApiKey: alchemyApiKey,
         apiBaseUrl,
         apiClient,
+        apiKey: apiKey,
+        appId: appId,
+        chain: chainConfig,
+        mode: mode,
+        theme: theme,
+        themeClass: `${theme}${mode ? `-${mode}` : ""}`,
       }}
     >
       <div className={cn(theme)}>{children}</div>

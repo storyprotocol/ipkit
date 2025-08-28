@@ -1,26 +1,22 @@
 import { cn } from "@/lib"
-import { ERC20Token, STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
 import React, { FC } from "react"
 
 import "../../../global.css"
 import { StoryKitProvider, Theme, useStoryKitContext } from "../StoryKitProvider"
 
+const TESTNET_API_KEY = process.env.STORYBOOK_STORY_PROTOCOL_X_TESTNET_API_KEY as string
 const API_KEY = process.env.STORYBOOK_STORY_PROTOCOL_X_API_KEY as string
-const ALCHEMY_API_KEY = process.env.STORYBOOK_ALCHEMY_API_KEY as string
 
 const Example: FC<{
-  chain: STORYKIT_SUPPORTED_CHAIN
-  defaultCurrency?: ERC20Token
+  isTestnet: boolean
   theme: Theme
   mode: "auto" | "light" | "dark"
   children?: React.ReactNode
-}> = ({ chain, defaultCurrency, theme, mode, children = <ExampleComponent /> }) => {
+}> = ({ isTestnet, theme, mode, children = <ExampleComponent /> }) => {
   return (
     <StoryKitProvider
-      apiKey={API_KEY}
-      alchemyApiKey={ALCHEMY_API_KEY}
-      chain={chain}
-      defaultCurrency={defaultCurrency}
+      apiKey={isTestnet ? TESTNET_API_KEY : API_KEY}
+      isTestnet={isTestnet}
       theme={theme}
       mode={mode !== "auto" ? mode : undefined}
     >
@@ -30,11 +26,14 @@ const Example: FC<{
 }
 
 const ExampleComponent = () => {
-  const { themeClass, defaultCurrency, chain } = useStoryKitContext()
+  const { themeClass, chain, apiBaseUrl } = useStoryKitContext()
   return (
     <div className={cn(themeClass, "flex flex-col h-full bg-background p-8 font-sans text-primary")}>
       <div className="text-sm text-foreground">
         <i>id:</i> <strong>{chain.id}</strong>
+      </div>
+      <div className="text-sm text-foreground">
+        <i>url:</i> <strong>{apiBaseUrl}</strong>
       </div>
       <div className="text-sm text-foreground">
         <i>name:</i> <strong>{chain.name}</strong>
@@ -51,19 +50,6 @@ const ExampleComponent = () => {
       <div className="text-sm text-foreground">
         <i>protocolExplorerUrl:</i> <strong>{chain.protocolExplorerUrl}</strong>
       </div>
-      {defaultCurrency && (
-        <>
-          <div className="text-sm text-foreground">
-            <i>currency name:</i> <strong>{defaultCurrency.name}</strong>
-          </div>
-          <div className="text-sm text-foreground">
-            <i>currency symbol:</i> <strong>{defaultCurrency.symbol}</strong>
-          </div>
-          <div className="text-sm text-foreground">
-            <i>currency address:</i> <strong>{defaultCurrency.address}</strong>
-          </div>
-        </>
-      )}
     </div>
   )
 }

@@ -8,9 +8,19 @@ const Example = (args: UseCollectionOptions) => {
   const { isLoading, data } = useCollection(args)
 
   if (isLoading) return <>loading...</>
-  if (!data?.data) return <>none found</>
+  if (!data) return <>none found</>
 
-  return <DataTable fields={["id", "assetCount", "licensesCount"]} data={[data.data]} />
+  return (
+    <DataTable
+      fields={["collectionAddress", "name", "assetCount", "licensesCount"]}
+      data={[
+        {
+          ...data,
+          name: data.collectionMetadata?.name,
+        },
+      ]}
+    />
+  )
 }
 
 const meta = {
@@ -20,7 +30,7 @@ const meta = {
     layout: "centered",
   },
   args: {
-    collectionId: "0x47191BCaa3D7c2730dDAf71ce589b6Dc992cC55f",
+    collectionAddress: "0x47191BCaa3D7c2730dDAf71ce589b6Dc992cC55f",
     queryOptions: {
       enabled: true,
     },

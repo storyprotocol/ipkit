@@ -9,6 +9,7 @@ const meta = {
   parameters: {
     layout: "centered",
   },
+  tags: ["isHidden"],
 } satisfies Meta<typeof Accordion>
 
 export default meta

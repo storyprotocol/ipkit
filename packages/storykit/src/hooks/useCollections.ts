@@ -10,12 +10,12 @@ export type UseCollectionsOptions = {
 }
 
 export function useCollections({ options, queryOptions }: UseCollectionsOptions = {}) {
-  const { chain, apiKey, apiClient } = useStoryKitContext()
+  const { apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
     queryKey: ["getCollections", options, queryOptions],
     queryFn: async () => {
-      const { data, error } = await getCollections({ options, chainName: chain.name, apiKey, apiClient })
+      const { data, error } = await getCollections({ options, apiKey, apiClient })
       if (error) throw error
       return data
     },

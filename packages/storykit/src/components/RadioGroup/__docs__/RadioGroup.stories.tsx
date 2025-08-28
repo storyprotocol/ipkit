@@ -9,6 +9,7 @@ const meta = {
   parameters: {
     layout: "centered",
   },
+  tags: ["isHidden"],
   argTypes: {
     defaultValue: {
       control: "select",

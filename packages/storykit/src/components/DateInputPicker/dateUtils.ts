@@ -49,7 +49,7 @@ export const dateUtils = {
 
   createDate: (parsedDate: ParsedDate, defaultYear: number): Date => {
     const { month, day, year } = parsedDate
-    return new Date(year || defaultYear, month! - 1, day!)
+    return new Date(year || defaultYear, month! - 1, day!) // eslint-disable-line @typescript-eslint/no-non-null-assertion
   },
 
   isValidDate: (date: Date, month: number, day: number): boolean => {

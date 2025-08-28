@@ -8,9 +8,9 @@ const Example = (args: UseDisputeOptions) => {
   const { isLoading, data } = useDispute(args)
 
   if (isLoading) return <>loading...</>
-  if (!data?.data) return <>none found</>
+  if (!data) return <>none found</>
 
-  return <DataTable fields={["id", "status", "initiator", "targetIpId", "arbitrationPolicy"]} data={[data.data]} />
+  return <DataTable fields={["id", "targetIpId", "initiator", "status", "currentTag"]} data={[data]} />
 }
 
 const meta = {

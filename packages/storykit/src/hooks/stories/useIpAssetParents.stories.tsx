@@ -1,31 +1,30 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import React from "react"
 
-import { UseDisputesOptions, useDisputes } from "../useDisputes"
+import { UseIpAssetParentsOptions, useIpAssetParents } from "../useIpAssetParents"
 import { DataTable } from "./(components)/DataTable"
 
-const Example = (args: UseDisputesOptions) => {
-  const { isLoading, data } = useDisputes(args)
+const Example = (args: UseIpAssetParentsOptions) => {
+  const { isLoading, data } = useIpAssetParents(args)
 
   if (isLoading) return <>loading...</>
   if (!data?.data) return <>none found</>
 
-  return <DataTable fields={["id", "targetIpId", "initiator", "status", "currentTag"]} data={data.data} />
+  return <DataTable fields={["childIpId", "parentIpId", "licenseTemplate", "licenseTermsId"]} data={data.data} />
 }
 
 const meta = {
-  title: "Hooks/useDisputes",
+  title: "Hooks/useIpAssetParents",
   component: Example,
   parameters: {
     layout: "centered",
   },
   args: {
+    ipId: "0x8FE1843eCB8c5d6A6427c82Bc0218dF8e5dc3ff0",
     options: {
-      options: {
-        pagination: { limit: 5 },
-        orderBy: "blockNumber",
-        orderDirection: "desc",
-      },
+      pagination: { limit: 5, offset: 0 },
+      orderBy: "blockNumber",
+      orderDirection: "desc",
     },
     queryOptions: {
       enabled: true,

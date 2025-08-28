@@ -1,7 +1,7 @@
 {
   "name": "@storyprotocol/storykit",
   "author": "storyprotocol engineering <eng@storyprotocol.xyz>",
-  "version": "0.3.4",
+  "version": "0.4.0-beta.0",
   "type": "module",
   "exports": {
     ".": {
@@ -26,7 +26,7 @@
     "build-storybook": "storybook build",
     "build": "rollup -c --bundleConfigAsCjs --inlineDynamicImports",
     "test-storybook": "test-storybook",
-    "update-api-types": "ts-node scripts/generate-types.ts"
+    "update-api-types": "tsx scripts/generate-types.ts"
   },
   "prettier": "@storykit/prettier-config",
   "dependencies": {
@@ -52,8 +52,8 @@
     "tailwindcss": "^3.4.1",
     "tailwindcss-animate": "^1.0.7",
     "three": "^0.167.1",
-    "ts-node": "^10.9.2",
     "tslib": "^2.8.1",
+    "tsx": "^4.20.5",
     "viem": "^2.7.19"
   },
   "devDependencies": {
