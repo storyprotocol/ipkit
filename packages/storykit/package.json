@@ -1,7 +1,7 @@
 {
   "name": "@storyprotocol/storykit",
   "author": "storyprotocol engineering <eng@storyprotocol.xyz>",
-  "version": "0.3.4",
+  "version": "0.4.0-beta.0",
   "type": "module",
   "exports": {
     ".": {
