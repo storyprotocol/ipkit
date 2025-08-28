@@ -7,9 +7,6 @@ import { DataTable } from "./(components)/DataTable"
 const Example = (args: UseTransactionOptions) => {
   const { isLoading, data } = useTransaction(args)
 
-  console.log("isLoading", isLoading)
-  console.log("data", data)
-
   if (isLoading) return <>loading...</>
   if (!data) return <>none found</>
 

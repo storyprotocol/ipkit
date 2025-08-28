@@ -6,8 +6,6 @@ import { DataTable } from "./(components)/DataTable"
 
 const Example = (args: UseIpAssetOptions) => {
   const { isLoading, data } = useIpAsset(args)
-  console.log("args", args)
-  console.log("data", data)
 
   if (isLoading) return <>loading...</>
   if (!data) return <>none found</>
