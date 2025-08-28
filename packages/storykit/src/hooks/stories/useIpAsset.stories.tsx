@@ -6,17 +6,19 @@ import { DataTable } from "./(components)/DataTable"
 
 const Example = (args: UseIpAssetOptions) => {
   const { isLoading, data } = useIpAsset(args)
+  console.log("args", args)
+  console.log("data", data)
 
   if (isLoading) return <>loading...</>
-  if (!data?.data) return <>none found</>
+  if (!data) return <>none found</>
 
   return (
     <DataTable
       fields={["ipId", "name"]}
       data={[
         {
-          ...data.data,
-          name: data.data.nftMetadata?.name || "",
+          ...data,
+          name: data?.nftMetadata?.name,
         },
       ]}
     />
@@ -30,7 +32,7 @@ const meta = {
     layout: "centered",
   },
   args: {
-    ipId: "0xD4128fD30640C8b3822E3A33EB2c672e955B772d",
+    ipId: "0xE760E4c9486FE0C81E75f1a7e50D82EFD7625E73",
     queryOptions: {
       enabled: true,
     },

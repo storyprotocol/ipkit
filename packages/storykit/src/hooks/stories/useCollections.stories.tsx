@@ -10,7 +10,7 @@ const Example = (args: UseCollectionsOptions) => {
   if (isLoading) return <>loading...</>
   if (!data?.data) return <>none found</>
 
-  return <DataTable fields={["id", "assetCount", "licensesCount"]} data={data.data} />
+  return <DataTable fields={["collectionAddress", "assetCount", "licensesCount"]} data={data.data} />
 }
 
 const meta = {
@@ -21,7 +21,7 @@ const meta = {
   },
   args: {
     options: {
-      pagination: { limit: 5 },
+      pagination: { limit: 5, offset: 0 },
       orderBy: "blockNumber",
       orderDirection: "desc",
     },

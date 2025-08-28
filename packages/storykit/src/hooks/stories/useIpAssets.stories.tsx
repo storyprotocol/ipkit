@@ -32,8 +32,7 @@ const meta = {
       orderBy: "blockNumber",
       orderDirection: "desc",
       pagination: {
-        after: undefined,
-        before: undefined,
+        offset: 0,
         limit: 10,
       },
     },

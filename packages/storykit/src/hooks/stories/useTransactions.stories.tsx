@@ -10,7 +10,7 @@ const Example = (args: UseTransactionsOptions) => {
   if (isLoading) return <>loading...</>
   if (!data?.data) return <>none found</>
 
-  return <DataTable fields={["txHash", "actionType", "resourceType", "ipId", "createdAt"]} data={data.data} />
+  return <DataTable fields={["txHash", "eventType", "ipId", "createdAt"]} data={data.data} />
 }
 
 const meta = {
@@ -20,11 +20,7 @@ const meta = {
     layout: "centered",
   },
   args: {
-    options: {
-      pagination: {
-        limit: 10,
-      },
-    },
+    options: {},
     queryOptions: {
       enabled: true,
     },
