@@ -7,17 +7,17 @@ import { useStoryKitContext } from "../providers/StoryKitProvider"
 
 export type UseIpAssetsOptions = {
   ipIds?: Address[]
-  options?: IpAssetsOptions
+  options?: Partial<IpAssetsOptions>
   queryOptions?: IpQueryOptions
 }
 
 export function useIpAssets({ ipIds, options, queryOptions }: UseIpAssetsOptions = {}) {
-  const { chain, apiKey, apiClient } = useStoryKitContext()
+  const { apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
     queryKey: ["getIpAssets", ipIds, options, queryOptions],
     queryFn: async () => {
-      const { data, error } = await getIpAssets({ ipIds, options, chainName: chain.name, apiKey, apiClient })
+      const { data, error } = await getIpAssets({ ipIds, options, apiKey, apiClient })
       if (error) throw error
       return data
     },

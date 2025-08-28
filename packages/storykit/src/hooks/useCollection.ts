@@ -1,25 +1,31 @@
 import { IpQueryOptions } from "@/types/openapi"
+import { Collection } from "@/types/openapi"
 import { UseQueryResult, useQuery } from "@tanstack/react-query"
 import { Address } from "viem"
 
-import { CollectionResponse, getCollection } from "../lib/api/getCollection"
+import { getCollections } from "../lib/api/getCollections"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
 export type UseCollectionOptions = {
-  collectionId: Address
+  collectionAddress: Address
   queryOptions?: IpQueryOptions
 }
 
-export function useCollection({ collectionId, queryOptions }: UseCollectionOptions) {
-  const { chain, apiKey, apiClient } = useStoryKitContext()
+export function useCollection({ collectionAddress, queryOptions }: UseCollectionOptions) {
+  const { apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
-    queryKey: ["getCollection", collectionId, queryOptions],
+    queryKey: ["getCollection", collectionAddress, queryOptions],
     queryFn: async () => {
-      const { data, error } = await getCollection({ collectionId, chainName: chain.name, apiKey, apiClient })
+      const { data, error } = await getCollections({
+        options: { where: { collectionAddresses: [collectionAddress] } },
+        apiKey,
+        apiClient,
+      })
       if (error) throw error
-      return data
+      return data?.data?.[0] || null
     },
+    enabled: !!collectionAddress.length,
     ...queryOptions,
-  }) as UseQueryResult<CollectionResponse>
+  }) as UseQueryResult<Collection>
 }

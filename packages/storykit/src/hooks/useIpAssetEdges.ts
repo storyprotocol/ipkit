@@ -8,12 +8,12 @@ import { useStoryKitContext } from "../providers/StoryKitProvider"
 export type UseIpAssetEdgesOptions = {
   ipId?: Address
   parentIpId?: Address
-  options?: IpAssetEdgesOptions
+  options?: Partial<IpAssetEdgesOptions>
   queryOptions?: IpQueryOptions
 }
 
 export function useIpAssetEdges({ ipId, parentIpId, options, queryOptions }: UseIpAssetEdgesOptions = {}) {
-  const { chain, apiKey, apiClient } = useStoryKitContext()
+  const { apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
     queryKey: ["getIpAssetEdges", ipId, parentIpId, options, queryOptions],
@@ -22,7 +22,6 @@ export function useIpAssetEdges({ ipId, parentIpId, options, queryOptions }: Use
         ipId,
         parentIpId,
         options,
-        chainName: chain.name,
         apiKey,
         apiClient,
       })

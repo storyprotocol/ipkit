@@ -5,17 +5,17 @@ import { TransactionsOptions, TransactionsResponse, getTransactions } from "../l
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
 export type UseTransactionsOptions = {
-  options?: TransactionsOptions
+  options?: Partial<TransactionsOptions>
   queryOptions?: IpQueryOptions
 }
 
 export function useTransactions({ options, queryOptions }: UseTransactionsOptions = {}) {
-  const { chain, apiKey, apiClient } = useStoryKitContext()
+  const { apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
     queryKey: ["getTransactions", options, queryOptions],
     queryFn: async () => {
-      const { data, error } = await getTransactions({ options, chainName: chain.name, apiKey, apiClient })
+      const { data, error } = await getTransactions({ options, apiKey, apiClient })
       if (error) throw error
       return data
     },
