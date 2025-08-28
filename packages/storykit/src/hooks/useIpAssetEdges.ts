@@ -8,7 +8,7 @@ import { useStoryKitContext } from "../providers/StoryKitProvider"
 export type UseIpAssetEdgesOptions = {
   ipId?: Address
   parentIpId?: Address
-  options?: Partial<IpAssetEdgesOptions>
+  options?: IpAssetEdgesOptions
   queryOptions?: IpQueryOptions
 }
 

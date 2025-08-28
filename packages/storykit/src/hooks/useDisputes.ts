@@ -5,7 +5,7 @@ import { DisputesOptions, DisputesResponse, getDisputes } from "../lib/api/getDi
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
 export type UseDisputesOptions = {
-  options?: Partial<DisputesOptions>
+  options?: DisputesOptions
   queryOptions?: IpQueryOptions
 }
 

@@ -5,7 +5,7 @@ import { CollectionsOptions, CollectionsResponse, getCollections } from "../lib/
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
 export type UseCollectionsOptions = {
-  options?: Partial<CollectionsOptions>
+  options?: CollectionsOptions
   queryOptions?: IpQueryOptions
 }
 

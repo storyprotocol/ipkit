@@ -7,7 +7,7 @@ import { useStoryKitContext } from "../providers/StoryKitProvider"
 
 export type UseIpAssetsOptions = {
   ipIds?: Address[]
-  options?: Partial<IpAssetsOptions>
+  options?: IpAssetsOptions
   queryOptions?: IpQueryOptions
 }
 
