@@ -19,13 +19,21 @@ const meta = {
   parameters: {
     layout: "centered",
   },
+  argTypes: {
+    targetIpId: {
+      control: "text",
+    },
+    initiator: {
+      control: "text",
+    },
+  },
   args: {
+    targetIpId: undefined,
+    initiator: undefined,
     options: {
-      options: {
-        pagination: { limit: 5 },
-        orderBy: "blockNumber",
-        orderDirection: "desc",
-      },
+      pagination: { limit: 5 },
+      orderBy: "blockNumber",
+      orderDirection: "desc",
     },
     queryOptions: {
       enabled: true,

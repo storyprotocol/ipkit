@@ -16,7 +16,7 @@ export function useIpAssetLicenses({ ipId, queryOptions }: UseIpAssetLicensesOpt
 
   return useQuery({
     // key consistent with useIpAsset, includeLicenses = true
-    queryKey: ["getIpAsset", ipId, true, queryOptions],
+    queryKey: ["getIpAsset", ipId, true],
     queryFn: async () => {
       const { data, error } = await getIpAssets({ ipIds: [ipId], includeLicenses: true, apiKey, apiClient })
       if (error) throw error

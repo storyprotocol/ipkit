@@ -14,7 +14,7 @@ export function useSearch({ query, mediaType, queryOptions }: UseSearchOptions) 
   const { apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
-    queryKey: ["getSearch", query, mediaType, queryOptions],
+    queryKey: ["getSearch", query, mediaType],
     queryFn: async () => {
       const { data, error } = await getSearch({
         query,

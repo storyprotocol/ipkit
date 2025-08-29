@@ -16,7 +16,7 @@ export function useIpAsset({ ipId, includeLicenses, queryOptions }: UseIpAssetOp
   const { apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
-    queryKey: ["getIpAsset", ipId, includeLicenses, queryOptions],
+    queryKey: ["getIpAsset", ipId, includeLicenses],
     queryFn: async () => {
       const { data, error } = await getIpAssets({ ipIds: [ipId], includeLicenses, apiKey, apiClient })
       if (error) throw error

@@ -24,10 +24,6 @@ export function getTransactions({ apiClient, txHashes, ipIds, initiators, option
     body: {
       orderBy: "blockNumber",
       orderDirection: "desc",
-      pagination: {
-        limit: 10,
-        offset: 0,
-      },
       ...options,
       where: {
         ...options?.where,

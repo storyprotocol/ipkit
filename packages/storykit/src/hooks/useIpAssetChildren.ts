@@ -15,7 +15,7 @@ export function useIpAssetChildren({ ipId, options, queryOptions }: UseIpAssetCh
   const { apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
-    queryKey: ["getIpAssetEdges", undefined, ipId, options, queryOptions],
+    queryKey: ["getIpAssetEdges", undefined, ipId, options],
     queryFn: async () => {
       const { data, error } = await getIpAssetEdges({
         parentIpId: ipId,
