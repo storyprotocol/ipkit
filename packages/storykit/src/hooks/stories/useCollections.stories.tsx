@@ -20,6 +20,7 @@ const meta = {
     layout: "centered",
   },
   args: {
+    collectionAddresses: [],
     options: {
       pagination: { limit: 5, offset: 0 },
       orderBy: "updatedAt",

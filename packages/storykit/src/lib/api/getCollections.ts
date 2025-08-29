@@ -1,4 +1,5 @@
 import { paths } from "@/types/schema"
+import { Address } from "viem"
 
 import { ApiClient } from "./apiClient"
 import { listQuery } from "./listQuery"
@@ -8,11 +9,12 @@ export type CollectionsOptions = Partial<paths["/collections"]["post"]["requestB
 
 export type GetCollectionsOptions = {
   apiClient: ApiClient
+  collectionAddresses?: Address[]
   options?: CollectionsOptions
   apiKey: string
 }
 
-export function getCollections({ apiClient, options, apiKey }: GetCollectionsOptions) {
+export function getCollections({ collectionAddresses, apiClient, options, apiKey }: GetCollectionsOptions) {
   return listQuery({
     apiClient,
     path: "/collections",
@@ -20,6 +22,10 @@ export function getCollections({ apiClient, options, apiKey }: GetCollectionsOpt
       orderBy: "updatedAt",
       orderDirection: "desc",
       ...options,
+      where: {
+        ...options?.where,
+        ...(collectionAddresses ? { collectionAddresses } : {}),
+      },
     },
     apiKey,
   })

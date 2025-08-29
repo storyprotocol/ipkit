@@ -17,11 +17,7 @@ export function useCollection({ collectionAddress, queryOptions }: UseCollection
   return useQuery({
     queryKey: ["getCollection", collectionAddress],
     queryFn: async () => {
-      const { data, error } = await getCollections({
-        options: { where: { collectionAddresses: [collectionAddress] } },
-        apiKey,
-        apiClient,
-      })
+      const { data, error } = await getCollections({ collectionAddresses: [collectionAddress], apiKey, apiClient })
       if (error) throw error
       return data?.data?.[0] || null
     },
