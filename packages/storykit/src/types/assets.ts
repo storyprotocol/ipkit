@@ -1,6 +1,6 @@
 import { Address } from "viem"
 
-import { LicenseTerms, PILTerms } from "./openapi"
+import { License, PILTerms } from "./openapi"
 
 export enum PIL_FLAVOR {
   NON_COMMERCIAL_SOCIAL_REMIXING = "Non-Commercial Social Remixing",
@@ -34,7 +34,7 @@ export interface PILTermsWithOffChainData extends PILTerms {
   offChainData: LicenseOffChainData | undefined
 }
 
-export interface LicenseTermsWithOffChainData extends Omit<LicenseTerms, "terms"> {
+export interface LicenseTermsWithOffChainData extends Omit<License, "terms"> {
   terms: PILTermsWithOffChainData
 }
 
