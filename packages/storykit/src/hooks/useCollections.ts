@@ -13,7 +13,7 @@ export function useCollections({ options, queryOptions }: UseCollectionsOptions 
   const { apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
-    queryKey: ["getCollections", options, queryOptions],
+    queryKey: ["getCollections", options],
     queryFn: async () => {
       const { data, error } = await getCollections({ options, apiKey, apiClient })
       if (error) throw error

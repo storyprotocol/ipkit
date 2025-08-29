@@ -14,7 +14,7 @@ export function useTransaction({ txHash, queryOptions }: UseTransactionOptions) 
   const { apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
-    queryKey: ["getTransactions", txHash, queryOptions],
+    queryKey: ["getTransactions", txHash],
     queryFn: async () => {
       const { data, error } = await getTransactions({ txHashes: [txHash], apiKey, apiClient })
       if (error) throw error

@@ -15,7 +15,7 @@ export function useCollection({ collectionAddress, queryOptions }: UseCollection
   const { apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
-    queryKey: ["getCollection", collectionAddress, queryOptions],
+    queryKey: ["getCollection", collectionAddress],
     queryFn: async () => {
       const { data, error } = await getCollections({
         options: { where: { collectionAddresses: [collectionAddress] } },

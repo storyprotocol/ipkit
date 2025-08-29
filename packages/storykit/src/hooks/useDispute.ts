@@ -13,7 +13,7 @@ export function useDispute({ disputeId, queryOptions }: UseDisputeOptions) {
   const { apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
-    queryKey: ["getDispute", disputeId, queryOptions],
+    queryKey: ["getDispute", disputeId],
     queryFn: async () => {
       const { data, error } = await getDispute({ disputeId, apiKey, apiClient })
       if (error) throw error
