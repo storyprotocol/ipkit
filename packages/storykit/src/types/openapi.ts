@@ -35,6 +35,8 @@ export type IPSearchResult = components["schemas"]["IPSearchResult"]
 
 export type Collection = components["schemas"]["EnrichedCollection"]
 
+export type CollectionMetadata = components["schemas"]["ContractMetadataByAddressResponse"]
+
 export type License = components["schemas"]["License"]
 
 export type LicenseTerms = components["schemas"]["LicenseTerms"]

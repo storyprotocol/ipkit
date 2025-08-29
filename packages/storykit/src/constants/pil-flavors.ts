@@ -17,10 +17,10 @@ export const commercialRemixingLicenseTerms: PILTerms = {
   expiration: "0",
   uri: "https://github.com/piplabs/pil-document/blob/ad67bb632a310d2557f8abcccd428e4c9c798db1/off-chain-terms/CommercialRemix.json",
   // v4
-  commercializerCheckerData: "0",
+  commercializerCheckerData: "",
   defaultMintingFee: "0",
-  royaltyPolicy: "0",
-  transferable: false,
+  royaltyPolicy: zeroAddress,
+  transferable: true,
 }
 
 export const commercialUseLicenseTerms: PILTerms = {
@@ -38,10 +38,10 @@ export const commercialUseLicenseTerms: PILTerms = {
   expiration: "0",
   uri: "https://github.com/piplabs/pil-document/blob/9a1f803fcf8101a8a78f1dcc929e6014e144ab56/off-chain-terms/CommercialUse.json",
   // v4
-  commercializerCheckerData: "0",
+  commercializerCheckerData: "",
   defaultMintingFee: "0",
-  royaltyPolicy: "0",
-  transferable: false,
+  royaltyPolicy: zeroAddress,
+  transferable: true,
 }
 
 export const commercialUseLicenseTermsWithExpiration: PILTerms = {
@@ -59,10 +59,10 @@ export const commercialUseLicenseTermsWithExpiration: PILTerms = {
   expiration: "1736866800000",
   uri: "https://github.com/piplabs/pil-document/blob/9a1f803fcf8101a8a78f1dcc929e6014e144ab56/off-chain-terms/CommercialUse.json",
   // v4
-  commercializerCheckerData: "0",
+  commercializerCheckerData: "",
   defaultMintingFee: "0",
-  royaltyPolicy: "0",
-  transferable: false,
+  royaltyPolicy: zeroAddress,
+  transferable: true,
 }
 
 export const nonCommercialSocialRemixingLicenseTerms: PILTerms = {
@@ -80,10 +80,10 @@ export const nonCommercialSocialRemixingLicenseTerms: PILTerms = {
   expiration: "0",
   uri: "https://github.com/piplabs/pil-document/blob/998c13e6ee1d04eb817aefd1fe16dfe8be3cd7a2/off-chain-terms/NCSR.json",
   // v4
-  commercializerCheckerData: "0",
+  commercializerCheckerData: "",
   defaultMintingFee: "0",
-  royaltyPolicy: "0",
-  transferable: false,
+  royaltyPolicy: zeroAddress,
+  transferable: true,
 }
 
 export const noLicenseTerms: PILTerms = {
@@ -105,8 +105,8 @@ export const noLicenseTerms: PILTerms = {
   // transferable
   uri: "",
   // v4
-  commercializerCheckerData: "0",
+  commercializerCheckerData: "",
   defaultMintingFee: "0",
-  royaltyPolicy: "0",
-  transferable: false,
+  royaltyPolicy: zeroAddress,
+  transferable: true,
 }
