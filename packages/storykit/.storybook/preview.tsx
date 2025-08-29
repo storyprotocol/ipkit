@@ -87,12 +87,9 @@ const preview: Preview = {
       if (context.parameters.disableStoryProvider) {
         return <Story />
       }
+      const testnet = context.globals.isTestnet !== undefined ? context.globals.isTestnet : true
       return (
-        <StoryProvider
-          apiKey={context.globals.isTestnet ? TESTNET_API_KEY : API_KEY}
-          isTestnet={context.globals.isTestnet}
-          theme={context.globals.skTheme}
-        >
+        <StoryProvider apiKey={testnet ? TESTNET_API_KEY : API_KEY} isTestnet={testnet} theme={context.globals.skTheme}>
           <Story />
         </StoryProvider>
       )
