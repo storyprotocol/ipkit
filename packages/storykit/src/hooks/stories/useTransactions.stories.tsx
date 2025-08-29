@@ -20,6 +20,9 @@ const meta = {
     layout: "centered",
   },
   args: {
+    txHashes: [],
+    ipIds: [],
+    initiators: [],
     options: {},
     queryOptions: {
       enabled: true,

@@ -27,15 +27,10 @@ const meta = {
   parameters: {
     layout: "centered",
   },
-  argTypes: {
-    includeLicenses: {
-      type: "boolean",
-    },
-    moderated: {
-      type: "boolean",
-    },
-  },
   args: {
+    ipIds: [],
+    includeLicenses: true,
+    moderated: false,
     options: {
       orderBy: "blockNumber",
       orderDirection: "desc",
@@ -46,7 +41,6 @@ const meta = {
         limit: 10,
       },
     },
-    ipIds: [],
     queryOptions: {
       enabled: true,
     },
