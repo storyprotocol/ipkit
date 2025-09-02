@@ -11,7 +11,10 @@ export type UseIpAssetLicensesOptions = {
   queryOptions?: IpQueryOptions
 }
 
-export function useIpAssetLicenses({ ipId, queryOptions }: UseIpAssetLicensesOptions) {
+export function useIpAssetLicenses({
+  ipId,
+  queryOptions,
+}: UseIpAssetLicensesOptions): UseQueryResult<License[] | null> {
   const { apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
@@ -24,5 +27,5 @@ export function useIpAssetLicenses({ ipId, queryOptions }: UseIpAssetLicensesOpt
     },
     enabled: !!ipId.length,
     ...queryOptions,
-  }) as UseQueryResult<License>
+  })
 }

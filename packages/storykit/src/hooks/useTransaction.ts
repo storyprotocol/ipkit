@@ -10,7 +10,7 @@ export type UseTransactionOptions = {
   queryOptions?: IpQueryOptions
 }
 
-export function useTransaction({ txHash, queryOptions }: UseTransactionOptions) {
+export function useTransaction({ txHash, queryOptions }: UseTransactionOptions): UseQueryResult<IPTransaction | null> {
   const { apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
@@ -22,5 +22,5 @@ export function useTransaction({ txHash, queryOptions }: UseTransactionOptions) 
     },
     enabled: !!txHash.length,
     ...queryOptions,
-  }) as UseQueryResult<IPTransaction>
+  })
 }

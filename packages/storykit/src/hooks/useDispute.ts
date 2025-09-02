@@ -9,7 +9,7 @@ export type UseDisputeOptions = {
   queryOptions?: IpQueryOptions
 }
 
-export function useDispute({ disputeId, queryOptions }: UseDisputeOptions) {
+export function useDispute({ disputeId, queryOptions }: UseDisputeOptions): UseQueryResult<Dispute | null> {
   const { apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
@@ -21,5 +21,5 @@ export function useDispute({ disputeId, queryOptions }: UseDisputeOptions) {
     },
     enabled: !!disputeId.length,
     ...queryOptions,
-  }) as UseQueryResult<Dispute>
+  })
 }

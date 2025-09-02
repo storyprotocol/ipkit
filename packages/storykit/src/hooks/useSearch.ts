@@ -10,7 +10,7 @@ export type UseSearchOptions = {
   queryOptions?: IpQueryOptions
 }
 
-export function useSearch({ query, mediaType, queryOptions }: UseSearchOptions) {
+export function useSearch({ query, mediaType, queryOptions }: UseSearchOptions): UseQueryResult<SearchResponse> {
   const { apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
@@ -27,5 +27,5 @@ export function useSearch({ query, mediaType, queryOptions }: UseSearchOptions) 
     },
     enabled: !!query.length,
     ...queryOptions,
-  }) as UseQueryResult<SearchResponse>
+  })
 }

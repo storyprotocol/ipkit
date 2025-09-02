@@ -11,7 +11,10 @@ export type UseCollectionOptions = {
   queryOptions?: IpQueryOptions
 }
 
-export function useCollection({ collectionAddress, queryOptions }: UseCollectionOptions) {
+export function useCollection({
+  collectionAddress,
+  queryOptions,
+}: UseCollectionOptions): UseQueryResult<Collection | null> {
   const { apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
@@ -23,5 +26,5 @@ export function useCollection({ collectionAddress, queryOptions }: UseCollection
     },
     enabled: !!collectionAddress.length,
     ...queryOptions,
-  }) as UseQueryResult<Collection>
+  })
 }
