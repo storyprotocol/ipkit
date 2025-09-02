@@ -13,7 +13,13 @@ export type UseTransactionsOptions = {
   queryOptions?: IpQueryOptions
 }
 
-export function useTransactions({ txHashes, ipIds, initiators, options, queryOptions }: UseTransactionsOptions = {}) {
+export function useTransactions({
+  txHashes,
+  ipIds,
+  initiators,
+  options,
+  queryOptions,
+}: UseTransactionsOptions = {}): UseQueryResult<TransactionsResponse> {
   const { apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
@@ -24,5 +30,5 @@ export function useTransactions({ txHashes, ipIds, initiators, options, queryOpt
       return data
     },
     ...queryOptions,
-  }) as UseQueryResult<TransactionsResponse>
+  })
 }

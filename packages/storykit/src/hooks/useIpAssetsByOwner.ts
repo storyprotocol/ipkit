@@ -5,27 +5,34 @@ import { Address } from "viem"
 import { IpAssetsOptions, IpAssetsResponse, getIpAssets } from "../lib/api/getIpAssets"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
-export type UseIpAssetsOptions = {
-  ipIds?: Address[]
+export type UseIpAssetsByOwnerOptions = {
+  ownerAddress?: Address
   includeLicenses?: boolean
   moderated?: boolean
   options?: IpAssetsOptions
   queryOptions?: IpQueryOptions
 }
 
-export function useIpAssets({
-  ipIds,
+export function useIpAssetsByOwner({
+  ownerAddress,
   includeLicenses,
   moderated,
   options,
   queryOptions,
-}: UseIpAssetsOptions = {}): UseQueryResult<IpAssetsResponse> {
+}: UseIpAssetsByOwnerOptions = {}): UseQueryResult<IpAssetsResponse> {
   const { apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
-    queryKey: ["getIpAssets", ipIds, includeLicenses, moderated, options],
+    queryKey: ["getIpAssets", ownerAddress, includeLicenses, moderated, options],
     queryFn: async () => {
-      const { data, error } = await getIpAssets({ ipIds, includeLicenses, moderated, options, apiKey, apiClient })
+      const { data, error } = await getIpAssets({
+        ownerAddress,
+        includeLicenses,
+        moderated,
+        options,
+        apiKey,
+        apiClient,
+      })
       if (error) throw error
       return data
     },

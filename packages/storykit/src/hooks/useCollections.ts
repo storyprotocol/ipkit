@@ -11,7 +11,11 @@ export type UseCollectionsOptions = {
   queryOptions?: IpQueryOptions
 }
 
-export function useCollections({ collectionAddresses, options, queryOptions }: UseCollectionsOptions = {}) {
+export function useCollections({
+  collectionAddresses,
+  options,
+  queryOptions,
+}: UseCollectionsOptions = {}): UseQueryResult<CollectionsResponse> {
   const { apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
@@ -22,5 +26,5 @@ export function useCollections({ collectionAddresses, options, queryOptions }: U
       return data
     },
     ...queryOptions,
-  }) as UseQueryResult<CollectionsResponse>
+  })
 }

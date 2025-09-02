@@ -12,7 +12,12 @@ export type UseDisputesOptions = {
   targetIpId?: Address
 }
 
-export function useDisputes({ initiator, targetIpId, options, queryOptions }: UseDisputesOptions = {}) {
+export function useDisputes({
+  initiator,
+  targetIpId,
+  options,
+  queryOptions,
+}: UseDisputesOptions = {}): UseQueryResult<DisputesResponse> {
   const { apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
@@ -23,5 +28,5 @@ export function useDisputes({ initiator, targetIpId, options, queryOptions }: Us
       return data
     },
     ...queryOptions,
-  }) as UseQueryResult<DisputesResponse>
+  })
 }

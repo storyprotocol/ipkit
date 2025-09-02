@@ -11,7 +11,11 @@ export type UseIpAssetChildrenOptions = {
   queryOptions?: IpQueryOptions
 }
 
-export function useIpAssetChildren({ ipId, options, queryOptions }: UseIpAssetChildrenOptions = {}) {
+export function useIpAssetChildren({
+  ipId,
+  options,
+  queryOptions,
+}: UseIpAssetChildrenOptions = {}): UseQueryResult<IpAssetEdgesResponse> {
   const { apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
@@ -27,5 +31,5 @@ export function useIpAssetChildren({ ipId, options, queryOptions }: UseIpAssetCh
       return data
     },
     ...queryOptions,
-  }) as UseQueryResult<IpAssetEdgesResponse>
+  })
 }
