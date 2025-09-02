@@ -9,6 +9,7 @@ export type IpAssetsOptions = Partial<paths["/assets"]["post"]["requestBody"]["c
 
 export type GetIpAssetsOptions = {
   apiClient: ApiClient
+  ownerAddress?: Address
   includeLicenses?: boolean
   moderated?: boolean
   ipIds?: Address[] // ipIds from options added here for convenience
@@ -16,7 +17,15 @@ export type GetIpAssetsOptions = {
   apiKey: string
 }
 
-export function getIpAssets({ apiClient, includeLicenses, moderated, ipIds, options, apiKey }: GetIpAssetsOptions) {
+export function getIpAssets({
+  apiClient,
+  ownerAddress,
+  includeLicenses,
+  moderated,
+  ipIds,
+  options,
+  apiKey,
+}: GetIpAssetsOptions) {
   return listQuery({
     apiClient,
     path: "/assets",
@@ -29,6 +38,7 @@ export function getIpAssets({ apiClient, includeLicenses, moderated, ipIds, opti
       where: {
         ...options?.where,
         ...(ipIds ? { ipIds } : {}),
+        ...(ownerAddress ? { ownerAddress } : {}),
       },
     },
     apiKey,
