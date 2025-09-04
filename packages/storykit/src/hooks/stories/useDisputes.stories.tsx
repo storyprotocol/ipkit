@@ -31,7 +31,7 @@ const meta = {
     targetIpId: undefined,
     initiator: undefined,
     options: {
-      pagination: { limit: 5 },
+      pagination: { limit: 5, offset: 0 },
       orderBy: "blockNumber",
       orderDirection: "desc",
     },

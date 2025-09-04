@@ -27,8 +27,14 @@ const meta = {
   parameters: {
     layout: "centered",
   },
+  argTypes: {
+    tokenContract: {
+      control: "text",
+    },
+  },
   args: {
     ipIds: [],
+    tokenContract: undefined,
     includeLicenses: true,
     moderated: false,
     options: {
