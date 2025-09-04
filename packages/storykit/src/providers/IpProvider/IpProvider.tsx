@@ -125,7 +125,7 @@ export const IpProvider = ({
   })
 
   // Fetch IP Metadata from IPFS
-  const { isLoading: isLoadingFromIpfs, data: metadaFromIpfs } = useQuery({
+  const { isLoading: isLoadingFromIpfs, data: metadataFromIpfs } = useQuery({
     queryKey: ["getMetadataFromIpfs", ipId, ipaMetadataRaw?.metadataUri ?? ""],
     queryFn: () => getMetadataFromIpfs(convertIpfsUriToUrl(ipaMetadataRaw?.metadataUri ?? "")),
     enabled: queryOptions.ipaMetadata && ipaMetadataRaw != null,
@@ -133,7 +133,7 @@ export const IpProvider = ({
 
   const ipaMetadata = {
     ...ipaMetadataRaw,
-    metadataJson: metadaFromIpfs,
+    metadataJson: metadataFromIpfs,
   }
 
   // Fetch asset parent data
