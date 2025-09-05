@@ -54,3 +54,13 @@ export type ContractMetadata = components["schemas"]["ContractMetadata"]
 export type Dispute = components["schemas"]["Dispute"]
 
 export type PILTerms = LicenseTerms
+
+export type TransactionEventType =
+  | "IPRegistered"
+  | "LicenseTermsAttached"
+  | "DerivativeRegistered"
+  | "DisputeRaised"
+  | "DisputeResolved"
+  | "DisputeCancelled"
+  | "DisputeJudgementSet"
+  | "RoyaltyPaid"

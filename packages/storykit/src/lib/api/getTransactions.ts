@@ -13,11 +13,20 @@ export type GetTransactionsOptions = {
   txHashes?: Address[]
   ipIds?: Address[]
   initiators?: Address[]
+  eventTypes?: string[]
   options?: TransactionsOptions
   apiKey: string
 }
 
-export function getTransactions({ apiClient, txHashes, ipIds, initiators, options, apiKey }: GetTransactionsOptions) {
+export function getTransactions({
+  apiClient,
+  txHashes,
+  ipIds,
+  initiators,
+  eventTypes,
+  options,
+  apiKey,
+}: GetTransactionsOptions) {
   return listQuery({
     apiClient,
     path: "/transactions",
@@ -30,6 +39,7 @@ export function getTransactions({ apiClient, txHashes, ipIds, initiators, option
         ...(txHashes ? { txHashes } : {}),
         ...(ipIds ? { ipIds } : {}),
         ...(initiators ? { initiators } : {}),
+        ...(eventTypes ? { eventTypes } : {}),
       },
     },
     apiKey,

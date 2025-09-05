@@ -19,10 +19,26 @@ const meta = {
   parameters: {
     layout: "centered",
   },
+  argTypes: {
+    eventTypes: {
+      control: "check",
+      options: [
+        "IPRegistered",
+        "LicenseTermsAttached",
+        "DerivativeRegistered",
+        "DisputeRaised",
+        "DisputeResolved",
+        "DisputeCancelled",
+        "DisputeJudgementSet",
+        "RoyaltyPaid",
+      ],
+    },
+  },
   args: {
     txHashes: [],
     ipIds: [],
     initiators: [],
+    eventTypes: [],
     options: {},
     queryOptions: {
       enabled: true,
