@@ -5,27 +5,24 @@ import { Address } from "viem"
 import { IpAssetEdgesOptions, IpAssetEdgesResponse, getIpAssetEdges } from "../lib/api/getIpAssetEdges"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
-export type UseIpAssetEdgesOptions = {
+export type UseIpAssetChildrenOptions = {
   ipId?: Address
-  parentIpId?: Address
   options?: IpAssetEdgesOptions
   queryOptions?: IpQueryOptions
 }
 
-export function useIpAssetEdges({
+export function useIpAssetChildren({
   ipId,
-  parentIpId,
   options,
   queryOptions,
-}: UseIpAssetEdgesOptions = {}): UseQueryResult<IpAssetEdgesResponse> {
+}: UseIpAssetChildrenOptions = {}): UseQueryResult<IpAssetEdgesResponse> {
   const { apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
-    queryKey: ["getIpAssetEdges", ipId, parentIpId, options],
+    queryKey: ["getIpAssetEdges", undefined, ipId, options],
     queryFn: async () => {
       const { data, error } = await getIpAssetEdges({
-        ipId,
-        parentIpId,
+        parentIpId: ipId,
         options,
         apiKey,
         apiClient,

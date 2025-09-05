@@ -10,6 +10,7 @@ const meta = {
   parameters: {
     layout: "centered",
   },
+  tags: ["isHidden"],
 } satisfies Meta<typeof Popover>
 
 export default meta

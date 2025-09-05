@@ -8,9 +8,9 @@ const Example = (args: UseTransactionOptions) => {
   const { isLoading, data } = useTransaction(args)
 
   if (isLoading) return <>loading...</>
-  if (!data?.data) return <>none found</>
+  if (!data) return <>none found</>
 
-  return <DataTable fields={["txHash", "actionType", "resourceType", "ipId", "createdAt"]} data={data.data} />
+  return <DataTable fields={["txHash", "eventType", "ipId", "createdAt"]} data={[data]} />
 }
 
 const meta = {
@@ -20,7 +20,7 @@ const meta = {
     layout: "centered",
   },
   args: {
-    trxId: "0x70045880a7f7db3b43de738c24f00c5b1cef48d5f95bc633d4df7002dfffbc95",
+    txHash: "0x74ee6618188a165611e1e19d48f9342039aaf58ab8ebf2295fa3b92c39aecbaf",
     queryOptions: {
       enabled: true,
     },

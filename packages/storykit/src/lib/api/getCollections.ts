@@ -1,27 +1,32 @@
 import { paths } from "@/types/schema"
-import { FetchResponse } from "openapi-fetch"
+import { Address } from "viem"
 
 import { ApiClient } from "./apiClient"
 import { listQuery } from "./listQuery"
 
-export type CollectionsResponse = paths["/api/v3/collections"]["post"]["responses"][200]["content"]["application/json"]
-
-export type CollectionsOptions =
-  paths["/api/v3/collections"]["post"]["requestBody"]["content"]["application/json"]["options"]
+export type CollectionsResponse = paths["/collections"]["post"]["responses"][200]["content"]["application/json"]
+export type CollectionsOptions = Partial<paths["/collections"]["post"]["requestBody"]["content"]["application/json"]>
 
 export type GetCollectionsOptions = {
   apiClient: ApiClient
+  collectionAddresses?: Address[]
   options?: CollectionsOptions
-  chainName: string
   apiKey: string
 }
 
-export function getCollections({ apiClient, options, chainName, apiKey }: GetCollectionsOptions) {
+export function getCollections({ collectionAddresses, apiClient, options, apiKey }: GetCollectionsOptions) {
   return listQuery({
     apiClient,
-    path: "/api/v3/collections",
-    body: { options },
-    chainName,
+    path: "/collections",
+    body: {
+      orderBy: "updatedAt",
+      orderDirection: "desc",
+      ...options,
+      where: {
+        ...options?.where,
+        ...(collectionAddresses ? { collectionAddresses } : {}),
+      },
+    },
     apiKey,
-  }) as Promise<FetchResponse<CollectionsResponse, CollectionsOptions, "application/json">>
+  })
 }

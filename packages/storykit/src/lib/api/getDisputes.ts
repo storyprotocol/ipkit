@@ -1,25 +1,34 @@
 import { paths } from "@/types/schema"
-import { FetchResponse } from "openapi-fetch"
+import { Address } from "viem"
 
 import { ApiClient } from "./apiClient"
 import { listQuery } from "./listQuery"
 
-export type DisputesResponse = paths["/api/v3/disputes"]["post"]["responses"][200]["content"]["application/json"]
-export type DisputesOptions = paths["/api/v3/disputes"]["post"]["requestBody"]["content"]["application/json"]["options"]
+export type DisputesResponse = paths["/disputes"]["post"]["responses"][200]["content"]["application/json"]
+export type DisputesOptions = Partial<paths["/disputes"]["post"]["requestBody"]["content"]["application/json"]>
 
 export type GetDisputesOptions = {
   apiClient: ApiClient
   options?: DisputesOptions
-  chainName: string
   apiKey: string
+  initiator?: Address
+  targetIpId?: Address
 }
 
-export function getDisputes({ apiClient, options, chainName, apiKey }: GetDisputesOptions) {
+export function getDisputes({ apiClient, initiator, targetIpId, options, apiKey }: GetDisputesOptions) {
   return listQuery({
     apiClient,
-    path: "/api/v3/disputes",
-    body: { options: options || {} },
-    chainName,
+    path: "/disputes",
+    body: {
+      orderBy: "blockNumber",
+      orderDirection: "desc",
+      ...options,
+      where: {
+        ...options?.where,
+        ...(initiator ? { initiator } : {}),
+        ...(targetIpId ? { targetIpId } : {}),
+      },
+    },
     apiKey,
-  }) as Promise<FetchResponse<DisputesResponse, DisputesOptions, "application/json">>
+  })
 }

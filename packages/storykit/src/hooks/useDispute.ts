@@ -1,7 +1,7 @@
-import { IpQueryOptions } from "@/types/openapi"
+import { Dispute, IpQueryOptions } from "@/types/openapi"
 import { UseQueryResult, useQuery } from "@tanstack/react-query"
 
-import { DisputeResponse, getDispute } from "../lib/api/getDispute"
+import { getDispute } from "../lib/api/getDispute"
 import { useStoryKitContext } from "../providers/StoryKitProvider"
 
 export type UseDisputeOptions = {
@@ -9,16 +9,17 @@ export type UseDisputeOptions = {
   queryOptions?: IpQueryOptions
 }
 
-export function useDispute({ disputeId, queryOptions }: UseDisputeOptions) {
-  const { chain, apiKey, apiClient } = useStoryKitContext()
+export function useDispute({ disputeId, queryOptions }: UseDisputeOptions): UseQueryResult<Dispute | null> {
+  const { apiKey, apiClient } = useStoryKitContext()
 
   return useQuery({
-    queryKey: ["getDispute", disputeId, queryOptions],
+    queryKey: ["getDispute", disputeId],
     queryFn: async () => {
-      const { data, error } = await getDispute({ disputeId, chainName: chain.name, apiKey, apiClient })
+      const { data, error } = await getDispute({ disputeId, apiKey, apiClient })
       if (error) throw error
-      return data
+      return data?.data || null
     },
+    enabled: !!disputeId.length,
     ...queryOptions,
-  }) as UseQueryResult<DisputeResponse>
+  })
 }

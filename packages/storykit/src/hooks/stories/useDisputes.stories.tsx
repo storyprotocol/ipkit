@@ -10,7 +10,7 @@ const Example = (args: UseDisputesOptions) => {
   if (isLoading) return <>loading...</>
   if (!data?.data) return <>none found</>
 
-  return <DataTable fields={["id", "status", "initiator", "targetIpId", "arbitrationPolicy"]} data={data.data} />
+  return <DataTable fields={["id", "targetIpId", "initiator", "status", "currentTag"]} data={data.data} />
 }
 
 const meta = {
@@ -19,11 +19,21 @@ const meta = {
   parameters: {
     layout: "centered",
   },
+  argTypes: {
+    targetIpId: {
+      control: "text",
+    },
+    initiator: {
+      control: "text",
+    },
+  },
   args: {
+    targetIpId: undefined,
+    initiator: undefined,
     options: {
-      pagination: {
-        limit: 5,
-      },
+      pagination: { limit: 5, offset: 0 },
+      orderBy: "blockNumber",
+      orderDirection: "desc",
     },
     queryOptions: {
       enabled: true,

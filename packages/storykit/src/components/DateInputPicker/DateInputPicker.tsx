@@ -147,7 +147,7 @@ const Content = ({ presets }: ContentProps) => {
     }
 
     const candidateDate = dateUtils.createDate(parsedDate, currentYear)
-    const isValidDate = dateUtils.isValidDate(candidateDate, parsedDate.month!, parsedDate.day!)
+    const isValidDate = dateUtils.isValidDate(candidateDate, parsedDate.month!, parsedDate.day!) // eslint-disable-line @typescript-eslint/no-non-null-assertion
 
     if (!isValidDate) {
       return {

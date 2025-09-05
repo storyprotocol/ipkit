@@ -10,7 +10,6 @@ type Params<M extends HttpMethod, P extends Paths<M>> = M extends keyof paths[P]
 export type ListQueryParams<P extends Paths<"post">> = {
   apiClient: ApiClient
   path: P
-  chainName: string
   apiKey: string
   body?: Params<"post", P>["body"]
   additionalHeaders?: Record<string, string>
@@ -19,7 +18,6 @@ export type ListQueryParams<P extends Paths<"post">> = {
 export function listQuery<P extends Paths<"post">>({
   apiClient,
   path,
-  chainName,
   apiKey,
   body,
   additionalHeaders,
@@ -27,7 +25,6 @@ export function listQuery<P extends Paths<"post">>({
   const requestParams = {
     params: {
       header: {
-        "X-Chain": chainName,
         "X-Api-Key": apiKey,
         ...additionalHeaders,
       },

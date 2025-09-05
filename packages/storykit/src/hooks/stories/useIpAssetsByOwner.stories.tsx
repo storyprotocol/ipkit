@@ -1,47 +1,39 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import React from "react"
 
-import { UseIpAssetsOptions, useIpAssets } from "../useIpAssets"
+import { UseIpAssetsByOwnerOptions, useIpAssetsByOwner } from "../useIpAssetsByOwner"
 import { DataTable } from "./(components)/DataTable"
 
-const Example = (args: UseIpAssetsOptions) => {
-  const { isLoading, data } = useIpAssets(args)
+const Example = (args: UseIpAssetsByOwnerOptions) => {
+  const { isLoading, data } = useIpAssetsByOwner(args)
 
   if (isLoading) return <>loading...</>
   if (!data?.data) return <>none found</>
 
   return (
     <DataTable
-      fields={["ipId", "name"]}
+      fields={["ipId", "name", "ownerAddress"]}
       data={data.data.map((asset) => ({
         ...asset,
-        name: asset.nftMetadata?.name || "",
+        name: asset.nftMetadata?.name || asset.title || "",
       }))}
     />
   )
 }
 
 const meta = {
-  title: "Hooks/useIpAssets",
+  title: "Hooks/useIpAssetsByOwner",
   component: Example,
   parameters: {
     layout: "centered",
   },
-  argTypes: {
-    tokenContract: {
-      control: "text",
-    },
-  },
   args: {
-    ipIds: [],
-    tokenContract: undefined,
-    includeLicenses: true,
+    ownerAddress: "0x9474F1E311671b1343118317C7691804c63eCAe6",
+    includeLicenses: false,
     moderated: false,
     options: {
       orderBy: "blockNumber",
       orderDirection: "desc",
-      includeLicenses: true,
-      moderated: false,
       pagination: {
         offset: 0,
         limit: 10,
