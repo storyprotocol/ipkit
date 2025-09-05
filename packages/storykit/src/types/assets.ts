@@ -34,9 +34,12 @@ export interface PILTermsWithOffChainData extends PILTerms {
   offChainData: LicenseOffChainData | undefined
 }
 
-export interface LicenseTermsWithOffChainData extends Omit<License, "terms"> {
+export interface LicenseWithOffChainData extends Omit<License, "terms"> {
   terms: PILTermsWithOffChainData
 }
+
+// backward compatibility
+export interface LicenseTermsWithOffChainData extends LicenseWithOffChainData {}
 
 export type SocialMedia = {
   platform?: string
