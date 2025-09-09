@@ -10,7 +10,7 @@ const Example = (args: UseTransactionsOptions) => {
   if (isLoading) return <>loading...</>
   if (!data?.data) return <>none found</>
 
-  return <DataTable fields={["txHash", "actionType", "resourceType", "ipId", "createdAt"]} data={data.data} />
+  return <DataTable fields={["txHash", "eventType", "ipId", "createdAt"]} data={data.data} />
 }
 
 const meta = {
@@ -19,12 +19,27 @@ const meta = {
   parameters: {
     layout: "centered",
   },
-  args: {
-    options: {
-      pagination: {
-        limit: 10,
-      },
+  argTypes: {
+    eventTypes: {
+      control: "check",
+      options: [
+        "IPRegistered",
+        "LicenseTermsAttached",
+        "DerivativeRegistered",
+        "DisputeRaised",
+        "DisputeResolved",
+        "DisputeCancelled",
+        "DisputeJudgementSet",
+        "RoyaltyPaid",
+      ],
     },
+  },
+  args: {
+    txHashes: [],
+    ipIds: [],
+    initiators: [],
+    eventTypes: [],
+    options: {},
     queryOptions: {
       enabled: true,
     },

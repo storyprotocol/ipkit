@@ -1,29 +1,29 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import React from "react"
 
-import { UseCollectionsOptions, useCollections } from "../useCollections"
+import { UseIpAssetParentsOptions, useIpAssetParents } from "../useIpAssetParents"
 import { DataTable } from "./(components)/DataTable"
 
-const Example = (args: UseCollectionsOptions) => {
-  const { isLoading, data } = useCollections(args)
+const Example = (args: UseIpAssetParentsOptions) => {
+  const { isLoading, data } = useIpAssetParents(args)
 
   if (isLoading) return <>loading...</>
   if (!data?.data) return <>none found</>
 
-  return <DataTable fields={["collectionAddress", "assetCount", "licensesCount"]} data={data.data} />
+  return <DataTable fields={["childIpId", "parentIpId", "licenseTemplate", "licenseTermsId"]} data={data.data} />
 }
 
 const meta = {
-  title: "Hooks/useCollections",
+  title: "Hooks/useIpAssetParents",
   component: Example,
   parameters: {
     layout: "centered",
   },
   args: {
-    collectionAddresses: [],
+    ipId: "0x8FE1843eCB8c5d6A6427c82Bc0218dF8e5dc3ff0",
     options: {
       pagination: { limit: 5, offset: 0 },
-      orderBy: "updatedAt",
+      orderBy: "blockNumber",
       orderDirection: "desc",
     },
     queryOptions: {

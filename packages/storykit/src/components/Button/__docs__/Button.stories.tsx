@@ -8,6 +8,7 @@ const meta = {
   parameters: {
     layout: "centered",
   },
+  tags: ["isHidden"],
   argTypes: {
     variant: {
       control: "select",

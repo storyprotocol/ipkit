@@ -8,7 +8,7 @@ const meta = {
   parameters: {
     layout: "centered",
   },
-  // tags: ["isHidden"],
+  tags: ["isHidden"],
   argTypes: {
     size: {
       options: ["sm", "medium", "lg"],

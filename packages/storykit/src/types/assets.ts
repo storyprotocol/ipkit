@@ -1,6 +1,6 @@
 import { Address } from "viem"
 
-import { LicenseTerms, PILTerms } from "./openapi"
+import { License, PILTerms } from "./openapi"
 
 export enum PIL_FLAVOR {
   NON_COMMERCIAL_SOCIAL_REMIXING = "Non-Commercial Social Remixing",
@@ -34,9 +34,12 @@ export interface PILTermsWithOffChainData extends PILTerms {
   offChainData: LicenseOffChainData | undefined
 }
 
-export interface LicenseTermsWithOffChainData extends Omit<LicenseTerms, "terms"> {
+export interface LicenseWithOffChainData extends Omit<License, "terms"> {
   terms: PILTermsWithOffChainData
 }
+
+// backward compatibility
+export interface LicenseTermsWithOffChainData extends LicenseWithOffChainData {}
 
 export type SocialMedia = {
   platform?: string
@@ -69,5 +72,5 @@ export interface IPMetadata {
     userAgent?: string
     allow?: string
   }
-  [key: string]: any
+  [key: string]: any // eslint-disable-line @typescript-eslint/no-explicit-any
 }

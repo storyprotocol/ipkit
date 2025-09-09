@@ -10,7 +10,7 @@ import * as StoryKitProviderStory from "./StoryKitProvider.stories"
 
 #### Example
 
-<Canvas of={StoryKitProviderStory.Mainnet} />
+<Canvas of={StoryKitProviderStory.Default} />
 
 <Controls />
 
@@ -26,8 +26,7 @@ const ExampleApp = () => {
   return (
     <StoryKitProvider
       apiKey={API_KEY}
-      alchemyApiKey={ALCHEMY_API_KEY}
-      chain={STORYKIT_SUPPORTED_CHAIN.STORY_MAINNET}
+      isTestnet={true}
     >
       <ExampleComponent />
     </StoryKitProvider>
@@ -60,22 +59,20 @@ export default ExampleComponent;
 
 The StoryKitProvider provides the following data to its children:
 
+- **apiBaseUrl** - The base url for api endpoints.
+- **apiClient** - [openapi-fetch](https://openapi-ts.dev/openapi-fetch/) client
+- **apiKey** - The users API key, passed in as a StoryKitProvider prop
+- **appId** - The users app Id, currently not required.
 - **chain** - the Story Chain config as defined in [chains.ts](https://github.com/storyprotocol/storykit/blob/main/packages/storykit/src/constants/chains.ts)
-- **viemChain** - the Chain config in viem Chain format
-- **apiKey** - The users API key if provided
-- **appId** - The users appId if provided
-- **theme** - The style theme, 'default' if none provided
 - **mode** - The style mode, 'light', 'dark' or undefined, will default to system if none provided
+- **theme** - The style theme, 'default' if none provided
 - **themeClass** - The theme class to use if user wants to overwrite the theme mode
-- **defaultCurrency** - The default currency as defined in [currencies.ts](https://github.com/storyprotocol/storykit/blob/main/packages/storykit/src/constants/currencies.ts), sUSD if none provided
 
 #### Arguments
 
+- **apiKey** - The API key to use, defaults to undefined. This is required.
+- **appId** - The appId to use, defaults to undefined.
 - **children** - The child component to provide the IP Asset context to.
-- **chain** - The Story Chain to use, defaults to Story Mainnet
-- **defaultCurrency** - The default currency to use, defaults to Wrapped IP
-- **theme** - The style theme to use, defaults to 'default'
+- **isTestnet** - Set true for Aeneid Testnet, defaults to Story Mainnet.
 - **mode** - 'light' and 'dark' mode, undefined defaults to system preference
-- **rpcUrl** - The RPC URL to use, defaults to the chain's RPC URL
-- **apiKey** - The API key to use, defaults to undefined
-- **appId** - The appId to use, defaults to undefined
+- **theme** - The style theme to use, defaults to 'default'

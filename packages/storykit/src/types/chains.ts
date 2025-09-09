@@ -1,5 +1,5 @@
 import { STORY_AENEID, STORY_MAINNET } from "@/constants/chains"
-import { Address, zeroAddress } from "viem"
+import { Address } from "viem"
 
 export type ERC20Token = {
   name: string
@@ -15,7 +15,6 @@ export type ChainConfig = {
   rpcUrl: string
   blockExplorerUrl: string
   protocolExplorerUrl: string
-  alchemyId: string
   apiVersion: string
   defaultCurrency?: ERC20Token
 }

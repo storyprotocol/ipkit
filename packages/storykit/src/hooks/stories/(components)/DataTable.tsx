@@ -5,7 +5,7 @@ import { CopyText } from "./CopyText"
 
 interface DataTableProps {
   fields: string[]
-  data: Record<string, any>[]
+  data: Record<string, any>[] // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
 export const DataTable = ({ fields, data }: DataTableProps) => {

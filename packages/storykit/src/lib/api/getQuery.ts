@@ -10,16 +10,14 @@ type Params<M extends HttpMethod, P extends Paths<M>> = M extends keyof paths[P]
 export type GetQueryParams<P extends Paths<"get">> = {
   apiClient: ApiClient
   path: P
-  chainName: string
   apiKey: string
-  pathParams: Params<"get", P>["params"]["path"]
+  pathParams?: Params<"get", P>["params"] extends { path: any } ? Params<"get", P>["params"]["path"] : never // eslint-disable-line @typescript-eslint/no-explicit-any
   additionalHeaders?: Record<string, string>
 }
 
 export function getQuery<P extends Paths<"get">>({
   apiClient,
   path,
-  chainName,
   apiKey,
   pathParams,
   additionalHeaders,
@@ -28,7 +26,6 @@ export function getQuery<P extends Paths<"get">>({
     params: {
       path: pathParams,
       header: {
-        "X-Chain": chainName,
         "X-Api-Key": apiKey,
         ...additionalHeaders,
       },

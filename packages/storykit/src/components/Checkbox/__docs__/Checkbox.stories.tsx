@@ -9,7 +9,7 @@ const meta = {
   parameters: {
     layout: "centered",
   },
-  // tags: ["isHidden"],
+  tags: ["isHidden"],
   argTypes: {},
   args: {},
 } satisfies Meta<typeof Checkbox>
