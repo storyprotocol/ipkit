@@ -9,6 +9,11 @@
       "default": "./dist/storyprotocol-storykit.cjs.js",
       "types": "./dist/types.d.ts"
     },
+    "./server": {
+      "module": "./dist/server.esm.js",
+      "default": "./dist/server.cjs.js",
+      "types": "./dist/server-types.d.ts"
+    },
     "./package.json": "./package.json"
   },
   "types": "dist/types.d.ts",
