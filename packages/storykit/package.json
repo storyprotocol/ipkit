@@ -1,13 +1,18 @@
 {
   "name": "@storyprotocol/storykit",
   "author": "storyprotocol engineering <eng@storyprotocol.xyz>",
-  "version": "0.4.0-beta.6",
+  "version": "0.4.0-beta.7",
   "type": "module",
   "exports": {
     ".": {
       "module": "./dist/storyprotocol-storykit.esm.js",
       "default": "./dist/storyprotocol-storykit.cjs.js",
       "types": "./dist/types.d.ts"
+    },
+    "./server": {
+      "module": "./dist/server.esm.js",
+      "default": "./dist/server.cjs.js",
+      "types": "./dist/server-types.d.ts"
     },
     "./package.json": "./package.json"
   },
