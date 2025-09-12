@@ -11,7 +11,7 @@ This repository is a monorepo.
 - We use [pnpm@8.9.0](https://pnpm.io) and [`workspaces`](https://pnpm.io/workspaces) for development.
 - We use [Next.js](https://nextjs.org/) for example applications.
 
-### StoryKit component structure
+### IpKit component structure
 
 This repository is structured as follows:
 

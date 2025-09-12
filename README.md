@@ -1,10 +1,10 @@
-# StoryKit
+# IpKit
 
-StoryKit is a React toolkit that allows builders to integrate and interact with Story's Proof of Creativity protocol with prebuilt IP management components.
+IpKit is a React toolkit that allows builders to integrate and interact with Story's Proof of Creativity protocol with prebuilt IP management components.
 
 ## Installation
 
-_StoryKit is currently a GitHub Package so you will need repo access and a personal access token to use._
+_IpKit is currently a GitHub Package so you will need repo access and a personal access token to use._
 
 Also you will need Node.js 20+.
 
@@ -17,7 +17,7 @@ Also you will need Node.js 20+.
 @storyprotocol/storykit:registry=https://npm.pkg.github.com
 ```
 
-The first line authenticates you with the GitHub package registry, the second line tells npm to use the StoryKit package from the GitHub registry.
+The first line authenticates you with the GitHub package registry, the second line tells npm to use the IpKit package from the GitHub registry.
 
 3 . Add `.npmrc` to your `.gitignore` to keep your access token private.
 
@@ -31,7 +31,7 @@ npm install @storyprotocol/storykit @tanstack/react-query react-force-graph-2d
 
 ### API Keys
 
-To use StoryKit’s API functionalities, you’ll need two types of API keys:
+To use IpKit’s API functionalities, you’ll need two types of API keys:
 
 1. Story Protocol API Key: You can request an API key by completing this [form](https://forms.gle/K6enzJw3cTK5sHYU7).
 
@@ -39,7 +39,7 @@ To use StoryKit’s API functionalities, you’ll need two types of API keys:
 
 ### Providers
 
-To initialize StoryKit in your project, you’ll need to wrap your application in `QueryProvider` and `IpKitProvider`.
+To initialize IpKit in your project, you’ll need to wrap your application in `QueryProvider` and `IpKitProvider`.
 
 we recommend doing this once in the root of the app.
 
@@ -164,4 +164,4 @@ See [the github repo](https://github.com/storyprotocol/storykit) and [the exampl
 
 ## Contributing
 
-For guidelines on contributing to StoryKit, see the [CONTRIBUTING.md](./CONTRIBUTING.md) file.
+For guidelines on contributing to IpKit, see the [CONTRIBUTING.md](./CONTRIBUTING.md) file.

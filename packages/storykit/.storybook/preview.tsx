@@ -45,7 +45,7 @@ const preview: Preview = {
     skTheme: {
       description: "Global theme for components",
       toolbar: {
-        title: "StoryKit Theme",
+        title: "IpKit Theme",
         icon: "paintbrush",
         items: ["default", "story"],
         defaultValue: "default",
