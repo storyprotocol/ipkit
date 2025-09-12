@@ -29,7 +29,7 @@ importers:
 
   examples/custom-theme:
     dependencies:
-      '@storyprotocol/storykit':
+      '@story-protocol/ipkit':
         specifier: workspace:*
         version: link:../../packages/storykit
       '@tanstack/react-query':
@@ -96,7 +96,7 @@ importers:
 
   examples/simple-setup:
     dependencies:
-      '@storyprotocol/storykit':
+      '@story-protocol/ipkit':
         specifier: workspace:*
         version: link:../../packages/storykit
       '@tanstack/react-query':

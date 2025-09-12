@@ -1,7 +1,7 @@
 "use client"
 
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query"
-import { StoryKitProvider } from "@storyprotocol/storykit"
+import { StoryKitProvider } from "@story-protocol/ipkit"
 
 const API_KEY = process.env.NEXT_PUBLIC_STORY_PROTOCOL_X_API_KEY as string
 
