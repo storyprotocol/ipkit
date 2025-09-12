@@ -3,7 +3,7 @@ import { UseQueryResult, useQuery } from "@tanstack/react-query"
 import { Address } from "viem"
 
 import { getTransactions } from "../lib/api/getTransactions"
-import { useIpKit } from "../providers/StoryKitProvider"
+import { useIpKit } from "../providers/IpKitProvider"
 
 export type UseTransactionOptions = {
   txHash: Address

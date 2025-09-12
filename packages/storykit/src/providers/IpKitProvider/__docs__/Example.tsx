@@ -2,7 +2,7 @@ import { cn } from "@/lib"
 import React, { FC } from "react"
 
 import "../../../global.css"
-import { StoryKitProvider, Theme, useIpKit } from "../StoryKitProvider"
+import { IpKitProvider, Theme, useIpKit } from "../IpKitProvider"
 
 const TESTNET_API_KEY = process.env.STORYBOOK_STORY_PROTOCOL_X_TESTNET_API_KEY as string
 const API_KEY = process.env.STORYBOOK_STORY_PROTOCOL_X_API_KEY as string
@@ -14,14 +14,14 @@ const Example: FC<{
   children?: React.ReactNode
 }> = ({ isTestnet, theme, mode, children = <ExampleComponent /> }) => {
   return (
-    <StoryKitProvider
+    <IpKitProvider
       apiKey={isTestnet ? TESTNET_API_KEY : API_KEY}
       isTestnet={isTestnet}
       theme={theme}
       mode={mode !== "auto" ? mode : undefined}
     >
       {children}
-    </StoryKitProvider>
+    </IpKitProvider>
   )
 }
 

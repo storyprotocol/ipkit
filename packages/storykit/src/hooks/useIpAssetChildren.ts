@@ -3,7 +3,7 @@ import { UseQueryResult, useQuery } from "@tanstack/react-query"
 import { Address } from "viem"
 
 import { IpAssetEdgesOptions, IpAssetEdgesResponse, getIpAssetEdges } from "../lib/api/getIpAssetEdges"
-import { useIpKit } from "../providers/StoryKitProvider"
+import { useIpKit } from "../providers/IpKitProvider"
 
 export type UseIpAssetChildrenOptions = {
   ipId?: Address

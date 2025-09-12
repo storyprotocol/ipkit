@@ -4,7 +4,7 @@ import { UseQueryResult, useQuery } from "@tanstack/react-query"
 import { Address } from "viem"
 
 import { getIpAssets } from "../lib/api/getIpAssets"
-import { useIpKit } from "../providers/StoryKitProvider"
+import { useIpKit } from "../providers/IpKitProvider"
 
 export type UseIpAssetLicensesOptions = {
   ipId: Address

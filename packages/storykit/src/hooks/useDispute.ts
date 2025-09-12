@@ -2,7 +2,7 @@ import { Dispute, IpQueryOptions } from "@/types/openapi"
 import { UseQueryResult, useQuery } from "@tanstack/react-query"
 
 import { getDispute } from "../lib/api/getDispute"
-import { useIpKit } from "../providers/StoryKitProvider"
+import { useIpKit } from "../providers/IpKitProvider"
 
 export type UseDisputeOptions = {
   disputeId: string

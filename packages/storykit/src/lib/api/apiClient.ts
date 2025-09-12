@@ -17,6 +17,6 @@ export const createApiClient = (baseUrl: string): Client<paths> => {
   return client
 }
 
-// utillities if someone wants to use the api requests without the StoryKitProvider
+// utillities if someone wants to use the api requests without the IpKitProvider
 export const stagingClient = createApiClient(API_URL.STAGING)
 export const prodClient = createApiClient(API_URL.PRODUCTION)

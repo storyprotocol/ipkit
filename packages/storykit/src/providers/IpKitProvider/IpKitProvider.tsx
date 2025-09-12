@@ -8,7 +8,7 @@ import React, { useMemo } from "react"
 export type Mode = "light" | "dark" | undefined
 export type Theme = "default" | "story" | string
 
-export interface StoryKitProviderOptions {
+export interface IpKitProviderOptions {
   apiKey: string
   appId?: string
   children: React.ReactNode
@@ -32,14 +32,14 @@ const IpKitContext = React.createContext<{
   themeClass: string
 } | null>(null)
 
-export const StoryKitProvider = ({
+export const IpKitProvider = ({
   apiKey,
   appId,
   children,
   isTestnet,
   mode,
   theme = "default",
-}: StoryKitProviderOptions) => {
+}: IpKitProviderOptions) => {
   //
   // get ChainConfig using chain name, replace rpcUrl if alternative provided
   const chainConfig: ChainConfig = useMemo(
@@ -72,7 +72,7 @@ export const StoryKitProvider = ({
 export const useIpKit = () => {
   const context = React.useContext(IpKitContext)
   if (!context) {
-    throw new Error("useIpKit must be used within an StoryKitProvider")
+    throw new Error("useIpKit must be used within an IpKitProvider")
   }
   return context
 }

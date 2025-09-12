@@ -39,7 +39,7 @@ To use StoryKit’s API functionalities, you’ll need two types of API keys:
 
 ### Providers
 
-To initialize StoryKit in your project, you’ll need to wrap your application in `QueryProvider` and `StoryKitProvider`.
+To initialize StoryKit in your project, you’ll need to wrap your application in `QueryProvider` and `IpKitProvider`.
 
 we recommend doing this once in the root of the app.
 
@@ -66,7 +66,7 @@ export default function Layout({ children }) {
 
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import {
-  StoryKitProvider,
+  IpKitProvider,
   STORYKIT_SUPPORTED_CHAIN,
 } from "@storyprotocol/storykit";
 
@@ -74,9 +74,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>
-      <StoryKitProvider chain={STORYKIT_SUPPORTED_CHAIN.STORY_MAINNET}>
+      <IpKitProvider chain={STORYKIT_SUPPORTED_CHAIN.STORY_MAINNET}>
         {children}
-      </StoryKitProvider>
+      </IpKitProvider>
     </QueryClientProvider>
   );
 }

@@ -3,7 +3,7 @@ import { UseQueryResult, useQuery } from "@tanstack/react-query"
 import { Address } from "viem"
 
 import { DisputesOptions, DisputesResponse, getDisputes } from "../lib/api/getDisputes"
-import { useIpKit } from "../providers/StoryKitProvider"
+import { useIpKit } from "../providers/IpKitProvider"
 
 export type UseDisputesOptions = {
   options?: DisputesOptions

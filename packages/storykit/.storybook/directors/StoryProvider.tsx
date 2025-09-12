@@ -1,12 +1,12 @@
 import React from "react"
 
 import "../../src/global.css"
-import { StoryKitProvider, StoryKitProviderOptions } from "../../src/providers/StoryKitProvider"
+import { IpKitProvider, IpKitProviderOptions } from "../../src/providers/IpKitProvider"
 
-interface StoryProviderProps extends StoryKitProviderOptions {
+interface IpKitProviderProps extends IpKitProviderOptions {
   children: React.ReactNode
 }
 
-export default function StoryProvider({ children, ...props }: StoryProviderProps) {
-  return <StoryKitProvider {...props}>{children}</StoryKitProvider>
+export default function StoryProvider({ children, ...props }: IpKitProviderProps) {
+  return <IpKitProvider {...props}>{children}</IpKitProvider>
 }

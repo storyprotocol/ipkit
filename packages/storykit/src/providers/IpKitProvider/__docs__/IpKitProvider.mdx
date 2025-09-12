@@ -1,35 +1,35 @@
 import { Canvas, Controls, Meta } from "@storybook/blocks"
 
-import * as StoryKitProviderStory from "./StoryKitProvider.stories"
+import * as IpKitProviderStory from "./IpKitProvider.stories"
 
-<Meta of={StoryKitProviderStory} title="Providers/StoryKitProvider" />
+<Meta of={IpKitProviderStory} title="Providers/IpKitProvider" />
 
-# StoryKitProvider
+# IpKitProvider
 
 {/* The IP Provider is the core of StoryKit, by passing it an IP Asset ID it provides IP Asset data to children components. */}
 
 #### Example
 
-<Canvas of={StoryKitProviderStory.Default} />
+<Canvas of={IpKitProviderStory.Default} />
 
 <Controls />
 
 ## Usage
 
 ```ts
-// wrap your app with the StoryKitProvider
+// wrap your app with the IpKitProvider
 
-import { StoryKitProvider } from "@story-protocol/ipkit"
+import { IpKitProvider } from "@story-protocol/ipkit"
 import ExampleComponent from './ExampleComponent'
 
 const ExampleApp = () => {
   return (
-    <StoryKitProvider
+    <IpKitProvider
       apiKey={API_KEY}
       isTestnet={true}
     >
       <ExampleComponent />
-    </StoryKitProvider>
+    </IpKitProvider>
   );
 };
 
@@ -57,11 +57,11 @@ export default ExampleComponent;
 
 #### Provider data
 
-The StoryKitProvider provides the following data to its children:
+The IpKitProvider provides the following data to its children:
 
 - **apiBaseUrl** - The base url for api endpoints.
 - **apiClient** - [openapi-fetch](https://openapi-ts.dev/openapi-fetch/) client
-- **apiKey** - The users API key, passed in as a StoryKitProvider prop
+- **apiKey** - The users API key, passed in as a IpKitProvider prop
 - **appId** - The users app Id, currently not required.
 - **chain** - the Story Chain config as defined in [chains.ts](https://github.com/storyprotocol/storykit/blob/main/packages/storykit/src/constants/chains.ts)
 - **mode** - The style mode, 'light', 'dark' or undefined, will default to system if none provided
