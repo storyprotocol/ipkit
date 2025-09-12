@@ -8,7 +8,7 @@ Please take a moment to review this document before submitting your first pull r
 
 This repository is a monorepo.
 
-- We use [pnpm@8.9.0](https://pnpm.io) and [`workspaces`](https://pnpm.io/workspaces) for development.
+- We use [pnpm@9.15.4](https://pnpm.io) and [`workspaces`](https://pnpm.io/workspaces) for development.
 - We use [Next.js](https://nextjs.org/) for example applications.
 
 ### IpKit component structure
@@ -17,13 +17,18 @@ This repository is structured as follows:
 
 ```
 packages
-└── storykit
-    ├── providers
-    └── components/{component name}
-        ├── __docs__
-        │   └── {component name}.stories.tsx
-        ├── {component name}.tsx
-        └── index.ts
+└── ipkit
+    └── src
+        ├── providers
+        └── components/{component name}
+        │   ├── __docs__
+        │   │   └── {component name}.stories.tsx
+        │   ├── {component name}.tsx
+        │   └── index.ts
+        └── hooks
+            └── stories
+            │   └── {hook name}.stories.tsx
+            └── {hook name}.tsx
 ```
 
 ## Engineering Guideline
