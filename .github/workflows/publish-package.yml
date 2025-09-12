@@ -31,7 +31,7 @@ jobs:
 
       - name: Publish to npm
         run: |
-          cd packages/storykit
+          cd packages/ipkit
           if [[ "${{ github.ref }}" == "refs/heads/beta" ]]; then
             npm publish --tag beta
           elif [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
