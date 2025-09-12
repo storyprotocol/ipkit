@@ -1,16 +1,16 @@
 {
   "private": true,
   "scripts": {
-    "build": "turbo run build --filter @storyprotocol/storykit",
-    "dev": "turbo run dev --filter @storyprotocol/storykit",
+    "build": "turbo run build --filter @story-protocol/ipkit",
+    "dev": "turbo run dev --filter @story-protocol/ipkit",
     "example": "turbo run dev",
-    "lint": "turbo run lint --filter @storyprotocol/storykit",
+    "lint": "turbo run lint --filter @story-protocol/ipkit",
     "lint-all": "turbo run lint",
-    "format": "turbo run format --filter @storyprotocol/storykit",
+    "format": "turbo run format --filter @story-protocol/ipkit",
     "prepare": "husky"
   },
   "devDependencies": {
-    "@storykit/eslint-config": "workspace:*",
+    "@ipkit/eslint-config": "workspace:*",
     "eslint": "^8.57.0",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",

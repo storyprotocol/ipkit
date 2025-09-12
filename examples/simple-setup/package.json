@@ -8,9 +8,9 @@
     "start": "next start",
     "lint": "next lint"
   },
-  "prettier": "@storykit/prettier-config",
+  "prettier": "@ipkit/prettier-config",
   "dependencies": {
-    "@storyprotocol/storykit": "workspace:*",
+    "@story-protocol/ipkit": "workspace:*",
     "@tanstack/react-query": "^5.28.9",
     "next": "14.1.4",
     "react": "^18",
@@ -20,9 +20,9 @@
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^14.1.1",
-    "@storykit/eslint-config": "workspace:*",
-    "@storykit/prettier-config": "workspace:*",
-    "@storykit/typescript-config": "workspace:*",
+    "@ipkit/eslint-config": "workspace:*",
+    "@ipkit/prettier-config": "workspace:*",
+    "@ipkit/typescript-config": "workspace:*",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

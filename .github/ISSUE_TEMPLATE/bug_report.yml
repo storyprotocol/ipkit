@@ -21,7 +21,7 @@ body:
     id: components-affected
     attributes:
       label: Affected component/components
-      description: Which StoryKit components are affected?
+      description: Which IpKit components are affected?
       placeholder: ex. IPWidget, CollectionGraph...
     validations:
       required: true
