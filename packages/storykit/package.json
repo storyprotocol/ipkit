@@ -33,7 +33,7 @@
     "test-storybook": "test-storybook",
     "update-api-types": "tsx scripts/generate-types.ts"
   },
-  "prettier": "@storykit/prettier-config",
+  "prettier": "@ipkit/prettier-config",
   "dependencies": {
     "@emotion/is-prop-valid": "^1.2.2",
     "@emotion/react": "^11.11.4",
@@ -82,9 +82,9 @@
     "@storybook/test": "^8.0.4",
     "@storybook/test-runner": "^0.18.2",
     "@storybook/theming": "^8.0.4",
-    "@storykit/eslint-config": "workspace:*",
-    "@storykit/prettier-config": "workspace:*",
-    "@storykit/typescript-config": "workspace:*",
+    "@ipkit/eslint-config": "workspace:*",
+    "@ipkit/prettier-config": "workspace:*",
+    "@ipkit/typescript-config": "workspace:*",
     "@tailwindcss/nesting": "0.0.0-insiders.565cd3e",
     "@tanstack/react-query": "^5.25.0",
     "@testing-library/jest-dom": "^5.17.0",

@@ -1,5 +1,5 @@
 {
-  "extends": "@storykit/typescript-config/react-library.json",
+  "extends": "@ipkit/typescript-config/react-library.json",
   "include": ["src"],
   "compilerOptions": {
     "paths": {
