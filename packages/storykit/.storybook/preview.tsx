@@ -4,7 +4,7 @@ import React from "react"
 import { useEffect } from "react"
 
 import { API_URL } from "../src/constants/api"
-import { STORYKIT_SUPPORTED_CHAIN } from "../src/types/chains"
+import { IPKIT_SUPPORTED_CHAIN } from "../src/types/chains"
 import StoryProvider from "./directors/StoryProvider"
 import "./global.css"
 import theme from "./theme"
@@ -64,7 +64,7 @@ const preview: Preview = {
     },
   },
   globals: {
-    chain: STORYKIT_SUPPORTED_CHAIN.AENEID_TESTNET,
+    chain: IPKIT_SUPPORTED_CHAIN.AENEID_TESTNET,
   },
   decorators: [
     (Story, context) => {

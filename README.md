@@ -65,16 +65,13 @@ export default function Layout({ children }) {
 "use client";
 
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-import {
-  IpKitProvider,
-  STORYKIT_SUPPORTED_CHAIN,
-} from "@storyprotocol/storykit";
+import { IpKitProvider, IPKIT_SUPPORTED_CHAIN } from "@storyprotocol/storykit";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>
-      <IpKitProvider chain={STORYKIT_SUPPORTED_CHAIN.STORY_MAINNET}>
+      <IpKitProvider chain={IPKIT_SUPPORTED_CHAIN.STORY_MAINNET}>
         {children}
       </IpKitProvider>
     </QueryClientProvider>

@@ -2,7 +2,7 @@ import { API_URL } from "@/constants/api"
 import { CHAINS } from "@/constants/chains"
 import { cn } from "@/lib"
 import { ApiClient, createApiClient } from "@/lib/api/apiClient"
-import { ChainConfig, STORYKIT_SUPPORTED_CHAIN } from "@/types/chains"
+import { ChainConfig, IPKIT_SUPPORTED_CHAIN } from "@/types/chains"
 import React, { useMemo } from "react"
 
 export type Mode = "light" | "dark" | undefined
@@ -16,7 +16,7 @@ export interface IpKitProviderOptions {
   mode?: Mode
   theme?: Theme
   //
-  // chain?: STORYKIT_SUPPORTED_CHAIN
+  // chain?: IPKIT_SUPPORTED_CHAIN
   // defaultCurrency?: ERC20Token
   // rpcUrl?: string
 }
@@ -43,8 +43,8 @@ export const IpKitProvider = ({
   //
   // get ChainConfig using chain name, replace rpcUrl if alternative provided
   const chainConfig: ChainConfig = useMemo(
-    // () => ({ ...CHAINS[STORYKIT_SUPPORTED_CHAIN], ...{ rpcUrl: rpcUrl || CHAINS[chain].rpcUrl } }),
-    () => CHAINS[isTestnet ? STORYKIT_SUPPORTED_CHAIN.AENEID_TESTNET : STORYKIT_SUPPORTED_CHAIN.STORY_MAINNET],
+    // () => ({ ...CHAINS[IPKIT_SUPPORTED_CHAIN], ...{ rpcUrl: rpcUrl || CHAINS[chain].rpcUrl } }),
+    () => CHAINS[isTestnet ? IPKIT_SUPPORTED_CHAIN.AENEID_TESTNET : IPKIT_SUPPORTED_CHAIN.STORY_MAINNET],
     [isTestnet]
   )
 

@@ -21,7 +21,7 @@ export type ChainConfig = {
 
 export type SupportedChainConfig = typeof STORY_AENEID | typeof STORY_MAINNET
 
-export enum STORYKIT_SUPPORTED_CHAIN {
+export enum IPKIT_SUPPORTED_CHAIN {
   AENEID_TESTNET = "story-aeneid",
   STORY_MAINNET = "story",
 }
