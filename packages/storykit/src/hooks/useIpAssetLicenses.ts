@@ -4,7 +4,7 @@ import { UseQueryResult, useQuery } from "@tanstack/react-query"
 import { Address } from "viem"
 
 import { getIpAssets } from "../lib/api/getIpAssets"
-import { useStoryKitContext } from "../providers/StoryKitProvider"
+import { useIpKit } from "../providers/StoryKitProvider"
 
 export type UseIpAssetLicensesOptions = {
   ipId: Address
@@ -15,7 +15,7 @@ export function useIpAssetLicenses({
   ipId,
   queryOptions,
 }: UseIpAssetLicensesOptions): UseQueryResult<License[] | null> {
-  const { apiKey, apiClient } = useStoryKitContext()
+  const { apiKey, apiClient } = useIpKit()
 
   return useQuery({
     // key consistent with useIpAsset, includeLicenses = true

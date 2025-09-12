@@ -3,7 +3,7 @@ import { UseQueryResult, useQuery } from "@tanstack/react-query"
 import { Address } from "viem"
 
 import { IpAssetsOptions, IpAssetsResponse, getIpAssets } from "../lib/api/getIpAssets"
-import { useStoryKitContext } from "../providers/StoryKitProvider"
+import { useIpKit } from "../providers/StoryKitProvider"
 
 export type UseIpAssetsOptions = {
   ipIds?: Address[]
@@ -22,7 +22,7 @@ export function useIpAssets({
   options,
   queryOptions,
 }: UseIpAssetsOptions = {}): UseQueryResult<IpAssetsResponse> {
-  const { apiKey, apiClient } = useStoryKitContext()
+  const { apiKey, apiClient } = useIpKit()
 
   return useQuery({
     queryKey: ["getIpAssets", ipIds, tokenContract, includeLicenses, moderated, options],

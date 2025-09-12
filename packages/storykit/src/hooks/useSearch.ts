@@ -2,7 +2,7 @@ import { IpQueryOptions } from "@/types/openapi"
 import { UseQueryResult, useQuery } from "@tanstack/react-query"
 
 import { SearchResponse, getSearch } from "../lib/api/getSearch"
-import { useStoryKitContext } from "../providers/StoryKitProvider"
+import { useIpKit } from "../providers/StoryKitProvider"
 
 export type UseSearchOptions = {
   query: string
@@ -11,7 +11,7 @@ export type UseSearchOptions = {
 }
 
 export function useSearch({ query, mediaType, queryOptions }: UseSearchOptions): UseQueryResult<SearchResponse> {
-  const { apiKey, apiClient } = useStoryKitContext()
+  const { apiKey, apiClient } = useIpKit()
 
   return useQuery({
     queryKey: ["getSearch", query, mediaType],

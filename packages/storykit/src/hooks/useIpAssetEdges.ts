@@ -3,7 +3,7 @@ import { UseQueryResult, useQuery } from "@tanstack/react-query"
 import { Address } from "viem"
 
 import { IpAssetEdgesOptions, IpAssetEdgesResponse, getIpAssetEdges } from "../lib/api/getIpAssetEdges"
-import { useStoryKitContext } from "../providers/StoryKitProvider"
+import { useIpKit } from "../providers/StoryKitProvider"
 
 export type UseIpAssetEdgesOptions = {
   ipId?: Address
@@ -18,7 +18,7 @@ export function useIpAssetEdges({
   options,
   queryOptions,
 }: UseIpAssetEdgesOptions = {}): UseQueryResult<IpAssetEdgesResponse> {
-  const { apiKey, apiClient } = useStoryKitContext()
+  const { apiKey, apiClient } = useIpKit()
 
   return useQuery({
     queryKey: ["getIpAssetEdges", ipId, parentIpId, options],

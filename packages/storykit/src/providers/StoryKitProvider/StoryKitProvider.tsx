@@ -69,10 +69,10 @@ export const StoryKitProvider = ({
   )
 }
 
-export const useStoryKitContext = () => {
+export const useIpKit = () => {
   const context = React.useContext(StoryKitContext)
   if (!context) {
-    throw new Error("useStoryKitContext must be used within an StoryKitProvider")
+    throw new Error("useIpKit must be used within an StoryKitProvider")
   }
   return context
 }

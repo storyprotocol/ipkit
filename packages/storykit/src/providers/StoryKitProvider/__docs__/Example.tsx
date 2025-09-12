@@ -2,7 +2,7 @@ import { cn } from "@/lib"
 import React, { FC } from "react"
 
 import "../../../global.css"
-import { StoryKitProvider, Theme, useStoryKitContext } from "../StoryKitProvider"
+import { StoryKitProvider, Theme, useIpKit } from "../StoryKitProvider"
 
 const TESTNET_API_KEY = process.env.STORYBOOK_STORY_PROTOCOL_X_TESTNET_API_KEY as string
 const API_KEY = process.env.STORYBOOK_STORY_PROTOCOL_X_API_KEY as string
@@ -26,7 +26,7 @@ const Example: FC<{
 }
 
 const ExampleComponent = () => {
-  const { themeClass, chain, apiBaseUrl } = useStoryKitContext()
+  const { themeClass, chain, apiBaseUrl } = useIpKit()
   return (
     <div className={cn(themeClass, "flex flex-col h-full bg-background p-8 font-sans text-primary")}>
       <div className="text-sm text-foreground">

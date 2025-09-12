@@ -4,7 +4,7 @@ import { UseQueryResult, useQuery } from "@tanstack/react-query"
 import { Address } from "viem"
 
 import { getCollections } from "../lib/api/getCollections"
-import { useStoryKitContext } from "../providers/StoryKitProvider"
+import { useIpKit } from "../providers/StoryKitProvider"
 
 export type UseCollectionOptions = {
   collectionAddress: Address
@@ -15,7 +15,7 @@ export function useCollection({
   collectionAddress,
   queryOptions,
 }: UseCollectionOptions): UseQueryResult<Collection | null> {
-  const { apiKey, apiClient } = useStoryKitContext()
+  const { apiKey, apiClient } = useIpKit()
 
   return useQuery({
     queryKey: ["getCollection", collectionAddress],

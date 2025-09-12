@@ -3,7 +3,7 @@ import { UseQueryResult, useQuery } from "@tanstack/react-query"
 import { Address } from "viem"
 
 import { DisputesOptions, DisputesResponse, getDisputes } from "../lib/api/getDisputes"
-import { useStoryKitContext } from "../providers/StoryKitProvider"
+import { useIpKit } from "../providers/StoryKitProvider"
 
 export type UseDisputesOptions = {
   options?: DisputesOptions
@@ -18,7 +18,7 @@ export function useDisputes({
   options,
   queryOptions,
 }: UseDisputesOptions = {}): UseQueryResult<DisputesResponse> {
-  const { apiKey, apiClient } = useStoryKitContext()
+  const { apiKey, apiClient } = useIpKit()
 
   return useQuery({
     queryKey: ["getDisputes", options, initiator, targetIpId],

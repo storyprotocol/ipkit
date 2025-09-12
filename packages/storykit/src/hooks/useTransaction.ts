@@ -3,7 +3,7 @@ import { UseQueryResult, useQuery } from "@tanstack/react-query"
 import { Address } from "viem"
 
 import { getTransactions } from "../lib/api/getTransactions"
-import { useStoryKitContext } from "../providers/StoryKitProvider"
+import { useIpKit } from "../providers/StoryKitProvider"
 
 export type UseTransactionOptions = {
   txHash: Address
@@ -11,7 +11,7 @@ export type UseTransactionOptions = {
 }
 
 export function useTransaction({ txHash, queryOptions }: UseTransactionOptions): UseQueryResult<IPTransaction | null> {
-  const { apiKey, apiClient } = useStoryKitContext()
+  const { apiKey, apiClient } = useIpKit()
 
   return useQuery({
     queryKey: ["getTransactions", txHash],
