@@ -21,7 +21,7 @@ export interface StoryKitProviderOptions {
   // rpcUrl?: string
 }
 
-const StoryKitContext = React.createContext<{
+const IpKitContext = React.createContext<{
   apiBaseUrl: string
   apiClient: ApiClient
   apiKey: string
@@ -52,7 +52,7 @@ export const StoryKitProvider = ({
   const apiClient = useMemo(() => createApiClient(apiBaseUrl), [apiBaseUrl])
 
   return (
-    <StoryKitContext.Provider
+    <IpKitContext.Provider
       value={{
         apiBaseUrl,
         apiClient,
@@ -65,12 +65,12 @@ export const StoryKitProvider = ({
       }}
     >
       <div className={cn(theme)}>{children}</div>
-    </StoryKitContext.Provider>
+    </IpKitContext.Provider>
   )
 }
 
 export const useIpKit = () => {
-  const context = React.useContext(StoryKitContext)
+  const context = React.useContext(IpKitContext)
   if (!context) {
     throw new Error("useIpKit must be used within an StoryKitProvider")
   }
