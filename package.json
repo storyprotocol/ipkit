@@ -1,12 +1,12 @@
 {
   "private": true,
   "scripts": {
-    "build": "turbo run build --filter @story-protocol/ipkit",
-    "dev": "turbo run dev --filter @story-protocol/ipkit",
+    "build": "turbo run build --filter @storyprotocol/ipkit",
+    "dev": "turbo run dev --filter @storyprotocol/ipkit",
     "example": "turbo run dev",
-    "lint": "turbo run lint --filter @story-protocol/ipkit",
+    "lint": "turbo run lint --filter @storyprotocol/ipkit",
     "lint-all": "turbo run lint",
-    "format": "turbo run format --filter @story-protocol/ipkit",
+    "format": "turbo run format --filter @storyprotocol/ipkit",
     "prepare": "husky"
   },
   "devDependencies": {

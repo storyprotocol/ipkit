@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // transpilePackages: ["@story-protocol/ipkit"],
+  // transpilePackages: ["@storyprotocol/ipkit"],
 }
 
 export default nextConfig
