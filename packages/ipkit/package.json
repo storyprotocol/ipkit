@@ -1,5 +1,5 @@
 {
-  "name": "@storyprotocol/ipkit",
+  "name": "@story-protocol/ipkit",
   "author": "storyprotocol engineering <eng@storyprotocol.xyz>",
   "version": "0.4.0-beta.8",
   "type": "module",

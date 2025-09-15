@@ -10,7 +10,7 @@
   },
   "prettier": "@ipkit/prettier-config",
   "dependencies": {
-    "@storyprotocol/ipkit": "workspace:*",
+    "@story-protocol/ipkit": "workspace:*",
     "@tanstack/react-query": "^5.28.9",
     "next": "14.1.4",
     "react": "^18",
