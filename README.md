@@ -7,7 +7,7 @@ IpKit provides a number of convenient [tanstack-query](https://tanstack.com/quer
 ## Installation
 
 ```bash
-pnpm install @story-protocol/ipkit @tanstack/react-query
+pnpm add @story-protocol/ipkit @tanstack/react-query
 ```
 
 ## API Keys
