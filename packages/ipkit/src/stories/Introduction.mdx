@@ -8,7 +8,7 @@ import { Meta } from "@storybook/blocks"
 
 [![Version](https://img.shields.io/npm/v/@story-protocol/ipkit)](https://www.npmjs.com/package/@story-protocol/ipkit)
 
-IpKit provides a number of convenient [tanstack-query](https://tanstack.com/query/latest) hooks using to quickly access Story's on-chain data, including assets, collections, transactions and more, via the [Protocol V4 API](https://docs.story.foundation/api-reference/protocol/introduction).
+IpKit provides a number of convenient [tanstack-query](https://tanstack.com/query/latest) hooks to quickly access Story's on-chain data, including assets, collections, transactions and more, via the [Protocol V4 API](https://docs.story.foundation/api-reference/protocol/introduction).
 
 ## Installation
 
@@ -26,7 +26,7 @@ There is a public API key available in the [API docs](https://docs.story.foundat
 
 ### Providers
 
-To initialize IpKit in your project, you’ll need to wrap your application in `QueryProvider` and `IpKitProvider`. The IpKit provider requires the `apiKey` as a prop. You can also choose to query the Aeneid testnet API by setting `isTestnet` to true.
+To initialize IpKit in your project, you'll need to wrap your application in `QueryClientProvider` and `IpKitProvider`. The IpKit provider requires the `apiKey` as a prop. You can also choose to query the Aeneid testnet API by setting `isTestnet` to true.
 
 ```tsx
 "use client"
@@ -48,7 +48,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 
 You can now use the IpKit hooks to fetch IP data. Hooks return a [tanstack-query](https://tanstack.com/query/latest) `useQuery` function, in each hook you can pass [useQuery options](https://tanstack.com/query/latest/docs/framework/react/reference/useQuery) via the `queryOptions` property.
 
-For hooks that return lists, for example `useIpAssets`, you can pass the [POST requests body](https://docs.story.foundation/api-reference/protocol-v4/list-ip-assets) options via the `options` parameter.
+For hooks that return lists, for example `useIpAssets`, you can pass the [POST request body](https://docs.story.foundation/api-reference/protocol-v4/list-ip-assets) options via the `options` parameter.
 
 For convenience, hooks expose the most commonly required body options in their parameters:
 
@@ -58,12 +58,12 @@ const { data, isLoading } = useIpAssets()
 ```
 
 ```tsx
-// fetch a collections assets
+// fetch a collection's assets
 const { data, isLoading } = useIpAssets({ tokenContract: "0x123" })
 ```
 
 ```tsx
-// fetch a using options and queryOptions
+// fetch using options and queryOptions
 const { data, isLoading } = useIpAssets({
   queryOptions: {
     enabled: true,
@@ -117,7 +117,7 @@ const { id, name, rpcUrl } = chain
 
 IpKit also exposes the functions used by each hook in case you require more flexibility, SSR or want to use a different kind of Tanstack Query hook. Since they're using openapi-fetch, each function requires both `apiKey` and the `apiClient`.
 
-Create an API client with the `createApiClient` or export one for testnet or mainnet from IpKit.
+Create an API client with the `createApiClient` or import one for testnet or mainnet from IpKit.
 
 ```tsx
 import { createApiClient } from "@story-protocol/ipkit"

@@ -2,7 +2,7 @@
 
 # IpKit
 
-IpKit provides a number of convenient [tanstack-query](https://tanstack.com/query/latest) hooks using to quickly access Story's on-chain data, including assets, collections, transactions and more, via the [Protocol V4 API](https://docs.story.foundation/api-reference/protocol/introduction).
+IpKit provides a number of convenient [tanstack-query](https://tanstack.com/query/latest) hooks to quickly access Story's on-chain data, including assets, collections, transactions and more, via the [Protocol V4 API](https://docs.story.foundation/api-reference/protocol/introduction).
 
 ## Using IpKit
 
