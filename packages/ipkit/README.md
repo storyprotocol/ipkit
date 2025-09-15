@@ -1,4 +1,4 @@
-[![Storybook](https://img.shields.io/badge/Storybook-FF4785?logo=storybook&logoColor=white)](https://drei.pmnd.rs/) [![Version](https://img.shields.io/npm/v/@story-protocol/ipkit)](https://www.npmjs.com/package/@story-protocol/ipkit)
+[![Storybook](https://img.shields.io/badge/Storybook-FF4785?logo=storybook&logoColor=white)](https://ipkit.vercel.app/) [![Version](https://img.shields.io/npm/v/@story-protocol/ipkit)](https://www.npmjs.com/package/@story-protocol/ipkit)
 
 # IpKit
 
@@ -28,6 +28,8 @@ To initialize IpKit in your project, you’ll need to wrap your application in `
 
 import { IpKitProvider } from "@story-protocol/ipkit"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+
+// app/Providers.tsx
 
 // app/Providers.tsx
 
