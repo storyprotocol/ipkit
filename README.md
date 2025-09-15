@@ -38,7 +38,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 }
 ```
 
-#### Data Hooks
+### Hooks
 
 You can now use the IpKit hooks to fetch IP data. Hooks return a [tanstack-query](https://tanstack.com/query/latest) `useQuery` function, in each hook you can pass [useQuery options](https://tanstack.com/query/latest/docs/framework/react/reference/useQuery) via the `queryOptions` property.
 
@@ -83,22 +83,22 @@ const { data, isLoading } = useIpAsset({ ipId: "0x123" });
 
 See the storybook for more details for each hook. The full list of hooks are:
 
-- [useCollection]()
-- [useCollections]()
-- [useDispute]()
-- [useDisputes]()
-- [useIpAsset]()
-- [useIpAssetChildren]()
-- [useIpAssetEdges]()
-- [useIpAssetLicenses]()
-- [useIpAssetParents]()
-- [useIpAssets]()
-- [useIpAssetsByOwner]()
-- [useSearch]()
-- [useTransaction]()
-- [useTransactions]()
+- [useCollection](https://ipkit.vercel.app/?path=/story/hooks-usecollection--default)
+- [useCollections](https://ipkit.vercel.app/?path=/story/hooks-usecollections--default)
+- [useDispute](https://ipkit.vercel.app/?path=/story/hooks-usedispute--default)
+- [useDisputes](https://ipkit.vercel.app/?path=/story/hooks-usedisputes--default)
+- [useIpAsset](https://ipkit.vercel.app/?path=/story/hooks-useipasset--default)
+- [useIpAssetChildren](https://ipkit.vercel.app/?path=/story/hooks-useipassetchildren--default)
+- [useIpAssetEdges](https://ipkit.vercel.app/?path=/story/hooks-useipassetedges--default)
+- [useIpAssetLicenses](https://ipkit.vercel.app/?path=/story/hooks-useipassetlicenses--default)
+- [useIpAssetParents](https://ipkit.vercel.app/?path=/story/hooks-useipassetparents--default)
+- [useIpAssets](https://ipkit.vercel.app/?path=/story/hooks-useipassets--default)
+- [useIpAssetsByOwner](https://ipkit.vercel.app/?path=/story/hooks-useipassetsbyowner--default)
+- [useSearch](https://ipkit.vercel.app/?path=/story/hooks-usesearch--default)
+- [useTransaction](https://ipkit.vercel.app/?path=/story/hooks-usetransaction--default)
+- [useTransactions](https://ipkit.vercel.app/?path=/story/hooks-usetransactions--default)
 
-#### useIpKit
+### useIpKit
 
 You can also use the `useIpKit` hook to access data such as `apiBaseUrl`, `apiClient` (an [openapi-fetch](https://openapi-ts.dev/openapi-fetch/) client) and `chain` which includes chain data such as `id`, `name`, `rpcUrl` and `blockExplorerUrl`. View the full list in [storybook](https://ipkit.vercel.app/?path=/docs/providers-ipkitprovider--docs).
 
@@ -107,7 +107,7 @@ const { apiBaseUrl, chain } = useIpKit();
 const { id, name, rpcUrl } = chain;
 ```
 
-#### Request functions
+### Request functions
 
 IpKit also exposes the functions used by each hook in case you require more flexibility, SSR or want to use a different kind of Tanstack Query hook. Since they're using openapi-fetch, each function requires both `apiKey` and the `apiClient`.
 
@@ -140,11 +140,11 @@ These functions also expose some of the POST request body options as function in
 - `getSearch`
 - `getTransactions`
 
-#### SSR
+### SSR
 
 If you want to use IpKit in a server component you should import from `@story-protocol/ipkit/server`, this also exports all the api functions and types, but omits hooks and providers which won't work server-side.
 
-#### TypeScript
+### TypeScript
 
 IpKit uses [OpenAPI](https://www.openapis.org/) and [openapi-typescript](https://openapi-ts.dev/) to ensure up-to-date and consistent types, in-line with the API.
 
