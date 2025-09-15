@@ -23,18 +23,18 @@ There is a public API key available in the [API docs](https://docs.story.foundat
 To initialize IpKit in your project, you’ll need to wrap your application in `QueryProvider` and `IpKitProvider`. The IpKit provider requires the `apiKey` as a prop. You can also choose to query the Aeneid testnet API by setting `isTestnet` to true.
 
 ```tsx
-"use client";
+"use client"
 
-import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-import { IpKitProvider } from "@story-protocol/ipkit";
+import { IpKitProvider } from "@story-protocol/ipkit"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 
 export default function Providers({ children }: { children: React.ReactNode }) {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient()
   return (
     <QueryClientProvider client={queryClient}>
       <IpKitProvider apiKey="YOUR_API_KEY">{children}</IpKitProvider>
     </QueryClientProvider>
-  );
+  )
 }
 ```
 
@@ -48,12 +48,12 @@ For convenience, hooks expose the most commonly required body options in their p
 
 ```tsx
 // simple use case
-const { data, isLoading } = useIpAssets();
+const { data, isLoading } = useIpAssets()
 ```
 
 ```tsx
 // fetch a collections assets
-const { data, isLoading } = useIpAssets({ tokenContract: "0x123" });
+const { data, isLoading } = useIpAssets({ tokenContract: "0x123" })
 ```
 
 ```tsx
@@ -73,12 +73,12 @@ const { data, isLoading } = useIpAssets({
       ownerAddress: "0x123",
     },
   },
-});
+})
 ```
 
 ```tsx
 // fetch a single asset
-const { data, isLoading } = useIpAsset({ ipId: "0x123" });
+const { data, isLoading } = useIpAsset({ ipId: "0x123" })
 ```
 
 See the storybook for more details for each hook. The full list of hooks are:
@@ -103,8 +103,8 @@ See the storybook for more details for each hook. The full list of hooks are:
 You can also use the `useIpKit` hook to access data such as `apiBaseUrl`, `apiClient` (an [openapi-fetch](https://openapi-ts.dev/openapi-fetch/) client) and `chain` which includes chain data such as `id`, `name`, `rpcUrl` and `blockExplorerUrl`. View the full list in [storybook](https://ipkit.vercel.app/?path=/docs/providers-ipkitprovider--docs).
 
 ```tsx
-const { apiBaseUrl, chain } = useIpKit();
-const { id, name, rpcUrl } = chain;
+const { apiBaseUrl, chain } = useIpKit()
+const { id, name, rpcUrl } = chain
 ```
 
 ### Request functions
@@ -114,20 +114,20 @@ IpKit also exposes the functions used by each hook in case you require more flex
 Create an API client with the `createApiClient` or export one for testnet or mainnet from IpKit.
 
 ```tsx
-import { createApiClient } from "@story-protocol/ipkit";
+import { createApiClient } from "@story-protocol/ipkit"
 
-const client = createApiClient(`https://api.storyapis.com/api/v4/`);
-const assets = await getIpAssets({ apiKey: YOUR_API_KEY, apiClient: client });
+const client = createApiClient(`https://api.storyapis.com/api/v4/`)
+const assets = await getIpAssets({ apiKey: YOUR_API_KEY, apiClient: client })
 ```
 
 ```tsx
-import { stagingClient } from "@story-protocol/ipkit";
+import { stagingClient } from "@story-protocol/ipkit"
 
 const assets = await getIpAssets({
   apiKey: YOUR_API_KEY,
   apiClient: stagingClient,
   ipIds: ["0x123"],
-});
+})
 ```
 
 These functions also expose some of the POST request body options as function input for convenience. The full list of exported functions are:
@@ -156,70 +156,28 @@ The available options for each hook are exported as `[hookName]Options`, for exa
 
 ```ts
 type UseIpAssetsOptions = {
-  ipIds?: Address[];
-  tokenContract?: Address;
-  includeLicenses?: boolean;
-  moderated?: boolean;
-  options?: IpAssetsOptions;
-  queryOptions?: IpQueryOptions;
-};
+  ipIds?: Address[]
+  tokenContract?: Address
+  includeLicenses?: boolean
+  moderated?: boolean
+  options?: IpAssetsOptions
+  queryOptions?: IpQueryOptions
+}
 ```
 
 The options for each API request are exported as `[nameOfDataType]Options` for example `IpAssetsOptions`.
 
 ```ts
 type IpAssetsOptions = {
-  includeLicenses?: boolean;
-  moderated?: boolean;
-  orderBy?: "blockNumber" | "descendantCount" | "createdAt";
-  orderDirection?: "desc" | "asc";
-  pagination?: { limit: number; offset: number };
+  includeLicenses?: boolean
+  moderated?: boolean
+  orderBy?: "blockNumber" | "descendantCount" | "createdAt"
+  orderDirection?: "desc" | "asc"
+  pagination?: { limit: number; offset: number }
   where?: {
-    ipIds?: string[] | null;
-    ownerAddress?: string;
-    tokenContract?: string;
-  };
-};
+    ipIds?: string[] | null
+    ownerAddress?: string
+    tokenContract?: string
+  }
+}
 ```
-
-## Run locally
-
-### Storybook
-
-To run locally you will need to define your API keys for Storybook in `.env.local`
-
-```bash
-STORYBOOK_STORY_PROTOCOL_X_TESTNET_API_KEY="YOUR STAGING API KEY"
-STORYBOOK_STORY_PROTOCOL_X_API_KEY="YOUR PRODUCTION API KEY"
-```
-
-Storybook defaults to the staging API, but you can switch the environment in the Storybook toolbar.
-
-Run Storybook locally for component development and documentation:
-
-```bash
-pnpm dev
-```
-
-Find the Storybook at [http://localhost:6006](http://localhost:6006)
-
-### Example app
-
-Run the example app.
-
-```bash
-pnpm build
-pnpm example --filter @example/simple-setup
-```
-
-The dev server will be running at [http://localhost:3000](http://localhost:3000)
-
-### Building
-
-- Build: `pnpm build`
-- Lint: `pnpm lint`
-- Format: `pnpm format`
-
-## Contributing
-
-For guidelines on contributing to IpKit, see the [CONTRIBUTING.md](./CONTRIBUTING.md) file.
