@@ -20,9 +20,6 @@
   "files": [
     "dist"
   ],
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/@storyprotocol"
-  },
   "scripts": {
     "test": "react-scripts test",
     "lint": "eslint . --ext .ts,.tsx --ignore-path ../../.prettierignore --fix",
