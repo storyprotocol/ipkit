@@ -1,5 +1,5 @@
 
-import { useIpAsset } from "@storyprotocol/ipkit"
+import { useIpAsset } from "@story-protocol/ipkit"
 
 export default function IpHeader() {
   const { data, isLoading } = useIpAsset({ ipId: "0xB1D831271A68Db5c18c8F0B69327446f7C8D0A42" })

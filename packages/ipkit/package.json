@@ -1,5 +1,5 @@
 {
-  "name": "@storyprotocol/ipkit",
+  "name": "@story-protocol/ipkit",
   "author": "storyprotocol engineering <eng@storyprotocol.xyz>",
   "version": "0.4.0-beta.8",
   "type": "module",
@@ -20,9 +20,6 @@
   "files": [
     "dist"
   ],
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/@storyprotocol"
-  },
   "scripts": {
     "test": "react-scripts test",
     "lint": "eslint . --ext .ts,.tsx --ignore-path ../../.prettierignore --fix",

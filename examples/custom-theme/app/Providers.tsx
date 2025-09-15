@@ -1,7 +1,7 @@
 "use client"
 
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query"
-import { IpKitProvider } from "@storyprotocol/ipkit"
+import { IpKitProvider } from "@story-protocol/ipkit"
 
 const API_KEY = process.env.NEXT_PUBLIC_STORY_PROTOCOL_X_API_KEY as string
 
