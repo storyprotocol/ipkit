@@ -2,7 +2,7 @@
 
 # IpKit
 
-IpKit provides a number of convenient [tanstack-query](https://tanstack.com/query/latest) hooks using to quickly access access Story's on-chain data, including assets, collections, transactions and more, via the [Protocol V4 API](https://docs.story.foundation/api-reference/protocol/introduction).
+IpKit provides a number of convenient [tanstack-query](https://tanstack.com/query/latest) hooks using to quickly access Story's on-chain data, including assets, collections, transactions and more, via the [Protocol V4 API](https://docs.story.foundation/api-reference/protocol/introduction).
 
 ## Installation
 
@@ -23,19 +23,10 @@ There is a public API key available in the [API docs](https://docs.story.foundat
 To initialize IpKit in your project, you’ll need to wrap your application in `QueryProvider` and `IpKitProvider`. The IpKit provider requires the `apiKey` as a prop. You can also choose to query the Aeneid testnet API by setting `isTestnet` to true.
 
 ```tsx
-// app/Providers.tsx
 "use client"
 
 import { IpKitProvider } from "@story-protocol/ipkit"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-
-// app/Providers.tsx
-
-// app/Providers.tsx
-
-// app/Providers.tsx
-
-// app/Providers.tsx
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   const queryClient = new QueryClient()
