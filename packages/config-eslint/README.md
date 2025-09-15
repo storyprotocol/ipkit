@@ -1,3 +1,3 @@
-# `@storykit/eslint-config`
+# `@ipkit/eslint-config`
 
 Collection of internal eslint configurations.

@@ -1,5 +1,5 @@
 name: "Feature request"
-description: Create a feature request for StoryKit
+description: Create a feature request for IpKit
 title: "[feat]: "
 labels: ["area: request"]
 body:

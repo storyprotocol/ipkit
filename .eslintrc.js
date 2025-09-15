@@ -2,6 +2,6 @@
 /** @type {import("eslint").Linter.Config} */
 module.exports = {
   root: true,
-  extends: ["@storykit/eslint-config/library.js"],
+  extends: ["@ipkit/eslint-config/library.js"],
   ignorePattern: ["apps/**", "packages/**"],
 };
