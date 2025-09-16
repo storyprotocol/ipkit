@@ -1,12 +1,6 @@
-import { Meta } from "@storybook/blocks"
-
-<Meta title="Introduction" />
+[![Storybook](https://img.shields.io/badge/Storybook-FF4785?logo=storybook&logoColor=white)](https://ipkit.vercel.app/) [![Version](https://img.shields.io/npm/v/@story-protocol/ipkit)](https://www.npmjs.com/package/@story-protocol/ipkit)
 
 # IpKit
-
-[![Storybook](https://img.shields.io/badge/Storybook-FF4785?logo=storybook&logoColor=white)](https://ipkit.vercel.app/)
-
-[![Version](https://img.shields.io/npm/v/@story-protocol/ipkit)](https://www.npmjs.com/package/@story-protocol/ipkit)
 
 IpKit provides a number of convenient [tanstack-query](https://tanstack.com/query/latest) hooks to quickly access Story's on-chain data, including assets, collections, transactions and more, via the [Protocol V4 API](https://docs.story.foundation/api-reference/protocol/introduction).
 
@@ -89,24 +83,24 @@ const { data, isLoading } = useIpAsset({ ipId: "0x123" })
 
 See the storybook for more details for each hook. The full list of hooks are:
 
-- [useCollection](/story/hooks-usecollection--default)
-- [useCollections](/story/hooks-usecollections--default)
-- [useDispute](/story/hooks-usedispute--default)
-- [useDisputes](/story/hooks-usedisputes--default)
-- [useIpAsset](/story/hooks-useipasset--default)
-- [useIpAssetChildren](/story/hooks-useipassetchildren--default)
-- [useIpAssetEdges](/story/hooks-useipassetedges--default)
-- [useIpAssetLicenses](/story/hooks-useipassetlicenses--default)
-- [useIpAssetParents](/story/hooks-useipassetparents--default)
-- [useIpAssets](/story/hooks-useipassets--default)
-- [useIpAssetsByOwner](/story/hooks-useipassetsbyowner--default)
-- [useSearch](/story/hooks-usesearch--default)
-- [useTransaction](/story/hooks-usetransaction--default)
-- [useTransactions](/story/hooks-usetransactions--default)
+- [useCollection](https://ipkit.vercel.app/?path=/story/hooks-usecollection--default)
+- [useCollections](https://ipkit.vercel.app/?path=/story/hooks-usecollections--default)
+- [useDispute](https://ipkit.vercel.app/?path=/story/hooks-usedispute--default)
+- [useDisputes](https://ipkit.vercel.app/?path=/story/hooks-usedisputes--default)
+- [useIpAsset](https://ipkit.vercel.app/?path=/story/hooks-useipasset--default)
+- [useIpAssetChildren](https://ipkit.vercel.app/?path=/story/hooks-useipassetchildren--default)
+- [useIpAssetEdges](https://ipkit.vercel.app/?path=/story/hooks-useipassetedges--default)
+- [useIpAssetLicenses](https://ipkit.vercel.app/?path=/story/hooks-useipassetlicenses--default)
+- [useIpAssetParents](https://ipkit.vercel.app/?path=/story/hooks-useipassetparents--default)
+- [useIpAssets](https://ipkit.vercel.app/?path=/story/hooks-useipassets--default)
+- [useIpAssetsByOwner](https://ipkit.vercel.app/?path=/story/hooks-useipassetsbyowner--default)
+- [useSearch](https://ipkit.vercel.app/?path=/story/hooks-usesearch--default)
+- [useTransaction](https://ipkit.vercel.app/?path=/story/hooks-usetransaction--default)
+- [useTransactions](https://ipkit.vercel.app/?path=/story/hooks-usetransactions--default)
 
 ### useIpKit
 
-You can also use the `useIpKit` hook to access data such as `apiBaseUrl`, `apiClient` (an [openapi-fetch](https://openapi-ts.dev/openapi-fetch/) client) and `chain` which includes chain data such as `id`, `name`, `rpcUrl` and `blockExplorerUrl`. View the full list in [storybook](/docs/providers-ipkitprovider--docs).
+You can also use the `useIpKit` hook to access data such as `apiBaseUrl`, `apiClient` (an [openapi-fetch](https://openapi-ts.dev/openapi-fetch/) client) and `chain` which includes chain data such as `id`, `name`, `rpcUrl` and `blockExplorerUrl`. View the full list in [storybook](https://ipkit.vercel.app/?path=/docs/providers-ipkitprovider--docs).
 
 ```tsx
 const { apiBaseUrl, chain } = useIpKit()
@@ -187,51 +181,3 @@ type IpAssetsOptions = {
   }
 }
 ```
-
-## Run locally
-
-### Storybook
-
-To run locally you will need to define your API keys for Storybook in `.env.local`
-
-```bash
-STORYBOOK_STORY_PROTOCOL_X_TESTNET_API_KEY="YOUR STAGING API KEY"
-STORYBOOK_STORY_PROTOCOL_X_API_KEY="YOUR PRODUCTION API KEY"
-```
-
-Storybook defaults to the staging API, but you can switch the environment in the Storybook toolbar.
-
-Make sure to use the correct npm version with:
-
-```bash
-nvm use
-```
-
-Run Storybook locally for component development and documentation:
-
-```bash
-pnpm dev
-```
-
-Find the Storybook at [http://localhost:6006](http://localhost:6006)
-
-### Example app
-
-Run the example app.
-
-```bash
-pnpm build
-pnpm example --filter @example/simple-setup
-```
-
-The dev server will be running at [http://localhost:3000](http://localhost:3000)
-
-### Building
-
-- Build: `pnpm build`
-- Lint: `pnpm lint`
-- Format: `pnpm format`
-
-## Contributing
-
-For guidelines on contributing to IpKit, see the [CONTRIBUTING.md](./CONTRIBUTING.md) file.
