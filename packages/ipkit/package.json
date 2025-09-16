@@ -1,7 +1,7 @@
 {
   "name": "@story-protocol/ipkit",
   "author": "storyprotocol engineering <eng@storyprotocol.xyz>",
-  "version": "0.4.0-beta.9",
+  "version": "0.4.0-beta.10",
   "type": "module",
   "exports": {
     ".": {
@@ -31,7 +31,7 @@
     "build-storybook": "storybook build",
     "build": "rollup -c --bundleConfigAsCjs --inlineDynamicImports",
     "test-storybook": "test-storybook",
-    "update-api-types": "tsx scripts/generate-types.ts"
+    "openapi-update": "tsx scripts/generate-types.ts"
   },
   "prettier": "@ipkit/prettier-config",
   "dependencies": {
