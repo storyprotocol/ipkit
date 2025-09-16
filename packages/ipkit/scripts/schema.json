@@ -789,6 +789,106 @@
         ],
         "type": "object"
       },
+      "LicenseToken": {
+        "additionalProperties": false,
+        "properties": {
+          "blockNumber": { "type": "string" },
+          "blockTime": { "type": "string" },
+          "burntAt": { "type": "string" },
+          "id": { "type": "string" },
+          "licenseTemplate": { "type": "string" },
+          "licenseTermsId": { "type": "string" },
+          "licensorIpId": { "type": "string" },
+          "owner": { "type": "string" },
+          "transferable": { "type": "string" }
+        },
+        "required": [
+          "id",
+          "licensorIpId",
+          "licenseTemplate",
+          "licenseTermsId",
+          "transferable",
+          "owner",
+          "burntAt",
+          "blockNumber",
+          "blockTime"
+        ],
+        "type": "object"
+      },
+      "LicenseTokensRequestBodyHuma": {
+        "additionalProperties": false,
+        "properties": {
+          "$schema": {
+            "description": "A URL to the JSON Schema for this object.",
+            "examples": ["https://api.storyapis.com/api/v4/LicenseTokensRequestBodyHuma.json"],
+            "format": "uri",
+            "readOnly": true,
+            "type": "string"
+          },
+          "orderBy": {
+            "default": "blockNumber",
+            "description": "Field to order results by (only 'blockNumber' is supported)",
+            "enum": ["blockNumber"],
+            "type": "string"
+          },
+          "orderDirection": {
+            "default": "desc",
+            "description": "Order direction for results ('asc' for ascending, 'desc' for descending)",
+            "enum": ["asc", "desc"],
+            "type": "string"
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/PaginationOptionsHuma",
+            "description": "Pagination configuration (optional, defaults: limit=100, offset=0)"
+          },
+          "where": {
+            "$ref": "#/components/schemas/LicenseTokensWhereOptionsHuma",
+            "description": "Optional filter options for license tokens"
+          }
+        },
+        "type": "object"
+      },
+      "LicenseTokensResponseHumaBody": {
+        "additionalProperties": false,
+        "properties": {
+          "$schema": {
+            "description": "A URL to the JSON Schema for this object.",
+            "examples": ["https://api.storyapis.com/api/v4/LicenseTokensResponseHumaBody.json"],
+            "format": "uri",
+            "readOnly": true,
+            "type": "string"
+          },
+          "data": {
+            "description": "List of license tokens matching the filter criteria",
+            "items": { "$ref": "#/components/schemas/LicenseToken" },
+            "type": ["array", "null"]
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/PaginationMetadataHuma",
+            "description": "Pagination metadata including total count and hasMore flag"
+          }
+        },
+        "required": ["data"],
+        "type": "object"
+      },
+      "LicenseTokensWhereOptionsHuma": {
+        "additionalProperties": false,
+        "properties": {
+          "licensorIpId": {
+            "description": "Optional licensor IP ID to filter license tokens",
+            "examples": ["0x0987654321098765432109876543210987654321"],
+            "pattern": "^0x[a-fA-F0-9]{40}$",
+            "type": "string"
+          },
+          "ownerAddress": {
+            "description": "Optional owner wallet address to filter license tokens",
+            "examples": ["0x1234567890123456789012345678901234567890"],
+            "pattern": "^0x[a-fA-F0-9]{40}$",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
       "LicensingConfig": {
         "additionalProperties": false,
         "properties": {
@@ -799,7 +899,7 @@
           "hookData": { "type": "string" },
           "isSet": { "type": "boolean" },
           "licensingHook": { "type": "string" },
-          "mintingFee": { "format": "int64", "type": "integer" }
+          "mintingFee": { "type": "string" }
         },
         "required": [
           "isSet",
@@ -938,7 +1038,7 @@
           "offset": { "description": "Current offset", "format": "int64", "type": "integer" },
           "total": { "description": "Total count of items", "format": "int64", "type": "integer" }
         },
-        "required": ["offset", "limit", "hasMore"],
+        "required": ["offset", "limit", "total", "hasMore"],
         "type": "object"
       },
       "PaginationOptionsHuma": {
@@ -1252,6 +1352,33 @@
         "security": [{ "ApiKeyAuth": [] }],
         "summary": "Get a Dispute",
         "tags": ["Protocol V4", "Disputes"]
+      }
+    },
+    "/licenses/tokens": {
+      "post": {
+        "description": "Retrieve license tokens with optional filtering. If no filters are provided, returns all license tokens. Supports filtering by owner wallet address and/or licensor IP ID. Results are paginated and can be ordered by 'blockNumber' (default: descending).",
+        "operationId": "getLicenseTokensV4",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/LicenseTokensRequestBodyHuma" } }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/LicenseTokensResponseHumaBody" } }
+            },
+            "description": "OK"
+          },
+          "default": {
+            "content": { "application/problem+json": { "schema": { "$ref": "#/components/schemas/ErrorModel" } } },
+            "description": "Error"
+          }
+        },
+        "security": [{ "ApiKeyAuth": [] }],
+        "summary": "Get License Tokens",
+        "tags": ["Protocol V4", "License Tokens"]
       }
     },
     "/search": {

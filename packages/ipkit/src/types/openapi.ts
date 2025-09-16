@@ -41,6 +41,8 @@ export type License = components["schemas"]["License"]
 
 export type LicenseTerms = components["schemas"]["LicenseTerms"]
 
+export type LicenseToken = components["schemas"]["LicenseToken"]
+
 export type LicensingConfig = components["schemas"]["LicensingConfig"]
 
 export type NFTMetadata = components["schemas"]["NFTMetadata"]

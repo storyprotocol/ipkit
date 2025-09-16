@@ -31,7 +31,7 @@
     "build-storybook": "storybook build",
     "build": "rollup -c --bundleConfigAsCjs --inlineDynamicImports",
     "test-storybook": "test-storybook",
-    "update-api-types": "tsx scripts/generate-types.ts"
+    "openapi-update": "tsx scripts/generate-types.ts"
   },
   "prettier": "@ipkit/prettier-config",
   "dependencies": {
