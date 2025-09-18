@@ -6,7 +6,7 @@ import { LicenseTokensOptions, LicenseTokensResponse, getLicenseTokens } from ".
 import { useIpKit } from "../providers/IpKitProvider"
 
 export type UseLicenseTokensOptions = {
-  ownerAddress: Address
+  ownerAddress?: Address
   licensorIpId?: Address
   options?: LicenseTokensOptions
   queryOptions?: IpQueryOptions
@@ -33,7 +33,6 @@ export function useLicenseTokens({
       if (error) throw error
       return data
     },
-    enabled: !!ownerAddress.length,
     ...queryOptions,
   })
 }

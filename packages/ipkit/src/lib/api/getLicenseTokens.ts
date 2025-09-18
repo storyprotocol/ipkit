@@ -11,7 +11,7 @@ export type LicenseTokensOptions = Partial<
 
 export type GetLicenseTokensOptions = {
   apiClient: ApiClient
-  ownerAddress: Address
+  ownerAddress?: Address
   licensorIpId?: Address
   options?: LicenseTokensOptions
   apiKey: string
