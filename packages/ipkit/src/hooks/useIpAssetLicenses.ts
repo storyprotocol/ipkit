@@ -25,7 +25,7 @@ export function useIpAssetLicenses({
       if (error) throw error
       return data?.data?.[0].licenses || null
     },
-    enabled: !!ipId.length,
+    enabled: !!ipId?.length,
     ...queryOptions,
   })
 }
