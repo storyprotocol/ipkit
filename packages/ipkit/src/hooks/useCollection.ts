@@ -24,7 +24,7 @@ export function useCollection({
       if (error) throw error
       return data?.data?.[0] || null
     },
-    enabled: !!collectionAddress.length,
+    enabled: !!collectionAddress?.length,
     ...queryOptions,
   })
 }

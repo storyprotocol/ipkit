@@ -19,7 +19,7 @@ export function useDispute({ disputeId, queryOptions }: UseDisputeOptions): UseQ
       if (error) throw error
       return data?.data || null
     },
-    enabled: !!disputeId.length,
+    enabled: !!disputeId?.length,
     ...queryOptions,
   })
 }

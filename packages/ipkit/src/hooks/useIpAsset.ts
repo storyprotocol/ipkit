@@ -22,7 +22,7 @@ export function useIpAsset({ ipId, includeLicenses, queryOptions }: UseIpAssetOp
       if (error) throw error
       return data?.data?.[0] || null
     },
-    enabled: !!ipId.length,
+    enabled: !!ipId?.length,
     ...queryOptions,
   })
 }

@@ -20,7 +20,7 @@ export function useTransaction({ txHash, queryOptions }: UseTransactionOptions):
       if (error) throw error
       return data?.data?.[0] || null
     },
-    enabled: !!txHash.length,
+    enabled: !!txHash?.length,
     ...queryOptions,
   })
 }

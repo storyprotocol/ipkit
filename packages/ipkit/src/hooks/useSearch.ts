@@ -25,7 +25,7 @@ export function useSearch({ query, mediaType, queryOptions }: UseSearchOptions):
       if (error) throw error
       return data
     },
-    enabled: !!query.length,
+    enabled: !!query?.length,
     ...queryOptions,
   })
 }
