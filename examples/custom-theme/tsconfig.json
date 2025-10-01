@@ -1,5 +1,5 @@
 {
-  "extends": "@storykit/typescript-config/nextjs.json",
+  "extends": "@ipkit/typescript-config/nextjs.json",
   "compilerOptions": {
     "plugins": [
       {

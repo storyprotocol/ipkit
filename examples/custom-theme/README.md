@@ -1,6 +1,6 @@
 # Custom Theme Example
 
-The same simple setup as the [simple-setup example](../simple-setup/README.md), but with a custom theme called `my-theme` defined in [`app/base.css`](./app/base.css), and passed to the `StoryKitProvider` in [`app/Providers.tsx`](./app/Providers.tsx).
+The same simple setup as the [simple-setup example](../simple-setup/README.md), but with a custom theme called `my-theme` defined in [`app/base.css`](./app/base.css), and passed to the `IpKitProvider` in [`app/Providers.tsx`](./app/Providers.tsx).
 
 ## Getting Started
 

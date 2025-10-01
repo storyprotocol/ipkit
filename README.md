@@ -1,138 +1,31 @@
-# StoryKit
+[![Storybook](https://img.shields.io/badge/Storybook-FF4785?logo=storybook&logoColor=white)](https://ipkit.vercel.app/) [![Version](https://img.shields.io/npm/v/@story-protocol/ipkit)](https://www.npmjs.com/package/@story-protocol/ipkit)
 
-StoryKit is a React toolkit that allows builders to integrate and interact with Story's Proof of Creativity protocol with prebuilt IP management components.
+# IpKit
 
-## Installation
+IpKit provides a number of convenient [tanstack-query](https://tanstack.com/query/latest) hooks to quickly access Story's on-chain data, including assets, collections, transactions and more, via the [Protocol V4 API](https://docs.story.foundation/api-reference/protocol/introduction).
 
-_StoryKit is currently a GitHub Package so you will need repo access and a personal access token to use._
+## Using IpKit
 
-Also you will need Node.js 20+.
-
-1 . Create a personal access token: [github.com/settings/tokens](https://github.com/settings/tokens).
-
-2 . Create a `.npmrc` file in the root of your project and add the following, replacing `NPM_TOKEN` with your access token:
-
-```bash
-//npm.pkg.github.com/:_authToken=NPM_TOKEN
-@storyprotocol/storykit:registry=https://npm.pkg.github.com
-```
-
-The first line authenticates you with the GitHub package registry, the second line tells npm to use the StoryKit package from the GitHub registry.
-
-3 . Add `.npmrc` to your `.gitignore` to keep your access token private.
-
-4 . Install the package and the required dependencies:
-
-```bash
-npm install @storyprotocol/storykit @tanstack/react-query react-force-graph-2d
-```
-
-## Getting Started
-
-### API Keys
-
-To use StoryKit’s API functionalities, you’ll need two types of API keys:
-
-1. Story Protocol API Key: You can request an API key by completing this [form](https://forms.gle/K6enzJw3cTK5sHYU7).
-
-2. Alchemy API Key
-
-### Providers
-
-To initialize StoryKit in your project, you’ll need to wrap your application in `QueryProvider` and `StoryKitProvider`.
-
-we recommend doing this once in the root of the app.
-
-```tsx
-// app/layout.tsx
-
-import Providers from "./Providers";
-
-export default function Layout({ children }) {
-  return (
-    <html>
-      <body>
-        <Providers>{children}</Providers>
-      </body>
-    </html>
-  );
-}
-```
-
-```tsx
-// app/Providers.tsx
-
-"use client";
-
-import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-import {
-  StoryKitProvider,
-  STORYKIT_SUPPORTED_CHAIN,
-} from "@storyprotocol/storykit";
-
-export default function Providers({ children }: { children: React.ReactNode }) {
-  const queryClient = new QueryClient();
-  return (
-    <QueryClientProvider client={queryClient}>
-      <StoryKitProvider chain={STORYKIT_SUPPORTED_CHAIN.STORY_MAINNET}>
-        {children}
-      </StoryKitProvider>
-    </QueryClientProvider>
-  );
-}
-```
-
-#### The IpProvider
-
-The `IpProvider` provides IP Asset data to child components.
-
-```typescript
-"use client"
-
-import { IpProvider, useIpContext } from "@storyprotocol/storykit"
-
-const ExamplePage = () => {
-  return (
-    <IpProvider ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"}>
-      <ExampleComponent />
-    </IpProvider>
-  );
-};
-
-const ExampleComponent = () => {
-  const { nftData, isNftDataLoading } = useIpContext()
-
-  return (
-    <div>
-      {isNftDataLoading && <div>Fetching Asset...</div>}
-
-      {nftData && !isNftDataLoading ? (
-        <div>nft id: {nftData.nft_id}</div>
-      ) : null}
-    </div>
-  );
-};
-```
-
-Among the components that start with `Ip`, all except IpWidget require the IpProvider to supply asset data. Check the Storybook of each component for detailed usage.
-
-```tsx
-"use client";
-
-import { IpProvider, IpGraph } from "@storyprotocol/storykit";
-
-const ExamplePage = () => {
-  return (
-    <IpProvider ipId={"0xbbf08a30b9ff0f717a024a75963d3196aaf0f0dd"}>
-      <IpGraph />
-    </IpProvider>
-  );
-};
-```
+View the IpKit package docs [here](/packages/ipkit/), or in StoryBook [here](https://ipkit.vercel.app/)
 
 ## Run locally
 
 ### Storybook
+
+To run locally you will need to define your API keys for Storybook in `.env.local`
+
+```bash
+STORYBOOK_STORY_PROTOCOL_X_TESTNET_API_KEY="YOUR STAGING API KEY"
+STORYBOOK_STORY_PROTOCOL_X_API_KEY="YOUR PRODUCTION API KEY"
+```
+
+Storybook defaults to the staging API, but you can switch the environment in the Storybook toolbar.
+
+Make sure to use the correct npm version with:
+
+```bash
+nvm use
+```
 
 Run Storybook locally for component development and documentation:
 
@@ -149,19 +42,16 @@ Run the example app.
 ```bash
 pnpm build
 pnpm example --filter @example/simple-setup
-pnpm example --filter @example/custom-theme
 ```
 
 The dev server will be running at [http://localhost:3000](http://localhost:3000)
 
-See [the github repo](https://github.com/storyprotocol/storykit) and [the example app](https://github.com/storyprotocol/storykit/tree/main/examples/next-app).
-
 ### Building
 
-- Build: pnpm run build
-- Lint: pnpm run lint
-- Format: pnpm run format
+- Build: `pnpm build`
+- Lint: `pnpm lint`
+- Format: `pnpm format`
 
 ## Contributing
 
-For guidelines on contributing to StoryKit, see the [CONTRIBUTING.md](./CONTRIBUTING.md) file.
+For guidelines on contributing to IpKit, see the [CONTRIBUTING.md](./CONTRIBUTING.md) file.

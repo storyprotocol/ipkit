@@ -1,5 +1,5 @@
 {
-  "name": "@storykit/prettier-config",
+  "name": "@ipkit/prettier-config",
   "version": "0.1.0",
   "private": true,
   "main": "./index.json",

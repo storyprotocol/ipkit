@@ -1,0 +1,61 @@
+import type { Meta, StoryObj } from "@storybook/react"
+import React from "react"
+
+import { UseIpAssetsOptions, useIpAssets } from "../useIpAssets"
+import { DataTable } from "./(components)/DataTable"
+
+const Example = (args: UseIpAssetsOptions) => {
+  const { isLoading, data } = useIpAssets(args)
+
+  if (isLoading) return <>loading...</>
+  if (!data?.data) return <>none found</>
+
+  return (
+    <DataTable
+      fields={["ipId", "name"]}
+      data={data.data.map((asset) => ({
+        ...asset,
+        name: asset.nftMetadata?.name || "",
+      }))}
+    />
+  )
+}
+
+const meta = {
+  title: "Hooks/useIpAssets",
+  component: Example,
+  parameters: {
+    layout: "centered",
+  },
+  argTypes: {
+    tokenContract: {
+      control: "text",
+    },
+  },
+  args: {
+    ipIds: [],
+    tokenContract: undefined,
+    includeLicenses: true,
+    moderated: false,
+    options: {
+      orderBy: "blockNumber",
+      orderDirection: "desc",
+      includeLicenses: true,
+      moderated: false,
+      pagination: {
+        offset: 0,
+        limit: 10,
+      },
+    },
+    queryOptions: {
+      enabled: true,
+    },
+  },
+} satisfies Meta<typeof Example>
+
+export default meta
+type Story = StoryObj<typeof meta>
+
+export const Default: Story = {
+  args: {},
+}

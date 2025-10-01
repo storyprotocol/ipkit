@@ -1,0 +1,73 @@
+import { Canvas, Controls, Meta } from "@storybook/blocks"
+
+import * as IpKitProviderStory from "./IpKitProvider.stories"
+
+<Meta of={IpKitProviderStory} title="Providers/IpKitProvider" />
+
+# IpKitProvider
+
+{/* The IP Provider is the core of IpKit, by passing it an IP Asset ID it provides IP Asset data to children components. */}
+
+#### Example
+
+<Canvas of={IpKitProviderStory.Default} />
+
+<Controls />
+
+## Usage
+
+```ts
+// wrap your app with the IpKitProvider
+
+import { IpKitProvider } from "@story-protocol/ipkit"
+import ExampleComponent from './ExampleComponent'
+
+const ExampleApp = () => {
+  return (
+    <IpKitProvider
+      apiKey={API_KEY}
+      isTestnet={true}
+    >
+      <ExampleComponent />
+    </IpKitProvider>
+  );
+};
+
+export default ExampleApp;
+```
+
+```ts
+import { useIpKit } from "@story-protocol/ipkit"
+
+const ExampleComponent = () => {
+
+  const { defaultCurrency, chain } = useIpKit()
+
+  return (
+    <div className="flex flex-col bg-background">
+      <div className="text-sm text-foreground">name: {chain.name}</div>
+      <div className="text-sm text-foreground">currency name: {defaultCurrency.name}</div>
+      ...
+    </div>
+  );
+};
+
+export default ExampleComponent;
+```
+
+#### Provider data
+
+The IpKitProvider provides the following data to its children:
+
+- **apiBaseUrl** - The base url for api endpoints.
+- **apiClient** - [openapi-fetch](https://openapi-ts.dev/openapi-fetch/) client
+- **apiKey** - The users API key, passed in as a IpKitProvider prop
+- **appId** - The users app Id, currently not required.
+- **chain** - the Story Chain config as defined in [chains.ts](https://github.com/storyprotocol/storykit/blob/main/packages/storykit/src/constants/chains.ts)
+
+#### Arguments
+
+- **apiKey** - The API key to use, defaults to undefined. This is required.
+- **appId** - The appId to use, defaults to undefined.
+- **children** - The child component to provide the IP Asset context to.
+- **isTestnet** - Set true for Aeneid Testnet, defaults to Story Mainnet.
