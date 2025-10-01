@@ -64,9 +64,6 @@ The IpKitProvider provides the following data to its children:
 - **apiKey** - The users API key, passed in as a IpKitProvider prop
 - **appId** - The users app Id, currently not required.
 - **chain** - the Story Chain config as defined in [chains.ts](https://github.com/storyprotocol/storykit/blob/main/packages/storykit/src/constants/chains.ts)
-- **mode** - The style mode, 'light', 'dark' or undefined, will default to system if none provided
-- **theme** - The style theme, 'default' if none provided
-- **themeClass** - The theme class to use if user wants to overwrite the theme mode
 
 #### Arguments
 
@@ -74,5 +71,3 @@ The IpKitProvider provides the following data to its children:
 - **appId** - The appId to use, defaults to undefined.
 - **children** - The child component to provide the IP Asset context to.
 - **isTestnet** - Set true for Aeneid Testnet, defaults to Story Mainnet.
-- **mode** - 'light' and 'dark' mode, undefined defaults to system preference
-- **theme** - The style theme to use, defaults to 'default'
