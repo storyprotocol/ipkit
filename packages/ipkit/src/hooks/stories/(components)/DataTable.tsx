@@ -1,4 +1,4 @@
-import { shortenAddress } from "@/lib"
+import { shortenAddress } from "@/lib/utils"
 import React from "react"
 
 import { CopyText } from "./CopyText"

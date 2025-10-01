@@ -36,7 +36,6 @@
   "prettier": "@ipkit/prettier-config",
   "dependencies": {
     "@story-protocol/core-sdk": "1.1.0-stable",
-    "clsx": "^2.1.0",
     "openapi-fetch": "^0.13.5",
     "openapi-typescript": "^7.6.1",
     "openapi-typescript-helpers": "^0.0.15",
@@ -87,6 +86,7 @@
     "@types/react": "^18.2.61",
     "@types/react-dom": "^18.2.19",
     "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
