@@ -1,20 +1,20 @@
 import { API_URL } from "@/constants/api"
 import { CHAINS } from "@/constants/chains"
-import { cn } from "@/lib"
 import { ApiClient, createApiClient } from "@/lib/api/apiClient"
 import { ChainConfig, IPKIT_SUPPORTED_CHAIN } from "@/types/chains"
 import React, { useMemo } from "react"
 
-export type Mode = "light" | "dark" | undefined
-export type Theme = "default" | "story" | string
+// export type Mode = "light" | "dark" | undefined
+// export type Theme = "default" | "story" | string
 
 export interface IpKitProviderOptions {
   apiKey: string
   appId?: string
   children: React.ReactNode
   isTestnet?: boolean
-  mode?: Mode
-  theme?: Theme
+  // no ui
+  // mode?: Mode
+  // theme?: Theme
   //
   // chain?: IPKIT_SUPPORTED_CHAIN
   // defaultCurrency?: ERC20Token
@@ -27,9 +27,9 @@ const IpKitContext = React.createContext<{
   apiKey: string
   appId: string | undefined
   chain: ChainConfig
-  mode: Mode
-  theme: Theme
-  themeClass: string
+  // mode: Mode
+  // theme: Theme
+  // themeClass: string
 } | null>(null)
 
 export const IpKitProvider = ({
@@ -37,8 +37,8 @@ export const IpKitProvider = ({
   appId,
   children,
   isTestnet,
-  mode,
-  theme = "default",
+  // mode,
+  // theme = "default",
 }: IpKitProviderOptions) => {
   //
   // get ChainConfig using chain name, replace rpcUrl if alternative provided
@@ -59,12 +59,12 @@ export const IpKitProvider = ({
         apiKey: apiKey,
         appId: appId,
         chain: chainConfig,
-        mode: mode,
-        theme: theme,
-        themeClass: `${theme}${mode ? `-${mode}` : ""}`,
+        // mode: mode,
+        // theme: theme,
+        // themeClass: `${theme}${mode ? `-${mode}` : ""}`,
       }}
     >
-      <div className={cn(theme)}>{children}</div>
+      {children}
     </IpKitContext.Provider>
   )
 }

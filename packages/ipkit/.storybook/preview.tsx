@@ -42,26 +42,26 @@ const preview: Preview = {
         dynamicTitle: true,
       },
     },
-    skTheme: {
-      description: "Global theme for components",
-      toolbar: {
-        title: "IpKit Theme",
-        icon: "paintbrush",
-        items: ["default", "story"],
-        defaultValue: "default",
-        dynamicTitle: true,
-      },
-    },
-    mode: {
-      description: "Global theme mode",
-      toolbar: {
-        title: "Mode",
-        icon: "sun",
-        items: ["light", "dark"],
-        defaultValue: "light",
-        dynamicTitle: true,
-      },
-    },
+    // skTheme: {
+    //   description: "Global theme for components",
+    //   toolbar: {
+    //     title: "IpKit Theme",
+    //     icon: "paintbrush",
+    //     items: ["default", "story"],
+    //     defaultValue: "default",
+    //     dynamicTitle: true,
+    //   },
+    // },
+    // mode: {
+    //   description: "Global theme mode",
+    //   toolbar: {
+    //     title: "Mode",
+    //     icon: "sun",
+    //     items: ["light", "dark"],
+    //     defaultValue: "light",
+    //     dynamicTitle: true,
+    //   },
+    // },
   },
   globals: {
     chain: IPKIT_SUPPORTED_CHAIN.AENEID_TESTNET,
@@ -88,8 +88,10 @@ const preview: Preview = {
         return <Story />
       }
       const testnet = context.globals.isTestnet !== undefined ? context.globals.isTestnet : true
+      // remove theme and mode
+      // theme={context.globals.skTheme}
       return (
-        <StoryProvider apiKey={testnet ? TESTNET_API_KEY : API_KEY} isTestnet={testnet} theme={context.globals.skTheme}>
+        <StoryProvider apiKey={testnet ? TESTNET_API_KEY : API_KEY} isTestnet={testnet}>
           <Story />
         </StoryProvider>
       )
