@@ -815,6 +815,29 @@
         ],
         "type": "object"
       },
+      "LicenseTokenPaginationOptionsHuma": {
+        "additionalProperties": false,
+        "properties": {
+          "limit": {
+            "default": 100,
+            "description": "Number of items to return",
+            "examples": [100],
+            "format": "int64",
+            "maximum": 200,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "offset": {
+            "default": 0,
+            "description": "Number of items to skip",
+            "examples": [0],
+            "format": "int64",
+            "minimum": 0,
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
       "LicenseTokensRequestBodyHuma": {
         "additionalProperties": false,
         "properties": {
@@ -838,7 +861,7 @@
             "type": "string"
           },
           "pagination": {
-            "$ref": "#/components/schemas/PaginationOptionsHuma",
+            "$ref": "#/components/schemas/LicenseTokenPaginationOptionsHuma",
             "description": "Pagination configuration (optional, defaults: limit=100, offset=0)"
           },
           "where": {
