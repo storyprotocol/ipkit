@@ -11,13 +11,13 @@ const meta = {
   },
   argTypes: {
     isTestnet: { control: "boolean" },
-    theme: { control: "select", options: ["default", "story"] },
-    mode: { control: "select", options: ["auto", "light", "dark"] },
+    // theme: { control: "select", options: ["default", "story"] },
+    // mode: { control: "select", options: ["auto", "light", "dark"] },
   },
   args: {
     isTestnet: true,
-    theme: "default",
-    mode: "auto",
+    // theme: "default",
+    // mode: "auto",
   },
 } satisfies Meta<typeof Example>
 
