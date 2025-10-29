@@ -13,8 +13,8 @@
           },
           "orderBy": {
             "default": "updatedAt",
-            "description": "Field to order results by (only updatedAt is supported)",
-            "enum": ["updatedAt"],
+            "description": "Field to order results by: updatedAt, assetCount, or licensesCount",
+            "enum": ["updatedAt", "assetCount", "licensesCount"],
             "type": "string"
           },
           "orderDirection": {
@@ -1296,7 +1296,7 @@
     },
     "/collections": {
       "post": {
-        "description": "Retrieve a list of collections with pagination and filtering options. Collections are ordered by most recent or least recent updated time only. Collections are automatically enriched with metadata. The 'where' field is optional and should only be provided when filtering by specific collection addresses or asset counts. This endpoint can also be used to fetch a single collection by passing its address in the collectionAddresses filter. Collections that don't exist in Alchemy or encounter errors will return with empty metadata instead of failing the entire request.",
+        "description": "Retrieve a list of collections with pagination and filtering options. Collections can be ordered by updatedAt, assetCount, or licensesCount (asc/desc). Collections are automatically enriched with metadata. The 'where' field is optional and should only be provided when filtering by specific collection addresses or asset counts. This endpoint can also be used to fetch a single collection by passing its address in the collectionAddresses filter. Collections that don't exist in Alchemy or encounter errors will return with empty metadata instead of failing the entire request.",
         "operationId": "listCollectionsV4",
         "requestBody": {
           "content": {
