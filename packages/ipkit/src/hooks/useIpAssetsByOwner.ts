@@ -20,10 +20,10 @@ export function useIpAssetsByOwner({
   options,
   queryOptions,
 }: UseIpAssetsByOwnerOptions = {}): UseQueryResult<IpAssetsResponse> {
-  const { apiKey, apiClient } = useIpKit()
+  const { apiKey, apiClient, chain } = useIpKit()
 
   return useQuery({
-    queryKey: ["getIpAssets", ownerAddress, includeLicenses, moderated, options],
+    queryKey: [chain.id, "getIpAssets", ownerAddress, includeLicenses, moderated, options],
     queryFn: async () => {
       const { data, error } = await getIpAssets({
         ownerAddress,

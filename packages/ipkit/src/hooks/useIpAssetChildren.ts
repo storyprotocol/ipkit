@@ -16,10 +16,10 @@ export function useIpAssetChildren({
   options,
   queryOptions,
 }: UseIpAssetChildrenOptions = {}): UseQueryResult<IpAssetEdgesResponse> {
-  const { apiKey, apiClient } = useIpKit()
+  const { apiKey, apiClient, chain } = useIpKit()
 
   return useQuery({
-    queryKey: ["getIpAssetEdges", undefined, ipId, options],
+    queryKey: [chain.id, "getIpAssetEdges", undefined, ipId, options],
     queryFn: async () => {
       const { data, error } = await getIpAssetEdges({
         parentIpId: ipId,

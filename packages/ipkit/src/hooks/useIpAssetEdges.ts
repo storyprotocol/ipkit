@@ -18,10 +18,10 @@ export function useIpAssetEdges({
   options,
   queryOptions,
 }: UseIpAssetEdgesOptions = {}): UseQueryResult<IpAssetEdgesResponse> {
-  const { apiKey, apiClient } = useIpKit()
+  const { apiKey, apiClient, chain } = useIpKit()
 
   return useQuery({
-    queryKey: ["getIpAssetEdges", ipId, parentIpId, options],
+    queryKey: [chain.id, "getIpAssetEdges", ipId, parentIpId, options],
     queryFn: async () => {
       const { data, error } = await getIpAssetEdges({
         ipId,
