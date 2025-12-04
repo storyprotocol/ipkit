@@ -22,10 +22,10 @@ export function useIpAssets({
   options,
   queryOptions,
 }: UseIpAssetsOptions = {}): UseQueryResult<IpAssetsResponse> {
-  const { apiKey, apiClient } = useIpKit()
+  const { apiKey, apiClient, chain } = useIpKit()
 
   return useQuery({
-    queryKey: ["getIpAssets", ipIds, tokenContract, includeLicenses, moderated, options],
+    queryKey: [chain.id, "getIpAssets", ipIds, tokenContract, includeLicenses, moderated, options],
     queryFn: async () => {
       const { data, error } = await getIpAssets({
         ipIds,

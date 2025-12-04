@@ -10,10 +10,10 @@ export type UseDisputeOptions = {
 }
 
 export function useDispute({ disputeId, queryOptions }: UseDisputeOptions): UseQueryResult<Dispute | null> {
-  const { apiKey, apiClient } = useIpKit()
+  const { apiKey, apiClient, chain } = useIpKit()
 
   return useQuery({
-    queryKey: ["getDispute", disputeId],
+    queryKey: [chain.id, "getDispute", disputeId],
     queryFn: async () => {
       const { data, error } = await getDispute({ disputeId, apiKey, apiClient })
       if (error) throw error

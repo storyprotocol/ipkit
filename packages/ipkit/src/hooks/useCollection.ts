@@ -15,10 +15,10 @@ export function useCollection({
   collectionAddress,
   queryOptions,
 }: UseCollectionOptions): UseQueryResult<Collection | null> {
-  const { apiKey, apiClient } = useIpKit()
+  const { apiKey, apiClient, chain } = useIpKit()
 
   return useQuery({
-    queryKey: ["getCollection", collectionAddress],
+    queryKey: [chain.id, "getCollection", collectionAddress],
     queryFn: async () => {
       const { data, error } = await getCollections({ collectionAddresses: [collectionAddress], apiKey, apiClient })
       if (error) throw error

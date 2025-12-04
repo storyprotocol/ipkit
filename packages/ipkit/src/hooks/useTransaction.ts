@@ -11,10 +11,10 @@ export type UseTransactionOptions = {
 }
 
 export function useTransaction({ txHash, queryOptions }: UseTransactionOptions): UseQueryResult<IPTransaction | null> {
-  const { apiKey, apiClient } = useIpKit()
+  const { apiKey, apiClient, chain } = useIpKit()
 
   return useQuery({
-    queryKey: ["getTransactions", txHash],
+    queryKey: [chain.id, "getTransactions", txHash],
     queryFn: async () => {
       const { data, error } = await getTransactions({ txHashes: [txHash], apiKey, apiClient })
       if (error) throw error

@@ -18,10 +18,10 @@ export function useLicenseTokens({
   options,
   queryOptions,
 }: UseLicenseTokensOptions): UseQueryResult<LicenseTokensResponse> {
-  const { apiKey, apiClient } = useIpKit()
+  const { apiKey, apiClient, chain } = useIpKit()
 
   return useQuery({
-    queryKey: ["getLicenseTokens", ownerAddress, licensorIpId, options],
+    queryKey: [chain.id, "getLicenseTokens", ownerAddress, licensorIpId, options],
     queryFn: async () => {
       const { data, error } = await getLicenseTokens({
         ownerAddress,

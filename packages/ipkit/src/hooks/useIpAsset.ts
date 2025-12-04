@@ -13,10 +13,10 @@ export type UseIpAssetOptions = {
 }
 
 export function useIpAsset({ ipId, includeLicenses, queryOptions }: UseIpAssetOptions): UseQueryResult<IPAsset | null> {
-  const { apiKey, apiClient } = useIpKit()
+  const { apiKey, apiClient, chain } = useIpKit()
 
   return useQuery({
-    queryKey: ["getIpAsset", ipId, includeLicenses],
+    queryKey: [chain.id, "getIpAsset", ipId, includeLicenses],
     queryFn: async () => {
       const { data, error } = await getIpAssets({ ipIds: [ipId], includeLicenses, apiKey, apiClient })
       if (error) throw error
