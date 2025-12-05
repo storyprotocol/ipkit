@@ -18,10 +18,10 @@ export function useDisputes({
   options,
   queryOptions,
 }: UseDisputesOptions = {}): UseQueryResult<DisputesResponse> {
-  const { apiKey, apiClient } = useIpKit()
+  const { apiKey, apiClient, chain } = useIpKit()
 
   return useQuery({
-    queryKey: ["getDisputes", options, initiator, targetIpId],
+    queryKey: [chain.id, "getDisputes", options, initiator, targetIpId],
     queryFn: async () => {
       const { data, error } = await getDisputes({ initiator, targetIpId, options, apiKey, apiClient })
       if (error) throw error

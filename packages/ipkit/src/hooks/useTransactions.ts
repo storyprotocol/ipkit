@@ -32,10 +32,10 @@ export function useTransactions({
   options,
   queryOptions,
 }: UseTransactionsOptions = {}): UseQueryResult<TransactionsResponse> {
-  const { apiKey, apiClient } = useIpKit()
+  const { apiKey, apiClient, chain } = useIpKit()
 
   return useQuery({
-    queryKey: ["getTransactions", txHashes, ipIds, initiators, eventTypes, options],
+    queryKey: [chain.id, "getTransactions", txHashes, ipIds, initiators, eventTypes, options],
     queryFn: async () => {
       const { data, error } = await getTransactions({
         txHashes,

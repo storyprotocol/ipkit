@@ -16,10 +16,10 @@ export function useCollections({
   options,
   queryOptions,
 }: UseCollectionsOptions = {}): UseQueryResult<CollectionsResponse> {
-  const { apiKey, apiClient } = useIpKit()
+  const { apiKey, apiClient, chain } = useIpKit()
 
   return useQuery({
-    queryKey: ["getCollections", collectionAddresses, options],
+    queryKey: [chain.id, "getCollections", collectionAddresses, options],
     queryFn: async () => {
       const { data, error } = await getCollections({ collectionAddresses, options, apiKey, apiClient })
       if (error) throw error

@@ -11,10 +11,10 @@ export type UseSearchOptions = {
 }
 
 export function useSearch({ query, mediaType, queryOptions }: UseSearchOptions): UseQueryResult<SearchResponse> {
-  const { apiKey, apiClient } = useIpKit()
+  const { apiKey, apiClient, chain } = useIpKit()
 
   return useQuery({
-    queryKey: ["getSearch", query, mediaType],
+    queryKey: [chain.id, "getSearch", query, mediaType],
     queryFn: async () => {
       const { data, error } = await getSearch({
         query,
