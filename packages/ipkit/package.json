@@ -1,7 +1,7 @@
 {
   "name": "@story-protocol/ipkit",
   "author": "storyprotocol engineering <eng@storyprotocol.xyz>",
-  "version": "0.4.2",
+  "version": "0.4.3-beta.0",
   "type": "module",
   "exports": {
     ".": {
