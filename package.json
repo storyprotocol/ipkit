@@ -23,5 +23,10 @@
       "pnpm lint"
     ]
   },
-  "packageManager": "pnpm@9.15.4"
+  "packageManager": "pnpm@9.15.4",
+  "pnpm": {
+    "overrides": {
+      "next": "15.0.8"
+    }
+  }
 }
